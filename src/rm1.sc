@@ -1,30 +1,16 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 1)
-;;;(include game.sh)
-;;;(use Main)
-;;;(use Intrface)
-;;;(use AutoDoor)
-;;;(use Avoider)
-;;;(use Motion)
-;;;(use Game)
-;;;(use User)
-;;;(use Actor)
-;;;(use System)
-;;;
-;;;
-
-(include system.sh)
 (include game.sh)
 (use Main)
 (use Intrface)
 (use AutoDoor)
+(use Avoider)
 (use Motion)
 (use Game)
 (use User)
 (use Actor)
 (use System)
-(use Avoider)
-
+(use PncMenu)
 
 (public
 	rm1 0
@@ -35,7 +21,7 @@
 	officeDoor
 	nearUnmarkedCar
 	randCarExists
-	;local4 unused
+	fieldKitToggle
 	carPullingIn
 	local6
 	local7
@@ -148,7 +134,7 @@
 		(Load VIEW 20)
 		(Load VIEW 54)
 
-;;;		(super init:)
+		(super init:)
 		(self setLocales: regFieldKit)
 		(= gunFireState gunUSELESS)
 		(User canInput: TRUE canControl: TRUE)
@@ -204,8 +190,7 @@
 					(== global160 0)
 				)
 			)
-			;(HandsOff)
-			(HandsOn)
+			(HandsOff)
 		else
 			(HandsOn)
 		)
@@ -290,7 +275,7 @@
 		)
 		(= roomCarParked curRoomNum)
 		(if (!= prevRoomNum 2)
-		;	(curRoom setRegions: 950)
+			(curRoom setRegions: 950)
 			(= carPullingIn TRUE)
 			(ourCar
 				view: 54
@@ -307,9 +292,6 @@
 		else
 			(= carPullingIn 0)
 		)
-		(if (== prevRoomNum 13)
-			(curRoom setRegions: 950)
-		)
 		(if (== prevRoomNum 2)
 			(ego 
 				posn: 131 110
@@ -320,13 +302,13 @@
 		
 			(self setScript: driveUpScript)
 		)
-		(DrawRect 68 170 107 145 2)
-(super init:)
+
+
 	)
 	
 	(method (doit)
 		(DrawRect 15 257 84 175 4)
-;;;(curRoom setRegions: 950)
+		(curRoom setRegions: 950)
 		(cond 
 			((ego inRect: 11 122 18 126)
 				(Print 1 0)
@@ -378,7 +360,6 @@
 			(and (== global132 carPullingIn) (== carPullingIn TRUE))
 				(if (not (cast contains: ourCar))
 					(= global132 0)
-					(HandsOn) ;
 					(self setScript: exitScript)
 				)
 			)
@@ -391,8 +372,6 @@
 					(EnterCar)
 			)
 		)
-
-		
 		(super doit:)
 	)
 	
@@ -405,14 +384,10 @@
 			(return)
 		)
 		
-		
-		
 		(switch (event type?)
 			(saidEvent
 				(cond 
 					(
-	
-
 						(or
 							(Said 'remove/cloth')
 							(Said 'get<[off]/cloth<[off]')
@@ -808,295 +783,233 @@
 						)
 					)
 				)
-			))
-			(cond
-
+			)
 			(
 				(and
-				(== (event type?) evMOUSEBUTTON)
-				(not (& (event modifiers?) emRIGHT_BUTTON))
-			)
-			
-				(if
-				(and ;unmarked car 68 155 107 145 2
-						(> (event x?) 68) ;x1 (> (mouseX) (left edge of rectangle))
-						(< (event x?) 170) ;x2 
-						(> (event y?) 107) ;y1
-						(< (event y?) 145) ;y2
-					)
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnObj flag (event x?) (event y?)) ;clicked on flag
 					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look door
-							(if
-									(and
-										(ego inRect: 151 129 182 148)
-										(cast contains: unTrunk)
-									)
+					(switch theCursor
+						(998 ;look
+							(Print 1 61) ;"You pause, briefly, to gaze at the U.S. flag flying overhead."
+						)
+						(995 ;hand
+							(Print 1 69) ;"Giving a quick, smart, salute, your heart swells with pride."
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print 1 48) ;"Looking into the car, you see nothing out of the ordinary."
+						)
+						(995 ;hand
+							(if (ego inRect: 264 120 320 145) ;near personal car
+								(EnterCar)
+							)
+						)
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look maletero/trunk
+							(if (ego inRect: 151 129 182 148) ;near trunk
+								(if (cast contains: unTrunk)
 									(inventory
 										carrying: {The car's trunk contains:}
 										empty: {The car's trunk is empty.}
 										showSelf: 13
 									)
 								else
-									(Print 1 51)
+									(Print 1 51) ;you have to open it first.
 								)
-						)
-						(995 ;abrir trunk
-													(cond 
-							((ego inRect: 151 129 182 148)
-								(cond 
-									(workCarTrunkOpened ;close trunk 
-																(cond 
-							((ego inRect: 151 129 182 148)
-								(if workCarTrunkOpened
-									(self setScript: trunkScript)
-									(= workCarTrunkOpened FALSE)
-								else
-									(Print 1 36)
-								)
+							else
+								(Print 1 44) ;"The dark blue sedan is an unmarked police cruiser, assigned to you and your partner, Keith."
 							)
-;;;							((ego inRect: 264 120 320 145)
-;;;								(Print 1 34)
-;;;							)
-;;;							(else
-;;;								(Print 1 37)
-;;;							)
 						)
+						(995 ; use hand on unmarked car
+							(cond 
+								((ego inRect: 151 129 182 148) ;near trunk
+									(cond 
+										(workCarTrunkOpened  ;Trunk already open, close it or get breifcase. 
+											(if 
+												(and
+													(== ((inventory at: iFieldKit) owner?) carWork)
+													(== fieldKitToggle 0)
+												)
+												(Print 1 15) ;"You take your field kit from the trunk."
+												(ego get: iFieldKit) ;y cerrar maletero	
+											else
+												(self setScript: trunkScript)
+												(= workCarTrunkOpened FALSE)
+												(== fieldKitToggle 0)
+											)			
 										)
-									((ego has: iUnmarkedCarKeys)
-										(= workCarTrunkOpened TRUE)
-										(unTrunk
-											view: 51
-											loop: 4
-											cel: 0
-											posn: 148 148
-											setPri: 10
-											ignoreActors:
-											init:
-											setCycle: EndLoop
+										((ego has: iUnmarkedCarKeys) ;Open trunk if has unmarked keys
+											(= workCarTrunkOpened TRUE)
+											(unTrunk
+												view: 51
+												loop: 4
+												cel: 0
+												posn: 148 148
+												setPri: 10
+												ignoreActors:
+												init:
+												setCycle: EndLoop
+											)
+										)
+										(else
+											(Print 1 24) ;"You need the correct key."
 										)
 									)
-									(else
+								)
+								((ego inRect: 93 144 114 154)
+									(if (not workCarLocked)
+										(EnterCar)
+									else
+										(Print 1 20) ;"The door is locked."
+									)
+								)
+								(else
+									(Print {You're not close enough to either the door or the trunk.})
+								)
+							)
+						)
+						(103 ;llave abrir coche  ;use undercoverKeyRing
+							(cond 
+								((ego inRect: 93 144 114 154) ;use on unmarked car
+									(if (ego has: iUnmarkedCarKeys)
+										(if (== workCarLocked TRUE)
+											(= workCarLocked FALSE)
+											(Print 1 25) ;"OK. It's unlocked."
+										else
+											(Print 1 26)
+										)
+									else
 										(Print 1 24)
 									)
 								)
-							)
-;;;							((ego inRect: 264 120 320 145)
-;;;								(Print 1 34)
-;;;							)
-;;;							(else
-;;;								(Print 1 35)
-;;;							)
-						)
-							(cond 
-							(carPullingIn
-								(= global132 1)
-							)
-							((ego inRect: 126 102 150 106)
-								(if (not (ego has: iKeyRing))
-									(Print 1 18)
-								else
-									(Print 1 19)
-									(officeDoor locked: FALSE)
+								((ego inRect: 259 140 279 148) ;use on personal car
+									(if (ego has: iKeyRing)
+										(if (== personalCarLocked TRUE)
+											(= personalCarLocked FALSE)
+											(Print 1 25) ;"OK. It's unlocked."
+										else
+											(Print 1 26) ;"The door is already unlocked."
+										)
+									else
+										(Print 1 24) ;"You need the correct key."
+									)
 								)
-							)
-							((ego inRect: 93 144 114 154)
-								(if (not workCarLocked)
-									(EnterCar)
-								else
-									(Print 1 20)
+								((ego inRect: 75 112 288 134)
+									(Print 1 27) ;"This is the passenger's door. Try the other side."
 								)
-							)
-;;;							((ego inRect: 259 140 279 148)
-;;;								(if (not personalCarLocked)
-;;;									(EnterCar)
-;;;								else
-;;;									(Print 1 20)
-;;;								)
-;;;							)
-							((> (ego y?) 120)
-								(if
+								(
 									(or
-										(ego inRect: 73 149 128 188)
-										(ego inRect: 205 154 313 185)
-									)
-									(Print 1 21)
-								else
-;;;									(Print 1 22)
-								)
-							)
-							(else
-								(Print 1 23)
-							)
-						)
-						
-						;coger maletin
-												(if (ego inRect: 151 129 182 148)
-							(if workCarTrunkOpened
-								(if (== ((inventory at: iFieldKit) owner?) carWork)
-									(Print 1 15)
-									(ego get: iFieldKit) ;y cerrar maletero
-									
-								else
-									;(Print 1 16) no está.
-								)
-							else
-								;(Print 1 13)
-							)
-						else
-;;;							(Print 1 14)
-						)
-						
-						
-						
-						)
-						(103 ;llave abrir coche
-													(cond 
-							((ego inRect: 126 102 150 106)
-								(if (not (ego has: iKeyRing))
-									(Print 1 24)
-								else
-									(Print 1 19 #at -1 45)
-									(officeDoor locked: FALSE)
-								)
-							)
-							((ego inRect: 93 144 114 154)
-								(if (ego has: iUnmarkedCarKeys)
-									(if (== workCarLocked TRUE)
-										(= workCarLocked FALSE)
-										(Print 1 25)
-									else
-										(Print 1 26)
-									)
-								else
-									(Print 1 24)
-								)
-							)
-							((ego inRect: 259 140 279 148)
-								(if (ego has: iKeyRing)
-									(if (== personalCarLocked TRUE)
-										(= personalCarLocked FALSE)
-										(Print 1 25)
-									else
-										(Print 1 26)
-									)
-								else
-									(Print 1 24)
-								)
-							)
-							((ego inRect: 75 112 288 134)
-								(Print 1 27)
-							)
-							(
-								(or
-									(and
-										(ego inRect: 73 149 128 188)
-										(or
-											(Btst fDocBookingEvidence)
-											randCarExists
+										(and
+											(ego inRect: 73 149 128 188)
+											(or
+												(Btst fDocBookingEvidence)
+												randCarExists
+											)
+										)
+										(and
+											(ego inRect: 205 154 313 185)
+											nearUnmarkedCar
 										)
 									)
-									(and
-										(ego inRect: 205 154 313 185)
-										nearUnmarkedCar
-									)
+									(Print 1 28) ;"You shouldn't be opening that car door."
 								)
-								(Print 1 28)
-							)
-							((> (ego y?) 120)
-								(Print 1 29)
-							)
-							(else
-								(Print 1 23)
+								(else
+									(Print 1 29) ;"You're not close enough to your car's door."
+								)
 							)
 						)
-					)
-						
-						
-						
-						(110 ;maletin
-						(if (ego inRect: 151 129 182 148)
-							(if workCarTrunkOpened
-								(if (ego has: iFieldKit)
-									(Print 1 11)
+						(110 ;maletin ;use fieldKit on car
+							(if (ego inRect: 151 129 182 148)
+								(if workCarTrunkOpened
+									(Print 1 11) ;"You place your field kit inside the trunk."
 									(PutInRoom iFieldKit carWork)
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
 									)
 									(= fieldKitOpen FALSE)
-									;CLOSE TRUNK
-															(cond 
-							((ego inRect: 151 129 182 148)
-								(if workCarTrunkOpened
-									(self setScript: trunkScript)
-									(= workCarTrunkOpened FALSE)
+									(= fieldKitToggle 1)
 								else
-									(Print 1 36)
+									(Print 1 13) ;"Open the trunk, first."
 								)
-							)
-							((ego inRect: 264 120 320 145)
-								(Print 1 34)
-							)
-							(else
-								(Print 1 37)
+							else 
+								(Print 1 14) ;"You're not close enough to your car's trunk."
 							)
 						)
-								else
-									(Print 1 12)
-								)
-							else
-								(Print 1 13)
-							)
-						else
-							(Print 1 14)
-						)
-
-						(if (ego inRect: 151 129 182 148)
-							(if workCarTrunkOpened
-								(if (== ((inventory at: iFieldKit) owner?) carWork)
-									(Print 1 15)
-									(ego get: iFieldKit)
-									;cerrar maletero
-															(cond 
-							((ego inRect: 151 129 182 148)
-								(if workCarTrunkOpened
-									(self setScript: trunkScript)
-									(= workCarTrunkOpened FALSE)
-								else
-									(Print 1 36)
-								)
-							)
-							((ego inRect: 264 120 320 145)
-								(Print 1 34)
-							)
-							(else
-								(Print 1 37)
-							)
-						)
-								else
-									(Print 1 16)
-								)
-							else
-								;(Print 1 13)
-							)
-						else
-							;(Print 1 14)
+						(else
+							(event claimed: FALSE)	
 						)
 					)
-						
+				) ;end Unmarked car
+				(if
+					(and
+						(ClickedInRect 120 144 60 99 event) ;office door
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 1 65) ;"This door opens into the Detective Bureau."
+						)
+						(995 ; use hand on office door
+							(if (ego inRect: 126 102 150 106) ;near station door
+								(if (not (ego has: iKeyRing))
+									(Print 1 18) ;"This door is kept locked for security reasons."
+								else
+									(Print 1 19) ;You unlock and open the door.
+									(officeDoor locked: FALSE)
+								)
+							else
+								(Print 1 23) ;You're not close enough to the station's door.
+							)
+						)
+						(102 ; use keyring on office door
+							(if (ego inRect: 126 102 150 106) ;near station door
+								(if (not (ego has: iKeyRing))
+									(Print 1 18) ;"This door is kept locked for security reasons."
+								else
+									(Print 1 19) ;You unlock and open the door.
+									(officeDoor locked: FALSE)
+								)
+							else
+								(Print 1 23) ;You're not close enough to the station's door.
+							)
+						)
+						(103 ;unmarked keys
+							(Print 1 24) ;"You need the correct key"
+						)
 						(else
 							(event claimed: FALSE)
-					 )
-				
-				
-				
-				
-			)
-;;;				
-;;;				
-;;;				
-;;;				
-;;;				
+						)		
+					)
+				)
+				(if
+					(and 
+						(ClickedInRect 0 320 120 190 event) ;clicked on parking lot
+						(== (event claimed?) FALSE)
+					)
+					(switch theCursor
+						(998 ;look 
+							(event claimed: TRUE)
+							(Print 1 49) ;Parked in the lot are unmarked cars, private cars, and sometimes a marked police cruiser.
+						)
+					)
 				)
 			)
 		)
@@ -1267,7 +1180,7 @@
 		(switch (= state newState)
 			(0
 				(ego posn: 0 0)
-;;;				(User canControl: FALSE)
+				(User canControl: FALSE)
 				(if (== currentCar carWork)
 					(= workCarTrunkOpened FALSE)
 				)
@@ -1317,9 +1230,8 @@
 			(3
 				(HandsOn)
 				(officeDoor stopUpd:)
-			;	(curRoom doit:)
+
 			;	(curRoom setRegions: 950)
-			;	(curRoom newRoom: 260)
 			)
 		)
 	)
