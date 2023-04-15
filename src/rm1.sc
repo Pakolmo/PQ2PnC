@@ -827,8 +827,7 @@
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ; look door
-
-															(if
+							(if
 									(and
 										(ego inRect: 151 129 182 148)
 										(cast contains: unTrunk)
