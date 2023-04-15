@@ -1366,25 +1366,11 @@
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ; bulletin look
-										(cond 
-									((ego inRect: 122 117 168 124)
-										(Print 4 7)
-										(Print 4 8)
-										(SolvePuzzle 1 123)
-									)
-									(
-										(and
-											(ego inRect: 70 128 99 140)
-											(== (ego loop?) 1)
-										)
-											(Print 4 38)
-											(event claimed: TRUE)
-									)
-									(else
-										(Print 4 39)
-										
-									)
-									
+							(cond 
+								((ego inRect: 122 117 168 124)
+									(Print 4 7)
+									(Print 4 8)
+									(SolvePuzzle 1 123)
 								)
 								(
 									(and
@@ -1394,7 +1380,7 @@
 									(Print 4 38)
 								)
 								(else
-									(Print 4 39)
+									(Print 4 39)			
 								)
 							)
 						)
