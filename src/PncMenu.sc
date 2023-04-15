@@ -1108,6 +1108,7 @@
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
 ;;;				(smellIcon loop: 0) ;add smell
+				(invIcon loop: 0)
 			)
 			(998
 				(walkIcon loop: 0)
@@ -1116,6 +1117,7 @@
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
 ;;;				(smellIcon loop: 0) ;add smell
+				(invIcon loop: 0)
 			)
 			(995
 				(walkIcon loop: 0)
@@ -1124,6 +1126,7 @@
 				(handIcon loop: 1)
 				(talkIcon loop: 0)
 ;;;				(smellIcon loop: 0) ;add smell
+				(invIcon loop: 0)
 			)
 			(996
 				(walkIcon loop: 0)
@@ -1132,6 +1135,7 @@
 				(handIcon loop: 0)
 				(talkIcon loop: 1)
 ;;;				(smellIcon loop: 0) ;add smell
+				(invIcon loop: 0)
 			)
 ;;;			(994 ;add smell
 ;;;				(walkIcon loop: 0)
@@ -1148,6 +1152,7 @@
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
 ;;;				(smellIcon loop: 0) ;add smell
+				(invIcon loop: 1)
 			)
 		)
 		(if (!= itemIcon 100)
@@ -1724,7 +1729,7 @@
 (instance talkIcon of Prop
 	(properties
 		y 6
-		x 107
+		x 105
 		view 950
 		cel 3
 		loop 0
@@ -1734,7 +1739,7 @@
 (instance lookIcon of Prop
 	(properties
 		y 6
-		x 45
+		x 44
 		view 950
 		cel 1
 		loop 0
@@ -1744,7 +1749,8 @@
 (instance handIcon of Prop
 		(properties
 		y 6
-		x 76
+		x 74
+		
 		view 950
 		cel 2
 		loop 0
@@ -1768,7 +1774,7 @@
 (instance background of Prop
 	(properties
 		y 6
-		x 200 ;move the rest of the icons down (x + 28)
+		x 197 ;move the rest of the icons down (x + 28)
 		view 950
 		cel 0
 		loop 7
@@ -1779,7 +1785,7 @@
 (instance invIcon of Prop
 	(properties
 		y 6
-		x 139 ;127
+		x 138 ;127
 		
 		
 		 ;move the rest of the icons down (x + 28)
@@ -1793,7 +1799,7 @@
 (instance blockIcon of Prop
 	(properties
 		y 6
-		x 174 ;228 ;188
+		x 171 ;;as selectedicon
 		view 950
 		loop 2
 		cel 0
@@ -1853,7 +1859,7 @@
 (instance selectedItem of Prop
 	(properties
 		y 6
-		x 174 ;as bloxk icon;
+		x 171 ;as bloxk icon;
 		view 950 ;950
 		loop 3; ;3
 		cel 0

@@ -45,7 +45,7 @@
 
 (instance introMusic of Sound
 	(properties
-		number 52  ;1
+		number 1  ;1
 	)
 )
 

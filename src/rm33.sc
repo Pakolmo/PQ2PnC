@@ -149,6 +149,7 @@
 	(method (init)
 		(DrawRect 143 175 140 150 1)
 		(super init:)
+		(curRoom setRegions: 950)
 		(HandsOff)
 		(User canInput: 1)
 		(curRoom setLocales: 153)
@@ -232,7 +233,7 @@
 	(properties)
 	
 	(method (doit)
-		(curRoom setRegions: 950)
+;;;		(curRoom setRegions: 950)
 		(if local0
 			(if (not (< howFast 30))
 				(cond 
@@ -1089,7 +1090,7 @@
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ; look box
-							(curRoom newRoom: 4) ;For testing.
+							(curRoom newRoom: 7) ;For testing.
 						)
 						(995 ;
 							(= global137 0)

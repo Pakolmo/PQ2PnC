@@ -1748,7 +1748,25 @@
 						(theGame setCursor: 999 (HaveMouse))
 					)
 				)
-									
+			(if
+				
+						(ClickedOnObj marieLetter (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor				
+						(995 ; look box
+											(if (InRoom iThankYouLetter 12)
+							(Print 4 100)
+						else
+							(event claimed: 0)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+
+					)
+			
+			)									
 
 			
 			
