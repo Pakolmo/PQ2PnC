@@ -27,7 +27,7 @@
 	taselliFile
 	westFile
 	drawerPlaque
-	bainsOldMugShot
+	;bainsOldMugShot
 	bainsMugShot
 	local12
 	local13
@@ -249,7 +249,7 @@
 		(HandsOff)
 		(User canInput: 1)
 		(User canControl: 1)
-		((= bainsOldMugShot (View new:))
+		(bainsOldMugShot
 			view: 204
 			loop: 2
 			cel: 0
@@ -279,6 +279,10 @@
 		x 60
 		view 204
 	)
+)
+
+(instance bainsOldMugShot of View
+	(properties)
 )
 
 (instance fileScript of Script
@@ -604,17 +608,41 @@
 					)
 				)
 			)
-		)
-
-
-			
+			(;mouse events
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				(if ;mugshot photo
+					(and
+						(ClickedOnObj bainsOldMugShot (event x?) (event y?))
+						(== 1 1) ;opened 1)
+				
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;hand
+							(if (== theFile bainsFile)
+								(if (InRoom iOldMugShot)
+									(bainsOldMugShot dispose:)
+									(ego get: 23)
+									(SolvePuzzle 1)
+								else
+									(Print 7 21)
+								)
+							else
+								(Print 7 22)
+							)	
+						)
+						(998 ;look
+							(Print 7 32)
+						)
+					)
+				)
 				(if 
-					(and (ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
-						 (== opened 1)
+					(and
+						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+						(== opened 1)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
@@ -622,47 +650,182 @@
 							(= theFile bainsFile)
 							(fileScript changeState: 1)
 							(= opened 0)
-							(event claimed: FALSE)
 						)
 						(995 ;hand
 							(= theFile bainsFile)
 							(fileScript changeState: 1)
 							(= opened 0)
+						)
+						(else
 							(event claimed: FALSE)
 						)
-						(999 ;walk close
-
+					)
+				)
+				(if ;Botts
+					(and
+						(ClickedOnObj bottsFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile bottsFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile bottsFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;Loofin
+					(and
+						(ClickedOnObj loofinFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile loofinFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile loofinFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;Martinez
+					(and
+						(ClickedOnObj martinezFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile martinezFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile martinezFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(999 ;walk close file		
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;South
+					(and
+						(ClickedOnObj southFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile southFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile southFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;Taselli
+					(and
+						(ClickedOnObj taselliFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile taselliFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile taselliFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;West
+					(and
+						(ClickedOnObj westFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile westFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= theFile westFile)
+							(fileScript changeState: 1)
+							(= opened 0)
 						)
 						(else
 							(event claimed: FALSE)
 						)
 					)
 				)		
-		
-		
-				(if (== (event type?) evMOUSEBUTTON) ;standup
-        			(if (== theCursor 995) ;use hand cursor to 
-							(if (== opened 0)	
-								(Print 7 30)
-								(fileScript changeState: 5)
-								(= opened 1)
-							)
+        		(if (== theCursor 999) ;walk to exit 
+					(if (== opened 0)	
+						(Print 7 30)
+						(fileScript changeState: 5)
+						(= opened 1)
+					else
+						(cast eachElementDo: #dispose)
+						(curRoom newRoom: 4)
 					)
 				)
-				
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				(if ;change page
+					(and
+						(or
+							(== theCursor 995) ;hand
+							(== theCursor 998) ;or look to change page
+						)
+						(== opened 0)
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(if local12
+						(NextPage)
+					else
+						(Print 7 25 #at -1 140)
+					)
+				)
+			)
 		)
 	)
+)
 
 ;;;(instance bainsFile of Actor
 ;;;
