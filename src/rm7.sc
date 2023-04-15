@@ -32,6 +32,7 @@
 	local12
 	local13
 	local14
+	opened = 1
 )
 (procedure (PrevioustPage)
 	(= local12 1)
@@ -243,9 +244,11 @@
 	(properties)
 	
 	(method (init)
+		(curRoom setRegions: 950)
 		(super init:)
 		(HandsOff)
 		(User canInput: 1)
+		(User canControl: 1)
 		((= bainsOldMugShot (View new:))
 			view: 204
 			loop: 2
@@ -602,5 +605,66 @@
 				)
 			)
 		)
+
+
+			
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if 
+					(and (ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+						 (== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= theFile bainsFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+							(event claimed: FALSE)
+						)
+						(995 ;hand
+							(= theFile bainsFile)
+							(fileScript changeState: 1)
+							(= opened 0)
+							(event claimed: FALSE)
+						)
+						(999 ;walk close
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+		
+				(if (== (event type?) evMOUSEBUTTON) ;standup
+        			(if (== theCursor 995) ;use hand cursor to 
+							(if (== opened 0)	
+								(Print 7 30)
+								(fileScript changeState: 5)
+								(= opened 1)
+							)
+					)
+				)
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		)
 	)
-)
+
+;;;(instance bainsFile of Actor
+;;;
+;;;	
+;;;)

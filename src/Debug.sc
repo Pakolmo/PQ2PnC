@@ -49,37 +49,37 @@
 ;;;					)
 ;;;				)
 ;;;			)
-			(mouseDown
-				(cond 
-					((& (event modifiers?) shiftDown)
-						(event claimed: TRUE)
-						(= obj
-							(Print
-								(Format @str1 20 0 (event x?) (event y?))
-								#at 150 100
-								#font 999
-								#dispose
-							)
-						)
-						(while (!= mouseUp ((= evt (Event new:)) type?))
-							(evt dispose:)
-						)
-						(obj dispose:)
-						(evt dispose:)
-					)
-					((& (event modifiers?) ctrlDown)
-						(event claimed: TRUE)
-						(User canControl: TRUE)
-						(while (!= mouseUp ((= evt (Event new:)) type?))
-							(GlobalToLocal evt)
-							(ego posn: (evt x?) (evt y?) setMotion: 0)
-							(Animate (cast elements?) FALSE)
-							(evt dispose:)
-						)
-						(evt dispose:)
-					)
-				)
-			)
+;;;			(mouseDown
+;;;				(cond 
+;;;					((& (event modifiers?) shiftDown)
+;;;						(event claimed: TRUE)
+;;;						(= obj
+;;;							(Print
+;;;								(Format @str1 20 0 (event x?) (event y?))
+;;;								#at 150 100
+;;;								#font 999
+;;;								#dispose
+;;;							)
+;;;						)
+;;;						(while (!= mouseUp ((= evt (Event new:)) type?))
+;;;							(evt dispose:)
+;;;						)
+;;;						(obj dispose:)
+;;;						(evt dispose:)
+;;;					)
+;;;					((& (event modifiers?) ctrlDown)
+;;;						(event claimed: TRUE)
+;;;						(User canControl: TRUE)
+;;;						(while (!= mouseUp ((= evt (Event new:)) type?))
+;;;							(GlobalToLocal evt)
+;;;							(ego posn: (evt x?) (evt y?) setMotion: 0)
+;;;							(Animate (cast elements?) FALSE)
+;;;							(evt dispose:)
+;;;						)
+;;;						(evt dispose:)
+;;;					)
+;;;				)
+;;;			)
 
 
 ;;;			(keyDown

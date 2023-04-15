@@ -1069,16 +1069,23 @@
 				(curRoom setRegions: 950)
 
 		)	
-				(if (== curRoom 8)
+		(if (== curRoom 8)
 
 				(curRoom setRegions: 950)
 
 		)	
-						(if (== curRoom 4)
+		(if (== curRoom 4)
 
 				(curRoom setRegions: 950)
 
 		)	
+		
+		(if (== curRoom 7)
+
+				(curRoom setRegions: 950)
+
+		)	
+		
 		(Load SOUND 6)
 	)
 	
