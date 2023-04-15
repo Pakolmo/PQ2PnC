@@ -1455,11 +1455,13 @@
 											(== (ego loop?) 1)
 										)
 											(Print 4 38)
+											(event claimed: TRUE)
 									)
 									(else
 										(Print 4 39)
-										(event claimed: FALSE)
+										
 									)
+									
 								)
 						)
 						(else

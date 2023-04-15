@@ -821,7 +821,7 @@
 		(= systemWindow (SysWindow new:))
 		(super init:)
 		;(= debugging FALSE)
-		(= debugging TRUE)	;added to enable debug features
+		;(= debugging TRUE)	;added to enable debug features
 		
 		;"kiss angel death" now toggles debugging
 		(= ego egoObj)
