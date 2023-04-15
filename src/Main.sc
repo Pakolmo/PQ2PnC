@@ -901,7 +901,7 @@
 				your_LPD_business_card
 		)
 		(ego get: iMoneyClip)
-		(ego get: 10 get: 1 get: 2 get: 3 get: 5) ;maletin
+		(ego get: 10 get: 1 get: 2 get: 3) ;maletin
 		(HandsOn)
 		(= showStyle HSHUTTER)
 		(DoSound ChangeVolume 15)

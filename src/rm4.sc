@@ -1669,30 +1669,113 @@
 			
 				(if (== (event type?) evMOUSEBUTTON)
 
-        			(if (== theCursor 992) ;use wait sierra cursor to stand up.
-            										
-						(curRoom drawPic: (curRoom picture?))
-						(cast eachElementDo: #dispose)
-						(cast eachElementDo: #delete)
-						(ego init:)
-						(= closedDrawer 1)
-						(rm4 setScript: rm4Script)
-						(rm4Script changeState: 3)
-						(= theCursor 999)
-						(theGame setCursor: 999 (HaveMouse))
+        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
+        			
+            			(if (not (cast contains: wallet))
+	            			(if (not (cast contains: marieLetter))
+								(curRoom drawPic: (curRoom picture?))
+								(cast eachElementDo: #dispose)
+								(cast eachElementDo: #delete)
+								(ego init:)
+								(= closedDrawer 1)
+								(rm4 setScript: rm4Script)
+								(rm4Script changeState: 3)
+								(= theCursor 999)
+								(theGame setCursor: 999 (HaveMouse))
+							)
+						)
 					)
 				)
+				
+								(if (== (event type?) evMOUSEBUTTON)
+
+        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
+        			
+            			(if (not (cast contains: wallet))
+							(if (cast contains: marieLetter)
+								(curRoom drawPic: (curRoom picture?))
+								(cast eachElementDo: #dispose)
+								(cast eachElementDo: #delete)
+								(ego init:)
+								(= closedDrawer 1)
+								(rm4 setScript: rm4Script)
+								(rm4Script changeState: 3)
+								(= theCursor 999)
+								(theGame setCursor: 999 (HaveMouse))
+							)
+						)
+					)
+				)
+				
+						(if (== (event type?) evMOUSEBUTTON)
+
+        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
+        			(if (cast contains: wallet)
+
+	            			(if (not (cast contains: marieLetter))
+								(curRoom drawPic: (curRoom picture?))
+								(cast eachElementDo: #dispose)
+								(cast eachElementDo: #delete)
+								(ego init:)
+								(= closedDrawer 1)
+								(rm4 setScript: rm4Script)
+								(rm4Script changeState: 3)
+								(= theCursor 999)
+								(theGame setCursor: 999 (HaveMouse))
+							)
+						)
+					)
+				)		
+				
+				
+							(if (== (event type?) evMOUSEBUTTON)
+
+        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
+        			(if (cast contains: wallet)
+
+	            			(if (cast contains: marieLetter)
+								(curRoom drawPic: (curRoom picture?))
+								(cast eachElementDo: #dispose)
+								(cast eachElementDo: #delete)
+								(ego init:)
+								(= closedDrawer 1)
+								(rm4 setScript: rm4Script)
+								(rm4Script changeState: 3)
+								(= theCursor 999)
+								(theGame setCursor: 999 (HaveMouse))
+							)
+						)
+					)
+				)		
+				
+				
+				
+				
 			(if
 				
 						(ClickedOnObj marieLetter (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; look box
-											(if (InRoom iThankYouLetter 12)
-							(Print 4 100)
-						else
-							(event claimed: 0)
+						(995 ; Take and look same
+
+								(if (InRoom iThankYouLetter 12)
+									(marieLetter dispose:)
+									(Print 4 83 #draw)
+									(ego get: iThankYouLetter)
+									(SolvePuzzle 1 106)
+								)
+
+
 						)
+
+						(998 ; look
+								(if (InRoom iThankYouLetter 12)
+									(marieLetter dispose:)
+									(Print 4 83 #draw)
+									(ego get: iThankYouLetter)
+									(SolvePuzzle 1 106)
+								)
+
 						)
 						(else
 							(event claimed: FALSE)
@@ -1719,8 +1802,7 @@
 							(Print 4 83 #draw)
 							(ego get: iWallet)
 							(SolvePuzzle 1 105)
-							(= theCursor 992)
-							(theGame setCursor: 992 (HaveMouse)) ;exit cursor
+
 						else
 							(Print 4 97)
 						)

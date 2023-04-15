@@ -50,7 +50,7 @@
 				(curRoom newRoom: 1);1
 				
 			else
-				(curRoom newRoom: 200);200
+				(curRoom newRoom: 4);200
 			)
 		)
 	)
