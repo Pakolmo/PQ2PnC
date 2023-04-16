@@ -1195,7 +1195,7 @@
 (procedure	(PrintSpecial args
 						&tmp theDialog textI iconI editI
 						ret i atX atY fixWidth keepIt default curPort
-						[buttons 6] buttonWide buttonsUsed butAtX
+						[buttons 16] buttonWide buttonsUsed butAtX
 						[buffer 1000] buttonHeight
 				)
 
@@ -1467,7 +1467,7 @@
 				)
 
 	(= curPort (GetPort))
-;	(define	MAXBUTTONS	5)
+;;;	(define	MAXBUTTONS	5)
 
 	; initialize tmps	
 	(= atX (= atY -1))

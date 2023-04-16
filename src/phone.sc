@@ -11,9 +11,11 @@
 (use System)
 
 
+(use Extra)
+
+
 (include game.sh)
-(include keys.sh)
-(include menu.sh)
+
 
 
 
@@ -35,12 +37,12 @@
 	local6
 	local_7
 	local_8
-	local_9
+	local9
 	local_10
 	[str 160]
 	[local171 10]
 	infoLocation
-	callme
+	callmet
 	talked = 1
 	
 	
@@ -86,7 +88,7 @@
 	(personMouth posn: 60 1000)
 	(RedrawCast)
 	(cls)
-	(= local_9 4)
+	(= local9 4)
 	(Format @str 12 107) ;click
 	(AssignObjectToScript person doTalk 2)
 )
@@ -99,7 +101,7 @@
 
 (procedure (PersonSpeak) ;(localproc_1af6)
 	(cls)
-	(= local_9 0)
+	(= local9 0)
 	(Format @str &rest)
 	(AssignObjectToScript person doTalk)
 )
@@ -280,9 +282,9 @@ code_1ba3:
 					
 				)
 			)
+		)
 		
-		
-(
+
 				(if 
 			(and
 				(== (event type?) evMOUSEBUTTON)
@@ -301,9 +303,18 @@ code_1ba3:
 				(switch theCursor
 					(996 ;talk
 						(event claimed: 1)
-;;;						(cond 
-							(= callme
-									(Print
+						
+						
+														(if talked
+									;PnCdialogue test
+									(= callmet
+										(PrintSpecial
+						
+						
+						
+						
+						
+
 
 											
 											{&A quién vas a llamar?}
@@ -317,7 +328,7 @@ code_1ba3:
 											#button {Colgar} 8
 										)
 									)
-									(switch callme
+									(switch callmet
 										(1 ;Police
 											
 												(PersonSpeak 12 21)
@@ -354,34 +365,34 @@ code_1ba3:
 											
 										)
 										(8 ;colgar
-											(event claimed: 1) (self changeState: 4) (return)
+											(event claimed: 1) (Information changeState: 4) (return)
 										)
 									)
 					
-			
+						)
 								
 							
-								)
+;;;								)
 			
 				
-
+					)
 			
 			
 					)
 				)
-			)
-				)
-		
-		
-		
-		
-		
-		
-		
-		)
-	)
-)
 
+				
+		
+		
+		
+		
+		
+			)
+		
+
+	)
+
+)
 (instance phoneNumber of Script
 	(properties)
 	
@@ -1398,7 +1409,7 @@ code_03f6:
 					(= temp6 180)
 				)
 				(= temp5 (- 50 (/ (- [temp0 2] 8) 2)))
-				(switch local_9
+				(switch local9
 					(0
 						(Print @str #width temp6 #at temp4 temp5 #font smallFont)
 					)
@@ -1443,8 +1454,18 @@ code_03f6:
 	)
 )
 (instance person of Actor
-
+	(properties
+			view 444
+			loop 1
+			cel 0
+			x 60
+			y 1000
+			
+			priority 1
+			
+			
+	)
 )
-(instance sonny of Actor
-
-)
+;;;(instance sonny of Actor
+;;;
+;;;)
