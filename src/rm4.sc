@@ -89,7 +89,7 @@
 	)
 	
 	(method (init)
-
+;(DrawRect 15 257 84 175 8)
 		(super init:)
 		(HandsOn)
 		(Load VIEW 1)
@@ -1173,13 +1173,22 @@
 					)
 				)
 			)
+		)
 	
-			(
+				(cond
+					(						
 				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-				(if (ClickedInRect 148 173 115 133 event) ;desk
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			
+							(if
+				(and ;desk
+						(> (event x?) 148) ;x1 (> (mouseX) (left edge of rectangle))
+						(< (event x?) 173) ;x2 
+						(> (event y?) 115) ;y1
+						(< (event y?) 133) ;y2
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(995 ; unlock drawer
@@ -1195,118 +1204,173 @@
 							)
 							(if (not egoSitting) ;sentarse
 								(cond 
-									(egoSitting
-										(Print 4 84)
-									)
-									((ego inRect: 170 122 196 141)
-										(HandsOff)
-										(User canInput: 1)
-										(= egoSitting 1)
-										(= gunDrawn 0)
-										(ego
-											view: 3
-											loop: 0
-											cel: 0
-											setMotion: 0
-											setCycle: 0
-											ignoreActors:
-											illegalBits: 0
-											posn: 182 130
-										)
-									)
-									(else
-										;(NotClose)
-									)
-								)					
+							(egoSitting
+								(Print 4 84)
+							)
+							((ego inRect: 170 122 196 141)
+								(HandsOff)
+								(User canInput: 1)
+								(= egoSitting 1)
+								(= gunDrawn 0)
+								(ego
+									view: 3
+									loop: 0
+									cel: 0
+									setMotion: 0
+									setCycle: 0
+									ignoreActors:
+									illegalBits: 0
+									posn: 182 130
+								)
+								
+							)
+							(else
+								;(NotClose)
+							)
+						)
+								
 							)	
 							(User canControl: TRUE)	
 						)
 						(102 ; open drawer with keys
-							(if egoSitting
-								(cond 
-									((not (Btst fEgoDeskLocked))
-										(Print 4 88)
-									)
-									((ego has: iKeyRing)
-										(Print 4 89)
-										(Bclr fEgoDeskLocked)
-										(self changeState: 1))
-									(else
-										(Print 4 90)
-									)
+						(if egoSitting
+							(cond 
+								((not (Btst fEgoDeskLocked))
+									(Print 4 88)
 								)
-							else
-								(Print 4 91)
+								((ego has: iKeyRing)
+									(Print 4 89)
+									(Bclr fEgoDeskLocked)
+									(self changeState: 1))
+								(else
+									(Print 4 90)
+								)
 							)
+						else
+							(Print 4 91)
+						)
 						)
 						(else
 ;;;							(User canControl: TRUE)
 							(event claimed: FALSE)
 						)
-					)					
-				)
+					)
+							
+							
+					)
 					
 
 							
-				(if (== egoSitting 0) ;standup
+				(if (== (event type?) evMOUSEBUTTON) ;standup
+
         			(if (== theCursor 999) ;use wait sierra cursor to stand up.
-						(if egoSitting
-							(HandsOn)
-							(NormalEgo)
-							(ego
-								view: 1
-								loop: 1
-								cel: 9
-								posn: 192 136
+							(if egoSitting
+								(HandsOn)
+								(NormalEgo)
+								(ego
+									view: 1
+									loop: 1
+									cel: 9
+									posn: 192 136
+								)
+								(= egoSitting 0)
+;;;							else
+;;;								(Print 4 85)
 							)
-							(= egoSitting 0)
-						)	
+							
 						(if (and onPhone egoSitting)
 							(= onPhone 0)
 							(self changeState: 7)
+;;;						else
+;;;							(Print 4 95)
 						)
 					)
-				)							
-				(if (ClickedInRect 165 172 108 115 event) ;telef
-					(if (== theCursor 995)
-						(event claimed: TRUE)		
+				
+
+
+;;;							(not onPhone)
+;;;
+;;;							(Print 4 96)
+					)
+							
+				)	
+					
+					
+				)
+				
+				(if ;telef
+				(and ;
+						(> (event x?) 165) ;x1 (> (mouseX) (left edge of rectangle))
+						(< (event x?) 172) ;x2 
+						(> (event y?) 108) ;y1
+						(< (event y?) 115) ;y2
+					)
+					(event claimed: TRUE)
+					(switch theCursor				
+					(995
+						
 						(if egoSitting
 							(self changeState: 5)
 							(= onPhone 1)
 						else
 							(Print 4 95)
-						)		
+						)
+							
 					)
+
+					(else
+						(event claimed: FALSE)
+					)
+
+					)
+										
 				)
-				(if (ClickedInRect 148 160 108 115 event) ;bandeja/inbox
+				
+				
+				
+				
+																(if
+				(and ;
+						(> (event x?) 148) ;x1 (> (mouseX) (left edge of rectangle))
+						(< (event x?) 162) ;x2 
+						(> (event y?) 108) ;y1
+						(< (event y?) 115) ;y2
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ; bandeja, mirar
-							(if
-								(or
-									(ego inRect: 130 123 188 144)
-									egoSitting
-								)
-								(cond 
-									((< gamePhase 6)
+						(event claimed: 0)
+						(if
+							(or
+								(ego inRect: 130 123 188 144)
+								egoSitting
+							)
+							(cond 
+								(
+
+										(< gamePhase 6)
+
 										(SolvePuzzle 1 64)
 										(LocPrint 4 42)
 										(LocPrint 4 43)
 										(LocPrint 4 44 70 240)
 										(Print 4 45 #at -1 120)
-									)
-									((>= gamePhase 8)
-										(if
-											(or
-												(Btst fBookedFingerprint) ;128
-												(Btst fBookedCoveBlood) ;was 131, which never gets set. Confirm 146 is correct here.
-												(Btst fBookedPlasterCast) ;132
-												(Btst fBookedKnife) ;130
-												(Btst fBookedJailClothes) ;134
-												(Btst fBookedRevolver) ;127
-												(Btst fBookedBullets) ;133
-												(Btst fBppkedThumbprint) ;129
-											)
+								)
+								(
+
+										(>= gamePhase 8)
+
+									(if
+										(or
+											(Btst fBookedFingerprint) ;128
+											(Btst fBookedCoveBlood) ;was 131, which never gets set. Confirm 146 is correct here.
+											(Btst fBookedPlasterCast) ;132
+											(Btst fBookedKnife) ;130
+											(Btst fBookedJailClothes) ;134
+											(Btst fBookedRevolver) ;127
+											(Btst fBookedBullets) ;133
+											(Btst fBppkedThumbprint) ;129
+										)
 											(SolvePuzzle 3 65)
 											(LocPrint 4 46)
 											(LocPrint 4 47)
@@ -1338,163 +1402,163 @@
 												)
 											)
 											(Print 4 57)
-										else
-											(Print 4 58)
-										)
-									)
-									(marieWantsCall
-										(LocPrint 4 59)
-										(LocPrint 4 60)
-										(LocPrint 4 61)
-									)
-									(else
-										(Print 4 62)
-										(event claimed: 1)
+									else
+										(Print 4 58)
 									)
 								)
-							else
-								(Print 4 67)   ;63
-								(event claimed: 1)
+								(
+
+										marieWantsCall
+
+									
+									(LocPrint 4 59)
+									(LocPrint 4 60)
+									(LocPrint 4 61)
+								)
+								(else
+									(Print 4 62)
+									(event claimed: 1)
+								)
 							)
+						else
+							(Print 4 67)   ;63
+							(event claimed: 1)
+						)
 						)
 						(else
-							(event claimed: FALSE)
+		(event claimed: FALSE)
 						)
 					)
-				)
-				(if (ClickedInRect 127 168 77 98 event) ;Buletin
+												)
+				
+					
+	
+												(if
+				(and ;
+						(> (event x?) 127) ;x1 (> (mouseX) (left edge of rectangle))
+						(< (event x?) 168) ;x2 
+						(> (event y?) 77) ;y1
+						(< (event y?) 98) ;y2
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ; bulletin look
-							(cond 
-								((ego inRect: 122 117 168 124)
-									(Print 4 7)
-									(Print 4 8)
-									(SolvePuzzle 1 123)
-								)
-								(
-									(and
-										(ego inRect: 70 128 99 140)
-										(== (ego loop?) 1)
+										(cond 
+									((ego inRect: 122 117 168 124)
+										(Print 4 7)
+										(Print 4 8)
+										(SolvePuzzle 1 123)
 									)
-									(Print 4 38)
+									(
+										(and
+											(ego inRect: 70 128 99 140)
+											(== (ego loop?) 1)
+										)
+											(Print 4 38)
+									)
+									(else
+										(Print 4 39)
+										(event claimed: FALSE)
+									)
 								)
-								(else
-									(Print 4 39)			
-								)
-							)
 						)
 						(else
-							(event claimed: FALSE)
+						
+		(event claimed: FALSE)
 						)
 					)
-				)
-				(if (ClickedInRect 173 190 115 127 event) ;seat
+												)
+		
+			
+										(if
+				(and ;seat
+						(> (event x?) 173) ;x1 (> (mouseX) (left edge of rectangle))
+						(< (event x?) 190) ;x2 
+						(> (event y?) 115) ;y1
+						(< (event y?) 127) ;y2
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(995 ; sit on seat
-							(cond 
-								(egoSitting
-									(Print 4 84)
-								)
-								((ego inRect: 170 122 196 141)
-									(HandsOff)
-									(User canInput: 1)
-									(= egoSitting 1)
-									(= gunDrawn 0)
-									(ego
-										view: 3
-										loop: 0
-										cel: 0
-										setMotion: 0
-										setCycle: 0
-										ignoreActors:
-										illegalBits: 0
-										posn: 182 130
-									)
-								)
-								(else
-									(NotClose)
+						(cond 
+							(egoSitting
+								(Print 4 84)
+							)
+							((ego inRect: 170 122 196 141)
+								(HandsOff)
+								(User canInput: 1)
+								(= egoSitting 1)
+								(= gunDrawn 0)
+								(ego
+									view: 3
+									loop: 0
+									cel: 0
+									setMotion: 0
+									setCycle: 0
+									ignoreActors:
+									illegalBits: 0
+									posn: 182 130
 								)
 							)
+							(else
+								(NotClose)
+							)
 						)
+						)
+
 						(else
 							(event claimed: FALSE)		
 						)
 					)
-				)
-				(if (ClickedOnObj keith (event x?) (event y?))		
+										)
+					(if
+				
+						(ClickedOnObj keith (event x?) (event y?))
+						
 					(event claimed: TRUE)
 					(switch theCursor				
 						(996 ;talk keith	
-							(if (< (ego distanceTo: keith) 40)
-								(switch isOnDuty
-									(2
-										(Print 4 20)
-									)
-									(1
-										(Print 4 21)
-									)
-									(else
-										(Print 4 22)
-									)
-								)
-							else
-								(Print 4 23)
-							)
-						
-						)
-						(995 ;hand
-							(switch (Random 0 1)
-								(0
-									(Print 4 24)
+
+						(if (< (ego distanceTo: keith) 40)
+							(switch isOnDuty
+								(2
+									(Print 4 20)
 								)
 								(1
-									(cond 
-										((ego inRect: 70 131 122 156)
-											(Print 4 12)
-										)
-										((ego inRect: 90 117 137 132)
-											(Print 4 13)
-										)
-										((< (ego distanceTo: keith) 46)
-											(Print 4 14)
-										)
-										(else
-											(Print 4 15)
-										)
-									)
+									(Print 4 21)
+								)
+								(else
+									(Print 4 22)
 								)
 							)
-						)								
-						(else
-							(event claimed: FALSE)
+						else
+							(Print 4 23)
 						)
-					)
-				)
-				(if (ClickedInRect 244 270 94 145 event) ;File Cabinet
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;hand
-							(if (ego inRect: 232 138 260 152)
-								(cast eachElementDo: #startUpd) ;why??
-								(curRoom newRoom: 7)
-							else
-								(NotClose)
+						
+						)
+						(995 ;
+								(switch (Random 0 1)
+									(0 (Print 4 24))
+									(1 						(cond 
+							((ego inRect: 70 131 122 156)
+								(Print 4 12)
+							)
+							((ego inRect: 90 117 137 132)
+								(Print 4 13)
+							)
+							((< (ego distanceTo: keith) 46)
+								(Print 4 14)
+							)
+							(else
+								(Print 4 15)
 							)
 						)
-						(998 ;look 
-							(Print 4 37)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)			
-			)
-		)
-	)
-)
+					))
+									
+								)
+								
+						(else (event claimed: FALSE)
+						)))
 							
 ;;;			(if
 ;;;				
@@ -1516,7 +1580,9 @@
 ;;;			
 ;;;			)
 											
-	
+					)
+		)
+			
 		
 
 
@@ -1669,113 +1735,30 @@
 			
 				(if (== (event type?) evMOUSEBUTTON)
 
-        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
-        			
-            			(if (not (cast contains: wallet))
-	            			(if (not (cast contains: marieLetter))
-								(curRoom drawPic: (curRoom picture?))
-								(cast eachElementDo: #dispose)
-								(cast eachElementDo: #delete)
-								(ego init:)
-								(= closedDrawer 1)
-								(rm4 setScript: rm4Script)
-								(rm4Script changeState: 3)
-								(= theCursor 999)
-								(theGame setCursor: 999 (HaveMouse))
-							)
-						)
+        			(if (== theCursor 992) ;use wait sierra cursor to stand up.
+            										
+						(curRoom drawPic: (curRoom picture?))
+						(cast eachElementDo: #dispose)
+						(cast eachElementDo: #delete)
+						(ego init:)
+						(= closedDrawer 1)
+						(rm4 setScript: rm4Script)
+						(rm4Script changeState: 3)
+						(= theCursor 999)
+						(theGame setCursor: 999 (HaveMouse))
 					)
 				)
-				
-								(if (== (event type?) evMOUSEBUTTON)
-
-        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
-        			
-            			(if (not (cast contains: wallet))
-							(if (cast contains: marieLetter)
-								(curRoom drawPic: (curRoom picture?))
-								(cast eachElementDo: #dispose)
-								(cast eachElementDo: #delete)
-								(ego init:)
-								(= closedDrawer 1)
-								(rm4 setScript: rm4Script)
-								(rm4Script changeState: 3)
-								(= theCursor 999)
-								(theGame setCursor: 999 (HaveMouse))
-							)
-						)
-					)
-				)
-				
-						(if (== (event type?) evMOUSEBUTTON)
-
-        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
-        			(if (cast contains: wallet)
-
-	            			(if (not (cast contains: marieLetter))
-								(curRoom drawPic: (curRoom picture?))
-								(cast eachElementDo: #dispose)
-								(cast eachElementDo: #delete)
-								(ego init:)
-								(= closedDrawer 1)
-								(rm4 setScript: rm4Script)
-								(rm4Script changeState: 3)
-								(= theCursor 999)
-								(theGame setCursor: 999 (HaveMouse))
-							)
-						)
-					)
-				)		
-				
-				
-							(if (== (event type?) evMOUSEBUTTON)
-
-        			(if (== theCursor 999) ;use wait sierra cursor to stand up.
-        			(if (cast contains: wallet)
-
-	            			(if (cast contains: marieLetter)
-								(curRoom drawPic: (curRoom picture?))
-								(cast eachElementDo: #dispose)
-								(cast eachElementDo: #delete)
-								(ego init:)
-								(= closedDrawer 1)
-								(rm4 setScript: rm4Script)
-								(rm4Script changeState: 3)
-								(= theCursor 999)
-								(theGame setCursor: 999 (HaveMouse))
-							)
-						)
-					)
-				)		
-				
-				
-				
-				
 			(if
 				
 						(ClickedOnObj marieLetter (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; Take and look same
-
-								(if (InRoom iThankYouLetter 12)
-									(marieLetter dispose:)
-									(Print 4 83 #draw)
-									(ego get: iThankYouLetter)
-									(SolvePuzzle 1 106)
-								)
-
-
+						(995 ; look box
+											(if (InRoom iThankYouLetter 12)
+							(Print 4 100)
+						else
+							(event claimed: 0)
 						)
-
-						(998 ; look
-								(if (InRoom iThankYouLetter 12)
-									(marieLetter dispose:)
-									(Print 4 83 #draw)
-									(ego get: iThankYouLetter)
-									(SolvePuzzle 1 106)
-								)
-
 						)
 						(else
 							(event claimed: FALSE)
@@ -1802,7 +1785,8 @@
 							(Print 4 83 #draw)
 							(ego get: iWallet)
 							(SolvePuzzle 1 105)
-
+							(= theCursor 992)
+							(theGame setCursor: 992 (HaveMouse)) ;exit cursor
 						else
 							(Print 4 97)
 						)

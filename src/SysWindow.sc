@@ -19,7 +19,7 @@
 		right 0
 		color 0
 		back 15
-		priority 15
+		priority 17
 		window 0
 		type $0000
 		title 0
