@@ -273,309 +273,248 @@ code_1ba3:
 					((Said '(hang<up),disconnect') ((curRoom script?) changeState: 999))
 					((or (Said 'fuck,crap') (Said '/fuck,crap')) ((curRoom script?) changeState: 999))
 					(else (super handleEvent: event))
-					
-					
-					
-					
-					
-					
-					
 				)
 			)
 		)
-		
-
-				(if 
-			(and
-				(== (event type?) evMOUSEBUTTON)
-				(not (& (event modifiers?) emRIGHT_BUTTON))
-			)
-			
-
-				
-				
-			
-			(if		(and
-						(ClickedOnObj person (event x?) (event y?))
-						(cast contains: person);  ;checks that is on the screen
-					)
-
-				(switch theCursor
-					(996 ;talk
-						(event claimed: 1)
-						
-						
-														(if talked
-									;PnCdialogue test
-									(= callmet
-										(PrintSpecial
-						
-						
-						
-						
-						
-
-
-											
-											{&A quién vas a llamar?}
-											#button {Police} 1
-											#button {Cheeks} 2
-											#button {Cove cotton} 3
-											#button {Arnie cafe} 4
-											#button {Jail} 5
-											#button {Airport} 6
-											#button {Inn} 7
-											#button {Colgar} 8
-										)
-									)
-									(switch callmet
-										(1 ;Police
-											
-												(PersonSpeak 12 21)
-											
-										)
-										(2 ;cheers
-											
-												(PersonSpeak 12 22)
-											
-										)
-										(3 ;Cove cotton
-											
-												(PersonSpeak 12 23)
-											
-										)	
-										(4 ;arnie,cafe
-											
-												(PersonSpeak 12 24)
-											
-										)
-										(5 ;jail
-											
-												(PersonSpeak 12 25)
-											
-										)													
-										(6 ;airport
-											
-												(PersonSpeak 12 26)
-											
-										)
-										(7 ;inn
-											
-												(PersonSpeak 12 27)
-											
-										)
-										(8 ;colgar
-											(event claimed: 1) (Information changeState: 4) (return)
-										)
-									)
-					
-						)
-								
-							
-;;;								)
-			
-				
-					)
-			
-			
-					)
-				)
-
-				
-		
-		
-		
-		
-		
-			)
-		
-
 	)
-
 )
+
 (instance phoneNumber of Script
 	(properties)
 	
-	(method (changeState newState)
-		(asm
-			lap      newState
-			aTop     state
-			push    
-			dup     
-			ldi      0
-			eq?     
-			bnt      code_02c0
-			pushi    #canInput
-			pushi    1
-			pushi    0
-			class    User
-			send     6
-			ldi      2
-			aTop     seconds
-			jmp      code_03f6
-code_02c0:
-			dup     
-			ldi      1
-			eq?     
-			bnt      code_03e0
-			pushi    #canInput
-			pushi    1
-			pushi    1
-			class    User
-			send     6
-			ldi      0
-			sal      str
-code_02d4:
-			pushi    8
-			pushi    12
-			pushi    3
-			pushi    67
-			pushi    20
-			pushi    120
-			pushi    41
-			lea      @str
-			push    
-			pushi    18
-			calle    Print,  16
-			not     
-			bnt      code_02fe
-			pushi    #changeState
-			pushi    1
-			pushi    999
-			self     6
-			jmp      code_03f6
-			jmp      code_02d4
-code_02fe:
-			pushi    1
-			lea      @str
-			push    
-			callk    StrLen,  2
-			push    
-			ldi      1
-			eq?     
-			bnt      code_0348
-			pushi    35
-			pushi    2
-			lea      @str
-			push    
-			pushi    0
-			callk    StrAt,  4
-			eq?     
-			bnt      code_0348
-			pushi    2
-			lea      @local171
-			push    
-			lofsa    myEvent
-			push    
-			callk    Parse,  4
-			bnt      code_0348
-			pushi    #type
-			pushi    1
-			pushi    128
-			lofsa    myEvent
-			send     6
-			pushi    #handleEvent
-			pushi    1
-			lofsa    myEvent
-			push    
-			lofsa    phoneNumber
-			send     6
-			jmp      code_03f6
-			jmp      code_02d4
-code_0348:
-			pushi    1
-			lea      @str
-			push    
-			callk    StrLen,  2
-			push    
-			ldi      7
-			lt?     
-			bnt      code_0389
-			pushi    2
-			lea      @str
-			push    
-			lofsa    {0}
-			push    
-			callk    StrCmp,  4
-			push    
-			ldi      0
-			ne?     
-			bnt      code_0389
-			pushi    2
-			lea      @str
-			push    
-			lofsa    {411}
-			push    
-			callk    StrCmp,  4
-			push    
-			ldi      0
-			ne?     
-			bnt      code_0389
-			pushi    2
-			pushi    12
-			pushi    4
-			calle    Print,  4
-			jmp      code_02d4
-code_0389:
-			pushi    2
-			lea      @str
-			push    
-			pushi    0
-			callk    StrAt,  4
-			push    
-			ldi      49
-			eq?     
-			bnt      code_03a5
-			pushi    2
-			pushi    12
-			pushi    5
-			calle    Print,  4
-			jmp      code_02d4
-code_03a5:
-			pushi    2
-			lea      @str
-			push    
-			lofsa    myEvent
-			push    
-			callk    Parse,  4
-			bnt      code_02d4
-			pushi    2
-			lea      @local171
-			push    
-			lea      @str
-			push    
-			callk    StrCpy,  4
-			pushi    #type
-			pushi    1
-			pushi    128
-			lofsa    myEvent
-			send     6
-			pushi    #handleEvent
-			pushi    1
-			lofsa    myEvent
-			push    
-			lofsa    phoneNumber
-			send     6
-			jmp      code_03f6
-			jmp      code_02d4
-			jmp      code_03f6
-code_03e0:
-			dup     
-			ldi      999
-			eq?     
-			bnt      code_03f6
-			pushi    0
-			callb    HandsOn,  0
-			pushi    #newRoom
-			pushi    1
-			lsg      prevRoomNum
-			lag      curRoom
-			send     6
-code_03f6:
-			toss    
-			ret     
-		)
+	(method (changeState newState &tmp exit)
+		(switch (= state newState)
+			(0
+				;PnCdialogue test
+				(while (not exit)
+					(= callmet
+						(PrintSpecial
+							{&A quién vas a llamar?}
+							#at 10 115
+							#button {Police} 1
+							#button {Cheeks} 2
+							#button {Cove cotton} 3
+							#button {Arnie cafe} 4
+							#button {Jail} 5
+							#button {Airport} 6
+							#button {Inn} 7
+							#button {Colgar} 8
+							#button {Exit} 0
+						)
+					)
+					(switch callmet
+						(0
+							(= exit 1)	
+						)
+						(1 ;Police			
+							(PersonSpeak 12 21)
+						)
+						(2 ;cheers
+							(PersonSpeak 12 22)
+						)
+						(3 ;Cove cotton
+							(PersonSpeak 12 23)
+						)	
+						(4 ;arnie,cafe
+							(PersonSpeak 12 24)
+						)
+						(5 ;jail	
+							(PersonSpeak 12 25)	
+						)													
+						(6 ;airport
+							(PersonSpeak 12 26)	
+						)
+						(7 ;inn		
+							(PersonSpeak 12 27)
+						)
+						(8 ;colgar
+							(Information changeState: 4)
+						)
+					)
+				)
+				(curRoom newRoom: 4)
+			)	
+		)	
 	)
+;;;		(asm
+;;;			lap      newState
+;;;			aTop     state
+;;;			push    
+;;;			dup     
+;;;			ldi      0
+;;;			eq?     
+;;;			bnt      code_02c0
+;;;			pushi    #canInput
+;;;			pushi    1
+;;;			pushi    0
+;;;			class    User
+;;;			send     6
+;;;			ldi      2
+;;;			aTop     seconds
+;;;			jmp      code_03f6
+;;;code_02c0:
+;;;			dup     
+;;;			ldi      1
+;;;			eq?     
+;;;			bnt      code_03e0
+;;;			pushi    #canInput
+;;;			pushi    1
+;;;			pushi    1
+;;;			class    User
+;;;			send     6
+;;;			ldi      0
+;;;			sal      str
+;;;code_02d4:
+;;;			pushi    8
+;;;			pushi    12
+;;;			pushi    3
+;;;			pushi    67
+;;;			pushi    20
+;;;			pushi    120
+;;;			pushi    41
+;;;			lea      @str
+;;;			push    
+;;;			pushi    18
+;;;			calle    Print,  16
+;;;			not     
+;;;			bnt      code_02fe
+;;;			pushi    #changeState
+;;;			pushi    1
+;;;			pushi    999
+;;;			self     6
+;;;			jmp      code_03f6
+;;;			jmp      code_02d4
+;;;code_02fe:
+;;;			pushi    1
+;;;			lea      @str
+;;;			push    
+;;;			callk    StrLen,  2
+;;;			push    
+;;;			ldi      1
+;;;			eq?     
+;;;			bnt      code_0348
+;;;			pushi    35
+;;;			pushi    2
+;;;			lea      @str
+;;;			push    
+;;;			pushi    0
+;;;			callk    StrAt,  4
+;;;			eq?     
+;;;			bnt      code_0348
+;;;			pushi    2
+;;;			lea      @local171
+;;;			push    
+;;;			lofsa    myEvent
+;;;			push    
+;;;			callk    Parse,  4
+;;;			bnt      code_0348
+;;;			pushi    #type
+;;;			pushi    1
+;;;			pushi    128
+;;;			lofsa    myEvent
+;;;			send     6
+;;;			pushi    #handleEvent
+;;;			pushi    1
+;;;			lofsa    myEvent
+;;;			push    
+;;;			lofsa    phoneNumber
+;;;			send     6
+;;;			jmp      code_03f6
+;;;			jmp      code_02d4
+;;;code_0348:
+;;;			pushi    1
+;;;			lea      @str
+;;;			push    
+;;;			callk    StrLen,  2
+;;;			push    
+;;;			ldi      7
+;;;			lt?     
+;;;			bnt      code_0389
+;;;			pushi    2
+;;;			lea      @str
+;;;			push    
+;;;			lofsa    {0}
+;;;			push    
+;;;			callk    StrCmp,  4
+;;;			push    
+;;;			ldi      0
+;;;			ne?     
+;;;			bnt      code_0389
+;;;			pushi    2
+;;;			lea      @str
+;;;			push    
+;;;			lofsa    {411}
+;;;			push    
+;;;			callk    StrCmp,  4
+;;;			push    
+;;;			ldi      0
+;;;			ne?     
+;;;			bnt      code_0389
+;;;			pushi    2
+;;;			pushi    12
+;;;			pushi    4
+;;;			calle    Print,  4
+;;;			jmp      code_02d4
+;;;code_0389:
+;;;			pushi    2
+;;;			lea      @str
+;;;			push    
+;;;			pushi    0
+;;;			callk    StrAt,  4
+;;;			push    
+;;;			ldi      49
+;;;			eq?     
+;;;			bnt      code_03a5
+;;;			pushi    2
+;;;			pushi    12
+;;;			pushi    5
+;;;			calle    Print,  4
+;;;			jmp      code_02d4
+;;;code_03a5:
+;;;			pushi    2
+;;;			lea      @str
+;;;			push    
+;;;			lofsa    myEvent
+;;;			push    
+;;;			callk    Parse,  4
+;;;			bnt      code_02d4
+;;;			pushi    2
+;;;			lea      @local171
+;;;			push    
+;;;			lea      @str
+;;;			push    
+;;;			callk    StrCpy,  4
+;;;			pushi    #type
+;;;			pushi    1
+;;;			pushi    128
+;;;			lofsa    myEvent
+;;;			send     6
+;;;			pushi    #handleEvent
+;;;			pushi    1
+;;;			lofsa    myEvent
+;;;			push    
+;;;			lofsa    phoneNumber
+;;;			send     6
+;;;			jmp      code_03f6
+;;;			jmp      code_02d4
+;;;			jmp      code_03f6
+;;;code_03e0:
+;;;			dup     
+;;;			ldi      999
+;;;			eq?     
+;;;			bnt      code_03f6
+;;;			pushi    0
+;;;			callb    HandsOn,  0
+;;;			pushi    #newRoom
+;;;			pushi    1
+;;;			lsg      prevRoomNum
+;;;			lag      curRoom
+;;;			send     6
+;;;code_03f6:
+;;;			toss    
+;;;			ret     
+;;;		)
+;;;	)
 	
 	(method (handleEvent event)
 		(if
@@ -663,7 +602,10 @@ code_03f6:
 					(localproc_1a28)
 				)
 			)
-			(else (Print 12 14) (self changeState: 0))
+			(else
+				(Print 12 14) ;"please enter a number"
+				(self changeState: 0)
+			)
 		)
 	)
 )
@@ -859,18 +801,9 @@ code_03f6:
 ;;;								)
 ;;;			
 ;;;				
-;;;
-;;;			
-;;;			
-;;;					)
-			
-			
-		)
-					)
-;;;				)
-;;;			)
-;;;				)
-
+;;	
+	)
+)
 
 
 (instance talkingToColby of Script
@@ -1337,8 +1270,12 @@ code_03f6:
 						(PersonSpeak 12 97)
 						(PersonSpeak 12 97)
 					)
-					(1 (PersonSpeak 12 98))
-					(2 (PersonSpeak 12 99))
+					(1
+						(PersonSpeak 12 98)
+					)
+					(2
+						(PersonSpeak 12 99)
+					)
 				)
 			)
 			(2
@@ -1453,19 +1390,14 @@ code_03f6:
 		)
 	)
 )
+
 (instance person of Actor
 	(properties
-			view 444
-			loop 1
-			cel 0
-			x 60
-			y 1000
-			
-			priority 1
-			
-			
+		view 444
+		loop 1
+		cel 0
+		x 60
+		y 1000
+		priority 1	
 	)
 )
-;;;(instance sonny of Actor
-;;;
-;;;)
