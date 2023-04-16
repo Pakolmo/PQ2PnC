@@ -9,16 +9,10 @@
 (use User)
 (use Actor)
 (use System)
-
-
 (use Extra)
-
-
 (include game.sh)
 
-
-
-
+(define STRINGS_EQUAL 0)
 
 (public
 	phone 0
@@ -282,53 +276,170 @@ code_1ba3:
 (instance phoneNumber of Script
 	(properties)
 	
-	(method (changeState newState &tmp exit)
+	(method (changeState newState &tmp [numStr 15] [numStr2 15] count exit pressed)
 		(switch (= state newState)
 			(0
-				;PnCdialogue test
+				(= count 0)
+				(= exit 0)
+				(StrCpy @numStr {Dialed: })
 				(while (not exit)
-					(= callmet
+					(= pressed
 						(PrintSpecial
-							{&A quién vas a llamar?}
-							#at 10 115
-							#button {Police} 1
-							#button {Cheeks} 2
-							#button {Cove cotton} 3
-							#button {Arnie cafe} 4
-							#button {Jail} 5
-							#button {Airport} 6
-							#button {Inn} 7
-							#button {Colgar} 8
-							#button {Exit} 0
+							@numStr
+							#at 10 125
+							#button {1} 1
+							#button {2} 2
+							#button {3} 3
+							#button {4} 4
+							#button {5} 5
+							#button {6} 6
+							#button {7} 7
+							#button {8} 8
+							#button {9} 9 
+							#button {0} 0
+							#button {Clr} 10
+							#button {Dial} 11
+							#button {Exit} 12
 						)
 					)
-					(switch callmet
-						(0
+					(switch pressed
+						(10
+							(StrCpy @numStr {Dialed: })
+							(= count 0)	
+						)
+						(11
+							(cond
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: "))
+									(Print 12 14)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
+									(curRoom setScript: Information)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
+									(curRoom setScript: Information)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
+									(PersonSpeak 12 6)
+									(PersonSpeak 12 7)
+									(PersonHangUp)
+									;(curRoom setScript: phoneNumber)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2222"))
+									(localproc_1a28)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-6844"))
+									(localproc_1a28)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-1699"))
+									(localproc_1a28)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2052"))
+									(localproc_1a28)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4495"))
+									(PersonSpeak 12 8)
+									(PersonHangUp)
+									;(curRoom setScript: phoneNumber)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
+									(cond 
+										((== prevRoomNum 32) (localproc_1a28 40))
+										((!= gamePhase 6) (localproc_1a28 95))
+										(else (curRoom setScript: talkingToMarie))
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
+									(if (== prevRoomNum 61)
+										(localproc_1a28 40)
+									else
+										(localproc_1a28)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
+									(if (or (< gamePhase 8) (Btst 95))
+										(localproc_1a28)
+									else
+										(curRoom setScript: talkingToColby)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
+									(if (== prevRoomNum 4)
+										(localproc_1a28 40)
+									else
+										(curRoom setScript: lyttonPD)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
+									(if (<= gamePhase 8)
+										(localproc_1a28 40)
+									else
+										(curRoom setScript: steeltonPD)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
+									(localproc_1a28 40)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-4463"))
+									(if (== (Random 1 2) 1)
+										(PersonSpeak 12 9)
+										(PersonSpeak 12 10)
+										(PersonHangUp)
+										;(curRoom setScript: phoneNumber)
+									else
+										(PersonSpeak 12 11)
+										(PersonSpeak 12 12)
+										(PersonSpeak 12 13)
+										(PersonHangUp)
+										;(curRoom setScript: phoneNumber)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
+									(if (< (Random 1 10) 4)
+										(curRoom setScript: alLowe)
+									else
+										(curRoom setScript: sierra)
+									)
+								)
+								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
+									(if (< (Random 1 10) 4)
+										(curRoom setScript: alLowe)
+									else
+										(curRoom setScript: sierra)
+									)
+								)
+								(else
+									(if (< (Random 1 10) 3)
+										(curRoom setScript: sicko)
+									else
+										(localproc_1a28)
+									)
+								)
+							)					
+						)
+						(12
 							(= exit 1)	
 						)
-						(1 ;Police			
-							(PersonSpeak 12 21)
-						)
-						(2 ;cheers
-							(PersonSpeak 12 22)
-						)
-						(3 ;Cove cotton
-							(PersonSpeak 12 23)
-						)	
-						(4 ;arnie,cafe
-							(PersonSpeak 12 24)
-						)
-						(5 ;jail	
-							(PersonSpeak 12 25)	
-						)													
-						(6 ;airport
-							(PersonSpeak 12 26)	
-						)
-						(7 ;inn		
-							(PersonSpeak 12 27)
-						)
-						(8 ;colgar
-							(Information changeState: 4)
+						(else	
+							(++ count)
+							(if (== count 4)
+								(StrCat @numStr {-})
+							)
+							(if
+								(and
+									(== count 7)
+									(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
+								)
+								(StrCat @numStr {-})
+							)
+							(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
+								(if (< count 8)
+									(StrCat @numStr (Format @numStr2 {%d} pressed))
+								)
+							else
+								(if (< count 11)
+									(StrCat @numStr (Format @numStr2 {%d} pressed))
+								)						
+							)
 						)
 					)
 				)
@@ -336,277 +447,98 @@ code_1ba3:
 			)	
 		)	
 	)
-;;;		(asm
-;;;			lap      newState
-;;;			aTop     state
-;;;			push    
-;;;			dup     
-;;;			ldi      0
-;;;			eq?     
-;;;			bnt      code_02c0
-;;;			pushi    #canInput
-;;;			pushi    1
-;;;			pushi    0
-;;;			class    User
-;;;			send     6
-;;;			ldi      2
-;;;			aTop     seconds
-;;;			jmp      code_03f6
-;;;code_02c0:
-;;;			dup     
-;;;			ldi      1
-;;;			eq?     
-;;;			bnt      code_03e0
-;;;			pushi    #canInput
-;;;			pushi    1
-;;;			pushi    1
-;;;			class    User
-;;;			send     6
-;;;			ldi      0
-;;;			sal      str
-;;;code_02d4:
-;;;			pushi    8
-;;;			pushi    12
-;;;			pushi    3
-;;;			pushi    67
-;;;			pushi    20
-;;;			pushi    120
-;;;			pushi    41
-;;;			lea      @str
-;;;			push    
-;;;			pushi    18
-;;;			calle    Print,  16
-;;;			not     
-;;;			bnt      code_02fe
-;;;			pushi    #changeState
-;;;			pushi    1
-;;;			pushi    999
-;;;			self     6
-;;;			jmp      code_03f6
-;;;			jmp      code_02d4
-;;;code_02fe:
-;;;			pushi    1
-;;;			lea      @str
-;;;			push    
-;;;			callk    StrLen,  2
-;;;			push    
-;;;			ldi      1
-;;;			eq?     
-;;;			bnt      code_0348
-;;;			pushi    35
-;;;			pushi    2
-;;;			lea      @str
-;;;			push    
-;;;			pushi    0
-;;;			callk    StrAt,  4
-;;;			eq?     
-;;;			bnt      code_0348
-;;;			pushi    2
-;;;			lea      @local171
-;;;			push    
-;;;			lofsa    myEvent
-;;;			push    
-;;;			callk    Parse,  4
-;;;			bnt      code_0348
-;;;			pushi    #type
-;;;			pushi    1
-;;;			pushi    128
-;;;			lofsa    myEvent
-;;;			send     6
-;;;			pushi    #handleEvent
-;;;			pushi    1
-;;;			lofsa    myEvent
-;;;			push    
-;;;			lofsa    phoneNumber
-;;;			send     6
-;;;			jmp      code_03f6
-;;;			jmp      code_02d4
-;;;code_0348:
-;;;			pushi    1
-;;;			lea      @str
-;;;			push    
-;;;			callk    StrLen,  2
-;;;			push    
-;;;			ldi      7
-;;;			lt?     
-;;;			bnt      code_0389
-;;;			pushi    2
-;;;			lea      @str
-;;;			push    
-;;;			lofsa    {0}
-;;;			push    
-;;;			callk    StrCmp,  4
-;;;			push    
-;;;			ldi      0
-;;;			ne?     
-;;;			bnt      code_0389
-;;;			pushi    2
-;;;			lea      @str
-;;;			push    
-;;;			lofsa    {411}
-;;;			push    
-;;;			callk    StrCmp,  4
-;;;			push    
-;;;			ldi      0
-;;;			ne?     
-;;;			bnt      code_0389
-;;;			pushi    2
-;;;			pushi    12
-;;;			pushi    4
-;;;			calle    Print,  4
-;;;			jmp      code_02d4
-;;;code_0389:
-;;;			pushi    2
-;;;			lea      @str
-;;;			push    
-;;;			pushi    0
-;;;			callk    StrAt,  4
-;;;			push    
-;;;			ldi      49
-;;;			eq?     
-;;;			bnt      code_03a5
-;;;			pushi    2
-;;;			pushi    12
-;;;			pushi    5
-;;;			calle    Print,  4
-;;;			jmp      code_02d4
-;;;code_03a5:
-;;;			pushi    2
-;;;			lea      @str
-;;;			push    
-;;;			lofsa    myEvent
-;;;			push    
-;;;			callk    Parse,  4
-;;;			bnt      code_02d4
-;;;			pushi    2
-;;;			lea      @local171
-;;;			push    
-;;;			lea      @str
-;;;			push    
-;;;			callk    StrCpy,  4
-;;;			pushi    #type
-;;;			pushi    1
-;;;			pushi    128
-;;;			lofsa    myEvent
-;;;			send     6
-;;;			pushi    #handleEvent
-;;;			pushi    1
-;;;			lofsa    myEvent
-;;;			push    
-;;;			lofsa    phoneNumber
-;;;			send     6
-;;;			jmp      code_03f6
-;;;			jmp      code_02d4
-;;;			jmp      code_03f6
-;;;code_03e0:
-;;;			dup     
-;;;			ldi      999
-;;;			eq?     
-;;;			bnt      code_03f6
-;;;			pushi    0
-;;;			callb    HandsOn,  0
-;;;			pushi    #newRoom
-;;;			pushi    1
-;;;			lsg      prevRoomNum
-;;;			lag      curRoom
-;;;			send     6
-;;;code_03f6:
-;;;			toss    
-;;;			ret     
-;;;		)
-;;;	)
 	
 	(method (handleEvent event)
 		(if
 		(or (event claimed?) (!= (event type?) saidEvent))
 			(return)
 		)
-		(cond 
-			((Said '/411,0') (curRoom setScript: Information))
-			((Said '/5558723')
-				(PersonSpeak 12 6)
-				(PersonSpeak 12 7)
-				(PersonHangUp)
-				(curRoom setScript: phoneNumber)
-			)
-			((Said '/5552222') (localproc_1a28))
-			((Said '/4075556844') (localproc_1a28))
-			((Said '/5551699') (localproc_1a28))
-			((Said '/5552052') (localproc_1a28))
-			((Said '/5554495')
-				(PersonSpeak 12 8)
-				(PersonHangUp)
-				(curRoom setScript: phoneNumber)
-			)
-			((Said '/5554169')
-				(cond 
-					((== prevRoomNum 32) (localproc_1a28 40))
-					((!= gamePhase 6) (localproc_1a28 95))
-					(else (curRoom setScript: talkingToMarie))
-				)
-			)
-			((Said '/5553344')
-				(if (== prevRoomNum 61)
-					(localproc_1a28 40)
-				else
-					(localproc_1a28)
-				)
-			)
-			((Said '/4075553323')
-				(if (or (< gamePhase 8) (Btst 95))
-					(localproc_1a28)
-				else
-					(curRoom setScript: talkingToColby)
-				)
-			)
-			((Said '/5555432')
-				(if (== prevRoomNum 4)
-					(localproc_1a28 40)
-				else
-					(curRoom setScript: lyttonPD)
-				)
-			)
-			((Said '/4075552677')
-				(if (<= gamePhase 8)
-					(localproc_1a28 40)
-				else
-					(curRoom setScript: steeltonPD)
-				)
-			)
-			((Said '/5550001') (localproc_1a28 40))
-			((Said '/2096834463')
-				(if (== (Random 1 2) 1)
-					(PersonSpeak 12 9)
-					(PersonSpeak 12 10)
-					(PersonHangUp)
-					(curRoom setScript: phoneNumber)
-				else
-					(PersonSpeak 12 11)
-					(PersonSpeak 12 12)
-					(PersonSpeak 12 13)
-					(PersonHangUp)
-					(curRoom setScript: phoneNumber)
-				)
-			)
-			((Said '/2096836858')
-				(if (< (Random 1 10) 4)
-					(curRoom setScript: alLowe)
-				else
-					(curRoom setScript: sierra)
-				)
-			)
-			((Said '/unknownnumber')
-				(if (< (Random 1 10) 3)
-					(curRoom setScript: sicko)
-				else
-					(localproc_1a28)
-				)
-			)
-			(else
-				(Print 12 14) ;"please enter a number"
-				(self changeState: 0)
-			)
-		)
+;;;		(cond 
+;;;			((Said '/411,0') (curRoom setScript: Information))
+;;;			((Said '/5558723')
+;;;				(PersonSpeak 12 6)
+;;;				(PersonSpeak 12 7)
+;;;				(PersonHangUp)
+;;;				(curRoom setScript: phoneNumber)
+;;;			)
+;;;			((Said '/5552222') (localproc_1a28))
+;;;			((Said '/4075556844') (localproc_1a28))
+;;;			((Said '/5551699') (localproc_1a28))
+;;;			((Said '/5552052') (localproc_1a28))
+;;;			((Said '/5554495')
+;;;				(PersonSpeak 12 8)
+;;;				(PersonHangUp)
+;;;				(curRoom setScript: phoneNumber)
+;;;			)
+;;;			((Said '/5554169')
+;;;				(cond 
+;;;					((== prevRoomNum 32) (localproc_1a28 40))
+;;;					((!= gamePhase 6) (localproc_1a28 95))
+;;;					(else (curRoom setScript: talkingToMarie))
+;;;				)
+;;;			)
+;;;			((Said '/5553344')
+;;;				(if (== prevRoomNum 61)
+;;;					(localproc_1a28 40)
+;;;				else
+;;;					(localproc_1a28)
+;;;				)
+;;;			)
+;;;			((Said '/4075553323')
+;;;				(if (or (< gamePhase 8) (Btst 95))
+;;;					(localproc_1a28)
+;;;				else
+;;;					(curRoom setScript: talkingToColby)
+;;;				)
+;;;			)
+;;;			((Said '/5555432')
+;;;				(if (== prevRoomNum 4)
+;;;					(localproc_1a28 40)
+;;;				else
+;;;					(curRoom setScript: lyttonPD)
+;;;				)
+;;;			)
+;;;			((Said '/4075552677')
+;;;				(if (<= gamePhase 8)
+;;;					(localproc_1a28 40)
+;;;				else
+;;;					(curRoom setScript: steeltonPD)
+;;;				)
+;;;			)
+;;;			((Said '/5550001') (localproc_1a28 40))
+;;;			((Said '/2096834463')
+;;;				(if (== (Random 1 2) 1)
+;;;					(PersonSpeak 12 9)
+;;;					(PersonSpeak 12 10)
+;;;					(PersonHangUp)
+;;;					(curRoom setScript: phoneNumber)
+;;;				else
+;;;					(PersonSpeak 12 11)
+;;;					(PersonSpeak 12 12)
+;;;					(PersonSpeak 12 13)
+;;;					(PersonHangUp)
+;;;					(curRoom setScript: phoneNumber)
+;;;				)
+;;;			)
+;;;			((Said '/2096836858')
+;;;				(if (< (Random 1 10) 4)
+;;;					(curRoom setScript: alLowe)
+;;;				else
+;;;					(curRoom setScript: sierra)
+;;;				)
+;;;			)
+;;;			((Said '/unknownnumber')
+;;;				(if (< (Random 1 10) 3)
+;;;					(curRoom setScript: sicko)
+;;;				else
+;;;					(localproc_1a28)
+;;;				)
+;;;			)
+;;;			(else
+;;;				(Print 12 14) ;"please enter a number"
+;;;				(self changeState: 0)
+;;;			)
+;;;		)
 	)
 )
 
@@ -621,16 +553,131 @@ code_1ba3:
 		(self changeState: 1)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
 			(1
 				(= str 0)
 				(= infoLocation 0)
 				(PersonSpeak 12 15)
+				(= temp0
+					(PrintSpecial
+						{City:}
+						#at 10 125
+						#button {Steelton} 1
+						#button {Lytton} 2
+						#button {Houston} 4
+						#button {Coarsegold} 3
+						#button {Cancel} 5
+					)				
+				)
+				(switch temp0 
+					(1
+						(= infoLocation 1)
+						(self changeState: 2)
+					)
+					(2
+						(= infoLocation 2)
+						(self changeState: 2)
+					)
+					(3
+						(= infoLocation 3)
+						(self changeState: 2)
+					)
+					(4
+						(= infoLocation 4)
+						(self changeState: 2)
+					)
+					(else
+						;(event claimed: 1)
+						(PersonSpeak 12 19)
+						(PersonSpeak 12 20)
+						(self changeState: 999)
+					)
+				)	
 			)
 			(2
 				(= str 0)
-				(PersonSpeak 12 16)
+				(PersonSpeak 12 16) ;"name please"
+				(switch infoLocation
+					(1 ;steelton
+						(= temp0
+							(PrintSpecial
+								{Name:}
+								#at 10 125
+								#button {Police HQ} 1
+								#button {Burt Park} 2
+								#button {Cancel} 3
+							)				
+						)
+						(switch temp0 
+							(1 (PersonSpeak 12 28))
+							(2 (PersonSpeak 12 29))
+							(3 (PersonHangUp))
+							(else (self changeState: 4) (return))
+						)
+						(if (== state 2) (self changeState: 999))
+					)
+					(2 ;Lytton listings
+						(= temp0
+							(PrintSpecial
+								{Name:}
+								#at 10 125
+								#button {Police} 1
+								#button {Marie} 2
+								#button {Cotton Cove} 3
+								#button {Arnie's Cafe} 4
+								#button {Jailhouse} 5
+								#button {Airport} 6
+								#button {Inn} 7
+								#button {Cancel} 8
+							)				
+						)
+						(switch temp0
+							(1 (PersonSpeak 12 21))
+							(2 (PersonSpeak 12 22))
+							;((Said '/cheeks,(cheeks<!*)') (self changeState: 3) (return))
+							(3 (PersonSpeak 12 23))
+							(4 (PersonSpeak 12 24))
+							(5 (PersonSpeak 12 25))
+							(6 (PersonSpeak 12 26))
+							(7 (PersonSpeak 12 27))
+							(8 (PersonHangUp))
+							(else  (self changeState: 4) (return))
+						)
+						(if (== state 2) (self changeState: 999))
+					)
+					(3 ;corsegold
+						(= temp0
+							(PrintSpecial
+								{Name:}
+								#at 10 125
+								#button {Sierra Online} 1
+								#button {Cancel} 2
+							)				
+						)
+						(switch temp0
+							(1
+								(PersonSpeak 12 30)
+								(PersonSpeak 12 31)
+								(self changeState: 999)
+							)
+							(2 (PersonHangUp))
+							(else
+								(self changeState: 4)
+							)
+						)
+					)
+					(4 ;hurston
+					 	(= temp0
+							(PrintSpecial
+								{Name:}
+								#at 10 125
+								#button {Cancel} 1
+							)				
+						)
+						(PersonHangUp)
+					)
+				)
 			)
 			(3
 				(PersonSpeak 12 17)
@@ -639,12 +686,12 @@ code_1ba3:
 			)
 			(4
 				(PersonSpeak 12 18)
-				(= state 0)
+				(= state 998)
 				(= cycles 2)
 			)
 			(999
 				(PersonHangUp)
-				(client setScript: phoneNumber)
+				;(client setScript: phoneNumber)
 			)
 		)
 	)
@@ -1268,13 +1315,18 @@ code_1ba3:
 				(switch local_8
 					(0
 						(PersonSpeak 12 97)
-						(PersonSpeak 12 97)
+						(BondsSpeak 12 34)
+						(PersonHangUp)
 					)
 					(1
 						(PersonSpeak 12 98)
+						(BondsSpeak 12 34)
+						(PersonHangUp)
 					)
 					(2
 						(PersonSpeak 12 99)
+						(BondsSpeak 12 34)
+						(PersonHangUp)
 					)
 				)
 			)

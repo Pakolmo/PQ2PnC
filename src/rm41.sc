@@ -63,10 +63,13 @@
 		(Load rsVIEW 26)
 		(Load rsVIEW 82)
 		(Load rsVIEW 83)
+		(Load rsVIEW 89)
 		(Load rsVIEW 84)
+		(Load rsVIEW 142)
 		(Load rsVIEW 23)
 		(Load rsVIEW 24)
 		(Load rsVIEW 20)
+		(Load rsVIEW 141)
 		(Load rsSOUND 36)
 		(Load rsSOUND 41)
 		(Load rsSOUND 41)
@@ -120,7 +123,7 @@
 			addToPic:
 		)
 		((= hijacker1 (Actor new:))
-			view: 24
+			view: 144 ;24
 			posn: 60 1060
 			loop: 1
 			cel: 0
@@ -130,7 +133,7 @@
 			init:
 		)
 		((= hijacker2 (Actor new:))
-			view: 23
+			view: 143 ;23
 			posn: 70 1060
 			loop: 1
 			cel: 0
@@ -284,6 +287,10 @@
 		(Load rsVIEW 23)
 		(Load rsVIEW 26)
 		(Load rsVIEW 27)
+		(Load rsVIEW 141)
+		(Load rsVIEW 142)
+		(Load rsVIEW 143)
+		
 	)
 	
 	(method (doit &tmp temp0)
@@ -449,7 +456,7 @@
 				(cond 
 					((== (stewardess loop?) 1)
 						(stewardess
-							view: 83
+							view: 89 ;83
 							loop: 4
 							cel: 0
 							posn: 251 76
@@ -458,7 +465,7 @@
 					)
 					((!= local0 0)
 						(stewardess
-							view: 83
+							view: 89 ;83
 							loop: 4
 							posn: 251 76
 							setCycle: EndLoop self
@@ -483,7 +490,7 @@
 		(switch (= state newState)
 			(0
 				(ego
-					view: 83
+					view: 89 ;83
 					loop: 6
 					cel: 0
 					illegalBits: 0
@@ -514,7 +521,7 @@
 				(willKillTimer dispose: delete:)
 				(ego cel: 7)
 				(hijacker1
-					view: 83
+					view: 89 ;83
 					loop: 5
 					cel: 0
 					posn: (- (hijacker1 x?) 14) (hijacker1 y?)
@@ -547,7 +554,7 @@
 			(0
 				(stewardess posn: (stewardess x?) 1000)
 				(hijacker1
-					view: 83
+					view: 89 ;83
 					loop: 0
 					cel: 0
 					posn: 256 76
@@ -557,7 +564,7 @@
 			)
 			(1
 				(hijacker1
-					view: 83
+					view: 89 ;83
 					loop: 7
 					cel: 0
 					posn: 273 75
@@ -565,7 +572,7 @@
 					cycleSpeed: 2
 				)
 				(stewardess
-					view: 83
+					view: 89 ; 83
 					loop: 1
 					cel: 0
 					posn: 253 76
@@ -609,7 +616,7 @@
 					(else
 						(= local0 2)
 						(stewardess
-							view: 84
+							view: 142 ;84
 							loop: 3
 							cel: 0
 							posn: 256 76
@@ -617,7 +624,7 @@
 							setCycle: EndLoop self
 						)
 						(hijacker1
-							view: 84
+							view: 142 ;84
 							loop: 2
 							cel: 0
 							posn: 256 76
@@ -631,7 +638,7 @@
 			(6
 				(= local0 0)
 				(stewardess
-					view: 83
+					view: 89 ;83
 					posn: 253 76
 					loop: 1
 					cel: 0
@@ -639,7 +646,7 @@
 					setCycle: Forward
 				)
 				(hijacker1
-					view: 83
+					view: 89 ;83
 					posn: 273 75
 					loop: 7
 					cel: 0
@@ -662,7 +669,7 @@
 				(hijacker1Timer dispose: delete:)
 				(willKillTimer dispose: delete:)
 				(hijacker1
-					view: 84
+					view: 142 ;84
 					illegalBits: 0
 					ignoreActors:
 					loop: 0
@@ -695,7 +702,7 @@
 				(= local101 5)
 				(newProp setCycle: BegLoop)
 				(hijacker2
-					view: 27
+					view: 141 ;27
 					loop: 2
 					illegalBits: 0
 					ignoreActors:
@@ -723,7 +730,7 @@
 				(Format @str 41 39)
 				(if sittingInPlane
 					(ego
-						view: 83
+						view: 89 ;83
 						loop: 6
 						setCel: 255
 						illegalBits: 0
@@ -742,7 +749,7 @@
 				(hijacker1Timer dispose: delete:)
 				(hijacker2Timer dispose: delete:)
 				(hijacker2
-					view: 84
+					view: 142 ;84
 					loop: 1
 					cel: 0
 					setPri: (+ (hijacker2 priority?) 1)
@@ -794,7 +801,7 @@
 			)
 			(3
 				(stewardess
-					view: 84
+					view: 142 ;84
 					loop: 4
 					cel: 0
 					posn: 251 76
