@@ -821,7 +821,7 @@
 		(= systemWindow (SysWindow new:))
 		(super init:)
 		;(= debugging FALSE)
-		;(= debugging TRUE)	;added to enable debug features
+		(= debugging TRUE)	;added to enable debug features
 		
 		;"kiss angel death" now toggles debugging
 		(= ego egoObj)
@@ -1090,7 +1090,16 @@
 				(curRoom setRegions: 950)
 
 		)	
-		
+		(if (== curRoom 40)
+
+				(curRoom setRegions: 950)
+
+		)	
+				(if (== curRoom 41)
+
+				(curRoom setRegions: 950)
+
+		)			
 		(Load SOUND 6)
 	)
 	
