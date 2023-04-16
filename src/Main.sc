@@ -1085,6 +1085,11 @@
 				(curRoom setRegions: 950)
 
 		)	
+		(if (== curRoom 12)
+
+				(curRoom setRegions: 950)
+
+		)	
 		
 		(Load SOUND 6)
 	)

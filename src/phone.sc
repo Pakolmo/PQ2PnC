@@ -10,6 +10,14 @@
 (use Actor)
 (use System)
 
+
+(include game.sh)
+(include keys.sh)
+(include menu.sh)
+
+
+
+
 (public
 	phone 0
 )
@@ -25,13 +33,20 @@
 	local4
 	local5
 	local6
-	local7
-	local8
-	local9
-	local10
+	local_7
+	local_8
+	local_9
+	local_10
 	[str 160]
 	[local171 10]
 	infoLocation
+	callme
+	talked = 1
+	
+	
+	
+
+	
 )
 (procedure (RingPhone param1)
 	(Ring loop: param1 play:)
@@ -62,6 +77,7 @@
 			(Print 12 106) ;call cannot be completed as dialed
 		) 
 	)
+
 	(curRoom setScript: phoneNumber)
 )
 
@@ -70,7 +86,7 @@
 	(personMouth posn: 60 1000)
 	(RedrawCast)
 	(cls)
-	(= local9 4)
+	(= local_9 4)
 	(Format @str 12 107) ;click
 	(AssignObjectToScript person doTalk 2)
 )
@@ -83,7 +99,7 @@
 
 (procedure (PersonSpeak) ;(localproc_1af6)
 	(cls)
-	(= local9 0)
+	(= local_9 0)
 	(Format @str &rest)
 	(AssignObjectToScript person doTalk)
 )
@@ -231,8 +247,9 @@ code_1ba3:
 			posn: 60 1000
 			init:
 		)
-		(HandsOff)
+;;;		(HandsOff)
 		(curRoom setScript: phoneNumber)
+			(curRoom setRegions: 950)
 	)
 	
 	(method (handleEvent event)
@@ -254,8 +271,113 @@ code_1ba3:
 					((Said '(hang<up),disconnect') ((curRoom script?) changeState: 999))
 					((or (Said 'fuck,crap') (Said '/fuck,crap')) ((curRoom script?) changeState: 999))
 					(else (super handleEvent: event))
+					
+					
+					
+					
+					
+					
+					
 				)
 			)
+		
+		
+(
+				(if 
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			
+
+				
+				
+			
+			(if		(and
+						(ClickedOnObj person (event x?) (event y?))
+						(cast contains: person);  ;checks that is on the screen
+					)
+
+				(switch theCursor
+					(996 ;talk
+						(event claimed: 1)
+;;;						(cond 
+							(= callme
+									(Print
+
+											
+											{&A quién vas a llamar?}
+											#button {Police} 1
+											#button {Cheeks} 2
+											#button {Cove cotton} 3
+											#button {Arnie cafe} 4
+											#button {Jail} 5
+											#button {Airport} 6
+											#button {Inn} 7
+											#button {Colgar} 8
+										)
+									)
+									(switch callme
+										(1 ;Police
+											
+												(PersonSpeak 12 21)
+											
+										)
+										(2 ;cheers
+											
+												(PersonSpeak 12 22)
+											
+										)
+										(3 ;Cove cotton
+											
+												(PersonSpeak 12 23)
+											
+										)	
+										(4 ;arnie,cafe
+											
+												(PersonSpeak 12 24)
+											
+										)
+										(5 ;jail
+											
+												(PersonSpeak 12 25)
+											
+										)													
+										(6 ;airport
+											
+												(PersonSpeak 12 26)
+											
+										)
+										(7 ;inn
+											
+												(PersonSpeak 12 27)
+											
+										)
+										(8 ;colgar
+											(event claimed: 1) (self changeState: 4) (return)
+										)
+									)
+					
+			
+								
+							
+								)
+			
+				
+
+			
+			
+					)
+				)
+			)
+				)
+		
+		
+		
+		
+		
+		
+		
 		)
 	)
 )
@@ -580,7 +702,10 @@ code_03f6:
 			(localproc_1b13 event)
 			(return)
 		)
-		(if (!= (event type?) saidEvent) (return))
+		;(if (!= (event type?) saidEvent) (return))
+		(if (event claimed?) ;only check if claimed
+			(return)
+		)
 		(switch state
 			(1
 				(cond 
@@ -636,10 +761,106 @@ code_03f6:
 						(self changeState: 4)
 					)
 				)
+
 			)
 		)
-	)
-)
+
+;;;
+;;;
+;;;				(if 
+;;;			(and
+;;;				(== (event type?) evMOUSEBUTTON)
+;;;				(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;			)
+;;;			
+;;;
+;;;				
+;;;				
+;;;			
+;;;			(if		(and
+;;;						(ClickedOnObj person (event x?) (event y?))
+;;;						(cast contains: person);  ;checks that is on the screen
+;;;					)
+;;;
+;;;				(switch theCursor
+;;;					(996 ;talk
+;;;						(event claimed: 1)
+;;;;;;						(cond 
+;;;							(= callme
+;;;									(Print
+;;;
+;;;											
+;;;											{&A quién vas a llamar?}
+;;;											#button {Police} 1
+;;;											#button {Cheeks} 2
+;;;											#button {Cove cotton} 3
+;;;											#button {Arnie cafe} 4
+;;;											#button {Jail} 5
+;;;											#button {Airport} 6
+;;;											#button {Inn} 7
+;;;											#button {Colgar} 8
+;;;										)
+;;;									)
+;;;									(switch callme
+;;;										(1 ;Police
+;;;											
+;;;												(PersonSpeak 12 21)
+;;;											
+;;;										)
+;;;										(2 ;cheers
+;;;											
+;;;												(PersonSpeak 12 22)
+;;;											
+;;;										)
+;;;										(3 ;Cove cotton
+;;;											
+;;;												(PersonSpeak 12 23)
+;;;											
+;;;										)	
+;;;										(4 ;arnie,cafe
+;;;											
+;;;												(PersonSpeak 12 24)
+;;;											
+;;;										)
+;;;										(5 ;jail
+;;;											
+;;;												(PersonSpeak 12 25)
+;;;											
+;;;										)													
+;;;										(6 ;airport
+;;;											
+;;;												(PersonSpeak 12 26)
+;;;											
+;;;										)
+;;;										(7 ;inn
+;;;											
+;;;												(PersonSpeak 12 27)
+;;;											
+;;;										)
+;;;										(8 ;colgar
+;;;											(event claimed: 1) (self changeState: 4) (return)
+;;;										)
+;;;									)
+;;;					
+;;;			
+;;;								
+;;;							
+;;;								)
+;;;			
+;;;				
+;;;
+;;;			
+;;;			
+;;;					)
+			
+			
+		)
+					)
+;;;				)
+;;;			)
+;;;				)
+
+
 
 (instance talkingToColby of Script
 	(properties)
@@ -805,7 +1026,7 @@ code_03f6:
 		(super init: param1)
 		(person loop: 4 cel: 0 posn: 63 80 stopUpd:)
 		(personMouth loop: 4 cel: 0 posn: 65 64 setCycle: EndLoop)
-		(= local7 0)
+		(= local_7 0)
 		(= local5 0)
 		(RedrawCast)
 		(self changeState: 1)
@@ -886,7 +1107,7 @@ code_03f6:
 				(switch state
 					(1 (PersonSpeak 12 41))
 					(2
-						(if local7
+						(if local_7
 							(BondsSpeak 12 66)
 							(PersonSpeak 12 67)
 							(PersonHangUp)
@@ -894,7 +1115,7 @@ code_03f6:
 						else
 							(BondsSpeak 12 68)
 							(PersonSpeak 12 69)
-							(++ local7)
+							(++ local_7)
 						)
 					)
 				)
@@ -1092,7 +1313,7 @@ code_03f6:
 		(super init: param1)
 		(person loop: 9 cel: 0 posn: 63 80 stopUpd:)
 		(personMouth loop: 9 cel: 0 posn: 71 58 setCycle: EndLoop)
-		(= local8 (Random 0 2))
+		(= local_8 (Random 0 2))
 		(RedrawCast)
 		(self changeState: 1)
 	)
@@ -1100,7 +1321,7 @@ code_03f6:
 	(method (changeState newState)
 		(switch (= state newState)
 			(1
-				(switch local8
+				(switch local_8
 					(0
 						(PersonSpeak 12 97)
 						(PersonSpeak 12 97)
@@ -1110,7 +1331,7 @@ code_03f6:
 				)
 			)
 			(2
-				(switch local8
+				(switch local_8
 					(0 (= cycles 1) (= state 0))
 					(1
 						(PersonSpeak 12 100)
@@ -1177,7 +1398,7 @@ code_03f6:
 					(= temp6 180)
 				)
 				(= temp5 (- 50 (/ (- [temp0 2] 8) 2)))
-				(switch local9
+				(switch local_9
 					(0
 						(Print @str #width temp6 #at temp4 temp5 #font smallFont)
 					)
@@ -1220,4 +1441,10 @@ code_03f6:
 			)
 		)
 	)
+)
+(instance person of Actor
+
+)
+(instance sonny of Actor
+
 )
