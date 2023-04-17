@@ -108,15 +108,9 @@
 
 (instance businessCard of View
 	(properties
-	
-	
-						
-						view 269
-						
-						loop 0
-						cel 2
-
-
+		view 269		
+		loop 0
+		cel 2
 	)			
 )
 
@@ -433,7 +427,9 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed?) (return))
+		(if (event claimed?)
+			(return)
+		)
 		(switch (event type?)
 			(keyDown
 				(if
@@ -824,36 +820,43 @@
 				)
 			)
 		)
-				(cond
-
-			(
-				(and
+		(if
+			(and
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
-			
-			(if
-				
-						(ClickedOnObj wheel (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor				
-						(995 ; look box
-									(cond 
-							((not (InRoom 2 0)) (Print 33 44))
-							((not local0) (ego get: 2) (Print 33 45) (SolvePuzzle 1 102))
-							(else (Print 33 1))
+			(if (ClickedOnObj wheel (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor				
+					(995 ; look box
+						(cond 
+							((not (InRoom 2 0))
+								(Print 33 44)
+							)
+							((not local0)
+								(ego get: 2)
+								(Print 33 45)
+								(SolvePuzzle 1 102)
+							)
+							(else
+								(Print 33 1)
+							)
 						)
-						)
-						(102 ;keys drive
-													(if (and (== gamePhase phaseMALL) (Btst fBeenAtMallCrimeScene))
+					)
+					(102 ;keys drive
+						(if
+							(and
+								(== gamePhase phaseMALL)
+								(Btst fBeenAtMallCrimeScene)
+							)
 							(= gamePhase 4)
 						)
-						(if (and (== gamePhase 12) (not (Btst fDroveToMotel)))
-							(if (Said '/inn[<snuggler,to]')
-								(event claimed: 0)
-							else
-								(Bset fDroveToMotel) ;165
+						(if
+							(and
+								(== gamePhase 12)
+								(not (Btst fDroveToMotel))
 							)
+							(Bset fDroveToMotel) ;165	
 						)
 						(PutInRoom iKeyRing 0) 
 						(cond 
@@ -1057,264 +1060,155 @@
 								(Print 33 62)
 							)
 						)
-					)
-					(
-						(or
-							(Said 'exit[/auto]')
-							(Said 'get<out')
-							(Said 'open/door')
-						)
-						(ExitPersonalCar)
-					)
-					
-)
-						)
-			
+					)	
+				)
+			)	
+			(if (== theCursor 999) ;walk anywhere to exit 
+				(ExitPersonalCar)
 			)
-
-			(else
-							(event claimed: FALSE)
-					 )
-				)
-				
-				
-			
-
-							(if
-				(and ;Exit car.
-						(> (event x?) 1) ;x1 (> (mouseX) (left edge of rectangle))
-						(< (event x?) 47) ;x2 
-						(> (event y?) 28) ;y1
-						(< (event y?) 153) ;y2
-					)
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look box
-							(curRoom newRoom: 7) ;For testing.
-						)
-						(995 ;
-							(= global137 0)
-							(gloveBoxScript changeState: 2) ;close box
-							;take key cars
-							
-							(ego get: 2)
-							(ExitPersonalCar)
-						)
-
-			(else
-							(event claimed: FALSE)
-					 )
-				)
-				
-				)
-			
-			
-			
-				(if
+			(if
 				(and ;look glove 146 136 136 150
-						(ClickedOnObj gloveBox (event x?) (event y?))
-						(cast contains: gloveBox)
-						(== (event claimed?) 0) ;ignore if already clicked on eyes, hair, etc...
-				
+					(ClickedOnObj gloveBox (event x?) (event y?))
+					(cast contains: gloveBox)
+					(== (event claimed?) 0) ;ignore if already clicked on eyes, hair, etc...
+				)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ; look box
+					
 					)
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look box
-						)
-						(995 ; hand close box
-							(if (== glove 1)
-								(theGame setCursor: 997)
+					(995 ; hand close box
+						(if (== glove 1)
+							(theGame setCursor: 997)
 							(= global137 0)
 							(gloveBoxScript changeState: 2)
 							(= glove 0)
 							(theGame setCursor: 995)
-							)
-							
-
-
 						)
-						(else
-							(event claimed: FALSE)
-					 )
-				)
-				
-				)
-							(if
-					(and ;look glove 146 136 136 150
-						(> (event x?) 146) ;x1 (> (mouseX) (left edge of rectangle))
-						(< (event x?) 175) ;x2 
-						(> (event y?) 136) ;y1
-						(< (event y?) 150) ;y2
-						(not (cast contains: gloveBoxDoor))
-						(== glove 0)
-;;;						(== (event claimed?) 0) ;ignore if already clicked on eyes, hair, etc...
-						
-						
-											
 					)
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look box
-							(if (== glove 0)
-								(theGame setCursor: 997)
-								(= global137 1)
-								(= local2 0)
-								(gloveBoxScript changeState: 0)
-								(theGame setCursor: 998)
-								(= glove 1)
-							)
-						)
-						(995 ; hand open box
-							(if (== glove 0)
-								(theGame setCursor: 997)
-								(= global137 1)
-								(= local2 0)
-								(gloveBoxScript changeState: 0)
-								(theGame setCursor: 995)
-								(= glove 1)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-					 )
+					(else
+						(event claimed: FALSE)
+					)
 				)
-				
-				)						
-				
-;;;					(if
-;;;					(and ;look glove 146 136 136 150
-;;;						(> (event x?) 146) ;x1 (> (mouseX) (left edge of rectangle))
-;;;						(< (event x?) 175) ;x2 
-;;;						(> (event y?) 136) ;y1
-;;;						(< (event y?) 150) ;y2
-;;;						(cast contains: gloveBoxDoor)
-;;;												(== (event claimed?) 0) ;ignore if already clicked on eyes, hair, etc...					
-;;;					)
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor				
-;;;						(998 ; look box
-;;;						)
-;;;						(995 ; hand open box
-;;;
-;;;
-;;;
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;					 )
-;;;				)
-;;;				
-;;;				)							
-				(if	 
-					(and
-							(ClickedOnObj registration (event x?) (event y?))
-							(cast contains: gloveBoxDoor)
-							)
-				
-						(event claimed: TRUE)
-					(switch theCursor				
-						(995 ; look 
-							(registration startUpd: hide:)
-							(Print 33 49 #mode 1 #draw)
-							(Print 33 50)
-							(registration show: stopUpd:)
-							
-						)
-						(998 ; look 
-							(registration startUpd: hide:)
-							(Print 33 49 #mode 1 #draw)
-							(Print 33 50)
-							(registration show: stopUpd:)
-							
-						)
-						(else
-							(event claimed: FALSE)
-					 )
+			)
+			(if
+				(and ;look glove 146 136 136 150
+					(ClickedInRect 146 175 136 150 event) ;Glove box area
+					(not (cast contains: gloveBoxDoor))
+					(== glove 0)		
 				)
-				
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ; look box
+						(if (== glove 0)
+							(theGame setCursor: 997)
+							(= global137 1)
+							(= local2 0)
+							(gloveBoxScript changeState: 0)
+							(theGame setCursor: 998)
+							(= glove 1)
+						)
+					)
+					(995 ; hand open box
+						(if (== glove 0)
+							(theGame setCursor: 997)
+							(= global137 1)
+							(= local2 0)
+							(gloveBoxScript changeState: 0)
+							(theGame setCursor: 995)
+							(= glove 1)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+				 	)
 				)
-				
-				
-				
-									
-				(if	 
-					(and
-							(ClickedOnObj registration (event x?) (event y?))
-							(not (cast contains: businessCard))
-							(== card 0)
-							)
-				
-						(event claimed: TRUE)
-					(switch theCursor				
-						(995 ; takelook registration
-							(if (== card 0)
+			)						
+			(if	 
+				(and
+					(ClickedOnObj registration (event x?) (event y?))
+					(cast contains: gloveBoxDoor)
+				)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(995 ; look 
+						(registration startUpd: hide:)
+						(Print 33 49 #mode 1 #draw)
+						(Print 33 50)
+						(registration show: stopUpd:)		
+					)
+					(998 ; look 
+						(registration startUpd: hide:)
+						(Print 33 49 #mode 1 #draw)
+						(Print 33 50)
+						(registration show: stopUpd:)
+					)
+					(else
+						(event claimed: FALSE)
+				 	)
+				)
+			)				
+			(if	 
+				(and
+					(ClickedOnObj registration (event x?) (event y?))
+					(not (cast contains: businessCard))
+					(== card 0)
+				)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(995 ; takelook registration
+						(if (== card 0)
 							(registration startUpd: hide:)
 							(Print 33 49 #mode 1 #draw)
 							(Print 33 50)
 							(registration show: stopUpd:)
 							(= card 1)
-							)
 						)
-						(998 ; look registration
-							(if (== card 0)
-							(registration startUpd: hide:)
-							(Print 33 49 #mode 1 #draw)
-							(Print 33 50)
-							(registration show: stopUpd:)
-							(= card 1)
-							)
+					)
+					(998 ; look registration
+						(if (== card 0)
+						(registration startUpd: hide:)
+						(Print 33 49 #mode 1 #draw)
+						(Print 33 50)
+						(registration show: stopUpd:)
+						(= card 1)
 						)
-						(else
-							(event claimed: FALSE)
-					 )
+					)
+					(else
+						(event claimed: FALSE)
+					)
 				)
-				
+			)
+			(if	
+				(and
+					(ClickedOnObj businessCard (event x?) (event y?))
+					(== card 0)
 				)
-							
-				
-				
-							
-						(if	
-							(and
-							(ClickedOnObj businessCard (event x?) (event y?))
-							(== card 0)
-							)
-							
-				
-						(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look box
-														
-								(ego get: 37)
-								
-								(businessCard dispose:)
-								(Print 33 46 #draw)
-								(SolvePuzzle 1 103)
-								(= card 1)
-						)
-						(995 ; hand open box
-
-
-							
-								(ego get: 37)
-								
-								(businessCard dispose:)
-								(Print 33 46 #draw)
-								(SolvePuzzle 1 103)
-								(= card 1)
-
-						)
-						(else
-							(event claimed: FALSE)
-					 )
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ; look box											
+						(ego get: 37)
+						(businessCard dispose:)
+						(Print 33 46 #draw)
+						(SolvePuzzle 1 103)
+						(= card 1)
+					)
+					(995 ; hand open box	
+						(ego get: 37)
+						(businessCard dispose:)
+						(Print 33 46 #draw)
+						(SolvePuzzle 1 103)
+						(= card 1)
+					)
+					(else
+						(event claimed: FALSE)
+				 	)
 				)
-				
-				)
-				
-
-				
 			)
 		)
+	)
+)
+
 
 
 (instance gloveBoxScript of Script

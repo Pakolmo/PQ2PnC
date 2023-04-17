@@ -81,7 +81,7 @@
 		)
 		(if quit
 			(Print 701 1)
-						(TheMenuBar draw:)
+			(TheMenuBar draw:)
 			(StatusLine enable:)
 			(theGame restart:)
 		else

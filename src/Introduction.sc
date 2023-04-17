@@ -7,6 +7,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use Menu)
 
 
 (public
@@ -86,6 +87,13 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)
+		(if (== (event type?) evMOUSEBUTTON)
+			(event claimed: TRUE)
+			;skip copy protection
+			(TheMenuBar draw:)
+			(StatusLine enable:)
+			(theGame restart:)
+		)
 		(if (== (event type?) keyDown)
 			(event claimed: TRUE)
 			(if (== (event message?) `#2)
