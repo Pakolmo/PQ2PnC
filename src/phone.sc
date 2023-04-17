@@ -301,7 +301,8 @@ code_1ba3:
 							#button {0} 0
 							#button {Clr} 10
 							#button {Dial} 11
-							#button {Exit} 12
+							#button {Info} 12
+							#button {Exit} 13
 						)
 					)
 					(DTMF number: 43 priority: 10 play:)
@@ -419,7 +420,12 @@ code_1ba3:
 								)
 							)					
 						)
-						(12
+						(12 (curRoom setScript: Information)
+						)
+						
+						
+						
+						(13
 							(= exit 1)	
 						)
 						(else	

@@ -344,7 +344,10 @@
 			deleteCastMember					;a member of the cast needs deleting
 			currentEgoView
 			yPositionInventory =26 
-			
+				gLarry
+					gPEventX
+					gPEventY
+						gWindow
 
 )
 (procedure (EgoDead)
@@ -900,8 +903,8 @@
 				note_from_Marie_s_door
 				your_LPD_business_card
 		)
-		(ego get: iMoneyClip)
-		(ego get: 10 get: 1 get: 2 get: 3) ;maletin
+;;;		(ego get: iMoneyClip)
+;;;		(ego get: 10 get: 1 get: 2 get: 3) ;maletin
 		(HandsOn)
 		(= showStyle HSHUTTER)
 		(DoSound ChangeVolume 15)
