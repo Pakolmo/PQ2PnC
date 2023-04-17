@@ -37,7 +37,10 @@
 	[local171 10]
 	infoLocation
 	callmet
-	talked = 1	
+	talked = 1
+	exit = 0
+	[numStr 15]
+	count
 )
 
 (procedure (RingPhone param1)
@@ -81,6 +84,8 @@
 	(= local9 4)
 	(Format @str 12 107) ;click
 	(AssignObjectToScript person doTalk 2)
+	(StrCpy @numStr {Dialed: })
+	(= count 0)	
 )
 
 (procedure (BondsSpeak)
@@ -254,7 +259,11 @@ code_1ba3:
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
-				(super handleEvent: event)
+				(if (== event $1B) ;KEY_ESCAPE
+					(= exit 1)
+				else	
+					(super handleEvent: event)
+				)
 			)
 			(saidEvent
 				(cond 
@@ -278,7 +287,7 @@ code_1ba3:
 (instance phoneNumber of Script
 	(properties)
 	
-	(method (changeState newState &tmp [numStr 15] [numStr2 15] count exit pressed)
+	(method (changeState newState &tmp [numStr2 15] pressed)
 		(switch (= state newState)
 			(0
 				(= count 0)
@@ -298,8 +307,7 @@ code_1ba3:
 							#button {7} 7
 							#button {8} 8
 							#button {9} 9 
-							#button {0} 0
-							#button {Clr} 10
+							#button {0} 10
 							#button {Dial} 11
 							#button {Info} 12
 							#button {Exit} 13
@@ -307,9 +315,8 @@ code_1ba3:
 					)
 					(DTMF number: 43 priority: 10 play:)
 					(switch pressed
-						(10
-							(StrCpy @numStr {Dialed: })
-							(= count 0)	
+						(0
+							(= exit 1)
 						)
 						(11
 							(cond
@@ -420,11 +427,9 @@ code_1ba3:
 								)
 							)					
 						)
-						(12 (curRoom setScript: Information)
+						(12
+							(curRoom setScript: Information)
 						)
-						
-						
-						
 						(13
 							(= exit 1)	
 						)
@@ -439,6 +444,9 @@ code_1ba3:
 									(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
 								)
 								(StrCat @numStr {-})
+							)
+							(if (== pressed 10) ;esc exit hack for zero
+								(= pressed 0)	
 							)
 							(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
 								(if (< count 8)
@@ -456,12 +464,15 @@ code_1ba3:
 			)	
 		)	
 	)
-	
-	(method (handleEvent event)
-		(if
-		(or (event claimed?) (!= (event type?) saidEvent))
-			(return)
-		)
+)	
+;;;	(method (handleEvent event)
+;;;		(if
+;;;			(or
+;;;				(event claimed?)
+;;;				(!= (event type?) saidEvent)
+;;;			)
+;;;			(return)
+;;;		)
 ;;;		(cond 
 ;;;			((Said '/411,0') (curRoom setScript: Information))
 ;;;			((Said '/5558723')
@@ -548,8 +559,8 @@ code_1ba3:
 ;;;				(self changeState: 0)
 ;;;			)
 ;;;		)
-	)
-)
+;;;	)
+;;;)
 
 (instance Information of Script
 	(properties)
