@@ -37,13 +37,9 @@
 	[local171 10]
 	infoLocation
 	callmet
-	talked = 1
-	
-	
-	
-
-	
+	talked = 1	
 )
+
 (procedure (RingPhone param1)
 	(Ring loop: param1 play:)
 )
@@ -180,6 +176,12 @@ code_1ba3:
 	)
 )
 
+(instance DTMF of Sound
+	(properties
+		priority 12
+	)
+)
+
 (instance myEvent of Event
 	(properties)
 )
@@ -302,6 +304,7 @@ code_1ba3:
 							#button {Exit} 12
 						)
 					)
+					(DTMF number: 43 priority: 10 play:)
 					(switch pressed
 						(10
 							(StrCpy @numStr {Dialed: })
