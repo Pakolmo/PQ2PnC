@@ -47,10 +47,10 @@
 				(MenuBar draw:)
 				(StatusLine enable:)
 				(NormalEgo)
-				(curRoom newRoom: 41);1
+				(curRoom newRoom: 1);1
 				
 			else
-				(curRoom newRoom: 41);200
+				(curRoom newRoom: 200);200
 			)
 		)
 	)

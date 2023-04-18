@@ -803,7 +803,11 @@
 						)
 					)
 				)
-				(if (ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
+				(if
+
+						(ClickedInRect 243 277 102 135 event) ;personal car
+
+;;;				(if (ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
@@ -819,7 +823,10 @@
 						)
 					)
 				)
-				(if (ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
+				(if
+
+						(ClickedInRect 90 175 120 146 event) ;unmarked car
+;;;				(if (ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look maletero/trunk
@@ -848,7 +855,8 @@
 													(== fieldKitToggle 0)
 												)
 												(Print 1 15) ;"You take your field kit from the trunk."
-												(ego get: iFieldKit) ;y cerrar maletero	
+												(ego get: iFieldKit) ;y cerrar maletero
+												
 											else
 												(self setScript: trunkScript)
 												(= workCarTrunkOpened FALSE)
