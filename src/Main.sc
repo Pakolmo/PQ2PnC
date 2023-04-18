@@ -313,7 +313,7 @@
     	movingButtons = 0    ;0 = not moving, 1 = moving down, 2 = moving up 
           
 		gPreviousCursor=999         ;Used when leaving inventory screen empty handed	
-		itemIcon = 100        ;cursor number of inventory item last selected ;104 ;INITIAL MONEY ICON;
+		itemIcon = 900        ;cursor number of inventory item last selected ;104 ;INITIAL MONEY ICON;
     
 		canTab = TRUE           ;Allow the inventory room
  		doInventory = FALSE     ;Allows easy communication between scripts, go to inventory

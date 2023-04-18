@@ -1344,6 +1344,7 @@
 ;(use Actor)
 ;(use Wander)
 (use PncMenu)
+(use Gun)
 
 (local
 	yesI
@@ -1637,12 +1638,13 @@
 					)
 					(998 ;look at item
 						;((el value?) showSelf:)
-					
-							((el value?) showSelf:) ;display the inventory item normally.
-
-
+						((el value?) showSelf:) ;display the inventory item normally.
 					)
-
+					(101 ;extra ammo clips
+						(if (== ((el value?) view?) 100) ;clicked gun with clips
+							(load)	
+						)
+					)
 					(else
 ;;;						(Print {You can't use those items together.}) ;English
 						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
@@ -1683,12 +1685,10 @@
 				)
 			)
 		)
-
 		(event
 			type: typ,
 			message: msg
 		)
-
 		(return (super handleEvent:event))
 	)
 )

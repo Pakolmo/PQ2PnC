@@ -10,6 +10,9 @@
 
 (public
 	Gun 0
+	load 1 
+	draw 2
+	fire 3
 )
 
 (local
@@ -84,6 +87,52 @@
 	)
 )
 
+(procedure (load)					
+	(cond
+		(isHandsOff 0)
+		((not (ego has: iHandGun))
+			(DontHaveGun)
+		)
+		(
+			(or
+				(not (ego has: iAmmoClips))
+				(and
+					(== [numAmmoClips 1] [numAmmoClips 2])
+					(== [numAmmoClips 2] 0)
+				)
+			)
+			(Print 150 0)
+		)
+		([numAmmoClips bulletsInGun]
+			(Print 150 1)
+		)
+		(else
+			(Print 150 2 #time 4)
+			(if (== bulletsInGun 1)
+				(= bulletsInGun 2)
+			else
+				(= bulletsInGun 1)
+			)
+		)
+	)
+)
+
+(procedure (draw)
+	(if (not isHandsOff)
+		(if gunDrawn
+			(ego setScript: holsterGun)
+		else
+			(ego setScript: drawGun)
+		)
+	)	
+)
+
+(procedure (fire)
+	(if (not isHandsOff)
+		(ego setScript: fireGun)
+	)
+)
+
 (instance drawGun of Script
 	(method (changeState newState)
 		(switch (= state newState)
@@ -129,6 +178,7 @@
 				(if gunNotNeeded
 					(Print 800 (Random 35 38))
 				)
+				(theGame setCursor: 994 (HaveMouse))
 			)
 		)
 	)

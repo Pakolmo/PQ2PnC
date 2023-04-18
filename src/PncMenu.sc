@@ -942,6 +942,7 @@
 (use user)
 (use Motion)
 (use Invent)
+(use Gun)
 
 
 (public
@@ -971,20 +972,19 @@
 				(= yPosition 22)
 				(= yPositionInventory 18)
 				(walkIcon setPri: 15 y: yPosition init:)
-
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)
-;;;				(smellIcon setPri: 15 y: yPosition init:)
-				(background setPri: 15 y: yPosition init:)
+				(gunIcon setPri: 15 y: yPosition init:)
+				;(background setPri: 15 y: yPosition init:)
 				(invIcon setPri: 15 y: yPosition init:)
 				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
 				(levelsIcon setPri: 15 y: yPosition init:)
-				(restartIcon setPri: 15 y: yPosition init:)
+				;(restartIcon setPri: 15 y: yPosition init:)
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 100)
+				(if (!= itemIcon 900) ;nothing
 					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
 				else
 					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
@@ -994,20 +994,19 @@
 				(= yPosition 189)
 				(= yPositionInventory 18)
 				(walkIcon setPri: 15 y: yPosition init:)
-
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)				
-;;;				(smellIcon setPri: 15 y: yPosition init:)
-				(background setPri: 15 y: yPosition init:)
+				(gunIcon setPri: 15 y: yPosition init:)
+				;(background setPri: 15 y: yPosition init:)
 				(invIcon setPri: 15 y: yPosition init:)
 				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
 				(levelsIcon setPri: 15 y: yPosition init:)
-				(restartIcon setPri: 15 y: yPosition init:)
+				;(restartIcon setPri: 15 y: yPosition init:)
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 100)
+				(if (!= itemIcon 900) ;nothing
 					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
 				else
 					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
@@ -1015,20 +1014,19 @@
 			)
 			(else 
 				(walkIcon setPri: 15 y: yPosition init:)
-
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)
-;;;				(smellIcon setPri: 15 y: yPosition init:)
-(background setPri: 15 y: yPosition init:)
+				(gunIcon setPri: 15 y: yPosition init:)
+				;(background setPri: 15 y: yPosition init:)
 				(invIcon setPri: 15 y: yPosition init:)
- 			(blockIcon setPri: 14 y: yPosition init:) ;was setPri: 14
+ 				(blockIcon setPri: 14 y: yPosition init:) ;was setPri: 14
 				(levelsIcon setPri: 15 y: yPosition init:)
-				(restartIcon setPri: 15 y: yPosition init:)
+				;(restartIcon setPri: 15 y: yPosition init:)
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 100)
+				(if (!= itemIcon 900) ;nothing
 					(blockIcon
 						setPri: 14
 						y: yPosition
@@ -1047,7 +1045,7 @@
 					(selectedItem
 						setPri: 15
 						y: yPosition
-						cel: 0   ;0
+						cel: 0
 						init:
 						setScript: showButtons
 					)
@@ -1103,68 +1101,60 @@
 		(switch theCursor
 			(999
 				(walkIcon loop: 1)
-
 				(lookIcon loop: 0)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-;;;				(smellIcon loop: 0) ;add smell
+				(gunIcon loop: 0)
 				(invIcon loop: 0)
 			)
 			(998
 				(walkIcon loop: 0)
-
 				(lookIcon loop: 1)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-;;;				(smellIcon loop: 0) ;add smell
+				(gunIcon loop: 0)
 				(invIcon loop: 0)
 			)
 			(995
 				(walkIcon loop: 0)
-
 				(lookIcon loop: 0)
 				(handIcon loop: 1)
 				(talkIcon loop: 0)
-;;;				(smellIcon loop: 0) ;add smell
+				(gunIcon loop: 0)
 				(invIcon loop: 0)
 			)
 			(996
 				(walkIcon loop: 0)
-
 				(lookIcon loop: 0)
 				(handIcon loop: 0)
 				(talkIcon loop: 1)
-;;;				(smellIcon loop: 0) ;add smell
+				(gunIcon loop: 0)
 				(invIcon loop: 0)
 			)
-;;;			(994 ;add smell
-;;;				(walkIcon loop: 0)
-;;;
-;;;				(lookIcon loop: 0)
-;;;				(handIcon loop: 0)
-;;;				(talkIcon loop: 0)
-;;;				(smellIcon loop: 1)
-;;;			)
+			(990
+				(walkIcon loop: 0)
+				(lookIcon loop: 0)
+				(handIcon loop: 0)
+				(talkIcon loop: 0)
+				(gunIcon loop: 1)
+			)
 			(itemIcon
 				(walkIcon loop: 0)
-
 				(lookIcon loop: 0 init:)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-;;;				(smellIcon loop: 0) ;add smell
+				(gunIcon loop: 0)
 				(invIcon loop: 1)
 			)
 		)
-		(if (!= itemIcon 100)
-			;(selectedItem view: itemIcon) ;inventory views == inventory item number
-			(selectedItem view: (+ itemIcon 0)); inv # + 900
-;;;			(selectedItem loop: 1 cel: 0)
-(selectedItem loop: 1 cel: 0)
+		(if (!= itemIcon 900)
+			(selectedItem
+				view: itemIcon ;inv views start at 100
+				loop: 1
+				cel: 0
+			)
 		else
-			(selectedItem cel: 0) ;inital state, no item chosen
-	;		(selectedItem view:950 loop: 2 cel: 0) ;fix crossbar
-		(selectedItem view:950 loop: 2 cel: 0)
-			
+			(selectedItem view: 950 loop: 2 cel: 0) ;inital state, no item chosen	
 		)
 	)
 	
@@ -1172,10 +1162,10 @@
 		(super handleEvent: event)
 		(= haveMouse (HaveMouse)) ;fix rightclick crash in scummvm
 		(if (== (event type?) evMOUSEBUTTON)
-			(if modelessDialog ;it's better to put this up here
+			(if modelessDialog
 				(modelessDialog dispose:)
 			)
-		;	(blockIcon setCel: itemIcon) ; added to keep menu item up to date
+			;(blockIcon setCel: itemIcon) ; added to keep menu item up to date
 			(if (& (event modifiers?) emRIGHT_BUTTON)
 				(if (== programControl 1)
 					(event claimed: 1)
@@ -1186,27 +1176,39 @@
 						(itemIcon
 							(theGame setCursor: 999 haveMouse)
 						)
-						(999
-							(theGame setCursor: 998 haveMouse)
+						(999 ;walk
+							(if gunDrawn
+								(theGame setCursor: 990 haveMouse)
+							else
+								(theGame setCursor: 998 haveMouse)
+							)
 						)
-;;;						(996
-;;;							(theGame setCursor: 994 haveMouse)
-;;;						)
-						(998
+						(996 ;talk
+							(theGame setCursor: 990 haveMouse)
+						)
+						(998 ;eye
 							(theGame setCursor: 995 haveMouse)
 						)
-						(995
+						(995 ;hand
 							(theGame setCursor: 996 haveMouse)
 						)
-						(996
-							(if (or 
-									(== itemIcon 900)
-									(== itemIcon 993)
-								)
-								(theGame setCursor: 999 haveMouse)
+						(994 ;gun target
+							(theGame setCursor: 999 haveMouse)
+						)
+						(990
+							(if gunDrawn
+								(theGame setCursor: 994 haveMouse)
 							else
-								(theGame setCursor: 100 haveMouse)
-								(= theCursor 100)
+								(if
+									(or 
+										(== itemIcon 900)
+										(== itemIcon 993)
+									)
+									(theGame setCursor: 999 haveMouse)
+								else
+									(theGame setCursor: itemIcon haveMouse)
+									(= theCursor itemIcon)
+								)
 							)
 						)
 						(else
@@ -1282,36 +1284,28 @@
 						(= menuTime 0)
 						(theGame setCursor: 995 haveMouse)
 					)
-;;;					( ;add smell
-;;;						(and
-;;;							(> (event x?) (smellIcon nsLeft?))
-;;;							(< (event x?) (smellIcon nsRight?))
-;;;							(> (event y?) (smellIcon nsTop?))
-;;;							(< (event y?) (smellIcon nsBottom?))
-;;;						)
-;;;						(event claimed: 1)
-;;;						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
-;;;						(= menuTime 0)
-;;;						(theGame setCursor: 994 haveMouse)
-;;;					)
-
-					(
-						(and
-							(> (event x?) (background nsLeft?))
-							(< (event x?) (background nsRight?))
-							(> (event y?) (background nsTop?))
-							(< (event y?) (background nsBottom?))
-						)
+					((ClickedOnObj gunIcon (event x?) (event y?))
 						(event claimed: 1)
-						(if (and (== gLayout 1) (!= movingButtons 2))
-							(= movingButtons 2)
-							(= gShowMenu 0)
-						)
+						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
 						(= menuTime 0)
-						
+						(theGame setCursor: 990 haveMouse)
 					)
 
-
+;;;					(
+;;;						(and
+;;;							(> (event x?) (background nsLeft?))
+;;;							(< (event x?) (background nsRight?))
+;;;							(> (event y?) (background nsTop?))
+;;;							(< (event y?) (background nsBottom?))
+;;;						)
+;;;						(event claimed: 1)
+;;;						(if (and (== gLayout 1) (!= movingButtons 2))
+;;;							(= movingButtons 2)
+;;;							(= gShowMenu 0)
+;;;						)
+;;;						(= menuTime 0)
+;;;						
+;;;					)
 					(
 						(and
 							(> (event x?) (invIcon nsLeft?))
@@ -1327,17 +1321,11 @@
 						(= menuTime 0)
 						(invIcon setScript: dotheinv)
 					)
-					(
-						(and
-							(> (event x?) (selectedItem nsLeft?))
-							(< (event x?) (selectedItem nsRight?))
-							(> (event y?) (selectedItem nsTop?))
-							(< (event y?) (selectedItem nsBottom?))
-						)
+					((ClickedOnObj selectedItem (event x?) (event y?))
 						(event claimed: 1)
 						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
 						(= menuTime 0)
-						(if (!= itemIcon 950)
+						(if (!= itemIcon 900)
 							(theGame setCursor: itemIcon haveMouse)
 							(= theCursor itemIcon)
 						else
@@ -1357,18 +1345,18 @@
 						(= menuTime 0)
 						(invIcon setScript: dothelevels)
 					)
-					(
-						(and
-							(> (event x?) (restartIcon nsLeft?))
-							(< (event x?) (restartIcon nsRight?))
-							(> (event y?) (restartIcon nsTop?))
-							(< (event y?) (restartIcon nsBottom?))
-						)
-						(event claimed: 1)
-						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
-						(= menuTime 0)
-						(restartIcon setScript: dotherestart)
-					)
+;;;					(
+;;;						(and
+;;;							(> (event x?) (restartIcon nsLeft?))
+;;;							(< (event x?) (restartIcon nsRight?))
+;;;							(> (event y?) (restartIcon nsTop?))
+;;;							(< (event y?) (restartIcon nsBottom?))
+;;;						)
+;;;						(event claimed: 1)
+;;;						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
+;;;						(= menuTime 0)
+;;;						(restartIcon setScript: dotherestart)
+;;;					)
 ;;;					(
 ;;;						(and
 ;;;							(> (event x?) (loadIcon nsLeft?))
@@ -1409,7 +1397,9 @@
 					;Room defaults if nothing else is clicked on.
 					(else 
 						(switch theCursor
-							(999 (event type: 1 claimed: 0))
+							(999 ;walk
+								(event type: 1 claimed: 0)
+							)
 							(998 ;look
 								(event type: 1 claimed: 1)
 								(switch (Random 42 44)
@@ -1429,6 +1419,14 @@
 							(997 ;wait sierra
 								(event type: 1 claimed: 1)
 							)
+							(990 ;clicked anywhere with gun
+								(event claimed: TRUE)
+								(draw)
+							)
+							(994 ;gun target
+								(event claimed: TRUE)
+								(fire)
+							)
 							(else ;inventory item
 								(event type: 1 claimed: 1)
 								(Print {no need to use that here.}) ;"no need to use that here"
@@ -1439,7 +1437,7 @@
 			)
 		)
 	)
-	)
+)
 		
 	
 
@@ -1536,37 +1534,37 @@
 	)
 )
 
-(instance dotherestart of Script
-	(properties)
-	
-	(method (changeState newState)
-		(= state newState)
-		(switch state
-			(0
-				(restartIcon loop: 1)
-				(= cycles 3)
-			)
-			(1
-				(if
-					(Print MENU 9
-;;;	 					#title {Restart} ;ENGLISH
-	 					#title {Reiniciar} ;SPANISH
-
-						#font bigFont
-;;;						#button {Restart} 1 ;ENGLISH
-;;;						#button { Oops_} 0 ;ENGLISH
-						#button {Reiniciar} 1 ;SPANISH
-						#button { Ups_} 0 ;Spanish			
-					)
-					(theGame restart:)
-				else
-					(restartIcon loop: 0)
-					(= newState 0)
-				)
-			)
-		)
-	)
-)
+;;;(instance dotherestart of Script
+;;;	(properties)
+;;;	
+;;;	(method (changeState newState)
+;;;		(= state newState)
+;;;		(switch state
+;;;			(0
+;;;				(restartIcon loop: 1)
+;;;				(= cycles 3)
+;;;			)
+;;;			(1
+;;;				(if
+;;;					(Print MENU 9
+;;;;;;	 					#title {Restart} ;ENGLISH
+;;;	 					#title {Reiniciar} ;SPANISH
+;;;
+;;;						#font bigFont
+;;;;;;						#button {Restart} 1 ;ENGLISH
+;;;;;;						#button { Oops_} 0 ;ENGLISH
+;;;						#button {Reiniciar} 1 ;SPANISH
+;;;						#button { Ups_} 0 ;Spanish			
+;;;					)
+;;;					(theGame restart:)
+;;;				else
+;;;					(restartIcon loop: 0)
+;;;					(= newState 0)
+;;;				)
+;;;			)
+;;;		)
+;;;	)
+;;;)
 
 (instance dothelevels of Script
 	(properties)
@@ -1726,20 +1724,10 @@
 	)
 )
 
-(instance talkIcon of Prop
-	(properties
-		y 6
-		x 105
-		view 950
-		cel 3
-		loop 0
-	)
-)
-
 (instance lookIcon of Prop
 	(properties
 		y 6
-		x 44
+		x 45
 		view 950
 		cel 1
 		loop 0
@@ -1749,46 +1737,48 @@
 (instance handIcon of Prop
 		(properties
 		y 6
-		x 74
-		
+		x 76	
 		view 950
 		cel 2
 		loop 0
 	)
-
-
-
-
 )
 
-;;;(instance smellIcon of Prop
-;;;	(properties
-;;;		y 189
-;;;		x 126 ;move the rest of the icons down (x + 28)
-;;;		view 950
-;;;		cel 4
-;;;		loop 0
-;;;	)
-;;;)
-
-(instance background of Prop
+(instance talkIcon of Prop
 	(properties
 		y 6
-		x 197 ;move the rest of the icons down (x + 28)
+		x 107
 		view 950
-		cel 0
-		loop 7
-
+		cel 3
+		loop 0
 	)
 )
+
+(instance gunIcon of Prop
+	(properties
+		y 189
+		x 138 ;move the rest of the icons down (x + 30)
+		view 950
+		cel 4
+		loop 0
+	)
+)
+
+;;;(instance background of Prop
+;;;	(properties
+;;;		y 6
+;;;		x 169 ;197 ;move the rest of the icons down (x + 30)
+;;;		view 950
+;;;		cel 0
+;;;		loop 7
+;;;
+;;;	)
+;;;)
 
 (instance invIcon of Prop
 	(properties
 		y 6
-		x 138 ;127
-		
-		
-		 ;move the rest of the icons down (x + 28)
+		x 204 ;248 ;138 ;127 ;move the rest of the icons down (x + 28)
 		view 950
 		cel 5
 		loop 0
@@ -1799,7 +1789,7 @@
 (instance blockIcon of Prop
 	(properties
 		y 6
-		x 171 ;;as selectedicon
+		x 169 ;171 ;;as selectedicon
 		view 950
 		loop 2
 		cel 0
@@ -1809,22 +1799,23 @@
 (instance levelsIcon of Prop
 	(properties
 		y 6
-		x 220
+		x 248 ;220
 		view 950
 		cel 6
 		loop 0
 	)
 )
 
-(instance restartIcon of Prop
-	(properties
-		y 6
-		x 248
-		view 950
-		cel 7
-		loop 0
-	)
-)
+;combine with save?
+;;;(instance restartIcon of Prop
+;;;	(properties
+;;;		y 6
+;;;		x 248
+;;;		view 950
+;;;		cel 7
+;;;		loop 0
+;;;	)
+;;;)
 
 ;;;(instance loadIcon of Prop ;combine load/save icons to make room for smell
 ;;;	(properties
@@ -1895,12 +1886,12 @@
 		(lookIcon y: yPosition)
 		(handIcon y: yPosition)
 		(talkIcon y: yPosition)
-;;;		(smellIcon y: yPosition)
-		(background y: yPosition)
+		(gunIcon y: yPosition)
+		;(background y: yPosition)
 		(invIcon y: yPosition)
 		(blockIcon y: yPosition)
 		(levelsIcon y: yPosition)
-		(restartIcon y: yPosition)
+		;(restartIcon y: yPosition)
 		;(loadIcon y: yPosition)
 		(saveIcon y: yPosition)
 		(quitIcon y: yPosition)
