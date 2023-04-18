@@ -11,6 +11,9 @@
 (use Actor)
 (use System)
 
+(use Wander)
+
+
 (public
 	rm41 0
 )
@@ -22,6 +25,7 @@
 	local102
 	local103
 	newProp
+	hijacker2
 )
 (instance hijackMusic of Sound
 	(properties
@@ -75,6 +79,7 @@
 		(Load rsSOUND 41)
 		(super init:)
 		(self setLocales: 154)
+		(curRoom setRegions: 950)
 		(ego
 			view: 82
 			setLoop: 3
@@ -196,6 +201,45 @@
 				)
 			)
 		)
+(cond
+						(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+
+				(if (ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
+					(event claimed: TRUE)
+					(switch theCursor
+						(994 ;Kill
+
+						(if (not sittingInPlane)
+							(ego setScript: egoAction)
+							(egoAction changeState: 3)
+						else
+							(ego setScript: egoAction)
+							(egoAction changeState: 3)
+						)
+						)
+					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+				
+				
+				
+				
+			
+						)
+)
+		
+		
+
+
+)
 	)
 )
 
@@ -213,6 +257,7 @@
 			)
 			(2
 				(hijacker1 setMotion: MoveTo 262 72 self)
+				(= [numAmmoClips bulletsInGun] 7) ;add to test gun.
 			)
 			(3
 				(hijacker1 loop: 2)
