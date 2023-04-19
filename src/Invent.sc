@@ -1584,7 +1584,7 @@
 		(return num)
 	)
 
-	(method (doit whom &tmp el)
+	(method (doit whom &tmp el [str3 20])
 		;Initialize the dialog. If we have nothing, tell user.
 		(if (not (self init: whom))
 			(Print (inventory empty?))
@@ -1637,8 +1637,14 @@
 						
 					)
 					(998 ;look at item
-						;((el value?) showSelf:)
 						((el value?) showSelf:) ;display the inventory item normally.
+						(if (== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
+							(if (== ((Inventory at: 37) cel?) 0) ;flip each look
+								((Inventory at: 37) cel: 1) 
+							else
+								((Inventory at: 37) cel: 0)
+							)
+						)
 					)
 					(101 ;extra ammo clips
 						(if (== ((el value?) view?) 100) ;clicked gun with clips
