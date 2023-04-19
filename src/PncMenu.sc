@@ -1393,6 +1393,27 @@
 						(= menuTime 0)
 						(quitIcon setScript: dothequit)
 					)
+										(
+						(and ;is the click on ego?
+							(> (event x?) (ego nsLeft?))
+							(< (event x?) (ego nsRight?))
+							(> (event y?) (ego nsTop?))
+							(< (event y?) (ego nsBottom?))
+						)
+						(event claimed: 1)
+						(switch theCursor ;what cursor?
+							(995 ;(Said 'remove/cloth') (Said 'get<[off]/cloth<[off]')	(Said 'undress')(Said 'get/naked')(Said 'piss')(Said 'take/piss')
+								
+								(Print 1 8) ;"In the POLICE PARKING LOT!? That may be a bad idea. I suggest you think this over! Perhaps the police psychiatrist could help."
+							)
+							(else ;inventory item
+								(event claimed: 0)
+							)
+						)
+										)
+					
+					
+					
 	
 					;Room defaults if nothing else is clicked on.
 					(else 
