@@ -30,6 +30,7 @@
 	closedDrawer
 	captainCanTalk
 	keith
+	
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 124)
@@ -1165,70 +1166,172 @@
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
+							
 				)
-				(if (ClickedInRect 148 173 115 133 event) ;desk
+				
+									
+				
+				
+				(if (and 
+						(ClickedInRect 192 207 124 135 event) ;clicked on computer
+						(== (event claimed?) FALSE)
+					) ;Computer
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 ;look
+							
+						(if
+							(or
+								(== (ego onControl:) cYELLOW) ;16384
+								(== (ego onControl:) -16384) ;not needed?
+							)
+								(curRoom newRoom: 8)
+						else
+							(NotClose)
+						)
+						(event claimed: TRUE)
+						)
+						(995 ;use
+						(if
+							(or
+								(== (ego onControl:) cYELLOW) ;16384
+								(== (ego onControl:) -16384) ;not needed?
+							)
+								(curRoom newRoom: 8)
+						else
+							(NotClose)
+						)
+					)		
+						(else
+								(event claimed: FALSE)
+						)
+						
+					)
+				)			
+							
+							
+							
+				(if (ClickedInRect 244 269 94 140 event) ;file cabinet
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 ;look					
+							(if (ego inRect: 232 138 260 152)
+								(cast eachElementDo: #startUpd) ;why??
+								(curRoom newRoom: 7)
+							else
+								(NotClose)
+							)
+						)
+						(995 ;use and look
+							(if (ego inRect: 232 138 260 152)
+								(cast eachElementDo: #startUpd) ;why??
+								(curRoom newRoom: 7)
+							else
+								(NotClose)
+							)
+						)		
+						(else
+								(event claimed: FALSE)
+						)
+						
+					)
+				)	
+				(if (ClickedInRect 30 290 21 63 event) ;techo, look area
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(Print 4 40)
+							(Print 4 41)
+							)
+					
+						(else
+								(event claimed: FALSE)
+						)
+					)
+					
+				)
+				(if (ClickedOnObj rambo (event x?) (event y?)) ;blab, jim, rambo
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 
+							(if (ego inRect: 90 117 142 132)
+							(Print 4 65)
+						)
+						)			
+						(996 ;talk blab
+							(cond 
+							((ego inRect: 90 117 137 132)
+								(Print 4 13) ;"Jim is a muscular, quiet man. He has nothing to say to you."
+							)
+
+							(else
+								(Print 4 15) ;"Get closer to him."
+							)
+						)
+							)
+						(else
+								(event claimed: FALSE)
+						)
+						
+					)
+				)
+				
+				(if (ClickedInRect 82 105 117 133 event);desk captain papers
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; unlock drawer
-							(User canControl: FALSE)
-							(if egoSitting
-								(if (not (Btst fEgoDeskLocked)) ;renamed from fEgoDeskUnlocked
-									(self changeState: 1)
-								else
-									(Print 4 86)
-								)
-							else
-								(Print 4 87)
+						(998 ;look
+						(cond 
+							((ego inRect: 122 117 168 124)
+								(Print 4 7)
+								(Print 4 8)
+								(SolvePuzzle 1 123)
 							)
-							(if (not egoSitting) ;sentarse
-								(cond 
-									(egoSitting
-										(Print 4 84)
-									)
-									((ego inRect: 170 122 196 141)
-										(HandsOff)
-										(User canInput: 1)
-										(= egoSitting 1)
-										(= gunDrawn 0)
-										(ego
-											view: 3
-											loop: 0
-											cel: 0
-											setMotion: 0
-											setCycle: 0
-											ignoreActors:
-											illegalBits: 0
-											posn: 182 130
-										)
-								
-									)
-									(else
-										;(NotClose)
-									)
+							(
+								(and
+									(ego inRect: 70 128 99 140)
+									(== (ego loop?) 1)
 								)
+									(Print 4 9)
 							)
-							(User canControl: TRUE)	
+							((ego inRect: 71 130 124 157)
+								(Print 4 10)
+								(Print 4 11)
+								(SolvePuzzle 1 124)
+							)
+							(else
+								(event claimed: 0)
+							)
 						)
-						(102 ; open drawer with keys
-							(if egoSitting
-								(cond 
-									((not (Btst fEgoDeskLocked))
-										(Print 4 88)
-									)
-									((ego has: iKeyRing)
-										(Print 4 89)
-										(Bclr fEgoDeskLocked)
-										(self changeState: 1))
-									(else
-										(Print 4 90)
-									)
-								)
-							else
-								(Print 4 91)
-							)
 						)
 						(else
-							(User canControl: TRUE)
+								(event claimed: FALSE)
+						)
+						
+					)
+				)
+	
+				
+				
+				(if (ClickedOnObj captain (event x?) (event y?))	;captain "hall".
+					(event claimed: TRUE)
+					(switch theCursor
+						(988
+							(Print 4 64) ;"Captain Fletcher Hall is a very large man with an over-powering presence."
+						)				
+						(996 ;talk captain
+						(if (!= isOnDuty 1)
+							(if (== (captain loop?) 3)
+								(Print 4 17)
+							else
+								(Print 4 18)
+							)
+						else
+							(captainScript changeState: 14)
+						)
+						)
+
+						(else
+							
 							(event claimed: FALSE)
 						)
 					)		
@@ -1407,9 +1510,12 @@
 						)
 					)
 				)
-				(if (ClickedInRect 130 161 105 109 event) ;Keys on wall
+				(if (ClickedInRect 130 156 105 111 event) ;Keys on wall
 					(event claimed: TRUE)
-					(switch theCursor				
+					(switch theCursor	
+						(998
+							(Print 4 35)
+						)			
 						(995 ;hand
 							(if (ego inRect: 122 117 168 124)
 								(if (ego has: iUnmarkedCarKeys)
@@ -1443,9 +1549,20 @@
 						)
 					)
 				)
-				(if (ClickedOnObj keith (event x?) (event y?))	
+				
+		(if (and 
+						(ClickedOnObj keith (event x?) (event y?)) ;clicked on keith
+						(== (event claimed?) FALSE))
+						
+							
+				
+				
+;;;				(if (ClickedOnObj keith (event x?) (event y?))	
 					(event claimed: TRUE)
-					(switch theCursor				
+					(switch theCursor			
+						(998
+							(Print 4 66)	
+						)
 						(996 ;talk keith	
 							(if (< (ego distanceTo: keith) 40)
 								(switch isOnDuty
@@ -1470,17 +1587,17 @@
 								)
 								(1 						
 									(cond 
-										((ego inRect: 70 131 122 156)
-											(Print 4 12)
-										)
-										((ego inRect: 90 117 137 132)
-											(Print 4 13)
-										)
+;;;										((ego inRect: 70 131 122 156) ;Not clicked on Captain
+;;;											(Print 4 12) ;"Captain Hall doesn't like to be interrupted."
+;;;										)
+;;;										((ego inRect: 90 117 137 132) Not clicked on jim.
+;;;											(Print 4 13) ;"Jim is a muscular, quiet man. He has nothing to say to you."
+;;;										)
 										((< (ego distanceTo: keith) 46)
 											(Print 4 14)
 										)
 										(else
-											(Print 4 15)
+											(Print 4 15) ;"Get closer to him."
 										)
 									)
 								)
