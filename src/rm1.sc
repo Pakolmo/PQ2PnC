@@ -803,11 +803,15 @@
 						)
 					)
 				)
+				;(if (ClickedInRect 243 277 102 135 event) ;personal car
 				(if
-
-						(ClickedInRect 243 277 102 135 event) ;personal car
-
-;;;				(if (ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
+					(or
+						(ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carPersonal)
+						)
+					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
@@ -823,10 +827,15 @@
 						)
 					)
 				)
+				;(if (ClickedInRect 90 175 120 146 event) ;unmarked car
 				(if
-
-						(ClickedInRect 90 175 120 146 event) ;unmarked car
-;;;				(if (ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
+					(or
+						(ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carWork)
+						)
+					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look maletero/trunk
