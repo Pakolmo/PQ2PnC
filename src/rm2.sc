@@ -19,7 +19,7 @@
 )
 
 (local
-	bigJon
+	;bigJon
 	mrG
 	burglaryDoor
 	lockerRoomDoor
@@ -84,6 +84,10 @@
 			(return 0)
 		)
 	)
+)
+
+(instance bigJon of Actor
+	(properties)
 )
 
 (instance rm2 of Room
@@ -154,7 +158,7 @@
 			init:
 			stopUpd:
 		)
-		((= bigJon (Actor new:))
+		(bigJon
 			view: 57
 			illegalBits: 0
 			posn: 212 93
@@ -237,12 +241,7 @@
 			)
 			((!= (mod (ego view?) 2) 1)
 				(ego view: (+ (ego view?) 1))
-			)
-			
-
-			
-			
-			
+			)	
 		)
 		(curRoom setRegions: 950)
 		(super doit:)
@@ -516,278 +515,230 @@
 				)
 			)
 		)
-		(cond
-			(
+		(if
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			(if (ClickedInRect 30 290 21 53 event) ;techo
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print 2 17) ;"You are in Lytton's newly remodeled police station. This is the hall. There are several doors, a counter, and an evidence window."
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedInRect 279 302 73 103 event) ;painting
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(switch (Random 0 2)
+							(0 (Print 2 14))
+							(1 (Print 2 15))
+							(2 (Print 2 16))
+						)		
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if 
 				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
+					(ClickedInRect 188 200 70 110 event) ;clicked on mrG
+					(cast contains: mrG)
 				)
-
-			(if 
-				(ClickedInRect 30 290 21 53 event) ;techo
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(Print 2 17) ;"You are in Lytton's newly remodeled police station. This is the hall. There are several doors, a counter, and an evidence window."
-							
-						)
-						(else
-						(
-							event claimed: FALSE)
-						)
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look gelepsi
+						(Print 2 11) ;"You watch as Traffic Officer Mario Gelepsi books evidence."
 					)
-			)
-	
-
-			(if 
-										
-				(ClickedInRect 279 302 73 103 event) ;painting
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(switch (Random 0 2)
-								(0 (Print 2 14))
-								(1 (Print 2 15))
-								(2 (Print 2 16))
-								)
-							
-						)
-						(else
-						(
-							event claimed: FALSE)
-					)
-				)
-			)
-	
-			(if 
-					(and 
-											
-						(ClickedInRect 188 200 70 110 event) ;clicked on mrG
-						(cast contains: mrG)
-					)
-
-					
-
-					
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look gelepsi
-							(Print 2 11) ;"You watch as Traffic Officer Mario Gelepsi books evidence."
-						)
-						(996 ;talk gelepsi
-
-					(switch (mrGScript state?)
-						(0
-							(mrGScript cue:)
-						)
-						(1
-							(if (== (Random 0 3) 1)
+					(996 ;talk gelepsi
+						(switch (mrGScript state?)
+							(0
 								(mrGScript cue:)
-							else
-								(mrGScript changeState: 1)
 							)
-						)
-						(2
-							(if (== (Random 0 2) 1)
-								(mrGScript cue:)
-							else
-								(mrGScript changeState: 2)
-							)
-						)
-						(3 (mrGScript changeState: 3))
-					)
-					)
-						(995 ;use
-							
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-				
-						
-				
-				(if (ClickedOnObj burglaryDoor (event x?) (event y?)) ;clicked on burglaryDoor
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(Print 2 6) ;"This is the Burglary office door."
-						)
-						(995 ;use
-							(Print 2 18) ;"The doors aren't locked."
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if (ClickedOnObj homicideDoor (event x?) (event y?)) ;clicked on homicideDoor
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(Print 2 5) ;"This is the Homicide office door."
-						)
-						(995 ;use
-							(Print 2 18) ;"The doors aren't locked."
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-				
-					(if (ClickedOnObj narcoticsDoor (event x?) (event y?)) ;clicked on narcoticsDoor
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(Print 2 4) ;"This is the Narcotics office door."
-						)
-						(995 ;use
-							(Print 2 18) ;"The doors aren't locked."
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-				
-						(if (ClickedOnObj lockerRoomDoor (event x?) (event y?)) ;clicked on lockerRoomDoor
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(Print 2 3) ;"This is the Locker room door."
-						)
-						(995 ;use
-							(Print 2 18) ;"The doors aren't locked."
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-				(if 
-;;;					(and 
-						(ClickedOnObj bigJon (event x?) (event y?)) ;clicked on bigJon
-;;;						(not (cast contains: mrG))
-;;;					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-								(if
-									(and
-										(not (cast contains: mrG))
-										(<= (bigJonScript state?) 1)
-									)
-										(Print 2 12)
+							(1
+								(if (== (Random 0 3) 1)
+									(mrGScript cue:)
 								else
-									(Print 2 13)
+									(mrGScript changeState: 1)
 								)
+							)
+							(2
+								(if (== (Random 0 2) 1)
+									(mrGScript cue:)
+								else
+									(mrGScript changeState: 2)
+								)
+							)
+							(3
+								(mrGScript changeState: 3)
+							)
 						)
-						(996 ;talk, clue
-											
-				(cond 
-					((cast contains: mrG)
-						(event claimed: 1)
-						(LocPrint 2 31)
-					))
-					
-					(LocPrint 2 63)
-				
-					(bigJonScript changeState: 9)
-					
+					)
+					(else
+						(event claimed: FALSE)
+					)
 				)
+			)
+			(if (ClickedOnObj burglaryDoor (event x?) (event y?)) ;clicked on burglaryDoor
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print 2 6) ;"This is the Burglary office door."
+					)
+					(995 ;use
+						(Print 2 18) ;"The doors aren't locked."
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedOnObj homicideDoor (event x?) (event y?)) ;clicked on homicideDoor
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print 2 5) ;"This is the Homicide office door."
+					)
+					(995 ;use
+						(Print 2 18) ;"The doors aren't locked."
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedOnObj narcoticsDoor (event x?) (event y?)) ;clicked on narcoticsDoor
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print 2 4) ;"This is the Narcotics office door."
+					)
+					(995 ;use
+						(Print 2 18) ;"The doors aren't locked."
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedOnObj lockerRoomDoor (event x?) (event y?)) ;clicked on lockerRoomDoor
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print 2 3) ;"This is the Locker room door."
+					)
+					(995 ;use
+						(Print 2 18) ;"The doors aren't locked."
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)				
+			(if (ClickedOnObj bigJon (event x?) (event y?)) ;clicked on bigJon
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if
+							(and
+								(not (cast contains: mrG))
+								(<= (bigJonScript state?) 1)
+							)
+							(Print 2 12)
+						else
+							(Print 2 13)
+						)
+					)
+					(996 ;talk, clue					
+						(cond
+							((cast contains: mrG)
+								(event claimed: 1)
+								(LocPrint 2 31)
+							)
+						)
+						(LocPrint 2 63)
+						(bigJonScript changeState: 9)
+					)
 					(31
-
-							(ProcessEvidence 31 127 2 44)
+						(ProcessEvidence 31 127 2 44)
 					)
 					(35
-							(ProcessEvidence 35 136 2 54)
+						(ProcessEvidence 35 136 2 54)
 					)
-				
-						
-							(131
-								(ProcessEvidence 31 127 2 44)
-							)
-							(122
-								(ProcessEvidence 22 128 2 45)
-							)
-							(119
-								(ProcessEvidence 19 129 2 46)
-							)
-							(114
-								(ProcessEvidence 14 130 2 47)
-							)
-							(128
-								(GiveBlood)
-							)
-							(117
-								(ProcessEvidence 17 132 2 48)
-							)
-							(120
-								(ProcessEvidence 20 133 2 49)
-							)
-							(121
-								(ProcessEvidence 21 145 2 50)
-							)
-							(126
-								(ProcessEvidence 26 134 2 51)
-							)
-							(118
-								(ProcessEvidence 18 139 2 52)
-							)
-							(113
-								(ProcessEvidence 13 135 2 53)
-							)
-							(135
-								(ProcessEvidence 35 136 2 54)
-							)
-							(125
-								(ProcessEvidence 25 137 2 55)
-							)
-							(124
-								(ProcessEvidence 24 138 2 56)
-							)
-
-
-				
-						
-						(else
-							(event claimed: FALSE)
-							
-						)
+					(131
+						(ProcessEvidence 31 127 2 44)
+					)
+					(122
+						(ProcessEvidence 22 128 2 45)
+					)
+					(119
+						(ProcessEvidence 19 129 2 46)
+					)
+					(114
+						(ProcessEvidence 14 130 2 47)
+					)
+					(128
+						(GiveBlood)
+					)
+					(117
+						(ProcessEvidence 17 132 2 48)
+					)
+					(120
+						(ProcessEvidence 20 133 2 49)
+					)
+					(121
+						(ProcessEvidence 21 145 2 50)
+					)
+					(126
+						(ProcessEvidence 26 134 2 51)
+					)
+					(118
+						(ProcessEvidence 18 139 2 52)
+					)
+					(113
+						(ProcessEvidence 13 135 2 53)
+					)
+					(135
+						(ProcessEvidence 35 136 2 54)
+					)
+					(125
+						(ProcessEvidence 25 137 2 55)
+					)
+					(124
+						(ProcessEvidence 24 138 2 56)
+					)
+					(else
+						(event claimed: FALSE)
 					)
 				)
-				
-				
-
-				
-				
-				(if 
-
-					(ClickedInRect 250 269 101 124 event) ;clicked on bin
-
-																							
-					(event claimed: TRUE)
-					(switch theCursor
-						(998
-								(cond 
-									((not (ego inRect: 240 105 280 127)) ;250 105 280 122
-										(NotClose)
-									)
-									((not (Btst 11))
-										(Print 2 0)
-									)
-									((InRoom 10)
-										(Print 2 1)
-									)
-									(else
-										(Print 2 2)
-									)
-								)
+			)			
+			(if (ClickedInRect 250 269 101 124 event) ;clicked on bin
+				(event claimed: TRUE)
+				(switch theCursor
+					(998
+						(cond 
+							((not (ego inRect: 240 105 280 127)) ;250 105 280 122
+								(NotClose)
+							)
+							((not (Btst 11))
+								(Print 2 0)
+							)
+							((InRoom 10)
+								(Print 2 1)
+							)
+							(else
+								(Print 2 2)
+							)
 						)
-						(995
-													(cond 
+					)
+					(995
+						(cond 
 							((not (ego inRect: 240 105 280 127)) ;250 105 280 122
 								(NotClose)
 							)
@@ -806,28 +757,28 @@
 								(Print 2 23)
 							)
 						)				
-							(cond 
-								((not (ego inRect: 240 105 280 127))  ; 250 105 280 122
-									(NotClose)
-								)
-								((not (Btst fKitBinOpen))
-									(Print 2 26)
-								)
-								((ego has: iFieldKit)
-									(AlreadyTook)
-								)
-								((not (InRoom 10))
-									(Print 2 27)
-								)
-								(else
-									(Print 2 28)
-									(ego get: iFieldKit)
-									(SolvePuzzle 2 fGetFieldKit)
-								)
+						(cond 
+							((not (ego inRect: 240 105 280 127))  ; 250 105 280 122
+								(NotClose)
+							)
+							((not (Btst fKitBinOpen))
+								(Print 2 26)
+							)
+							((ego has: iFieldKit)
+								(AlreadyTook)
+							)
+							((not (InRoom 10))
+								(Print 2 27)
+							)
+							(else
+								(Print 2 28)
+								(ego get: iFieldKit)
+								(SolvePuzzle 2 fGetFieldKit)
 							)
 						)
-						(110
-							(cond 
+					)
+					(110
+						(cond 
 							((not (ego inRect: 240 105 280 127))   ;250 105 280 122
 								(event claimed: 1)
 								(NotClose)
@@ -848,21 +799,11 @@
 							)
 						)
 					)
-							
-						
-						(else
-							(event claimed: FALSE)
-						)
-				
+					(else
+						(event claimed: FALSE)
+					)
 				)
-			)
-		
-		
-		
-		
-		
-						
-			)
+			)	
 		)
 	)
 )
@@ -898,7 +839,7 @@
 				)
 			)
 			(1
-				(bigJon stopUpd:)
+				;(bigJon stopUpd:) bigJon stuck at counter bug fix
 			)
 			(2
 				(= seconds (Random 1 4))

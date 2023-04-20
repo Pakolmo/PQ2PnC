@@ -869,7 +869,7 @@
 											else
 												(self setScript: trunkScript)
 												(= workCarTrunkOpened FALSE)
-												(== fieldKitToggle 0)
+												(= fieldKitToggle 0)
 											)			
 										)
 										((ego has: iUnmarkedCarKeys) ;Open trunk if has unmarked keys
@@ -962,6 +962,9 @@
 									)
 									(= fieldKitOpen FALSE)
 									(= fieldKitToggle 1)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)
+									
 								else
 									(Print 1 13) ;"Open the trunk, first."
 								)
