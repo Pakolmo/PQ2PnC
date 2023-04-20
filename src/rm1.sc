@@ -803,7 +803,6 @@
 						)
 					)
 				)
-				;(if (ClickedInRect 243 277 102 135 event) ;personal car
 				(if
 					(or
 						(ClickedOnObj egosCar (event x?) (event y?)) ;clicked on personal car
@@ -827,7 +826,6 @@
 						)
 					)
 				)
-				;(if (ClickedInRect 90 175 120 146 event) ;unmarked car
 				(if
 					(or
 						(ClickedOnObj unmarked (event x?) (event y?)) ;clicked on unmarked car
@@ -1019,16 +1017,20 @@
 						)		
 					)
 				)
+				(if (ClickedOnObj ego (event x?) (event y?))
+					(if (== theCursor 995) ;clicked hand on Sonny
+						(event claimed: TRUE)
+						(Print 1 8) ;"In the POLICE PARKING LOT!? That may be a bad idea. I suggest you think this over! Perhaps the police psychiatrist could help."
+					)
+				)
 				(if
 					(and 
 						(ClickedInRect 0 320 120 190 event) ;clicked on parking lot
 						(== (event claimed?) FALSE)
 					)
-					(switch theCursor
-						(998 ;look 
-							(event claimed: TRUE)
-							(Print 1 49) ;Parked in the lot are unmarked cars, private cars, and sometimes a marked police cruiser.
-						)
+					(if (== theCursor 995)
+						(event claimed: TRUE)
+						(Print 1 49) ;"Parked in the lot are unmarked cars, private cars, and sometimes a marked police cruiser."
 					)
 				)
 			)
