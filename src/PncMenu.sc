@@ -1403,8 +1403,9 @@
 						(event claimed: 1)
 						(switch theCursor ;what cursor?
 							(995 ;(Said 'remove/cloth') (Said 'get<[off]/cloth<[off]')	(Said 'undress')(Said 'get/naked')(Said 'piss')(Said 'take/piss')
-								
-								(Print 1 8) ;"In the POLICE PARKING LOT!? That may be a bad idea. I suggest you think this over! Perhaps the police psychiatrist could help."
+								(if (== curRoom 1)
+									(Print 1 8) ;"In the POLICE PARKING LOT!? That may be a bad idea. I suggest you think this over! Perhaps the police psychiatrist could help."
+								)
 							)
 							(else ;inventory item
 								(event claimed: 0)
