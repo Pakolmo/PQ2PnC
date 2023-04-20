@@ -346,6 +346,7 @@
 					gPEventX
 					gPEventY
 						gWindow
+						LookedLPD
 
 )
 (procedure (EgoDead)
@@ -1104,7 +1105,12 @@
 
 				(curRoom setRegions: 950)
 
-		)			
+		)		
+						(if (== curRoom 5)
+
+				(curRoom setRegions: 950)
+
+		)		
 		(Load SOUND 6)
 	)
 	

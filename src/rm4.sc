@@ -90,7 +90,7 @@
 	)
 	
 	(method (init)
-	;(DrawRect 15 257 84 175 8)
+		(curRoom setRegions: 950)
 		(super init:)
 		(HandsOn)
 		(Load VIEW 1)
@@ -101,7 +101,7 @@
 		;(addToPics add: wallet)
 		(= gunFireState gunPROHIBITED)
 		(NormalEgo)
-		(curRoom setRegions: 950)
+
 		(if
 			(and
 				(< gamePhase 1)
@@ -1169,8 +1169,74 @@
 							
 				)
 				
-									
-				
+				(if (ClickedInRect 148 173 115 133 event) ;desk
+					(event claimed: TRUE)
+					(switch theCursor				
+						(995 ; unlock drawer
+							(User canControl: FALSE)
+							(if egoSitting
+								(if (not (Btst fEgoDeskLocked)) ;renamed from fEgoDeskUnlocked
+									(self changeState: 1)
+								else
+									(Print 4 86)
+								)
+							else
+								(Print 4 87)
+							)
+							(if (not egoSitting) ;sentarse
+								(cond 
+									(egoSitting
+										(Print 4 84)
+									)
+									((ego inRect: 170 122 196 141)
+										(HandsOff)
+										(User canInput: 1)
+										(= egoSitting 1)
+										(= gunDrawn 0)
+										(ego
+											view: 3
+											loop: 0
+											cel: 0
+											setMotion: 0
+											setCycle: 0
+											ignoreActors:
+											illegalBits: 0
+											posn: 182 130
+										)
+								
+									)
+									(else
+										;(NotClose)
+									)
+								)
+							)
+							(User canControl: TRUE)	
+						)
+						(102 ; open drawer with keys
+							(if egoSitting
+								(cond 
+									((not (Btst fEgoDeskLocked))
+										(Print 4 88)
+									)
+									((ego has: iKeyRing)
+										(Print 4 89)
+										(Bclr fEgoDeskLocked)
+										(self changeState: 1))
+									(else
+										(Print 4 90)
+									)
+								)
+							else
+								(Print 4 91)
+							)
+						)
+						(else
+							(User canControl: TRUE)
+							(event claimed: FALSE)
+						)
+					)		
+				)	
+
 				
 				(if (and 
 						(ClickedInRect 192 207 124 135 event) ;clicked on computer
@@ -1621,6 +1687,7 @@
 			(0
 				(cast eachElementDo: #hide)
 				(curRoom drawPic: 12)
+				(curRoom setRegions: 950)
 				(if (InRoom iThankYouLetter 12)
 					((= marieLetter (View new:))
 						view: 59
