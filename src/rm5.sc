@@ -34,6 +34,9 @@
 	pants
 	pants2
 	flyer
+	gancho
+	gancho2
+	gancho3
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
@@ -44,7 +47,7 @@
 		picture 5
 		style IRISOUT
 	)
-	
+
 	(method (init)
 		(curRoom setRegions: 950)
 		(super init:)
@@ -88,8 +91,48 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
+	
+			(if (ClickedInRect 37 55 99 105 event) ;clicked on grifo
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look	
+						(if (== (ego onControl: 1) cYELLOW)
+							(LocPrint 5 40)
+						else
+							(NotClose)
+						)
+					)
+					(995 ;use
+						(if (& (ego onControl: 1) cYELLOW) ;$4000
+							(LocPrint 5 62)
+						else
+							(LocPrint 5 63)
+				)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
 				
-				
+			(if (ClickedInRect 35 56 73 94 event) ;clicked on mirror
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (== (ego onControl: 1) cYELLOW)
+							(LocPrint 5 39)
+						else
+							(NotClose)
+						)
+					)
+					(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+			
+						
+								
 			(if (ClickedInRect 100 114 110 125 event) ;clicked on bench2
 				(event claimed: TRUE)
 				(switch theCursor
@@ -1569,8 +1612,15 @@
 				(Load PICTURE 9)
 				(User canInput: 1)
 				(curRoom drawPic: 9)
-
-				(cast eachElementDo: #dispose)
+;;;				(cast eachElementDo: #dispose) fixing point and click menu bar
+				(ego dispose:) 
+				(lockerDoor dispose:)
+				(pants dispose:)
+				(pants2 dispose:)
+				(bench dispose:)
+				(lockerDoor dispose:) 
+				(lockerDoorClosed dispose:)
+				(stallDoor dispose:)
 				((= gun (Actor new:))
 					view: 69
 					posn: 146 189
@@ -1622,7 +1672,7 @@
 				(if (not (InRoom iHandcuffs))
 					(handcuffs posn: 216 1136)
 				)
-				((View new:)
+				((= gancho3 (View new:))
 					view: 69
 					posn: 219 102
 					setPri: 12
@@ -1631,7 +1681,7 @@
 					init:
 					stopUpd:
 				)
-				((View new:)
+				((= gancho2 (View new:))
 					view: 69
 					posn: 100 102
 					setPri: 12
@@ -1640,7 +1690,7 @@
 					init:
 					stopUpd:
 				)
-				((View new:)
+				((= gancho (View new:))
 					view: 69
 					posn: 156 76
 					setPri: 12
@@ -1658,7 +1708,9 @@
 					init:
 					stopUpd:
 				)
-								(curRoom setRegions: 950)
+
+				
+
 			)
 		)
 	)
@@ -1840,6 +1892,8 @@
 				)
 				(curRoom drawPic: (curRoom picture?))
 				(cast eachElementDo: #dispose)
+				(ego dispose:) 
+				(lockerDoor dispose:)
 				(HandsOn)
 				(curRoom setScript: rm5Script)
 				(rm5Script changeState: 3)
@@ -1858,10 +1912,26 @@
 				
 				(if (== theCursor 999) ;use walk to close.
 					(curRoom drawPic: (curRoom picture?))
-					(cast eachElementDo: #dispose)
+;;;					(cast eachElementDo: #dispose)
+					(ego dispose:) 
+;;;					(lockerDoor dispose:)
+;;;					(pants dispose:)
+;;;					(pants2 dispose:)
+;;;					(bench dispose:)
+;;;					(lockerDoor dispose:) 
+;;;					(lockerDoorClosed dispose:)
+;;;					(stallDoor dispose:)
+					(gancho dispose:)
+					(gancho2 dispose:)
+					(gancho3 dispose:)
+					(gun dispose:)
+					(ammoClips dispose:)
+					(handcuffs dispose:)
+					(flyer dispose:)
 					(HandsOn)
 					(curRoom setScript: rm5Script)
 					(rm5Script changeState: 3)	
+					(curRoom setRegions: 950)
 					(= theCursor 999)
 					(theGame setCursor: 999 (HaveMouse))
 				)

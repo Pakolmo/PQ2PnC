@@ -59,7 +59,7 @@
 ;;;	
 ;;;	
 ;;;)
-
+ 
 
 (instance blab of Prop
 	(properties)
@@ -1685,7 +1685,16 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cast eachElementDo: #hide)
+;;;				(cast eachElementDo: #hide)
+				(captain hide:)
+				(keith hide:)
+				(ego hide:)
+
+(blab hide:)
+(carKey hide:)
+(smoke hide:)
+(rambo hide:)
+(phone hide:)					
 				(curRoom drawPic: 12)
 				(curRoom setRegions: 950)
 				(if (InRoom iThankYouLetter 12)
@@ -1820,8 +1829,29 @@
 				)
 				(if (== theCursor 999) ;use walk to close.
 					(curRoom drawPic: (curRoom picture?))
-					(cast eachElementDo: #dispose)
-					(cast eachElementDo: #delete)
+;;;					(cast eachElementDo: #dispose)
+					(ego dispose:)
+					(captain dispose:)
+					(keith dispose:)
+					(blab dispose:)
+					(smoke dispose:)
+					(rambo dispose:)
+					(phone dispose:)
+					(carKey dispose:)
+					(wallet dispose:)
+					(marieLetter dispose:)
+;;;					(cast eachElementDo: #delete)
+					(ego delete:)
+					(captain delete:)
+					(keith delete:)
+					(blab delete:)
+					(smoke delete:)
+					(rambo delete:)
+					(phone delete:)
+					(carKey delete:)
+(marieLetter delete:)
+(wallet delete:)
+
 					(ego init:)
 					(= closedDrawer 1)
 					(rm4 setScript: rm4Script)
@@ -1840,15 +1870,14 @@
 							)
 						)
 						(995 ;hand
-							(if
-								(and
-									(ego has: iThankYouLetter)
-									(!= local4 3)
-								)
-									((inventory at: iThankYouLetter) showSelf:)
-							else
-								(event claimed: 0)
-							)
+						(if (InRoom iThankYouLetter 12)
+							(marieLetter dispose:)
+							(Print 4 83 #draw)
+							(ego get: iThankYouLetter)
+							(SolvePuzzle 1 106)
+						else
+							(Print 4 97)
+						)
 						)
 						(else
 							(event claimed: FALSE)
@@ -1864,8 +1893,6 @@
 								(Print 4 83 #draw)
 								(ego get: iWallet)
 								(SolvePuzzle 1 105)
-								(= theCursor 992)
-								(theGame setCursor: 992 (HaveMouse)) ;exit cursor
 							else
 								(Print 4 97)
 							)
