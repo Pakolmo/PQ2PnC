@@ -1050,6 +1050,12 @@
 (instance lockerScript of Script
 	(properties)
 	
+	(method (doit)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)	
+	)
+
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -1347,7 +1353,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (== theCursor 999) ;use walk to close.
+				(if (== theCursor 991) ;use walk/exit to close.
 					(curRoom drawPic: (curRoom picture?))
 ;;;					(cast eachElementDo: #dispose)
 					(ego dispose:) 

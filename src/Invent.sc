@@ -320,10 +320,10 @@
 						((el value?) showSelf:) ;display the inventory item normally.
 						(if (== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
 							(if (== ((Inventory at: 37) cel?) 0) ;flip each look
-								((Inventory at: 37) cel: 1)
-								(Bset fDiscoveredLockerCombo) 
+								((Inventory at: 37) cel: 1) 
 							else
 								((Inventory at: 37) cel: 0)
+								(Bset fDiscoveredLockerCombo)
 							)
 						)
 					)
