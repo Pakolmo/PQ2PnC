@@ -88,119 +88,119 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)	
-;;;			(if (ClickedInRect 37 55 99 105 event) ;clicked on grifo
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor
-;;;					(998 ;look	
-;;;						(if (== (ego onControl: 1) cYELLOW)
-;;;							(LocPrint 5 40)
-;;;						else
-;;;							(NotClose)
-;;;						)
-;;;					)
-;;;					(995 ;use
-;;;						(if (& (ego onControl: 1) cYELLOW) ;$4000
-;;;							(LocPrint 5 62)
-;;;						else
-;;;							(LocPrint 5 63)
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)	
-;;;			(if (ClickedInRect 35 56 73 94 event) ;clicked on mirror
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor
-;;;					(998 ;look
-;;;						(if (== (ego onControl: 1) cYELLOW)
-;;;							(LocPrint 5 39)
-;;;						else
-;;;							(NotClose)
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)					
-;;;			(if (ClickedInRect 100 114 110 125 event) ;clicked on bench2
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor
-;;;					(995 ;use
-;;;						(if (ego inRect: 77 100 195 135)
-;;;							(LocPrint 5 13)
-;;;						else
-;;;							(LocPrint 5 11)
-;;;						)
-;;;					)
-;;;					(998 ;look
-;;;						(switch (Random 0 1)
-;;;							(0 (LocPrint 5 28))
-;;;							(1 (LocPrint 5 27))
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)
-;;;			(if (ClickedOnObj bench (event x?) (event y?)) ;clicked on bench1
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor
-;;;					(995 ;use
-;;;						(switch (Random 0 1)
-;;;							(0
-;;;								(if (ego inRect: 77 100 195 135)
-;;;									(LocPrint 5 13)
-;;;								else
-;;;									(LocPrint 5 11)
-;;;								)
-;;;							)
-;;;						)
-;;;					)
-;;;					(998 ;look
-;;;						(switch (Random 0 1)
-;;;							(0 (LocPrint 5 28))
-;;;							(1 (LocPrint 5 27))
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)
-;;;			(if
-;;;				(and 
-;;;					(ClickedInRect 188 202 73 112 event) ;Door1 BROWN
-;;;					(== (event claimed?) FALSE)
-;;;				)						
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor
-;;;					(995 ;Open door
-;;;						(cond
-;;;							((& (ego onControl: 1) cBROWN) ;$0040
-;;;								(LocPrint 5 57) ;The door must be broken. You can't use this one.
-;;;							)
-;;;							(else
-;;;								(LocPrint 5 52) ;You are not close enough to the toilet door.
-;;;							)
-;;;						)
-;;;					)
-;;;					(998 ;look
-;;;						(cond 
-;;;							((& (ego onControl: 1) cBROWN)
-;;;								(LocPrint 5 32)
-;;;							)
-;;;							(else (LocPrint 5 33))
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)
+			(if (ClickedInRect 37 55 99 105 event) ;clicked on grifo
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look	
+						(if (== (ego onControl: 1) cYELLOW)
+							(LocPrint 5 40)
+						else
+							(NotClose)
+						)
+					)
+					(995 ;use
+						(if (& (ego onControl: 1) cYELLOW) ;$4000
+							(LocPrint 5 62)
+						else
+							(LocPrint 5 63)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)	
+			(if (ClickedInRect 35 56 73 94 event) ;clicked on mirror
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (== (ego onControl: 1) cYELLOW)
+							(LocPrint 5 39)
+						else
+							(NotClose)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)					
+			(if (ClickedInRect 100 114 110 125 event) ;clicked on bench2
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;use
+						(if (ego inRect: 77 100 195 135)
+							(LocPrint 5 13)
+						else
+							(LocPrint 5 11)
+						)
+					)
+					(998 ;look
+						(switch (Random 0 1)
+							(0 (LocPrint 5 28))
+							(1 (LocPrint 5 27))
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedOnObj bench (event x?) (event y?)) ;clicked on bench1
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;use
+						(switch (Random 0 1)
+							(0
+								(if (ego inRect: 77 100 195 135)
+									(LocPrint 5 13)
+								else
+									(LocPrint 5 11)
+								)
+							)
+						)
+					)
+					(998 ;look
+						(switch (Random 0 1)
+							(0 (LocPrint 5 28))
+							(1 (LocPrint 5 27))
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and 
+					(ClickedInRect 188 202 73 112 event) ;Door1 BROWN
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;Open door
+						(cond
+							((& (ego onControl: 1) cBROWN) ;$0040
+								(LocPrint 5 57) ;The door must be broken. You can't use this one.
+							)
+							(else
+								(LocPrint 5 52) ;You are not close enough to the toilet door.
+							)
+						)
+					)
+					(998 ;look
+						(cond 
+							((& (ego onControl: 1) cBROWN)
+								(LocPrint 5 32)
+							)
+							(else (LocPrint 5 33))
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
 			(if
 				(and 
 					(ClickedInRect 205 221 72 114 event) ;Door2 LGREY usable
