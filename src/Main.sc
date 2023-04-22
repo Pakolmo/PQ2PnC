@@ -301,7 +301,7 @@
 		global268
 		global269
 		global270
-;**********************************************************************
+		;**********************************************************************
 ; added for point & click
 ;**********************************************************************
     	gLayout = 1             ;Where do you want your menu
@@ -328,9 +328,9 @@
 		tips ;add
 		EasterEgg =	0 ;add
 		saveVolume ;add
-		programControl			;if TRUE, disable control on the next cycle
-		gPseudoMouse
-		gCursorNumber
+			programControl			;if TRUE, disable control on the next cycle
+				gPseudoMouse
+	gCursorNumber
 		gGCursorNumber
 		gGame
 		gUser
@@ -338,14 +338,16 @@
 		gSounds
 		gEgo
 		gInv
-		gIconBar
-		deleteCastMember					;a member of the cast needs deleting
-		currentEgoView
-		yPositionInventory =26 
-		gLarry
-		gPEventX
-		gPEventY
-		gWindow
+	gIconBar
+			deleteCastMember					;a member of the cast needs deleting
+			currentEgoView
+			yPositionInventory =26 
+				gLarry
+					gPEventX
+					gPEventY
+						gWindow
+						LookedLPD
+
 )
 (procedure (EgoDead)
 	;disposes all sounds, plays the death music, and gives the player a choice:
