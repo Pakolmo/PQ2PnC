@@ -83,15 +83,11 @@
 				)
 			)
 		)
-		
-		(cond
-			
-			(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)	
-	
+		(if 
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)	
 			(if (ClickedInRect 37 55 99 105 event) ;clicked on grifo
 				(event claimed: TRUE)
 				(switch theCursor
@@ -107,14 +103,13 @@
 							(LocPrint 5 62)
 						else
 							(LocPrint 5 63)
-				)
+						)
 					)
 					(else
 						(event claimed: FALSE)
 					)
 				)
-			)
-				
+			)	
 			(if (ClickedInRect 35 56 73 94 event) ;clicked on mirror
 				(event claimed: TRUE)
 				(switch theCursor
@@ -126,898 +121,351 @@
 						)
 					)
 					(else
-								(event claimed: FALSE)
-							)
-						)
+						(event claimed: FALSE)
 					)
-			
-						
-								
+				)
+			)					
 			(if (ClickedInRect 100 114 110 125 event) ;clicked on bench2
 				(event claimed: TRUE)
 				(switch theCursor
 					(995 ;use
-						(switch (Random 0 1)
-						(0
-							(if (ego inRect: 77 100 195 135)
+						(if (ego inRect: 77 100 195 135)
 							(LocPrint 5 13)
 						else
 							(LocPrint 5 11)
 						)
 					)
-						(1
-						(if (ego inRect: 77 100 195 135)
-							(LocPrint 5 14)
-						else
-							(NotClose)
-					)
-						)
+					(998 ;look
+						(switch (Random 0 1)
+							(0 (LocPrint 5 28))
+							(1 (LocPrint 5 27))
 						)
 					)
-									(998 ;look
-										(switch (Random 0 1)
-										(0 (LocPrint 5 28))
-										(1 (LocPrint 5 27))
-										)
-									)
-											(else
-								(event claimed: FALSE)
-							)
-						)
+					(else
+						(event claimed: FALSE)
 					)
-			
-					(if (ClickedOnObj bench (event x?) (event y?)) ;clicked on bench1
+				)
+			)
+			(if (ClickedOnObj bench (event x?) (event y?)) ;clicked on bench1
 				(event claimed: TRUE)
 				(switch theCursor
 					(995 ;use
 						(switch (Random 0 1)
-						(0
-							(if (ego inRect: 77 100 195 135)
-							(LocPrint 5 13)
-						else
-							(LocPrint 5 11)
+							(0
+								(if (ego inRect: 77 100 195 135)
+									(LocPrint 5 13)
+								else
+									(LocPrint 5 11)
+								)
+							)
 						)
 					)
-						(1
-						(if (ego inRect: 77 100 195 135)
-							(LocPrint 5 14)
+					(998 ;look
+						(switch (Random 0 1)
+							(0 (LocPrint 5 28))
+							(1 (LocPrint 5 27))
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and 
+					(ClickedInRect 188 202 73 112 event) ;Door1 BROWN
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;Open door
+						(cond
+							((& (ego onControl: 1) cBROWN) ;$0040
+								(LocPrint 5 57) ;The door must be broken. You can't use this one.
+							)
+							(else
+								(LocPrint 5 52) ;You are not close enough to the toilet door.
+							)
+						)
+					)
+					(998 ;look
+						(cond 
+							((& (ego onControl: 1) cBROWN)
+								(LocPrint 5 32)
+							)
+							(else (LocPrint 5 33))
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and 
+					(ClickedInRect 205 221 72 114 event) ;Door2 LGREY usable
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;Open door
+						(cond 
+							((not (& (ego onControl: 1) cLGREY)) ;$00e0
+								(LocPrint 5 52) ;You are not close enough to the toilet door.
+							)
+							(inStall
+								(= inStall 0)
+									(rm5Script changeState: 9)
+							)
+							(else
+								(= inStall 1)
+								(rm5Script changeState: 4)
+							)
+						)	
+					)
+					(998 ;look
+						(cond 
+							((& (ego onControl: 1) cLGREY) ;$00c0
+								(LocPrint 5 32)
+							)
+							(else
+								(LocPrint 5 33)
+							)
+						)
+					)	
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and 
+					(or
+						(ClickedInRect 226 241 75 117 event) ;Door3 MAGENTA
+						(ClickedInRect 250 270 76 122 event) ;far right bathroom door magenta
+					)
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;Open door
+						(cond 
+							((& (ego onControl: 1) cMAGENTA) ;$0020
+								(LocPrint 5 58) ;This one is occupied.
+							)
+							(else
+								(LocPrint 5 52) ;You are not close enough to the toilet door.
+							)
+						)
+					)
+					(998 ;look
+						(cond 
+							((& (ego onControl: 1) cMAGENTA) ;$0020
+								(switch (Random 0 2)
+									(0
+										(LocPrint 5 29)
+									)
+									(1
+										(LocPrint 5 30)
+									)
+									(2
+										(LocPrint 5 31)
+									)
+								)
+							)
+							(else
+								(LocPrint 5 33)
+							)
+						)
+					)
+					(996 ;talk cop
+						(switch (Random 0 3)
+							(0
+								(LocPrint 5 42)
+							)
+							(1
+								(LocPrint 5 43)
+							)
+							(2
+								(LocPrint 5 44)
+							)
+							(3
+								(LocPrint 5 45)
+							)
+						)							
+					)	
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and 
+					(ClickedInRect 1 319 20 45 event) ;AREA
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(LocPrint 5 0 70 220)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			(if
+				(or
+					(ClickedOnObj pants (event x?) (event y?)) ;clicked on pants
+					(ClickedOnObj pants2 (event x?) (event y?)) ;clicked on pants2
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;knock
+						(cond 
+							((== (ego onControl: 1) cMAGENTA)
+								(switch (Random 0 4)
+									(0
+										(LocPrint 5 46)
+									)
+									(1
+										(LocPrint 5 47)
+									)
+									(2
+										(LocPrint 5 48)
+									)
+									(3
+										(LocPrint 5 49)
+									)
+									(4
+										(LocPrint 5 50)
+									)
+								)
+							)
+							(else
+								(LocPrint 5 52)
+							)
+						)
+					)	
+					(998 ;look				
+						(LocPrint 5 58)  ;this one is occupied
+					)
+					(996 ;talk cop
+						(switch (Random 0 3)
+							(0
+								(LocPrint 5 42)
+							)
+							(1
+								(LocPrint 5 43)
+							)
+							(2
+								(LocPrint 5 44)
+							)
+							(3
+								(LocPrint 5 45)
+							)
+						)							
+					)												
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)	
+			(if
+				(and
+					(or
+						(ClickedInRect 170 184 74 108 event) ;lockerDoor8 sprite locker far right ;dooley
+						(ClickedInRect 155 169 74 108 event) ;lockerDoor7
+						(ClickedInRect 140 154 74 108 event) ;lockerDoor6
+						(ClickedInRect 127 137 73 108 event) ;lockerDoor5
+						(ClickedInRect 116 126 72 106 event) ;lockerDoor4
+						(ClickedInRect 98 107 74 107 event) ;lockerDoor3
+						(ClickedInRect 87 107 72 113 event) ;lockerDoor2
+					)
+					(== (event claimed?) FALSE)
+				)						
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(switch (ego onControl: 1)
+							(cGREEN
+								(LocPrint 5 15)
+							)
+							(cLMAGENTA
+								(LocPrint 5 16)
+							)
+							(cLBLUE
+								(LocPrint 5 20)
+							)
+							(cGREY
+								(LocPrint 5 21)
+							)
+							(cCYAN
+								(LocPrint 5 22)
+							)
+							(cRED
+								(LocPrint 5 23)
+							)
+							(else
+								(LocPrint 5 24)
+							)
+						)
+					)
+					(995 ;use
+						;do hand
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)								
+			(if
+				(and
+					(ClickedInRect 63 87 73 116 event) ;lockerDoor1, sonny
+					(== (event claimed?) FALSE)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (== (ego onControl: 1) cGREEN)
+							(LocPrint 5 15)
 						else
 							(NotClose)
-					)
-						)
 						)
 					)
-									(998 ;look
-										(switch (Random 0 1)
-										(0 (LocPrint 5 28))
-										(1 (LocPrint 5 27))
-										)
-									)
-											(else
-								(event claimed: FALSE)
+					(995 ;use
+						(if (& (ego onControl: 1) cGREEN)
+							(if (Btst fDiscoveredLockerCombo)
+								(rm5Script changeState: 1)
+								(SolvePuzzle 5 fOpenLocker)	
+							else
+								;(LocPrint 5 37) ;"Your loocker is round combination type"
+								(LocPrint "I can't remember the locker numbers.")
+								(LocPrint "I think I put it on my LPD business card.")
 							)
-						)
-					)
-							
-		
-				
-				
-	(if
-					(and 
-						(ClickedInRect 250 270 76 122 event) ;Door4
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;Open door
-												
-					
-						(not inStall)
-					
-				
-				(cond 
-;;;					((& (ego onControl: 1) cBROWN) ;$0040
-;;;						(LocPrint 5 57) ;The door must be broken. You can't use this one.
-;;;					)
-					((& (ego onControl: 1) cMAGENTA) ;$0020
-						(LocPrint 5 58) ;This one is occupied.
-					)
-					((not (& (ego onControl: 1) cLGREY)) ;$00e0
-						(LocPrint 5 52) ;You are not close enough to the toilet door.
-					)
-					(inStall
-						(= inStall 0)
-						(rm5Script changeState: 9)
-					)
-					(else
-						(= inStall 1)
-						(rm5Script changeState: 4)
-					)
-				)	
-						
-						)
-						(998 ;look
-													(cond 
-							((& (ego onControl: 1) cMAGENTA) ;$0020
-								(switch (Random 0 2)
-									(0
-										(LocPrint 5 29)
-									)
-									(1
-										(LocPrint 5 30)
-									)
-									(2
-										(LocPrint 5 31)
-									)
-								)
-							)
-							((& (ego onControl: 1) cLGREY) ;$00c0
-								(LocPrint 5 32)
-							)
-							(else (LocPrint 5 33))
-						)
-						)
-											(996 ;talk cop
-
-							(switch (Random 0 3)
-								(0
-									(LocPrint 5 42)
-								)
-								(1
-									(LocPrint 5 43)
-								)
-								(2
-									(LocPrint 5 44)
-								)
-								(3
-									(LocPrint 5 45)
-								)
-							)
-												
-							)	
-						(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-							
-		
-
-
-
-	(if
-					(and 
-						(ClickedInRect 226 241 75 117 event) ;Door3
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;Open door
-												
-					
-						(not inStall)
-					
-				
-				(cond 
-;;;					((& (ego onControl: 1) cBROWN) ;$0040
-;;;						(LocPrint 5 57) ;The door must be broken. You can't use this one.
-;;;					)
-					((& (ego onControl: 1) cMAGENTA) ;$0020
-						(LocPrint 5 58) ;This one is occupied.
-					)
-					((not (& (ego onControl: 1) cLGREY)) ;$00e0
-						(LocPrint 5 52) ;You are not close enough to the toilet door.
-					)
-					(inStall
-						(= inStall 0)
-						(rm5Script changeState: 9)
-					)
-					(else
-						(= inStall 1)
-						(rm5Script changeState: 4)
-					)
-				)	
-						
-						)
-												(998 ;look
-													(cond 
-							((& (ego onControl: 1) cMAGENTA) ;$0020
-								(switch (Random 0 2)
-									(0
-										(LocPrint 5 29)
-									)
-									(1
-										(LocPrint 5 30)
-									)
-									(2
-										(LocPrint 5 31)
-									)
-								)
-							)
-							((& (ego onControl: 1) cLGREY) ;$00c0
-								(LocPrint 5 32)
-							)
-							(else (LocPrint 5 33))
-						)
-												)
-																	(996 ;talk cop
-
-							(switch (Random 0 3)
-								(0
-									(LocPrint 5 42)
-								)
-								(1
-									(LocPrint 5 43)
-								)
-								(2
-									(LocPrint 5 44)
-								)
-								(3
-									(LocPrint 5 45)
-								)
-							)
-												
-							)	
-						(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-							
-		
-
-
-
-								(if
-					(and 
-						(ClickedInRect 205 221 72 114 event) ;Door2
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;Open door
-												
-					
-						(not inStall)
-					
-				
-				(cond 
-;;;					((& (ego onControl: 1) cBROWN) ;$0040
-;;;						(LocPrint 5 57) ;The door must be broken. You can't use this one.
-;;;					)
-;;;					((& (ego onControl: 1) cMAGENTA) ;$0020
-;;;						(LocPrint 5 58) ;This one is occupied.
-;;;					)
-					((not (& (ego onControl: 1) cLGREY)) ;$00e0
-						(LocPrint 5 52) ;You are not close enough to the toilet door.
-					)
-					(inStall
-						(= inStall 0)
-						(rm5Script changeState: 9)
-					)
-					(else
-						(= inStall 1)
-						(rm5Script changeState: 4)
-					)
-				)	
-						
-						)
-												(998 ;look
-													(cond 
-
-							((& (ego onControl: 1) cLGREY) ;$00c0
-								(LocPrint 5 32)
-							)
-							(else (LocPrint 5 33))
-						)
-												)
-						(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-							
-		
-								(if
-					(and 
-						(ClickedInRect 1 319 20 45 event) ;AREA
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(LocPrint 5 0 70 220)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-								)
-
-								(if
-					(and 
-						(ClickedInRect 188 202 73 112 event) ;Door1
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;Open door
-												
-					
-						(not inStall)
-					
-				
-				(cond 
-					((& (ego onControl: 1) cBROWN) ;$0040
-						(LocPrint 5 57) ;The door must be broken. You can't use this one.
-					)
-;;;					((& (ego onControl: 1) cMAGENTA) ;$0020
-;;;						(LocPrint 5 58) ;This one is occupied.
-;;;					)
-					((not (& (ego onControl: 1) cLGREY)) ;$00e0
-						(LocPrint 5 52) ;You are not close enough to the toilet door.
-					)
-					(inStall
-						(= inStall 0)
-						(rm5Script changeState: 9)
-					)
-					(else
-						(= inStall 1)
-						(rm5Script changeState: 4)
-					)
-				)	
-						
-						)
-												(998 ;look
-													(cond 
-
-							((& (ego onControl: 1) cLGREY) ;$00c0
-								(LocPrint 5 32)
-							)
-							(else (LocPrint 5 33))
-						)
-												)
-						(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-							
-				(if (ClickedOnObj pants2 (event x?) (event y?)) ;clicked on pants2
-				(event claimed: TRUE)
-				(switch theCursor
-					(995 ;knock
-										(cond 
-					((== (ego onControl: 1) cMAGENTA)
-						(switch (Random 0 4)
-							(0
-								(LocPrint 5 46)
-							)
-							(1
-								(LocPrint 5 47)
-							)
-							(2
-								(LocPrint 5 48)
-							)
-							(3
-								(LocPrint 5 49)
-							)
-							(4
-								(LocPrint 5 50)
-							)
-						)
-					)
-					((& (ego onControl: 1) cLGREY) ;was $00e0
-						(LocPrint 5 51)
-					)
-					(else
-						(LocPrint 5 52)
-					)
-				)
-			)
-					
-					(998 ;look				
-						
-							(LocPrint 5 41)
-						
-					)
-					(996 ;talk cop
-
-							(switch (Random 0 3)
-								(0
-									(LocPrint 5 42)
-								)
-								(1
-									(LocPrint 5 43)
-								)
-								(2
-									(LocPrint 5 44)
-								)
-								(3
-									(LocPrint 5 45)
-								)
-							)
-												
-							)	
-																
-							(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-					
-				
-			(if (ClickedOnObj pants (event x?) (event y?)) ;clicked on pants
-				(event claimed: TRUE)
-				(switch theCursor
-					(995 ;knock
-										(cond 
-					((== (ego onControl: 1) cMAGENTA)
-						(switch (Random 0 4)
-							(0
-								(LocPrint 5 46)
-							)
-							(1
-								(LocPrint 5 47)
-							)
-							(2
-								(LocPrint 5 48)
-							)
-							(3
-								(LocPrint 5 49)
-							)
-							(4
-								(LocPrint 5 50)
-							)
-						)
-					)
-					((& (ego onControl: 1) cLGREY) ;was $00e0
-						(LocPrint 5 51)
-					)
-					(else
-						(LocPrint 5 52)
-					)
-				)
-			)
-					
-					(998 ;look				
-						
-							(LocPrint 5 41)
-						
-					)
-					(996 ;talk cop
-
-							(switch (Random 0 3)
-								(0
-									(LocPrint 5 42)
-								)
-								(1
-									(LocPrint 5 43)
-								)
-								(2
-									(LocPrint 5 44)
-								)
-								(3
-									(LocPrint 5 45)
-								)
-							)
-												
-							)	
-																
-							(else
-								(event claimed: FALSE)
-							)
-						)
-					)
-				
-
-								(if
-					(and 
-						(ClickedInRect 170 184 74 108 event) ;lockerDoor8
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-;;;					(not (& (ego onControl: 1) $00e0)) ;??
-							(not (& (ego onControl: 1) cLGREY))
-							(!= (ego onControl: 1) cGREEN)
-
-					(switch (ego onControl: 1)
-
-
-
-					(cLCYAN
-						(LocPrint 5 18)
-					)
-
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
 						else
 							(LocPrint 5 38)
 						)
-						)
-						(else
-						(event claimed: FALSE)
-						)
 					)
-							)
-				
-				
-				
-				
-				
-				
-				(if
-					(and ;140 154 74 108  170 184 74 108
-						(ClickedInRect 155 169 74 108 event) ;lockerDoor7
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-;;;					(not (& (ego onControl: 1) $00e0)) ;??
-							(not (& (ego onControl: 1) cLGREY))
-							(!= (ego onControl: 1) cGREEN)
-
-					(switch (ego onControl: 1)
-
-
-
-
-
-
-					(cGREY
-						(LocPrint 5 21)
-					)
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
+					(137 ;LPDcard
+						(if (== (ego onControl: 1) cGREEN) ;4
+							(if (Btst fDiscoveredLockerCombo)
+								(rm5Script changeState: 1)
+								(SolvePuzzle 5 fOpenLocker)
+							else
+								(LocPrint "I can't remember the locker numbers.")
+								(LocPrint "I think I put it on my LPD business card.")
+							)							
+						else	
+							(LocPrint 5 53)
+						)		
 					)
 					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(else
 						(event claimed: FALSE)
-						)
 					)
-							)
-				
-				
-												(if
-					(and
-						(ClickedInRect 140 154 74 108 event) ;lockerDoor6
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-;;;					(not (& (ego onControl: 1) $00e0)) ;??
-							(not (& (ego onControl: 1) cLGREY))
-							(!= (ego onControl: 1) cGREEN)
-
-					(switch (ego onControl: 1)
-					(cGREEN
-						(LocPrint 5 15)
-					)
-					(cLMAGENTA
-						(LocPrint 5 16)
-					)
-
-
-	
-					(cLBLUE
-						(LocPrint 5 20)
-					)
-
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(else
-						(event claimed: FALSE)
-						)
-					)
-							)
-				
-				
-		
-								(if
-					(and
-						(ClickedInRect 127 137 73 108 event) ;lockerDoor5
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-;;;					(not (& (ego onControl: 1) $00e0)) ;??
-							(not (& (ego onControl: 1) cLGREY))
-							(!= (ego onControl: 1) cGREEN)
-
-					(switch (ego onControl: 1)
-
-
-
-
-					(cLGREEN
-						(LocPrint 5 19)
-					)
-
-
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(else
-						(event claimed: FALSE)
-						)
-					)
-							)
-				
-				
-				
-						
-;;;				(if
-;;;					(and
-;;;						(ClickedInRect 116 126 72 106 event) ;lockerDoor4
-;;;						(== (event claimed?) FALSE)
-;;;					)						
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(998 ;look
-;;;
-;;;;;;					(not (& (ego onControl: 1) $00e0)) ;??
-;;;							(not (& (ego onControl: 1) cLGREY))
-;;;							(== (ego onControl: 1) cGREEN)
-;;;
-;;;				(switch (ego onControl: 1)
-;;;					(cGREEN
-;;;						(LocPrint 5 23)
-;;;					)
-;;;					(else
-;;;						(LocPrint 5 24) 
-;;;					)
-;;;				)
-;;;						)
-;;;						(137 ;LPDcard
-;;;							(not (& (ego onControl: 1) cLGREY))
-;;;							(if (!= (ego onControl: 1) cGREEN) ;4
-;;;								(LocPrint 5 53)
-;;;							else
-;;;									(rm5Script changeState: 1)
-;;;									(SolvePuzzle 5 fOpenLocker)
-;;;							)
-;;;						)
-;;;						(else
-;;;						(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;							)				
-												(if
-					(and
-						(ClickedInRect 98 107 74 107 event) ;lockerDoor3
-						(== (event claimed?) FALSE)
-					)						
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-;;;					(not (& (ego onControl: 1) $00e0)) ;??
-							(not (& (ego onControl: 1) cLGREY))
-							(!= (ego onControl: 1) cGREEN)
-
-				(switch (ego onControl: 1)
-
-
-					(cLRED
-						(LocPrint 5 17)
-					)
-
-
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(else
-						(event claimed: FALSE)
-						)
-					)
-							)								
-												(if
-					(and
-						(ClickedInRect 87 107 72 113 event) ;lockerDoor2
-						(== (event claimed?) FALSE)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-					(not (& (ego onControl: 1) $00e0)) ;??
-;;;							(not (& (ego onControl: 1) cLGREY))
-;;;							(!= (ego onControl: 1) cGREEN)
-				(switch (ego onControl: 1)
-
-
-					(cLMAGENTA
-						(LocPrint 5 16)
-					)
-
-
-
-
-					(cGREY
-						(LocPrint 5 21)
-					)
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-				(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(else
-						(event claimed: FALSE)
-						)
-					)
-							)
-											
-												(if
-					(and
-						(ClickedInRect 63 87 73 116 event) ;lockerDoor1, sonny
-						(== (event claimed?) FALSE)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-
-					(not (& (ego onControl: 1) $00e0)) ;??
-;;;							(not (& (ego onControl: 1) cLGREY))
-;;;							(!= (ego onControl: 1) cGREEN)
-				(switch (ego onControl: 1)
-					(cGREEN
-						(LocPrint 5 15)
-					)
-
-
-
-
-
-					(cGREY
-						(LocPrint 5 21)
-					)
-					(cCYAN
-						(LocPrint 5 22)
-					)
-					(cRED
-						(LocPrint 5 23)
-					)
-					(else
-						(LocPrint 5 24)
-					)
-				)
-						)
-						(995 ;use
-							(if (& (ego onControl: 1) cGREEN)
-							(LocPrint 5 37)
-							(LocPrint "I think I put it on my LPD business card.")
-						else
-							(LocPrint 5 38)
-						)
-						)
-						(137 ;LPDcard
-							(if (== LookedLPD 1)
-								(not (& (ego onControl: 1) cLGREY))
-								(if (!= (ego onControl: 1) cGREEN) ;4
-									(LocPrint 5 53)
-								else
-									(rm5Script changeState: 1)
-									(SolvePuzzle 5 fOpenLocker)
-								)
-							)
-							(if (== LookedLPD 0)
-														
-								(not (& (ego onControl: 1) cLGREY))
-								(if (!= (ego onControl: 1) cGREEN) ;4
-									(LocPrint 5 53)
-								else
-									(LocPrint "I can't remember the locker numbers.")
-									(LocPrint "I think I put it on my LPD business card.")
-								)
-
-
-								)
-							
-							
-							
-						)
-						(else
-						(event claimed: FALSE)
-						)
-					)
-							
-			)
+				)				
 			)
 		)
-		
 	)
 )
 
@@ -1602,6 +1050,12 @@
 (instance lockerScript of Script
 	(properties)
 	
+	(method (doit)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)	
+	)
+
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -1717,7 +1171,9 @@
 	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-						
+		(if (event claimed?)
+			(return)
+		)				
 		(if
 			(and
 				(== (event type?) keyDown)
@@ -1730,14 +1186,6 @@
 			(event claimed: 1)
 			(LocPrint 5 6)
 		)
-;;;		(if
-;;;			(or
-;;;				(event claimed?)
-;;;				(!= (event type?) saidEvent)
-;;;			)
-;;;			(return)
-;;;		)
-
 		(cond 
 			((Said '(replace,remove,deposit)>')
 				(cond 
@@ -1900,17 +1348,12 @@
 			)
 		)
 		(cond
-			
-						(						
+			(						
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
-				
-				
-				
-				(if (== theCursor 999) ;use walk to close.
+				(if (== theCursor 991) ;use walk/exit to close.
 					(curRoom drawPic: (curRoom picture?))
 ;;;					(cast eachElementDo: #dispose)
 					(ego dispose:) 
@@ -1948,101 +1391,83 @@
 						(998 ; look
 							(LocPrint 5 86)
 						)
-					(else
-						(event claimed: FALSE)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-
-					)
-				)					
-		
-					
+				)						
 				(if (ClickedOnObj gun (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; look box
-						(if (InRoom iHandGun)
-							(LocPrint 5 77)
-							(gun posn: 100 1000)
-							(ego get: iHandGun)
-							(SolvePuzzle 1 fGetGun)
-						else
-							(LocPrint 5 78)
+						(995 ; get gun
+							(if (InRoom iHandGun)
+								(LocPrint 5 77)
+								(gun posn: 100 1000)
+								(ego get: iHandGun)
+								(SolvePuzzle 1 fGetGun)
+							else
+								(LocPrint 5 78)
+							)
 						)
+						(998 ;look gun
+							(if (InRoom iHandGun)
+								(LocPrint 5 88)
+							)
 						)
-						(998 ;
-						(if (InRoom iHandGun)
-							(LocPrint 5 88)
-						else
-							(event claimed: 0)
+						(else
+							(event claimed: FALSE)
 						)
-						)
-					(else
-						(event claimed: FALSE)
 					)
-
-					)
-				)					
-		
-					
-				
+				)						
 				(if (ClickedOnObj handcuffs (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; look box
-						(if (InRoom iHandcuffs)
-							(LocPrint 5 81)
-							(ego get: iHandcuffs)
-							(SolvePuzzle 1 fGetHandcuffs)
-							(handcuffs posn: 100 1000)
-						else
-							(LocPrint 5 82)
-						)
+						(995 ;Get cuffs
+							(if (InRoom iHandcuffs)
+								(LocPrint 5 81)
+								(ego get: iHandcuffs)
+								(SolvePuzzle 1 fGetHandcuffs)
+								(handcuffs posn: 100 1000)
+							else
+								(LocPrint 5 82)
+							)
 						)
 						(998
 							(if (InRoom iHandcuffs)
-							(LocPrint 5 89)
-						else
-							(event claimed: 0)
+								(LocPrint 5 89)
+							else
+								(event claimed: 0)
+							)
 						)
+						(else
+							(event claimed: FALSE)
 						)
-					(else
-						(event claimed: FALSE)
 					)
-
-					)
-				)					
-		
-	
+				)
 				(if (ClickedOnObj ammoClips (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
-						(995 ; look box
-						(if (InRoom iAmmoClips)
-							(LocPrint 5 79)
-							(ego get: iAmmoClips)
-							(SolvePuzzle 1 fGetAmmoClips)
-							(ammoClips posn: 100 1000)
-						else
-							(LocPrint 5 80)
-						)
+						(995 ;get clips
+							(if (InRoom iAmmoClips)
+								(LocPrint 5 79)
+								(ego get: iAmmoClips)
+								(SolvePuzzle 1 fGetAmmoClips)
+								(ammoClips posn: 100 1000)
+							else
+								(LocPrint 5 80)
+							)
 						)
 						(998
-						(if (InRoom iAmmoClips)
-							(LocPrint 5 87)
-						else
-							(event claimed: 0)
+							(if (InRoom iAmmoClips)
+								(LocPrint 5 87)
+							)
 						)
+						(else
+							(event claimed: FALSE)
 						)
-					(else
-						(event claimed: FALSE)
 					)
-
-					)
-				)					
-		
-	
-)
-	)
-	
+				)
+			)
+		)
 	)
 )

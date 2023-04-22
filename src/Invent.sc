@@ -323,7 +323,7 @@
 								((Inventory at: 37) cel: 1) 
 							else
 								((Inventory at: 37) cel: 0)
-								(= LookedLPD 1)
+								(Bset fDiscoveredLockerCombo)
 							)
 						)
 					)
