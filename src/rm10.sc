@@ -175,13 +175,6 @@
 				(= state 1)
 				(theDoor setMotion: MoveTo 242 137 self)
 			)
-		
-		
-
-		
-		
-		
-		
 		)
 	)
 	
@@ -390,259 +383,251 @@
 		)
 	)
 	
-	
 	(method (handleEvent event)
-
-			(if (event claimed?)
-
+		(if (event claimed?)
 			(return)
 		)
+		(cond 
+			((Said 'look>')
 				(cond 
-					((Said 'look>')
-						(cond 
-							((Said '[<at,around][/!*,chamber,range]')
-								(Print 10 4)
-								(Print 10 5)
-							)
-							((Said '/counter,bookcase,coatrack')
-								(Print 10 6)
-							)
-							((Said '/glass')
-								(cond 
-									(
-										(and
-											(>= (ego x?) 47)
-											(>= (ego y?) 137)
-											(== (ego loop?) 3)
-										)
-										(Print 10 7)
-									)
-									((<= (ego y?) 135)
-										(Print 10 8)
-									)
-									(else
-										(event claimed: 0)
-									)
-								)
-							)
-							(
-								(or (Said '/cop[<weapons]')
-									(Said '/dude,ken,ken')
-								)
-								(Print 10 9)
-							)
-							((Said '/bullseye')
-								(Print 10 10)
-							)
-							((Said '/*')
-								(if (ego inRect: 152 153 210 158)
-									(Print 10 11)
-								else
-									(event claimed: 0)
-								)
-							)
-						)
+					((Said '[<at,around][/!*,chamber,range]')
+						(Print 10 4)
+						(Print 10 5)
 					)
-					((Said 'chat/dude,cop,ken')
+					((Said '/counter,bookcase,coatrack')
+						(Print 10 6)
+					)
+					((Said '/glass')
 						(cond 
-							((< (ego y?) 139)
-								(Print 10 12)
+							(
+								(and
+									(>= (ego x?) 47)
+									(>= (ego y?) 137)
+									(== (ego loop?) 3)
+								)
+								(Print 10 7)
 							)
-							((ego inRect: 152 153 210 158)
-								(Print 10 13)
-							)
-							(talkedToKen
-								(Print 10 14)
+							((<= (ego y?) 135)
+								(Print 10 8)
 							)
 							(else
-								(switch (Random 0 2)
-									(0
-										(Print 10 15)
-									)
-									(1
-										(Print 10 16)
-									)
-									(2
-										(Print 10 17)
-									)
-								)
-								(= talkedToKen 1)
+								(event claimed: 0)
 							)
 						)
 					)
 					(
-						(or
-							(Said 'ask,use/range[<shooting]')
-							(Said 'use/booth[<shooting]')
-							(Said 'fire/range,bullseye')
-							(Said 'bullseye/fire')
+						(or (Said '/cop[<weapons]')
+							(Said '/dude,ken,ken')
 						)
-						(if (== (ego onControl: 1) cLMAGENTA)
-							(Print 10 18)
+						(Print 10 9)
+					)
+					((Said '/bullseye')
+						(Print 10 10)
+					)
+					((Said '/*')
+						(if (ego inRect: 152 153 210 158)
+							(Print 10 11)
 						else
-							(NotClose)
+							(event claimed: 0)
 						)
 					)
-					(
-						(or
-							(Said 'gave/9mm')
-							(Said 'display/9mm')
-						)
-						(if (== (ego onControl: 1) cLMAGENTA)
-							(if (ego has: iHandGun)
-								(Print 10 19)
-								(Print 10 20)
-								(Print 10 21)
-							else
-								(DontHaveGun)
-							)
-						else
-							(NotClose)
-						)
-					)
-					((Said '(hand<in),exit,replace,gave/ep[<ear]')
-						(cond 
-							((not (ego has: iEarProtectors))
-								(DontHave)
-							)
-							((!= (ego onControl: 1) cLMAGENTA)
-								(NotClose)
-							)
-							(else
-								(Print 10 22)
-								(PutInRoom iEarProtectors)
-							)
-						)
-					)
-					(
-					(or (Said 'get/ep[<ear]') (Said 'ask/ep[<ear]'))
-						(if (== (ego onControl: 1) cLMAGENTA)
-							(if (== (ego has: iEarProtectors) 0)
-								(Print 10 23)
-								(ego get: iEarProtectors)
-								(SolvePuzzle 2 66)
-							else
-								(Print 10 24)
-							)
-						else
-							(NotClose)
-						)
-					)
-					(
-						(or
-							(Said 'get,replace,exchange,ask/ammo,clip')
-							(Said 'ask//ammo,clip')
-						)
-						(cond 
-							((!= (ego onControl: 1) cLMAGENTA)
-								(Print 10 25)
-							)
-							(
-								(and
-									(not (ego has: 1))
-									(not bulletsInGun)
-								)
-								(Print 10 26)
-							)
-							(
-								(and
-									(not (ego has: iAmmoClips))
-									bulletsInGun
-								)
-								(if [numAmmoClips bulletsInGun]
-									(Print 10 27)
-								else
-									(Print 10 28)
-									(SolvePuzzle 2 68)
-									(= [numAmmoClips bulletsInGun] 7)
-								)
-							)
-							(
-								(and
-									(== [numAmmoClips 1] [numAmmoClips 2])
-									(== [numAmmoClips 2] 0)
-								)
-								(Print 10 29)
-								(SolvePuzzle 2 68)
-								(= [numAmmoClips 1] 7)
-								(= [numAmmoClips 2] 7)
-								(= bulletsInGun 0)
-							)
-							(
-								(or
-									(not [numAmmoClips 1])
-									(not [numAmmoClips 2])
-								)
-								(Print 10 28)
-								(SolvePuzzle 2 68)
-								(if (not [numAmmoClips bulletsInGun])
-									(= bulletsInGun 0)
-								)
-								(if (== [numAmmoClips 1] 0)
-									(= [numAmmoClips 1] 7)
-								else
-									(= [numAmmoClips 2] 7)
-								)
-							)
-							(else (Print 10 27))
-						)
-					)
-					(
-						(or
-							(Said 'wear/ep[<ear]')
-							(Said 'deposit/ep[<ear]')
-							(Said 'use/ep[<ear]')
-							(Said 'deposit[<in]/ep')
-						)
-						(if (ego has: iEarProtectors)
-							(Print 10 30)
-						else
-							(Print 10 31)
-						)
-					)
-					(
-						(or
-							(Said 'get<off/ep[<ear]')
-							(Said 'remove/ep[<ear]')
-						)
-						(if (== wearingEarProtectors 0)
-							(Print 10 32)
-						else
-							(Print 10 33)
-							(= wearingEarProtectors 0)
-						)
-					)
-					
 				)
-
-			
-				(and
+			)
+			((Said 'chat/dude,cop,ken')
+				(cond 
+					((< (ego y?) 139)
+						(Print 10 12)
+					)
+					((ego inRect: 152 153 210 158)
+						(Print 10 13)
+					)
+					(talkedToKen
+						(Print 10 14)
+					)
+					(else
+						(switch (Random 0 2)
+							(0
+								(Print 10 15)
+							)
+							(1
+								(Print 10 16)
+							)
+							(2
+								(Print 10 17)
+							)
+						)
+						(= talkedToKen 1)
+					)
+				)
+			)
+			(
+				(or
+					(Said 'ask,use/range[<shooting]')
+					(Said 'use/booth[<shooting]')
+					(Said 'fire/range,bullseye')
+					(Said 'bullseye/fire')
+				)
+				(if (== (ego onControl: 1) cLMAGENTA)
+					(Print 10 18)
+				else
+					(NotClose)
+				)
+			)
+			(
+				(or
+					(Said 'gave/9mm')
+					(Said 'display/9mm')
+				)
+				(if (== (ego onControl: 1) cLMAGENTA)
+					(if (ego has: iHandGun)
+						(Print 10 19)
+							(Print 10 20)
+							(Print 10 21)
+						else
+							(DontHaveGun)
+						)
+					else
+						(NotClose)
+					)
+				)
+			((Said '(hand<in),exit,replace,gave/ep[<ear]')
+				(cond 
+					((not (ego has: iEarProtectors))
+						(DontHave)
+					)
+					((!= (ego onControl: 1) cLMAGENTA)
+						(NotClose)
+					)
+					(else
+						(Print 10 22)
+						(PutInRoom iEarProtectors)
+					)
+				)
+			)
+			(
+				(or
+					(Said 'get/ep[<ear]')
+					(Said 'ask/ep[<ear]')
+				)
+				(if (== (ego onControl: 1) cLMAGENTA)
+					(if (== (ego has: iEarProtectors) 0)
+						(Print 10 23)
+						(ego get: iEarProtectors)
+						(SolvePuzzle 2 66)
+					else
+						(Print 10 24)
+					)
+				else
+					(NotClose)
+				)
+			)
+			(
+				(or
+					(Said 'get,replace,exchange,ask/ammo,clip')
+					(Said 'ask//ammo,clip')
+				)
+				(cond 
+					((!= (ego onControl: 1) cLMAGENTA)
+						(Print 10 25)
+					)
+					(
+						(and
+							(not (ego has: 1))
+							(not bulletsInGun)
+						)
+						(Print 10 26)
+					)
+					(
+						(and
+							(not (ego has: iAmmoClips))
+							bulletsInGun
+						)
+						(if [numAmmoClips bulletsInGun]
+							(Print 10 27)
+						else
+							(Print 10 28)
+							(SolvePuzzle 2 68)
+							(= [numAmmoClips bulletsInGun] 7)
+						)
+					)
+					(
+						(and
+							(== [numAmmoClips 1] [numAmmoClips 2])
+							(== [numAmmoClips 2] 0)
+						)
+						(Print 10 29)
+						(SolvePuzzle 2 68)
+						(= [numAmmoClips 1] 7)
+						(= [numAmmoClips 2] 7)
+						(= bulletsInGun 0)
+					)
+					(
+						(or
+							(not [numAmmoClips 1])
+							(not [numAmmoClips 2])
+						)
+						(Print 10 28)
+						(SolvePuzzle 2 68)
+						(if (not [numAmmoClips bulletsInGun])
+							(= bulletsInGun 0)
+						)
+						(if (== [numAmmoClips 1] 0)
+							(= [numAmmoClips 1] 7)
+						else
+							(= [numAmmoClips 2] 7)
+						)
+					)
+					(else
+						(Print 10 27)
+					)
+				)
+			)
+			(
+				(or
+					(Said 'wear/ep[<ear]')
+					(Said 'deposit/ep[<ear]')
+					(Said 'use/ep[<ear]')
+					(Said 'deposit[<in]/ep')
+				)
+				(if (ego has: iEarProtectors)
+					(Print 10 30)
+				else
+					(Print 10 31)
+				)
+			)
+			(
+				(or
+					(Said 'get<off/ep[<ear]')
+					(Said 'remove/ep[<ear]')
+				)
+				(if (== wearingEarProtectors 0)
+					(Print 10 32)
+				else
+					(Print 10 33)
+					(= wearingEarProtectors 0)
+				)
+			)	
+		)
+		(if
+			(and
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			(if (ClickedOnObj target3 (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor				
+					(100
+						; Gun	
+					)
+					(else
+						(event claimed: FALSE)
+					)
 				)
-			
-			
-			(if
-
-						(ClickedOnObj target3 (event x?) (event y?))
-	
-					(event claimed: TRUE)
-					(switch theCursor				
-						(100 ; Gun
-							
-						)
-			(else
-							(event claimed: FALSE)
-					 )
-					))
-			
-							(if
-
-						(ClickedOnObj attendant (event x?) (event y?))
-	
-					(event claimed: TRUE)
-					(switch theCursor				
-						(996 ; Talk
+			)
+			(if (ClickedOnObj attendant (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor				
+					(996 ; Talk
 						(if (== (ego onControl: 1) cLMAGENTA)
 							(if (== (ego has: iEarProtectors) 0)
 								(Print 10 23)
@@ -654,11 +639,9 @@
 						else
 							(NotClose)
 						)
-											
-						
-						)
-						(100 ;your gun for munition
-													(cond 
+					)
+					(100 ;your gun for munition
+						(cond 
 							((!= (ego onControl: 1) cLMAGENTA)
 								(Print 10 25)
 							)
@@ -712,31 +695,16 @@
 							(else (Print 10 27))
 						)
 					)
-
-						(115 ;ear protectors, devolverselos
-
-
-														(SolvePuzzle 5 67)
+					(115 ;ear protectors, devolverselos
+						(SolvePuzzle 5 67)
 						(= gunSightsAligned 1)
-							)
-	
-						
-						
-						(else
-							(event claimed: FALSE)
-					 )
-					
-					
-					
-					
-					
-					
-					
-					
-				
-					
-							)
+					)	
+					(else
+						(event claimed: FALSE)
+					)
+				)
 			)
+		)
 	)
 )
 		
@@ -833,7 +801,6 @@
 					)
 					(rightArm init: signal: 26640 doit:) ;26640 doesnt match signal defines
 					(leftArm init: signal: 26640 doit:)
-					;((= target (Prop new:))
 					((= target (Prop new:))
 						view: 70
 						posn: 159 59
@@ -1046,16 +1013,16 @@
 						)
 						(++ eventMessage_2)
 					)
-;;;					(if
-;;;						(and
-;;;							(<= -6 gunWindageScrew)
-;;;							(<= gunWindageScrew 6)
-;;;							(<= -4 gunElevationScrew)
-;;;							(<= gunElevationScrew 4)
-;;;						)
+					(if
+						(and
+							(<= -6 gunWindageScrew)
+							(<= gunWindageScrew 6)
+							(<= -4 gunElevationScrew)
+							(<= gunElevationScrew 4)
+						)
 						(SolvePuzzle 5 67)
 						(= gunSightsAligned 1)
-;;;					)
+					)
 				)
 				(= inBooth 0)
 			)
@@ -1094,60 +1061,60 @@
 			(= gunDrawn 1)
 		)
 		(switch (event type?)
-;;;			(keyDown
-;;;				(= temp0 (event message?))
-;;;				(event claimed: 1)
-;;;				(cond 
-;;;					((== temp0 `#a) ;17408 or KEY_F10 doesn't match here. Use the statusMenu designation I guess? F8 below matches fine.
-;;;						(cond 
-;;;							(isHandsOff
-;;;								1
-;;;							)
-;;;							((not (ego has: iHandGun))
-;;;								(DontHaveGun)
-;;;							)
-;;;							((!= (ego yStep?) 1)
-;;;								(Print 10 40)
-;;;							)
-;;;							((not [numAmmoClips bulletsInGun])
-;;;								(Print 10 41 #time 2)
-;;;							)
-;;;							((> targetShots 6)
-;;;								(Print 10 42)
-;;;							)
-;;;							(
-;;;								(and
-;;;									(!= (target cel?) 4)
-;;;									(<= (ego y?) 208)
-;;;								)
-;;;								(Print 10 43) ;target too close
-;;;							)
-;;;							((not inBooth)
-;;;								(boothScript changeState: 1)
-;;;							)
-;;;						)
-;;;					)
-;;;					((== temp0 KEY_F8)
-;;;						(cond 
-;;;							((not (ego has: iHandGun))
-;;;								(DontHaveGun)
-;;;							)
-;;;							(inBooth
-;;;								(return)
-;;;							)
-;;;							(gunDrawn
-;;;								(self changeState: 5)
-;;;							)
-;;;							(else
-;;;								(self changeState: 3)
-;;;							)
-;;;						)
-;;;					)
-;;;					(else
-;;;						(event claimed: 0)
-;;;					)
-;;;				)
-;;;			)
+			(keyDown
+				(= temp0 (event message?))
+				(event claimed: 1)
+				(cond 
+					((== temp0 `#a) ;17408 or KEY_F10 doesn't match here. Use the statusMenu designation I guess? F8 below matches fine.
+						(cond 
+							(isHandsOff
+								1
+							)
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							((!= (ego yStep?) 1)
+								(Print 10 40)
+							)
+							((not [numAmmoClips bulletsInGun])
+								(Print 10 41 #time 2)
+							)
+							((> targetShots 6)
+								(Print 10 42)
+							)
+							(
+								(and
+									(!= (target cel?) 4)
+									(<= (ego y?) 208)
+								)
+								(Print 10 43) ;target too close
+							)
+							((not inBooth)
+								(boothScript changeState: 1)
+							)
+						)
+					)
+					((== temp0 KEY_F8)
+						(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							(inBooth
+								(return)
+							)
+							(gunDrawn
+								(self changeState: 5)
+							)
+							(else
+								(self changeState: 3)
+							)
+						)
+					)
+					(else
+						(event claimed: 0)
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					((Said 'look[<at,around][/noword,booth,chamber]')
@@ -1382,44 +1349,28 @@
 							)
 						)
 					)
-
-
-				((and
+				)
+			)
+		)
+		(if
+			(and
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-			
-			
-			(if
-
-						(ClickedOnObj target3 (event x?) (event y?))
-	
-					(event claimed: TRUE)
-					(switch theCursor				
-						(100 ; Gun
-							
-						)
-			(else
-							(event claimed: FALSE)
-					 )
-
+			)			
+			(if (ClickedOnObj target3 (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor				
+					(100
+						; Gun
 					)
-			)
-				)
+					(else
+						(event claimed: FALSE)
+					)
 				)
 			)
 		)
 	)
-	)
-
-			
-			
-
-			
-			
-			
-			
-	
+)
 
 (instance sightScript of Script
 	(properties)
@@ -1536,7 +1487,7 @@
 )
 
 ;;;(instance attendant of Prop
-	(instance attendant of View
+(instance attendant of View
 	(properties)
 	
 	(method (doit)
@@ -1547,16 +1498,15 @@
 	)
 )
 	
-	(instance target3 of Prop
+(instance target3 of Prop
 	(properties
-							view 70
-							x 159 
-							 y 59
-							loop 2
-;;;						cycleSpeed: 3
-						cel 4
-
-;;;						init:
-;;;						stopUpd:	
-		)
+		view 70
+		x 159 
+		y 59
+		loop 2
+;;;		cycleSpeed: 3
+		cel 4
+;;;		init:
+;;;		stopUpd:	
 	)
+)
