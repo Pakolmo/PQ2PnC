@@ -1035,6 +1035,34 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 							
 				)
+				
+				
+				(if (ClickedInRect 99 117 108 119 event) ;speedometer
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look					
+							(if onTheRoad (Print 13 16) else (Print 13 17))
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if (ClickedInRect 144 159 110 126 event) ;List
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look				
+							(Print 13 9)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				
+				
 			(if (== theCursor 999) ;walk anywhere to exit 
 				(ExitWorkCar)
 			)
@@ -1050,11 +1078,21 @@
 						(996 ; talk keith smoke
 							(sequencer changeState: 113)
 						)
+						(998 ; look keith
+							
+							
+						)
+						(else
+							(event claimed: TRUE)	
+						)
 					)
 			)
 							
 			
-			(if (ClickedOnObj wheel (event x?) (event y?)) ;wheel
+			(if 	(and 
+						(ClickedOnObj wheel (event x?) (event y?)) ;wheel
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
 						(103 ;unmarked keys drive. 
@@ -1227,6 +1265,7 @@
 											
 										)
 										(22 ;Jail
+											
 											(if (not (ego has: 3))
 												(Print 13 48)
 												(event claimed: 1)
@@ -1650,6 +1689,7 @@
 				(= local113 1)
 			)
 			(85
+				(HandsOff) ;add
 				(if (== global169 3) (= global169 0))
 				(Bclr 51)
 				(Bclr 50)
@@ -1692,6 +1732,7 @@
 					)
 					(else (self changeState: 89))
 				)
+				(HandsOn) ;add
 			)
 			(86
 				(= local113 0)
