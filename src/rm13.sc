@@ -44,6 +44,7 @@
 	local119
 	local120
 	local121
+	drive
 )
 (procedure (ExitWorkCar)
 	(if
@@ -1026,8 +1027,352 @@
 				)
 			)
 		)
+		
+		(cond
+					(						
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+							
+				)
+			(if (== theCursor 999) ;walk anywhere to exit 
+				(ExitWorkCar)
+			)
+			
+			
+			(if 
+				(or
+					(ClickedOnObj kShoulder (event x?) (event y?)) ;kShoulder keithBud
+					(ClickedOnObj keithBud (event x?) (event y?))
+				)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(996 ; talk keith smoke
+							(sequencer changeState: 113)
+						)
+					)
+			)
+							
+			
+			(if (ClickedOnObj wheel (event x?) (event y?)) ;wheel
+					(event claimed: TRUE)
+					(switch theCursor	
+						(103 ;unmarked keys drive. 
+								(= drive
+										(PrintSpecial
+											{Where to drive?}
+											#button {Airport} 14
+											#button {753 Third Street} 25
+											#button {Arnie's restaurant} 29
+											#button {Oak Tree Mall} 67
+											#button {Cotton Cove} 61
+											#button {Jail} 22
+											#button {222 West Peach Street} 31
+											#button {160 West Rose} 27
+											#button {Office} 1
+											
+
+										)
+									)
+									
+									(switch drive
+										(14 ;Lytton Airport
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)
+
+													(if (!= outsideRoom 14)
+														(= outsideRoom 14)
+														(sequencer changeState: 85)
+														(= local107 0)
+														(= local108 62)
+													else
+														(if onTheRoad (Print 13 49) else (Print 13 50))
+														(User canInput: 1)
+													)
+													(= local101
+													(if (== prevRoomNum 14) (>= global169 2) else 0)
+						)
+												)
+										)
+										(25 ;753 Third Street
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)
+									(if (!= outsideRoom 25)
+										(= outsideRoom 25)
+										(sequencer changeState: 85)
+										(= local107 40)
+										(= local108 100)
+									else
+										(if onTheRoad (Print 13 49) else (Print 13 50))
+										(User canInput: 1)
+									)												
+												
+													(= local101
+													(if (== prevRoomNum 14) (>= global169 2) else 0)
+													)
+											)
+										)
+										(29 ;Arnie
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)
+												(if (!= outsideRoom 29)
+													(= outsideRoom 29)
+													(sequencer changeState: 85)
+													(= local107 80)
+													(= local108 100)
+												else
+													(if onTheRoad (Print 13 49) else (Print 13 50))
+													(User canInput: 1)
+												)
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+													)
+											)
+										)
+										(67 ;oak tree mall
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)										
+																		
+											
+													(if (!= outsideRoom 67)
+														(= outsideRoom 67)
+														(sequencer changeState: 85)
+														(= local107 100)
+														(= local108 100)
+													else
+														(if onTheRoad (Print 13 49) else (Print 13 50))
+														(User canInput: 1)
+													)
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)
+											
+											
+											
+											
+										)
+										(61 ;cotton cove
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)	
+												(if (!= outsideRoom 61)
+													(= outsideRoom 61)
+													(sequencer changeState: 85)
+													(= local107 122)
+													(= local108 12)
+												else
+													(if onTheRoad (Print 13 49) else (Print 13 50))
+													(User canInput: 1)
+												)
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)
+											
+											
+										)
+										(22 ;Jail
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)
+												(if (!= outsideRoom 22)
+													(= outsideRoom 22)
+													(sequencer changeState: 85)
+													(= local107 90)
+													(= local108 10)
+												else
+													(if onTheRoad (Print 13 49) else (Print 13 50))
+													(User canInput: 1)
+												)
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)												
+										)
+										(31 ;west peach
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)											
+												(if (!= outsideRoom 31)
+													(= outsideRoom 31)
+													(sequencer changeState: 85)
+													(= local107 30)
+													(= local108 60)
+												else
+													(if onTheRoad (Print 13 49) else (Print 13 50))
+													(User canInput: 1)
+												)											
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)
+										)
+										(27 ;west rose
+											
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)												
+											
+									(cond 
+										(
+											(and
+												(or (Said '/area<death') (Said '/death'))
+												(!= gamePhase 10)
+											)
+											(LocPrint 1 13 51)
+											(User canInput: 1)
+										)
+										((!= outsideRoom 27)
+											(event claimed: 1)
+											(= outsideRoom 27)
+											(sequencer changeState: 85)
+											(= local107 62)
+											(= local108 50)
+										)
+										(else
+											(if onTheRoad (Print 13 49) else (Print 13 50))
+											(event claimed: 1)
+											(User canInput: 1)
+										)
+									)
+										
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)											
+											
+									)		
+						
+										(1  ;the office
+											
+											(if (not (ego has: 3))
+												(Print 13 48)
+												(event claimed: 1)
+											else
+												(if (and (== gamePhase 3) (Btst 152)) (= gamePhase 4))
+												(if (and (== gamePhase 12) (not (Btst 165)))
+													(if (Said '/inn[<snuggler,to]')
+														(event claimed: 0)
+													else
+														(Bset 165)
+													)
+												)
+												(User canInput: 0)												
+											
+									(if (!= outsideRoom 1)
+										(= outsideRoom 1)
+										(sequencer changeState: 85)
+										(= local107 110)
+										(= local108 40)
+									else
+										(if onTheRoad (Print 13 49) else (Print 13 50))
+										(User canInput: 1)
+										
+									)											
+												(= local101
+												(if (== prevRoomNum 14) (>= global169 2) else 0)
+												)	
+											)											
+																						
+											
+										)
+									)
+						)(else
+							(event claimed: FALSE)
+						 )
+					)
+							
+		)
 	)
-)
+		)
+	)
+)	
+
 
 (instance sequencer of Script
 	(properties)

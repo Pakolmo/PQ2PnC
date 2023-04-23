@@ -346,6 +346,7 @@
 		gPEventX
 		gPEventY
 		gWindow
+		localize
 )
 (procedure (EgoDead)
 	;disposes all sounds, plays the death music, and gives the player a choice:
@@ -687,132 +688,132 @@
 	)
 )
 
-(instance icon4 of IconI
-	(properties
-		view 950
-		loop 4
-		cel 0
-		cursor 999
-		message 7
-		signal $0041
-		maskView 900
-		maskLoop 10
-		maskCel 3
-		noun 4
-		helpVerb 8
-	)
-	
-	(method (select param1 &tmp newEvent temp1 gIconBarCurInvIcon temp3 temp4)
-		(return
-			(cond 
-				((& signal $0004) 0)
-				((and argc param1 (& signal notUpd))
-					(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
-						(= temp3
-							(+
-								(/
-									(-
-										(- nsRight nsLeft)
-										(CelWide
-											(gIconBarCurInvIcon view?)
-											(+ (gIconBarCurInvIcon loop?) 1)
-											(gIconBarCurInvIcon cel?)
-										)
-									)
-									2
-								)
-								nsLeft
-							)
-						)
-						(= temp4
-							(+
-								(gIconBar y?)
-								(/
-									(-
-										(- nsBottom nsTop)
-										(CelHigh
-											(gIconBarCurInvIcon view?)
-											(+ (gIconBarCurInvIcon loop?) 1)
-											(gIconBarCurInvIcon cel?)
-										)
-									)
-									2
-								)
-								nsTop
-							)
-						)
-					)
-					(DrawCel view loop (= temp1 1) nsLeft nsTop -1)
-					(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
-						(DrawCel
-							(gIconBarCurInvIcon view?)
-							(+ 1 (gIconBarCurInvIcon loop?))
-							(gIconBarCurInvIcon cel?)
-							temp3
-							temp4
-							-1
-						)
-					)
-;;;					(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
-;;;					(while (!= ((= newEvent (Event new:)) type?) 2)
-;;;						(newEvent localize:)
-;;;						(cond 
-;;;							((self onMe: newEvent)
-;;;								(if (not temp1)
-;;;									(DrawCel view loop (= temp1 1) nsLeft nsTop -1)
-;;;									(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
-;;;										(DrawCel
+;;;(instance icon4 of IconI
+;;;	(properties
+;;;		view 950
+;;;		loop 4
+;;;		cel 0
+;;;		cursor 999
+;;;		message 7
+;;;		signal $0041
+;;;		maskView 900
+;;;		maskLoop 10
+;;;		maskCel 3
+;;;		noun 4
+;;;		helpVerb 8
+;;;	)
+;;;	
+;;;	(method (select param1 &tmp newEvent temp1 gIconBarCurInvIcon temp3 temp4)
+;;;		(return
+;;;			(cond 
+;;;				((& signal $0004) 0)
+;;;				((and argc param1 (& signal notUpd))
+;;;					(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
+;;;						(= temp3
+;;;							(+
+;;;								(/
+;;;									(-
+;;;										(- nsRight nsLeft)
+;;;										(CelWide
 ;;;											(gIconBarCurInvIcon view?)
-;;;											(+ 1 (gIconBarCurInvIcon loop?))
+;;;											(+ (gIconBarCurInvIcon loop?) 1)
 ;;;											(gIconBarCurInvIcon cel?)
-;;;											temp3
-;;;											temp4
-;;;											-1
 ;;;										)
 ;;;									)
-;;;									(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;									2
 ;;;								)
+;;;								nsLeft
 ;;;							)
-;;;							(temp1
-;;;								(DrawCel view loop (= temp1 0) nsLeft nsTop -1)
-;;;								(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
-;;;									(DrawCel
-;;;										(gIconBarCurInvIcon view?)
-;;;										(+ 1 (gIconBarCurInvIcon loop?))
-;;;										(gIconBarCurInvIcon cel?)
-;;;										temp3
-;;;										temp4
-;;;										-1
+;;;						)
+;;;						(= temp4
+;;;							(+
+;;;								(gIconBar y?)
+;;;								(/
+;;;									(-
+;;;										(- nsBottom nsTop)
+;;;										(CelHigh
+;;;											(gIconBarCurInvIcon view?)
+;;;											(+ (gIconBarCurInvIcon loop?) 1)
+;;;											(gIconBarCurInvIcon cel?)
+;;;										)
 ;;;									)
+;;;									2
 ;;;								)
-;;;								(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;								nsTop
 ;;;							)
 ;;;						)
-;;;						(newEvent dispose:)
 ;;;					)
-;;;					(newEvent dispose:)
-;;;					(if (== temp1 1)
-;;;						(DrawCel view loop 0 nsLeft nsTop -1)
-;;;						(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
-;;;							(DrawCel
-;;;								(gIconBarCurInvIcon view?)
-;;;								(+ 1 (gIconBarCurInvIcon loop?))
-;;;								(gIconBarCurInvIcon cel?)
-;;;								temp3
-;;;								temp4
-;;;								-1
-;;;							)
+;;;					(DrawCel view loop (= temp1 1) nsLeft nsTop -1)
+;;;					(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
+;;;						(DrawCel
+;;;							(gIconBarCurInvIcon view?)
+;;;							(+ 1 (gIconBarCurInvIcon loop?))
+;;;							(gIconBarCurInvIcon cel?)
+;;;							temp3
+;;;							temp4
+;;;							-1
 ;;;						)
-;;;						(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
 ;;;					)
-;;;	
-				temp1
-				)
-				(else 1)
-			)
-		)
-	)
-)
+;;;;;;					(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;;;;					(while (!= ((= newEvent (Event new:)) type?) 2)
+;;;;;;						(newEvent localize:)
+;;;;;;						(cond 
+;;;;;;							((self onMe: newEvent)
+;;;;;;								(if (not temp1)
+;;;;;;									(DrawCel view loop (= temp1 1) nsLeft nsTop -1)
+;;;;;;									(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
+;;;;;;										(DrawCel
+;;;;;;											(gIconBarCurInvIcon view?)
+;;;;;;											(+ 1 (gIconBarCurInvIcon loop?))
+;;;;;;											(gIconBarCurInvIcon cel?)
+;;;;;;											temp3
+;;;;;;											temp4
+;;;;;;											-1
+;;;;;;										)
+;;;;;;									)
+;;;;;;									(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;;;;								)
+;;;;;;							)
+;;;;;;							(temp1
+;;;;;;								(DrawCel view loop (= temp1 0) nsLeft nsTop -1)
+;;;;;;								(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
+;;;;;;									(DrawCel
+;;;;;;										(gIconBarCurInvIcon view?)
+;;;;;;										(+ 1 (gIconBarCurInvIcon loop?))
+;;;;;;										(gIconBarCurInvIcon cel?)
+;;;;;;										temp3
+;;;;;;										temp4
+;;;;;;										-1
+;;;;;;									)
+;;;;;;								)
+;;;;;;								(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;;;;							)
+;;;;;;						)
+;;;;;;						(newEvent dispose:)
+;;;;;;					)
+;;;;;;					(newEvent dispose:)
+;;;;;;					(if (== temp1 1)
+;;;;;;						(DrawCel view loop 0 nsLeft nsTop -1)
+;;;;;;						(if (= gIconBarCurInvIcon (gIconBar curInvIcon?))
+;;;;;;							(DrawCel
+;;;;;;								(gIconBarCurInvIcon view?)
+;;;;;;								(+ 1 (gIconBarCurInvIcon loop?))
+;;;;;;								(gIconBarCurInvIcon cel?)
+;;;;;;								temp3
+;;;;;;								temp4
+;;;;;;								-1
+;;;;;;							)
+;;;;;;						)
+;;;;;;						(Graph grUPDATE_BOX nsTop nsLeft nsBottom nsRight 1)
+;;;;;;					)
+;;;;;;	
+;;;				temp1
+;;;				)
+;;;				(else 1)
+;;;			)
+;;;		)
+;;;	)
+;;;)
 
 
 (instance PQ of Game
@@ -904,7 +905,7 @@
 		(ego get: iMoneyClip)
 	;	(ego get: 10 get: 2 get: 4 get: 5 get: 6 get: 7 get: 9 get: 11 get: 12 get: 13 get: 14 get: 15 get: 16 get: 17 get: 18 get: 19 get: 20 get: 21 get: 22 get:23 get:24 get:25 get:26 get: 27) ;maletin
 
-		(ego get: 2 37) ;maletin
+		(ego get: 2 3 10 37) ;maletin
 
 		(HandsOn)
 		(= showStyle HSHUTTER)
