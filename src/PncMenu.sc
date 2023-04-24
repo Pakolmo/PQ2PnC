@@ -1518,15 +1518,11 @@
 					)
 						
 					(1
-
-
-							(Bset 0) ;use un-use flag 0 for save hack
-
+						(Bset 0) ;use un-used flag 0 for save hack
 						(= cycles 1)
 					)
 					(2
 						(theGame restore:)
-
 						(= cycles 1)
 					)
 					(else
@@ -1598,18 +1594,18 @@
 				(= sGauge2
 					(PrintSpecial
 						950 33 ;"configuration:" 
-;;;						#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
-;;;						#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
+						;#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
+						;#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
 						#button {\n_VELOCIDAD_\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
 						#button {\n_VOLUMEN_\n_} 2 ;(pickedLoad=0) ;SPANISH
-;;;						#button {\n_INSULT_\n_} 3 ;ENGLISH
-;;;						#button {\n_AUTOSAVE_\n_} 4 ;ENGLISH
-;;;						#button {\n_ABOUT_\n_} 5 ;ENGLISH
-;;;						#button {\n_TEXT COLOR_\n_} 6 ;ENGLISH
-						#button {\n_INSULTO_\n_} 3 ;SPANISH
-						#button {\n_AUTOSALVAR_\n_} 4 ;SPANISH
+						;#button {\n_INSULT_\n_} 3 ;ENGLISH
+						;#button {\n_AUTOSAVE_\n_} 4 ;ENGLISH
+						;#button {\n_ABOUT_\n_} 5 ;ENGLISH
+						;#button {\n_TEXT COLOR_\n_} 6 ;ENGLISH
+						;#button {\n_INSULTO_\n_} 3 ;SPANISH
+						;#button {\n_AUTOSALVAR_\n_} 4 ;SPANISH
 						#button {\n__CREDITOS_\n_} 5 ;SPANISH
-						#button {\n_COLORES_\n_} 6 ;SPANISH
+						;#button {\n_COLORES_\n_} 6 ;SPANISH
 
 					)
 				)
@@ -1678,8 +1674,6 @@
 							
 						)
 					)
-
-
 					(DisposeScript GAUGE)
 					(= state 99)
 					(= cycles 1)
@@ -1690,18 +1684,28 @@
 			(40
 				
 			)
-	(50
-				
-
-				
-				
+			(50
+				;credits
+				(Print
+					(Format @str 997 0 version)
+					#title {__Police Quest II Credits__}
+					#mode teJustCenter
+					#width 160
+					#font smallFont
+					#icon 999 2 0
+				)
+				(Print
+					(Format @str 997 1)
+					#title {And last, but not least...}
+					#mode teJustCenter
+					#width 180
+					#font smallFont
+					#icon 999 2 0
+				)
 			)
 			(60 ;text color
 				
 			)
-
-			
-			
 			(100 (levelsIcon loop: 0))
 		)
 	)

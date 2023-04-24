@@ -968,6 +968,10 @@
 			(= removedBodyFromRiver TRUE)
 			(= diverState 12)
 		)
+		(if (Btst 0)
+			(Bclr 0)
+			(theGame save:)	
+		)
 	)
 	
 	(method (replay)
