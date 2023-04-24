@@ -14,20 +14,68 @@
 (public
 	rm166 0
 )
+(instance locWestRose of Prop   ;west Rose
+	(properties
+		x 72
+		y 119
+	)
+)
+
+(instance locHome of Prop   ;west Peach
+	(properties
+		x 17
+		y 121
+	)
+)
+
+
+(instance locInn of Prop   ;753 Third Street
+	(properties
+		x 101
+		y 42
+	)
+)
+
+(instance locAirport of Prop
+	(properties
+		x 3
+		y 53
+	)
+)
+
+(instance locJail of Prop
+	(properties
+		x 226
+		y 175
+	)
+)
 
 (instance locCove of Prop
 	(properties
-		x 290
-		y 160
+		x 288
+		y 175
 	)
 )
 
 (instance locArnie of Prop
 	(properties
-		x 80
-		y 60
+		x 99
+		y 92
 	)
 )
+(instance locMall of Prop
+	(properties
+		x 71
+		y 41
+	)
+)
+(instance locOffice of Prop
+	(properties
+		x 200
+		y 120
+	)
+)
+
 
 (local
 
@@ -55,9 +103,52 @@
 		(locArnie
 			view: 166
 			loop: 0
-			cel: 1
+			cel: 0
 			init:
 		)
+
+		(locMall
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)
+		(locOffice
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)	
+		(locJail
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)	
+		(locAirport
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)
+		(locInn
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)
+		(locHome
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)
+		(locWestRose
+			view: 166
+			loop: 0
+			cel: 0
+			init:
+		)		
 	)
 	
 	(method (dispose)
@@ -72,6 +163,134 @@
 			(and
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+				(if (ClickedOnObj locWestRose (event x?) (event y?)) ;West Rose
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {West Rose})
+					)
+					(995 ;hand
+						(= driveDest 27)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			
+			
+			
+			
+			
+		(if (ClickedOnObj locHome (event x?) (event y?)) ;Home
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {My home})
+					)
+					(995 ;hand
+						(= driveDest 31)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			
+			
+			
+			
+		(if (ClickedOnObj locInn (event x?) (event y?)) ;Inn
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {The inn})
+					)
+					(995 ;hand
+						(= driveDest 25)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+				
+			
+			
+			
+			
+			
+			
+			
+		(if (ClickedOnObj locAirport (event x?) (event y?)) ;airport
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {The airport})
+					)
+					(995 ;hand
+						(= driveDest 14)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+		
+		(if (ClickedOnObj locJail (event x?) (event y?)) ;jail
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {The jail})
+					)
+					(995 ;hand
+						(= driveDest 22)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			
+			
+		(if (ClickedOnObj locOffice (event x?) (event y?)) ;Office
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {the Office})
+					)
+					(995 ;hand
+						(= driveDest 1)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			
+			
+			
+		(if (ClickedOnObj locMall (event x?) (event y?)) ;cove
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {Oak Tree Mall})
+					)
+					(995 ;hand
+						(= driveDest 67)
+						(theGame newRoom: 13)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
 			)
 			(if (ClickedOnObj locCove (event x?) (event y?)) ;cove
 				(event claimed: TRUE)
