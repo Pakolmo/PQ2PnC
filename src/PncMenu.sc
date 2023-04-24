@@ -1518,7 +1518,7 @@
 					)
 						
 					(1
-						(Bset 0) ;use un-used flag 0 for save hack
+						(Bset fPnCSaveFlag) ;ScummVM doesn't trigger saves from pnc menu, trigger from main instead.
 						(= cycles 1)
 					)
 					(2
@@ -1526,17 +1526,7 @@
 						(= cycles 1)
 					)
 					(else
-						(if (Btst 3)
-							(Print 997 8 ;(Print textNumber stringNumber)
-;;;								#title {Not now, I have a headache!} ;can't save right now ;ENGLISH
-								#title {Ahora no, ^me duele la cabeza!} ;can't save right now ;SPANISH
-							)
-						else
-						;	(theGame save:) ;open the save game window
-							(Bset 0) ;use un-use flag 0 for save hack
-
-
-						)
+						(Bset fPnCSaveFlag)
 						(= cycles 1)
 					)
 				)
@@ -1672,7 +1662,7 @@
 							doit: (DoSound ChangeVolume pncVolume)
 						)
 					)
-					(DoSound ChangeVolume pncVolume)
+					(Bset fPnCVolumeFlag)
 					(DisposeScript GAUGE)
 					(= state 99)
 					(= cycles 1)

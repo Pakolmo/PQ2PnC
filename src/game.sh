@@ -231,6 +231,8 @@
 	fTriedToGoToHouston					;166
 	fGameIsRestarting					;167
 	fDiscoveredLockerCombo				;168
+	fPnCSaveFlag						;169
+	fPnCVolumeFlag						;170
 )
 
 (define SaveSize 1200)
