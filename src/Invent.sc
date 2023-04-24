@@ -326,6 +326,21 @@
 								(Bset fDiscoveredLockerCombo)
 							)
 						)
+						(if
+							(and
+								(== ((el value?) view?) 0)
+								(== curRoomNum 10)
+							)
+							(if (not gunDrawn)
+								(if (ego has: iHandGun)
+									((ScriptID 10) setScript: (ScriptID 10 1)) ;call room10 sightScript
+								else
+									(DontHaveGun)
+								)
+							else
+								(Print 10 66)
+							)
+						)
 					)
 					(101 ;extra ammo clips
 						(if (== ((el value?) view?) 100) ;clicked gun with clips

@@ -14,6 +14,7 @@
 
 (public
 	rm10 0
+	sightScript 1
 )
 
 (local
@@ -1362,6 +1363,10 @@
 				(switch theCursor				
 					(100
 						; Gun
+						(draw)
+					)
+					(994
+						(fire)
 					)
 					(else
 						(event claimed: FALSE)

@@ -1195,6 +1195,13 @@
 						(994 ;gun target
 							(theGame setCursor: 999 haveMouse)
 						)
+						(991 ;Salir/exit
+							(if gunDrawn
+								(theGame setCursor: 990 haveMouse)
+							else
+								(theGame setCursor: 998 haveMouse)
+							)
+						)
 						(990
 							(if gunDrawn
 								(theGame setCursor: 994 haveMouse)
