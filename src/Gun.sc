@@ -123,6 +123,7 @@
 			(ego setScript: holsterGun)
 		else
 			(ego setScript: drawGun)
+			(theGame setCursor: 994)
 		)
 	)	
 )
