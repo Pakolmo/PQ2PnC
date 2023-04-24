@@ -33,6 +33,9 @@
 	cameraIsOscillating
 	;local17 set in cameraScript, but never used
 	lockerUnlocked
+	print0
+	print1
+	print2
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
@@ -223,6 +226,7 @@
 		)
 		(self setLocales: regFieldKit)
 		(self setScript: rm22Script)
+		(curRoom setRegions: 950)
 	)
 )
 
@@ -924,6 +928,227 @@
 				)
 			)
 		)
+		
+		
+			(cond
+					(						
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+							
+				)
+				
+				
+				(if (ClickedInRect 143 162 68 84 event) ;locker
+					(event claimed: TRUE)
+					(switch theCursor				
+						(995 ;use (locker)
+							(= print0			
+								(PrintSpecialSimple
+
+											
+											{Select an object}
+											#button {Locker} 1
+											#button {Key} 2
+											#button {Gun} 3
+										;
+										)
+									)
+						
+									(event claimed: TRUE)
+									(switch print0
+
+										(1 ;Use locker
+												(= print1			
+													(Print
+
+														{What do you want to do?}
+														#button {Open Locker} 11
+														#button {Close Locker} 12
+													)
+												)
+													(event claimed: TRUE)
+													(switch print1
+														(11 ;Open Locker
+															(event claimed: TRUE)
+															(cond 
+																(jailLockerOpen (LocPrint 22 42))
+																((ego inRect: 135 99 163 108)
+																	(if (== ((inventory at: iHandGun) owner?) 22)
+																		(LocPrint 22 43)
+																	else
+																		(LocPrint 22 44)
+																	)
+																	(= jailLockerOpen 1)
+																	(= lockerUnlocked 1)
+																)
+																(else
+																	(LocPrint 22 45)
+																)
+															)	
+														)
+													
+														
+														(12 ; Close Locker
+															(event claimed: TRUE)
+															(if (ego inRect: 135 99 163 108)
+																(if jailLockerOpen
+																	(= jailLockerOpen 0)
+																	(LocPrint 22 74)
+																	(if (== ((inventory at: iHandGun) owner?) 22)
+																		(SolvePuzzle 3 fLockedUpGunAtJail)
+																	)
+																else
+																	(LocPrint 22 75)
+																)
+															else
+																(LocPrint 22 62)
+															)
+														)
+														(else
+															(event claimed: FALSE)
+														)
+													)
+													)
+												
+						
+
+										(2 ; key
+											(event claimed: TRUE)
+												(if lockerUnlocked
+												(AlreadyTook)
+											else
+												(LocPrint 22 71)
+											)
+
+											(if
+												(and
+													(ego inRect: 135 99 163 108)
+													lockerUnlocked
+												)
+												(LocPrint 22 72)
+											else
+												(LocPrint 22 73)
+											)	
+										)	
+									
+										(3 ;gun	
+											
+												(= print2			
+													(Print
+
+														{What do you want to do?}
+														#button {Deposite Gun} 21
+														#button {Remove Gun} 22
+													)
+												)											
+													(event claimed: TRUE)
+													(switch print2
+														(21 ;Deposite Gun
+															(event claimed: TRUE)		
+																(cond 
+																	((not (ego inRect: 135 99 163 108))
+																		(LocPrint 22 62)
+																	)
+																	((not jailLockerOpen)
+																		(LocPrint 22 63)
+																	)
+																	((not (ego has: iHandGun))
+																		(LocPrint 22 67)
+																	)
+																	(gunDrawn
+																		(LocPrint 22 68)
+																	)
+																	(else
+																		(LocPrint 22 69)
+																		(ego put: iHandGun 22)
+																	)
+																)
+															)	
+														(22 ;Remove Gun
+															(cond 
+																((ego has: iHandGun)
+																	(AlreadyTook)
+																)
+																((not (ego inRect: 135 99 163 108))
+																	(LocPrint 22 62)
+																)
+																((not jailLockerOpen)
+																	(LocPrint 22 63)
+																)
+																(gunStolenFromLocker
+																	(LocPrint 22 64)
+																	(EgoDead
+																		{Yes, even in peaceful Lytton, crimes of opportunity still occur. Next time, keep track of your piece.}
+																	)
+																)
+																((== ((inventory at: iHandGun) owner?) 22)
+																	(LocPrint 22 65)
+																	(ego get: iHandGun)
+																	(= jailLockerOpen 0)
+																)
+																(else
+																	(LocPrint 22 66)
+																)
+															)
+														)
+																
+;;;										(11 ;Open Locker
+;;;															(event claimed: TRUE)
+;;;															(cond 
+;;;																(jailLockerOpen (LocPrint 22 42))
+;;;																((ego inRect: 135 99 163 108)
+;;;																	(if (== ((inventory at: iHandGun) owner?) 22)
+;;;																		(LocPrint 22 43)
+;;;																	else
+;;;																		(LocPrint 22 44)
+;;;																	)
+;;;																	(= jailLockerOpen 1)
+;;;																	(= lockerUnlocked 1)
+;;;																)
+;;;																(else
+;;;																	(LocPrint 22 45)
+;;;																)
+;;;															)	
+;;;														)
+;;;													
+;;;														
+;;;														(12 ; Close Locker
+;;;															(event claimed: TRUE)
+;;;															(if (ego inRect: 135 99 163 108)
+;;;																(if jailLockerOpen
+;;;																	(= jailLockerOpen 0)
+;;;																	(LocPrint 22 74)
+;;;																	(if (== ((inventory at: iHandGun) owner?) 22)
+;;;																		(SolvePuzzle 3 fLockedUpGunAtJail)
+;;;																	)
+;;;																else
+;;;																	(LocPrint 22 75)
+;;;																)
+;;;															else
+;;;																(LocPrint 22 62)
+;;;															)
+;;;														)
+
+							
+										(else
+											(event claimed: FALSE)
+										)											
+																				
+													)
+										)			
+
+									
+									)
+						
+		
+					)
+			)
+		
+		
+	)
+					)
+			)
 	)
 )
 

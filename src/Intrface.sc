@@ -52,6 +52,7 @@
 	MousedOn		5
 	StillDown	6
 	PrintSpecial	7
+	PrintSpecialSimple	8
 )
 
 (define	BMOD 16)
@@ -1192,11 +1193,11 @@
 
 
 
-(procedure	(PrintSpecial args
+(procedure	(PrintSpecialSimple args
 						&tmp theDialog textI iconI editI
 						ret i atX atY fixWidth keepIt default curPort
-						[buttons 16] buttonWide buttonsUsed butAtX
-						[buffer 1000] buttonHeight
+						[buttons 8] buttonWide buttonsUsed butAtX
+						[buffer 50] buttonHeight
 				)
 
 ;	(define	MAXBUTTONS	5)
@@ -1248,7 +1249,7 @@
 	(textI 
 		text:@buffer, 
 		moveTo: MARGIN MARGIN, 
-		font: userFont, 
+		font: userFont, ;userFont,
 		setSize:
 	)
 	(theDialog 
@@ -1457,6 +1458,271 @@
 	(return ret)
 )
 
+
+(procedure	(PrintSpecial args
+						&tmp theDialog textI iconI editI
+						ret i atX atY fixWidth keepIt default curPort
+						[buttons 16] buttonWide buttonsUsed butAtX
+						[buffer 1000] buttonHeight
+				)
+
+;	(define	MAXBUTTONS	5)
+
+	; initialize tmps	
+	(= atX (= atY -1))
+
+	(= keepIt 
+	(= fixWidth 
+	(= buttonWide 
+	(= iconI 
+	(= editI 
+	(= buttonsUsed 0))))))
+	(= buttonHeight 0) ;temp
+
+;	(= [buttons 0] 
+;	(= [buttons 1]
+;	(= [buttons 2]
+;	(= [buttons 3]
+;	(= [buttons 4]
+;	(= [buttons 5] 0))))))
+
+
+	; get a dialog to work with and give it the system window class
+	((= theDialog (Dialog new:))
+		window: systemWindow,
+		name: {PrintD}
+	)
+
+	; a text item is mandatory
+	(= textI (DText new:))
+
+	; TEXT parameter may be far (module/message#)
+	(cond
+		((u< [args 0] 1000)
+			(GetFarText [args 0] [args 1] @buffer)
+			(= i 2)
+		)
+		([args 0]
+			(StrCpy @buffer [args 0])
+			(= i 1)
+		)
+		(else
+			(= buffer 0)
+			(= i 0)
+		)
+	)
+
+	(textI 
+		text:@buffer, 
+		moveTo: MARGIN MARGIN, 
+		font: userFont, ;userFont,
+		setSize:
+	)
+	(theDialog 
+		add: textI
+	)
+
+	; the rest of the items/messages passed are optional
+	(for ((= i i)) (< i argc) ((++ i))
+		(switch [args i]
+			(#mode
+				(++ i)
+				(textI mode: [args i])
+			)
+			(#font
+				(++ i)
+				(textI font: [args i], setSize:fixWidth)
+			)
+
+			; main message width
+			(#width
+				(++ i)
+				(= fixWidth [args i])
+				(textI setSize:fixWidth)
+			)
+			; time is in seconds
+			(#time	
+				(++ i)
+				(theDialog time: [args i])
+			)
+			(#title
+				(++ i)
+				(theDialog text: [args i])
+			)
+			(#at
+				(++ i)
+				(= atX [args i])
+				(++ i)
+				(= atY [args i])
+			)
+
+			; animate the cast list first
+			(#draw
+				(Animate (cast elements?) FALSE)
+			)				
+
+			(#edit
+				(++ i)
+				((= editI (DEdit new:)) text: [args i])
+				(++ i)
+				(editI max: [args i], setSize:)
+			)
+
+			; add a button
+			(#button
+				((= [buttons buttonsUsed] (DButton new:)) text:[args (++ i)], value:[args (++ i)], setSize:)
+				(+= buttonWide (+ ([buttons buttonsUsed] nsRight?) MARGIN))
+				(++ buttonsUsed)
+			)
+
+			; add optional icon to list
+			; if first arg is an Object we add it
+			(#icon
+				(if (IsObject [args (+ i 1)])
+					(= iconI ([args (+ i 1)] new:))
+					(iconI setSize:)
+					(+= i 1)
+				else
+					(= iconI (DIcon new:))
+					(iconI 
+						view:[args (+ i 1)],
+						loop:[args (+ i 2)],
+						cel:[args (+ i 3)],
+						setSize:
+					)
+					(+= i 3)
+				)
+			)
+
+			; let user dispose of me
+			(#dispose
+				(if modelessDialog
+					(modelessDialog dispose:)
+				)
+				(= keepIt theDialog)
+			)
+			(#window
+				(++ i)
+				(theDialog window: [args i])
+			)
+		)
+	)
+
+	; optional icon added to upper left
+	(if iconI
+		(iconI moveTo: MARGIN MARGIN)
+		(textI moveTo: (+ MARGIN (iconI nsRight?)) (textI nsTop?))
+		(theDialog add: iconI)
+	)
+
+	; size the dialog window based on current items
+	(theDialog setSize:)
+
+	; if editI we add it right under text item
+	(if editI
+		(editI
+			moveTo: 
+				(textI nsLeft?)
+				(+ MARGIN (textI nsBottom?))
+		)
+		; add edit item and resize the dialog
+		(theDialog add:editI, setSize:)
+	)
+
+	; add all buttons requested to bottom of dialog
+	; from left to right in order encountered
+	(= butAtX
+		(if (> buttonWide (theDialog nsRight?))
+			MARGIN
+		else
+			(- (theDialog nsRight?) buttonWide)
+		)
+	)
+
+	(for ((= i 0)) (< i buttonsUsed) ((++ i))
+		;hack vertical buttons
+		(if (> butAtX 150)
+			(= butAtX MARGIN)
+			(= buttonHeight (+ buttonHeight (+ ([buttons i] nsBottom?) MARGIN)))
+		)
+		
+		;([buttons i] moveTo: butAtX (theDialog nsBottom?))
+		([buttons i] moveTo: butAtX (+ (theDialog nsBottom?) buttonHeight))
+		
+		; add button
+		(theDialog add: [buttons i])
+		(= butAtX (+ MARGIN ([buttons i] nsRight?)))
+	)
+
+	; re-size and center the dialog
+	(theDialog setSize:, center:)
+
+	; if there's not text, but an icon, center the icon.
+	(if (and iconI (not (StrLen @buffer)))
+		(iconI moveTo:
+			(/
+				(-
+					(- (theDialog nsRight?) (theDialog nsLeft?))
+					(-	(iconI nsRight?) (iconI nsLeft?))
+				)
+				2
+			)
+
+			MARGIN
+		)
+	)
+
+	; if we got an at we move there
+	(theDialog 
+		moveTo:
+		 (if (== -1 atX) (theDialog nsLeft?) else atX)
+		 (if (== -1 atY) (theDialog nsTop?) else atY)
+	)
+
+	(= curPort (GetPort))
+
+	(theDialog open: (if (theDialog text?) wTitled else 0) (if keepIt 15 else -1))
+
+	; return theDialog object for user to work with
+	(if keepIt
+		(= modelessPort (GetPort))
+		(SetPort curPort)
+
+		(return (= modelessDialog keepIt))
+	)
+
+	; get a default item (first active in the list)
+	; if NO "exit" items in list make this it
+	(if (= default (theDialog firstTrue: #checkState: dActive))
+		(if (not (theDialog firstTrue: #checkState: dExit))
+			(default state: (| (default state?) dExit))
+		)
+	)
+
+	(= ret (theDialog doit: default))
+
+	; if ESC has been pressed we turn it into a zero
+	(if (== ret -1)
+		(= ret FALSE)
+	)
+	
+	; if any of the buttons was pressed we return the item's value property
+	(for ((= i 0)) (< i buttonsUsed) ((++ i))
+		(if (== ret [buttons i])
+			(= ret (ret value?))
+			(break)
+		)
+	)
+
+	; if we had no active ITEMS we force a TRUE return
+	(if (not (theDialog theItem?))
+		(= ret TRUE)
+	)
+
+		; dispose of the dialog and all its elements
+	(theDialog dispose:)
+	(return ret)
+)
 
 
 (procedure	(Print args
