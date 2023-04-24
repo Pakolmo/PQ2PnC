@@ -325,13 +325,3 @@
 		)
 	)
 )
-
-(instance trunkScript of Script
-	(method (changeState newState)
-		(switch (= state newState)
-			(0
-				
-			)
-		)
-	)
-)

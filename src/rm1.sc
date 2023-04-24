@@ -1018,7 +1018,10 @@
 						)		
 					)
 				)
-				(if (ClickedOnObj ego (event x?) (event y?))
+				(if (and
+						(ClickedOnObj ego (event x?) (event y?))
+						(== (event claimed?) FALSE)
+					)
 					(if (== theCursor 995) ;clicked hand on Sonny
 						(event claimed: TRUE)
 						(Print 1 8) ;"In the POLICE PARKING LOT!? That may be a bad idea. I suggest you think this over! Perhaps the police psychiatrist could help."
@@ -1248,13 +1251,11 @@
 			(2
 				(officeDoor setCycle: BegLoop self)
 				(keith posn: 1000 0 stopUpd:)
-						(User canInput: TRUE canControl: TRUE)
+				(User canInput: TRUE canControl: TRUE)
 			)
 			(3
 				(HandsOn)
 				(officeDoor stopUpd:)
-
-			;	(curRoom setRegions: 950)
 			)
 		)
 	)

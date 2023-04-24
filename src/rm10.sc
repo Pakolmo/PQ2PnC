@@ -1076,13 +1076,13 @@
 								(DontHaveGun)
 							)
 							((!= (ego yStep?) 1)
-								(Print 10 40)
+								(Print 10 40) ;"Practice your quick-draw later, Sonny; this is TARGET practice!"
 							)
 							((not [numAmmoClips bulletsInGun])
-								(Print 10 41 #time 2)
+								(Print 10 41 #time 2) ;"CLICK!"
 							)
 							((> targetShots 6)
-								(Print 10 42)
+								(Print 10 42) ;"You had better bring the target up before it's so full of holes you can't tell them apart."
 							)
 							(
 								(and
@@ -1364,7 +1364,7 @@
 				(switch theCursor				
 					(100
 						; Gun
-						(draw)
+						;(draw)
 					)
 					(994
 						(fire)
@@ -1373,6 +1373,30 @@
 						(event claimed: FALSE)
 					)
 				)
+			)
+			(if
+				(and 
+					(ClickedInRect 0 320 15 190 event) ;clicked on screen in booth
+					(== (event claimed?) FALSE)
+				)
+				(switch theCursor				
+					(100 ;gun cursor
+						(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							(inBooth
+								(return)
+							)
+							(gunDrawn
+								(self changeState: 5)
+							)
+							(else
+								(self changeState: 3)
+							)
+						)
+					)
+				)	
 			)
 		)
 	)
