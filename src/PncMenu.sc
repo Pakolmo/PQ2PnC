@@ -1657,7 +1657,6 @@
 				(= cycles 1)
 			)
 			(20
-				
 				(if (HaveMem GaugeSize)
 					(= pncVolume
 						((Gauge new:)
@@ -1669,11 +1668,11 @@
 ;;;							higher: {Louder} ;ENGLISH
 ;;;							lower: {Softer} ;ENGLISH
 							higher: {Subir} ;SPANISH
-							lower: {Bajar} ;SPANISH
-
-							
+							lower: {Bajar} ;SPANISH	
+							doit: (DoSound ChangeVolume pncVolume)
 						)
 					)
+					(DoSound ChangeVolume pncVolume)
 					(DisposeScript GAUGE)
 					(= state 99)
 					(= cycles 1)

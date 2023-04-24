@@ -320,7 +320,7 @@
 	    sGauge		;game speed guage name
 		vGauge		;volume guage name
 		pncSpeed	;speed set with guage
-		pncVolume =16	;volume set with guage
+		pncVolume = 16	;volume set with guage
 		audVOLUME
 		sGauge2		;test
 		DivorceOK

@@ -176,7 +176,8 @@
 				(< i range)
 				((++ i))
 
-			(StrAt @str i (if (< i value) BLOCKON else BLOCKOFF))
+			;(StrAt @str i (if (< i value) BLOCKON else BLOCKOFF))
+			(StrAt @str i (if (< i value) 11 else 12))
 		)
 	)
 
