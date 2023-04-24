@@ -11,6 +11,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Gun)
 
 (public
 	rm10 0

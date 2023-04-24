@@ -553,9 +553,13 @@
 		(= currentCar carWork)
 		(= onTheRoad 0)
 		(= gunDrawn 0)
-		(= outsideRoom prevRoomNum)
+		(if (not (== prevRoomNum 166))
+			(= driveFix prevRoomNum)	
+		)
+		;(= outsideRoom prevRoomNum)
+		(= outsideRoom driveFix)
 		(= windshieldOverlay
-			(switch prevRoomNum
+			(switch driveFix ;prevRoomNum
 				(14 0)
 				(25 40)
 				(225 40)
@@ -570,7 +574,7 @@
 		)
 		(= local108
 			(= local110
-				(switch prevRoomNum
+				(switch driveFix ;prevRoomNum
 					(14 62)
 					(25 100)
 					(29 100)

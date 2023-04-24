@@ -348,6 +348,7 @@
 		gWindow
 		localize
 		driveDest
+		driveFix
 )
 (procedure (EgoDead)
 	;disposes all sounds, plays the death music, and gives the player a choice:
