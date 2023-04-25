@@ -28,6 +28,7 @@
 	carX
 	carY
 	printObj
+	trafficToggle = 1
 )
 (procedure (EnterCar)
 	(cond 
@@ -307,9 +308,19 @@
 	)
 	
 	(method (doit)
-		(DrawRect 15 257 84 175 4)
 		(curRoom setRegions: 950)
-		(cond 
+		(cond
+			(
+				(and
+					trafficToggle
+					(ego inRect: 85 183 240 190) ;sonny walks into traffic
+				)
+				(= trafficToggle 0)
+				(ego setMotion: MoveTo (ego x?) 300)
+			)
+			((< (ego y?) 183)
+				(= trafficToggle 1)
+			)
 			((ego inRect: 11 122 18 126)
 				(Print 1 0)
 				(ego setMotion: MoveTo 38 124)

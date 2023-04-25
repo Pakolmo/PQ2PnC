@@ -15,32 +15,35 @@
 	)
 	
 	(method (init)
-		(AddMenu { \01_}
+		(AddMenu { Police Quest II: Point and Click_}
 			{About PQ2 `^a:Help`#1}
 		)
-		(AddMenu { File_}
-			{Save Game`#5:Restore Game`#7:--! :Restart Game`#9:Quit`^q}
-		)
-		(AddMenu { Action_}
-			{Pause Game`^p:Inventory`^I:Repeat`#3:--! :Load Gun`#6:Draw/Holster Gun`#8:Fire Gun`#0:--! :Enter/Exit Car`#4}
-		)
-		(AddMenu { Speed_}
-			{Set Speed`^s:--!:Faster`+:Normal`=:Slower`-}
-		)
-		(AddMenu { Sound_}
-			{Volume...`^v:Turn Off`#2=1}
-		)
-		(SetMenu saveI p_said 'save[/game]')
-		(SetMenu restoreI p_said 'restore[/game]')
-		(SetMenu restartI p_said 'restart[/game]')
-		(SetMenu quitI p_said 'quit[/game]')
-		(SetMenu pauseI p_said 'pause[/game]')
-		(SetMenu invI p_said 'inventory')
-		(SetMenu normalI p_said 'normal[/speed]')
-		(SetMenu loadGunI p_said 'load,load[/9mm]')
-		(SetMenu drawGunI p_said 'draw,gunbelt[/9mm]')
-		(SetMenu fireGunI p_said 'fire[/9mm]')
-		(= global105 carI)
+;;;		(AddMenu { \01_}
+;;;			{About PQ2 `^a:Help`#1}
+;;;		)
+;;;		(AddMenu { File_}
+;;;			{Save Game`#5:Restore Game`#7:--! :Restart Game`#9:Quit`^q}
+;;;		)
+;;;		(AddMenu { Action_}
+;;;			{Pause Game`^p:Inventory`^I:Repeat`#3:--! :Load Gun`#6:Draw/Holster Gun`#8:Fire Gun`#0:--! :Enter/Exit Car`#4}
+;;;		)
+;;;		(AddMenu { Speed_}
+;;;			{Set Speed`^s:--!:Faster`+:Normal`=:Slower`-}
+;;;		)
+;;;		(AddMenu { Sound_}
+;;;			{Volume...`^v:Turn Off`#2=1}
+;;;		)
+;;;		(SetMenu saveI p_said 'save[/game]')
+;;;		(SetMenu restoreI p_said 'restore[/game]')
+;;;		(SetMenu restartI p_said 'restart[/game]')
+;;;		(SetMenu quitI p_said 'quit[/game]')
+;;;		(SetMenu pauseI p_said 'pause[/game]')
+;;;		(SetMenu invI p_said 'inventory')
+;;;		(SetMenu normalI p_said 'normal[/speed]')
+;;;		(SetMenu loadGunI p_said 'load,load[/9mm]')
+;;;		(SetMenu drawGunI p_said 'draw,gunbelt[/9mm]')
+;;;		(SetMenu fireGunI p_said 'fire[/9mm]')
+;;;		(= global105 carI)
 	)
 	
 	(method (handleEvent event &tmp [temp0 3] i [str 320] oldPause)
