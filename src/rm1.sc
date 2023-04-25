@@ -310,17 +310,6 @@
 	(method (doit)
 		(curRoom setRegions: 950)
 		(cond
-			(
-				(and
-					trafficToggle
-					(ego inRect: 85 183 240 190) ;sonny walks into traffic
-				)
-				(= trafficToggle 0)
-				(ego setMotion: MoveTo (ego x?) 300)
-			)
-			((< (ego y?) 183)
-				(= trafficToggle 1)
-			)
 			((ego inRect: 11 122 18 126)
 				(Print 1 0)
 				(ego setMotion: MoveTo 38 124)
@@ -382,6 +371,17 @@
 					(= global132 0)
 					(EnterCar)
 			)
+		)
+		(if
+			(and
+				trafficToggle
+				(ego inRect: 85 183 240 190) ;sonny walks into traffic
+			)
+			(= trafficToggle 0)
+			(ego setMotion: MoveTo (ego x?) 300)
+		)
+		(if (< (ego y?) 183)
+			(= trafficToggle 1)
 		)
 		(super doit:)
 	)

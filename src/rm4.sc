@@ -2056,6 +2056,7 @@
 			)
 			(18
 				(LocPrint 4 117)
+				(Bset fPnCHideWestRose)
 				(captain setCycle: BegLoop)
 				(if egoSitting
 					(User canInput: 1)

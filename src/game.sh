@@ -233,6 +233,7 @@
 	fDiscoveredLockerCombo				;168
 	fPnCSaveFlag						;169
 	fPnCVolumeFlag						;170
+	fPnCHideWestRose					;171
 )
 
 (define SaveSize 1200)

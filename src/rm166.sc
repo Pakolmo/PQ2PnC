@@ -143,11 +143,13 @@
 			cel: 0
 			init:
 		)
-		(locWestRose
-			view: 166
-			loop: 0
-			cel: 0
-			init:
+		(if (Btst fPnCHideWestRose)
+			(locWestRose
+				view: 166
+				loop: 0
+				cel: 0
+				init:
+			)
 		)		
 	)
 	
