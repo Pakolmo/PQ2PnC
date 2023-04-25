@@ -335,13 +335,15 @@
 					(993 ;set cursor to selected item and print desc.
 						(= itemIcon ((el value?) view?))
 						(theGame setCursor: ((el value?) view?))
-						
 					)
 					(995 ;use
 						(cond
 							((== ((el value?) view?) 100) ;used handgun
 						 		(if (== curRoomNum 10)
 									(Bset fPnCAdjustSights)
+									(= theCursor oldCur)
+									(theGame setCursor: oldCur (HaveMouse))
+									(break)
 								else
 									(Print {You can only adjust the gun sights at the shooting range.})
 								)

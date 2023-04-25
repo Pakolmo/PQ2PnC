@@ -50,6 +50,7 @@
 	local77
 	inBooth
 )
+
 (procedure (CreateShooter param1)
 	(= shooterX (- 207 (* local4 28)))
 	((= [shooter param1] (Prop new:)) ;body
@@ -797,8 +798,22 @@
 					(Load VIEW 70)
 					(Load PICTURE 11)
 					(curRoom drawPic: 11)
-					(cast eachElementDo: #dispose)
-					(cast eachElementDo: #delete)
+					;(cast eachElementDo: #dispose)
+					;(cast eachElementDo: #delete)
+					(attendant dispose:)
+					(theDoor dispose:)
+					(if [shooter 0]
+						([shooter 0] dispose:)
+					)
+					(if [shooter 1]
+						([shooter 1] dispose:)
+					)
+					(if [shooter 2]
+						([shooter 2] dispose:)
+					)
+					(if [shooter 3]
+						([shooter 3] dispose:)
+					)
 					(= targetShots 0)
 					(= local69 (Random 1 21))
 					(ego
@@ -1445,11 +1460,128 @@
 					posn: 146 108
 					init:
 				)
+				(arrowL
+					view: 167
+					loop: 0
+					cel: 0
+					posn: 90 120
+					setPri: 15
+					stopUpd:
+					init:
+				)
+				(arrowR
+					view: 167
+					loop: 0
+					cel: 1
+					posn: 230 120
+					setPri: 15
+					stopUpd:
+					init:
+				)
+				(arrowD
+					view: 167
+					loop: 0
+					cel: 2
+					posn: 160 170
+					setPri: 15
+					stopUpd:
+					init:
+				)
+				(arrowU
+					view: 167
+					loop: 0
+					cel: 3
+					posn: 160 70
+					setPri: 15
+					stopUpd:
+					init:
+				)
 			)
 		)
 	)
 	
 	(method (handleEvent event)
+		(if
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			(if (ClickedOnObj arrowL (event x?) (event y?))
+				(event claimed: TRUE)
+				(windageScrewdriver
+					cel:
+						(if (== (windageScrewdriver cel?) 0)
+							(- (NumCels windageScrewdriver) 1)
+						else
+							(- (windageScrewdriver cel?) 1)
+						)
+					setPri: 12
+				)
+				(elevationScrewdriver setPri: 0)
+				(-- gunWindageScrew)
+			)
+			(if (ClickedOnObj arrowR (event x?) (event y?))
+				(event claimed: TRUE)
+				(windageScrewdriver
+					cel:
+						(if (== (windageScrewdriver cel?) (windageScrewdriver lastCel:))
+							0
+						else
+							(+ (windageScrewdriver cel?) 1)
+						)
+					setPri: 15
+				)
+				(elevationScrewdriver setPri: 0)
+				(++ gunWindageScrew)
+			)
+			(if (ClickedOnObj arrowD (event x?) (event y?))
+				(event claimed: TRUE)
+				(elevationScrewdriver
+					cel:
+						(if (== (elevationScrewdriver cel?) 0)
+							(elevationScrewdriver lastCel:)
+						else
+							(- (elevationScrewdriver cel?) 1)
+						)
+					setPri: 15
+				)
+				(windageScrewdriver setPri: 0)
+				(-- gunElevationScrew)
+			)
+			(if (ClickedOnObj arrowU (event x?) (event y?))
+				(event claimed: TRUE)
+				(elevationScrewdriver
+					cel:
+						(if
+							(== (elevationScrewdriver cel?) (- (NumCels elevationScrewdriver) 1))
+							0
+						else
+							(+ (elevationScrewdriver cel?) 1)
+						)
+					setPri: 12
+				)
+				(windageScrewdriver setPri: 0)
+				(++ gunElevationScrew)
+			)
+			(if
+				(and
+					(not (event claimed?))
+					(ClickedInRect 1 320 30 190 event)
+				)
+				(event claimed: TRUE)
+				(= local73 1)
+				(sightAdjuster dispose:)
+				(windageScrewdriver dispose:)
+				(elevationScrewdriver dispose:)
+				(arrowL dispose:)
+				(arrowR dispose:)
+				(arrowD dispose:)
+				(arrowU dispose:)
+				(rm10 setScript: boothScript)
+				(event claimed: 1)
+				(HandsOn)
+			)
+		)
 		(switch (event type?)
 			(direction
 				(event claimed: 1)
@@ -1521,6 +1653,10 @@
 				(sightAdjuster dispose:)
 				(windageScrewdriver dispose:)
 				(elevationScrewdriver dispose:)
+				(arrowL dispose:)
+				(arrowR dispose:)
+				(arrowD dispose:)
+				(arrowU dispose:)
 				(rm10 setScript: boothScript)
 				(event claimed: 1)
 				(HandsOn)
@@ -1529,7 +1665,22 @@
 	)
 )
 
-;;;(instance attendant of Prop
+(instance arrowL of View
+	(properties)	
+)
+
+(instance arrowR of View
+	(properties)	
+)
+
+(instance arrowD of View
+	(properties)	
+)
+
+(instance arrowU of View
+	(properties)	
+)
+
 (instance attendant of View
 	(properties)
 	
