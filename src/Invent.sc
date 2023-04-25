@@ -32,7 +32,7 @@
 	pigAppears
 	[msgBuf 33]
 	[titleBuf 22]
-	
+	oldCur
 )
 
 ; a stock list will be able to handle the scanning required to:
@@ -175,7 +175,7 @@
 
 
 	(method (init whom &tmp lastX lastY widest num el node obj)
-
+		(= oldCur theCursor)
 		;Init positioning vars.
 		(= widest (= lastX (= lastY MARGIN)))
 		(= num 0)
@@ -282,8 +282,13 @@
 
 			;These returns signal end of dialog
 			(if (or (not el) (== el -1) (== el yesI))
-				(if (== theCursor 993) 
-					(= theCursor 999) ;if select change to walk on exit inv.
+				(if
+					(or
+						(== theCursor 998)
+						(== theCursor 993)
+					) 
+					(= theCursor oldCur)
+					(theGame setCursor: oldCur (HaveMouse))
 				)
 				(break)
 			)
