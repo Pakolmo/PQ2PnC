@@ -29,6 +29,7 @@
 	yesI
 	selI
 	lookI
+	useI
 	pigAppears
 	[msgBuf 33]
 	[titleBuf 22]
@@ -249,17 +250,26 @@
 				(+ nsLeft (+ MARGIN (selI nsRight?)))
 				nsBottom
 		)
-		(= yesI (DButton new:))
-		(yesI 
-			text: "OK", 
+		(= useI (DButton new:))
+		(useI 
+;;;			text: "Use", ;ENGLISH
+			text: "Uso", ;SPANISH
 			setSize:,
 			moveTo: 
 				(+ nsLeft (+ MARGIN (lookI nsRight?)))
 				nsBottom
 		)
+		(= yesI (DButton new:))
+		(yesI 
+			text: "OK", 
+			setSize:,
+			moveTo: 
+				(+ nsLeft (+ MARGIN (useI nsRight?) 5))
+				nsBottom
+		)
 
 		;Add button and resize the dialog.
-		(self add: selI lookI yesI, setSize:, center:)
+		(self add: selI lookI useI yesI, setSize:, center:)
 
 		(return num)
 	)
@@ -297,6 +307,7 @@
 				(or
 					(== el selI)
 					(== el lookI)
+					(== el useI)
 					(== el yesI) 
 				)
 				(cond 
@@ -310,6 +321,11 @@
 							(theGame setCursor: 998)
 						)
 					)
+					((== el useI)
+						(if (!= theCursor 995)
+							(theGame setCursor: 995)
+						)
+					)
 					(else
 						;do nothing
 					)
@@ -321,31 +337,43 @@
 						(theGame setCursor: ((el value?) view?))
 						
 					)
+					(995 ;use
+						(cond
+							((== ((el value?) view?) 100) ;used handgun
+						 		(if (== curRoomNum 10)
+									(Bset fPnCAdjustSights)
+								else
+									(Print {You can only adjust the gun sights at the shooting range.})
+								)
+							)
+							((== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
+								(Print {You flip the buisness card over.})
+								(if (not (Btst fDiscoveredLockerCombo))
+									(Print {Your locker combination is on the back of the card.})
+								)
+								(if (== ((Inventory at: 37) cel?) 0) ;flip each look
+									(Bset fDiscoveredLockerCombo)
+									((Inventory at: 37) cel: 1) 
+								else
+									((Inventory at: 37) cel: 0)
+								)
+								((el value?) showSelf:) 
+							)
+							(else
+								(Print {You don't need to use that item.})
+							)
+						)
+					)
 					(998 ;look at item
 						((el value?) showSelf:) ;display the inventory item normally.
-						(if (== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
-							(if (== ((Inventory at: 37) cel?) 0) ;flip each look
-								((Inventory at: 37) cel: 1) 
-							else
-								((Inventory at: 37) cel: 0)
-								(Bset fDiscoveredLockerCombo)
-							)
-						)
-						(if
-							(and
-								(== ((el value?) view?) 0)
-								(== curRoomNum 10)
-							)
-							(if (not gunDrawn)
-								(if (ego has: iHandGun)
-									((ScriptID 10) setScript: (ScriptID 10 1)) ;call room10 sightScript
-								else
-									(DontHaveGun)
-								)
-							else
-								(Print 10 66)
-							)
-						)
+;;;						(if (== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
+;;;							(if (== ((Inventory at: 37) cel?) 0) ;flip each look
+;;;								((Inventory at: 37) cel: 1) 
+;;;							else
+;;;								((Inventory at: 37) cel: 0)
+;;;								(Bset fDiscoveredLockerCombo)
+;;;							)
+;;;						)
 					)
 					(101 ;extra ammo clips
 						(if (== ((el value?) view?) 100) ;clicked gun with clips

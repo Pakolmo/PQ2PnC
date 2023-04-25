@@ -1404,12 +1404,6 @@
 						(if (<= theCursor 137) ;inventory item clicked on sonny
 							(event claimed: TRUE)
 							((Inventory at: (- theCursor 100)) showSelf:)
-							(if (== ((Inventory at: 37) cel?) 1) ;flip each look
-								(Bset fDiscoveredLockerCombo)
-								((Inventory at: 37) cel: 0)
-							else
-								((Inventory at: 37) cel: 1)
-							)
 						)	
 					)
 					;Room defaults if nothing else is clicked on.

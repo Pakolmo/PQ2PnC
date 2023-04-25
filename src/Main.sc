@@ -1059,80 +1059,25 @@
 			(curRoom setLocales: DEBUG)
 		)
 		
-		(if (== curRoom 1)
-
-				(curRoom setRegions: 950)
-
-		)
-		(if (== curRoom 13)
-
-				(curRoom setRegions: 950)
-
-		)
-		(if (== curRoom 2)
-
-				(curRoom setRegions: 950)
-
-		)
-		(if (== curRoom 33)
-
-				(curRoom setRegions: 950)
-
-		)	
-		(if (== curRoom 10)
-
-				(curRoom setRegions: 950)
-
-		)	
-		(if (== curRoom 8)
-
-				(curRoom setRegions: 950)
-
-		)	
-		(if (== curRoom 4)
-
-				(curRoom setRegions: 950)
-
-		)	
-		
-		(if (== curRoom 7)
-
-				(curRoom setRegions: 950)
-
-		)	
-		(if (== curRoom 12)
-
-				(curRoom setRegions: 950)
-
-		)	
-		(if (== curRoom 40)
-
-				(curRoom setRegions: 950)
-
-		)	
-				(if (== curRoom 41)
-
-				(curRoom setRegions: 950)
-
-		)		
-						(if (== curRoom 5)
-
-				(curRoom setRegions: 950)
-
-		)	
-				
-						(if (== curRoom 22)
-
-				(curRoom setRegions: 950)
-
-		)	
-					
-						(if (== curRoom 23)
-
-				(curRoom setRegions: 950)
-
+		(if
+			(or
+				(== curRoomNum 1)
+				(== curRoomNum 2)
+				(== curRoomNum 4)
+				(== curRoomNum 5)
+				(== curRoomNum 7)
+				(== curRoomNum 8)
+				(== curRoomNum 10)
+				(== curRoomNum 12)
+				(== curRoomNum 13)
+				(== curRoomNum 22)
+				(== curRoomNum 23)
+				(== curRoomNum 33)
+				(== curRoomNum 40)
+				(== curRoomNum 41)
+			)
+			(curRoom setRegions: 950)
 		)					
-			
 		(Load SOUND 6)
 	)
 	

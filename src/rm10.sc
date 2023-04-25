@@ -15,7 +15,6 @@
 
 (public
 	rm10 0
-	sightScript 1
 )
 
 (local
@@ -772,6 +771,20 @@
 			)
 			(ego setMotion: MoveTo (ego x?) 245)
 		)
+		(if (Btst fPnCAdjustSights)
+			(Bclr fPnCAdjustSights)
+			(if (not gunDrawn)
+				(if (ego has: iHandGun)
+					(User canControl: 0)
+					(= viewingTarget 1)
+					(rm10 setScript: sightScript)
+				else
+					(DontHaveGun)
+				)
+			else
+				(Print 10 66)
+			)
+		)
 		(super doit:)
 	)
 	
@@ -1275,13 +1288,13 @@
 						)
 						(cond 
 							((== (target cel?) 4)
-								(Print 10 64)
+								(Print 10 64) ;You can't change the target while it is back there.
 							)
 							(gunDrawn
-								(Print 10 61)
+								(Print 10 61) ;Lower your weapon first.
 							)
 							(inBooth
-								(Print 10 47)
+								(Print 10 47) ;Wait a while
 							)
 							(else
 								(self changeState: 9)

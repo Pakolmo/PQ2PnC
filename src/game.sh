@@ -234,6 +234,7 @@
 	fPnCSaveFlag						;169
 	fPnCVolumeFlag						;170
 	fPnCHideWestRose					;171
+	fPnCAdjustSights					;172
 )
 
 (define SaveSize 1200)
