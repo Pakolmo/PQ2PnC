@@ -1,15 +1,26 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 22)
-(include system.sh)
+;;;(include system.sh)
+;;;(include game.sh)
+;;;(use Main)
+;;;(use Intrface)
+;;;(use Motion)
+;;;(use Game)
+;;;(use User)
+;;;(use Actor)
+;;;(use System)
+;;;
 (include game.sh)
 (use Main)
 (use Intrface)
+(use AutoDoor)
+(use Avoider)
 (use Motion)
 (use Game)
 (use User)
 (use Actor)
 (use System)
-
+(use PncMenu)
 (public
 	rm22 0
 )
@@ -36,7 +47,11 @@
 	print0
 	print1
 	print2
+
 )
+
+(instance carWork of View)
+(instance carPersonal of View)
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
 )
@@ -926,19 +941,228 @@
 						)
 					)
 				)
+				
 			)
-		)
+				
+				
 		
 		
-			(cond
-					(						
+			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
-							
 				)
+				(if
+					(or
+						(ClickedOnObj currentCar (event x?) (event y?)) ;clicked on personal car
+						(and
+							(ClickedOnObj carPersonal (event x?) (event y?))
+							(== currentCar carPersonal)
+						)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print 1 48) ;"Looking into the car, you see nothing out of the ordinary."
+						)
+						(995 ;hand
+							(if (ego inRect: 264 120 320 145) ;near personal car
+								(EnterCar)
+							)
+						)
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+;;;				(if
+;;;					(or
+;;;						(ClickedOnObj carWork (event x?) (event y?)) ;clicked on unmarked car
+;;;						(and
+;;;							(ClickedOnObj carPersonal (event x?) (event y?))
+;;;							(== currentCar carWork)
+;;;						)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998 ;look maletero/trunk
+;;;								(if
+;;;									(and
+;;;										(ego inRect: 176 123 206 135)
+;;;										(cast contains: unTrunk)
+;;;									)
+;;;									(inventory
+;;;										carrying: {The car's trunk contains:}
+;;;										empty: {The car's trunk is empty.}
+;;;										showSelf: 13
+;;;									)
+;;;								else
+;;;									(LocPrint 22 17)
+;;;								)
+;;;						)
+;;;						
+;;;						(995 ; use hand on unmarked car
+;;;						(cond 
+;;;							((== currentCar carWork)
+;;;								(if (ego inRect: 176 123 206 135)
+;;;									(cond 
+;;;										(workCarTrunkOpened
+;;;											(Print 22 85)
+;;;												(if (ego inRect: 176 123 206 135)
+;;;												(if workCarTrunkOpened
+;;;													(if (== ((inventory at: iFieldKit) owner?) 13)
+;;;														(LocPrint 22 95)
+;;;														(ego get: iFieldKit)
+;;;													else
+;;;														(LocPrint 22 96)
+;;;													)
+;;;												else
+;;;													(LocPrint 22 93)
+;;;												)
+;;;											else
+;;;												(LocPrint 22 94)
+;;;											)
+;;;										)
+;;;								
+;;;
+;;;										
+;;;										((ego has: iUnmarkedCarKeys)
+;;;											(carScript changeState: 14)
+;;;											
+;;;											
+;;;											
+;;;											
+;;;											
+;;;										)
+;;;										(else
+;;;											(LocPrint 22 86) ;You need a key to open this trunk.
+;;;										)
+;;;									)
+;;;								else
+;;;									(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+;;;								)
+;;;							)
+;;;							((ego inRect: 176 123 206 135)
+;;;								(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
+;;;							)
+;;;							(else
+;;;								(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+;;;							)
+;;;						)
+;;;					)
+;;;					)
+;;;				)
+;;;					
+;;;			
+;;;	
+;;;
+						
+		
+;;;
+;;;
+;;;				(if (ClickedOnObj keith (event x?) (event y?))
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor				
+;;;						(998 ;look keith
+;;;								(if
+;;;									(and
+;;;										(== currentCar 13)
+;;;										(< (keith y?) 10)
+;;;									)
+;;;									(if (ego inRect: 235 102 300 158)
+;;;										(LocPrint 22 2)
+;;;									else
+;;;										(LocPrint 22 3)
+;;;									)
+;;;								else
+;;;									(event claimed: 0)
+;;;								)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;
+;;;
+				
+				(if (ClickedInRect 1 319 21 52 event) ; arriba, look area
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look area
+							(switch (Random 0 1)
+							(0
+							(Print 22 4 #width 260 #at -1 120)
+								(if (>= gamePhase 1)
+									(Print 22 5 #width 280 #at -1 120)
+								)
+							)
+							(1
+								(LocPrint 22 6)
+							)
+							)
+						)
+						(else
+							(event claimed: TRUE)
+						)
+					)
+				)	
+				(if (ClickedInRect 91 319 99 189 event) ; abajo, look suelo
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look area
+							(switch (Random 0 1)
+							(0
+							(Print 22 4 #width 260 #at -1 120)
+								(if (>= gamePhase 1)
+									(Print 22 5 #width 280 #at -1 120)
+								)
+							)
+							(1
+								(LocPrint 22 7)
+							)
+							)
+						)
+						(else
+							(event claimed: TRUE)
+						)
+					)
+				)						
 				
 				
+				
+				(if (ClickedOnObj camera (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor				
+						(996 ;talk camera
+						)
+						(998 ; Look
+							(LocPrint 22 28)
+						)
+						(else
+							(event claimed: TRUE)
+						)
+					)
+				)	
+											
+
+				(if (ClickedOnObj ego (event x?) (event y?))
+					(event claimed: TRUE)
+					
+					(switch theCursor				
+						(996 ;talk keith
+							(LocPrint 22 61)
+						)
+					
+						
+						(else
+							(event claimed: TRUE)
+						)
+					)
+				)
+							
+						
+									
 				(if (ClickedInRect 143 162 68 84 event) ;locker
 					(event claimed: TRUE)
 					(switch theCursor				
@@ -1018,7 +1242,7 @@
 												(if lockerUnlocked
 												(AlreadyTook)
 											else
-												(LocPrint 22 71)
+												(LocPrint 22 71) ;You must close and lock the locker in order to get the key.
 											)
 
 											(if
@@ -1026,9 +1250,9 @@
 													(ego inRect: 135 99 163 108)
 													lockerUnlocked
 												)
-												(LocPrint 22 72)
-											else
-												(LocPrint 22 73)
+												(LocPrint 22 72) ;You have the locker key.
+;;;											else
+;;;												(LocPrint 22 73) ;You have the car keys. ;Not sense.
 											)	
 										)	
 									
@@ -1048,16 +1272,16 @@
 															(event claimed: TRUE)		
 																(cond 
 																	((not (ego inRect: 135 99 163 108))
-																		(LocPrint 22 62)
+																		(LocPrint 22 62) ;You're too far away.
 																	)
 																	((not jailLockerOpen)
-																		(LocPrint 22 63)
+																		(LocPrint 22 63) ;You should open the locker first.
 																	)
 																	((not (ego has: iHandGun))
-																		(LocPrint 22 67)
+																		(LocPrint 22 67) ;You place your gun in the locker.
 																	)
 																	(gunDrawn
-																		(LocPrint 22 68)
+																		(LocPrint 22 68) ;First, holster your gun.
 																	)
 																	(else
 																		(LocPrint 22 69)
@@ -1148,7 +1372,7 @@
 		
 	)
 					)
-			)
+		)
 	)
 )
 
@@ -1395,3 +1619,4 @@
 		)
 	)
 )
+(instance keith of Actor)
