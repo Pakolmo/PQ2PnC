@@ -41,7 +41,7 @@
 	
 )
 
-;;;(instance carWork of View)
+(instance carWork1 of View)
 (instance carPersonal1 of View)
 (instance keith of View)
 (procedure (LocPrint)
@@ -950,11 +950,29 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				(if
 					(or
 						(ClickedOnObj car (event x?) (event y?)) ;clicked on personal car
 						(and
-							(ClickedOnObj car (event x?) (event y?))
+							(ClickedOnObj carPersonal1 (event x?) (event y?))
 							(== currentCar carPersonal)
 						)
 					)
@@ -994,11 +1012,25 @@
 					(or
 						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
 						(and
-							(ClickedOnObj car (event x?) (event y?))
+							(ClickedOnObj carWork1 (event x?) (event y?))
 							(== currentCar carWork)
 						)
 					)
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					(event claimed: TRUE)
+				
 					(switch theCursor
 						(998 ;look maletero/trunk
 								(if
@@ -1016,101 +1048,62 @@
 								)
 						)
 						
-						(995 ; use hand on unmarked car
-						(cond 
+						(995 ; use hand on unmarked car 
+							(cond  ;Open trunk
 							((== currentCar carWork)
 								(if (ego inRect: 176 123 206 135)
 									(cond 
 										(workCarTrunkOpened
-											(Print 22 85) ;It's already open.
-												(if (ego inRect: 176 123 206 135)
-												(if workCarTrunkOpened
-													(if (== ((inventory at: iFieldKit) owner?) 13)
-														(LocPrint 22 95) ;You take your field kit from the trunk.
-														(ego get: iFieldKit)
-														(if (== currentCar carWork) ;close trunk
-															(if (ego inRect: 176 123 206 135)
-																(if workCarTrunkOpened
-																	(carScript changeState: 16)
-																else
-																	(Print 22 89)
-																)
-															else
-																(NotClose)
-															)
-														else
-															(LocPrint 22 88)
-														)
-													)
-												)									
-																						
-																						
-																						
-														
-														
-																										
+										;	(Print 22 85) ;It's already open. Coger maletin
+											(if workCarTrunkOpened
+												;(carScript changeState: 16) ;abrir capó
+											(if (== ((inventory at: iFieldKit) owner?) 13)
+												(LocPrint 22 95)
+												(ego get: iFieldKit)
+												(carScript changeState: 16)
 											else
-												(LocPrint 22 96) ;The field kit is not in the trunk.
-												(if (== currentCar carWork)
-													(if (ego inRect: 176 123 206 135)
-														(if workCarTrunkOpened
-															(carScript changeState: 16)
-														else
-															(Print 22 89) ;It's already closed.
-														)
-													else
-														(NotClose)
-													)
-												else
-													(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
-												)
-											)
-
 												
-			
-												else
-													(LocPrint 22 93)
-												)
-											else
-												(LocPrint 22 94)
+;;;												(LocPrint 22 96)
 											)
-										)
-								
+											else
+												(Print 22 89)
+											)
 
-										
+											
+										)
 										((ego has: iUnmarkedCarKeys)
+										(cond 
+							((== currentCar carWork)
+								(if (ego inRect: 176 123 206 135)
+
+									
 											(carScript changeState: 14)
-											
-											
-											
-											
-											
-										)
-										(else
-											(LocPrint 22 86) ;You need a key to open this trunk.
-										)
-									)
+								)
+										
+
 								else
-									(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+									(LocPrint 22 87)
 								)
 							)
 							((ego inRect: 176 123 206 135)
-								(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
+								(LocPrint 22 88)
 							)
 							(else
-								(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+								(LocPrint 22 87)
 							)
 						)
+
+
+
+										)
+									)
+								)
+							)
+							)
 						)
-						(else
-							(event claimed: FALSE)
-						)
-					
 					)
 				)
-					
-			
-	
+		
 
 						
 		
@@ -1444,6 +1437,7 @@
 	)
 	)
 )
+
 
 (instance cameraScript of Script
 	(properties)
