@@ -45,10 +45,13 @@
 	elevationScrewdriver
 	local73 ;isAdjustingSights?
 	talkedToKen
-	wearingEarProtectors
+	;wearingEarProtectors
 	viewingTarget
 	local77
 	inBooth
+	mX
+	mY
+	oldCur
 )
 
 (procedure (CreateShooter param1)
@@ -786,6 +789,9 @@
 				(Print 10 66)
 			)
 		)
+		(if (== theCursor 999) ;change walk to exit
+			(theGame setCursor: 991 (HaveMouse))
+		)
 		(super doit:)
 	)
 	
@@ -1008,6 +1014,7 @@
 				(HandsOn)
 				(= gunDrawn 1)
 				(= inBooth 0)
+				(theGame setCursor: 994 (HaveMouse)) ;change to target cursor
 			)
 			(5
 				(HandsOff)
@@ -1022,6 +1029,7 @@
 				(HandsOn)
 				(= gunDrawn 0)
 				(= inBooth 0)
+				(theGame setCursor: 990 (HaveMouse)) ;change to gun cursor
 			)
 			(7
 				(target startUpd: setCycle: BegLoop self)
@@ -1079,6 +1087,15 @@
 				(target stopUpd:)
 				(User canControl: 1 canInput: 1)
 				(= inBooth 0)
+			)
+			(20 ;move to mouse loc and fire
+				(HandsOff)
+				(ego
+					yStep: (if (< howFast 30) 8 else 4)
+					setCel: 0
+					setMotion: MoveTo mX mY self
+				)
+				(= state 0) ;fire when done moving
 			)
 		)
 	)
@@ -1387,15 +1404,77 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)			
-			(if (ClickedOnObj target3 (event x?) (event y?))
+;;;			(if (ClickedOnObj target3 (event x?) (event y?))
+;;;				(event claimed: TRUE)
+;;;				(switch theCursor				
+;;;					(100
+;;;						; Gun
+;;;						;(draw)
+;;;					)
+;;;					(994
+;;;						(fire)
+;;;					)
+;;;					(else
+;;;						(event claimed: FALSE)
+;;;					)
+;;;				)
+;;;			)
+			(if (ClickedInRect 54 64 54 71 event) ;clicked on upper button
 				(event claimed: TRUE)
-				(switch theCursor				
-					(100
-						; Gun
-						;(draw)
+				(switch theCursor
+					(998 ;look
+						(Print {This button is labeled 'BACK'})
 					)
-					(994
-						(fire)
+					(995 ;hand
+						(event claimed: TRUE)
+						(cond 
+							((== (target cel?) 4)
+								(Print 10 60)
+							)
+							(gunDrawn
+								(Print 10 61)
+							)
+							(
+								(and
+									(> targetShots 0)
+									local15
+								)
+								(Print 10 62)
+							)
+							(inBooth
+								(Print 10 47)
+							)
+							(else
+								(self changeState: 10)
+							)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)	
+			)
+			(if (ClickedInRect 54 64 71 90 event) ;clicked on lower button
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(Print {This button is labeled 'VIEW'})
+					)
+					(995
+						(cond 
+							(gunDrawn
+								(Print 10 58)
+							)
+							(inBooth
+								(Print 10 47)
+							)
+							((== (target cel?) 4)
+								(self changeState: 7)
+							)
+							(else
+								(Print 10 59)
+							)
+						)
 					)
 					(else
 						(event claimed: FALSE)
@@ -1404,28 +1483,98 @@
 			)
 			(if
 				(and 
-					(ClickedInRect 0 320 15 190 event) ;clicked on screen in booth
+					(ClickedInRect 80 237 19 137 event) ;clicked on screen in booth
 					(== (event claimed?) FALSE)
 				)
-				(switch theCursor				
-					(100 ;gun cursor
+				(switch theCursor
+					(999 ;walk exit
+						(if inBooth
+							(Print 10 47) ;wait a while
+						else
+							(curRoom drawPic: 10)
+							;(cast eachElementDo: #dispose)
+							;(cast eachElementDo: #delete)
+							(target3 dispose:)
+							(rm10 setScript: rm10Script)
+							(rm10Script changeState: 4)
+						)
+					)				
+					(100 ;gun invItem
+						(event claimed: TRUE)
 						(cond 
 							((not (ego has: iHandGun))
 								(DontHaveGun)
 							)
 							(inBooth
-								(return)
+								(return)	
 							)
 							(gunDrawn
-								(self changeState: 5)
+								(boothScript changeState: 5) ;holster
 							)
 							(else
-								(self changeState: 3)
+								(boothScript changeState: 3) ;draw
+							)
+						)
+					)
+					(990 ;gun cursor
+						(event claimed: TRUE)
+						(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							(inBooth
+								(return)	
+							)
+							(gunDrawn
+								(boothScript changeState: 5) ;holster
+							)
+							(else
+								(boothScript changeState: 3) ;draw
+							)
+						)
+					)
+					(994
+						(event claimed: TRUE)
+						(cond 
+							(isHandsOff
+								;1
+							)
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+;;;							((!= (ego yStep?) 1)
+;;;								(Print 10 40) ;"Practice your quick-draw later, Sonny; this is TARGET practice!"
+;;;							)
+							((not [numAmmoClips bulletsInGun])
+								(Print 10 41 #time 2) ;"CLICK!"
+							)
+							((> targetShots 6)
+								(Print 10 42) ;"You had better bring the target up before it's so full of holes you can't tell them apart."
+							)
+							(
+								(and
+									(!= (target cel?) 4)
+									(<= (ego y?) 208)
+								)
+								(Print 10 43) ;target too close
+							)
+							((not inBooth)
+								(Printf {windage: %d elevation: %d} gunWindageScrew gunElevationScrew)
+								(= mX (+ (event x?) 6)) ;for use in changeState 20 below
+								(= mY (+ (event y?) 73))
+								(Printf {mX: %d mY: %d} mX mY)
+								(= mX (+ mX (mod gunWindageScrew 6)))
+								(= mY (- mY (mod gunElevationScrew 6)))
+								(Printf {Post change mX: %d mY: %d} mX mY)
+								(boothScript changeState: 20) ;1
 							)
 						)
 					)
 				)	
 			)
+			(if (ClickedInRect 0 320 15 190 event) ;clicked anywere else in booth
+				(event claimed: TRUE) ;suppress default messages	
+			) 
 		)
 	)
 )
@@ -1436,6 +1585,8 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(= oldCur theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;pointer
 				(HandsOff)
 				((= sightAdjuster (View new:))
 					view: 70
@@ -1579,6 +1730,8 @@
 				(arrowU dispose:)
 				(rm10 setScript: boothScript)
 				(event claimed: 1)
+				(= theCursor oldCur) ;restore cursor
+				(theGame setCursor: oldCur (HaveMouse))
 				(HandsOn)
 			)
 		)

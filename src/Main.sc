@@ -342,7 +342,7 @@
 		deleteCastMember					;a member of the cast needs deleting
 		currentEgoView
 		yPositionInventory =26 
-		gLarry
+		wearingEarProtectors
 		gPEventX
 		gPEventY
 		gWindow

@@ -340,10 +340,14 @@
 						(cond
 							((== ((el value?) view?) 100) ;used handgun
 						 		(if (== curRoomNum 10)
-									(Bset fPnCAdjustSights)
-									(= theCursor oldCur)
-									(theGame setCursor: oldCur (HaveMouse))
-									(break)
+						 			(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript})) ;0 = STRINGS_EQUAL
+										(Bset fPnCAdjustSights)
+										(= theCursor oldCur)
+										(theGame setCursor: oldCur (HaveMouse))
+										(break)
+									else
+										(Print {Wait until you're in the booth to adjust the gun sights.})
+									)
 								else
 									(Print {You can only adjust the gun sights at the shooting range.})
 								)
@@ -360,6 +364,28 @@
 									((Inventory at: 37) cel: 0)
 								)
 								((el value?) showSelf:) 
+							)
+							((== ((el value?) view?) 115) ;ear protectors
+								(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
+									(cond 
+										((not (ego has: iEarProtectors))
+											(DontHave)
+										)
+										(wearingEarProtectors
+											(Print 10 67)
+										)
+										(gunDrawn
+											(Print 10 61)
+										)
+										(else
+											(= global210 0)
+											(Print {You put on the ear protectors.})
+											(= wearingEarProtectors 1)
+										)
+									)
+								else
+									(Print 10 30) ;"wear ep when in the booth"
+								)	
 							)
 							(else
 								(Print {You don't need to use that item.})
