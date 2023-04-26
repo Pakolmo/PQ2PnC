@@ -1131,7 +1131,7 @@
 		;; this rectangle is the working area for X/Y centering
 		;; these coordinates can define a subsection of the picture
 		;; in which a window will be centered
-		brTop		0
+		brTop		21
 		brLeft	0
 		brBottom	190
 		brRight	320

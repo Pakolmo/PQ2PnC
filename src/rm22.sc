@@ -1,25 +1,16 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 22)
-;;;(include system.sh)
-;;;(include game.sh)
-;;;(use Main)
-;;;(use Intrface)
-;;;(use Motion)
-;;;(use Game)
-;;;(use User)
-;;;(use Actor)
-;;;(use System)
-;;;
+(include system.sh)
 (include game.sh)
 (use Main)
 (use Intrface)
-(use AutoDoor)
-(use Avoider)
 (use Motion)
 (use Game)
 (use User)
 (use Actor)
 (use System)
+;;;
+
 (use PncMenu)
 (public
 	rm22 0
@@ -47,11 +38,12 @@
 	print0
 	print1
 	print2
-
+	
 )
 
-(instance carWork of View)
-(instance carPersonal of View)
+;;;(instance carWork of View)
+(instance carPersonal1 of View)
+(instance keith of View)
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
 )
@@ -162,7 +154,7 @@
 			addToPic:
 		)
 		(if (== currentCar carPersonal)
-			((View new:)
+		(carPersonal1
 				view: 54
 				loop: 1
 				cel: 3
@@ -380,7 +372,13 @@
 		)
 	)
 	
+
 	(method (handleEvent event)
+		(if (event claimed?)
+			(return)
+		)	
+		
+		
 		(switch (event type?)
 			(saidEvent
 				(cond 
@@ -943,10 +941,10 @@
 				)
 				
 			)
-				
+		)		
 				
 		
-		
+		(cond
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
@@ -954,16 +952,33 @@
 				)
 				(if
 					(or
-						(ClickedOnObj currentCar (event x?) (event y?)) ;clicked on personal car
+						(ClickedOnObj car (event x?) (event y?)) ;clicked on personal car
 						(and
-							(ClickedOnObj carPersonal (event x?) (event y?))
+							(ClickedOnObj car (event x?) (event y?))
 							(== currentCar carPersonal)
 						)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
-						(998 ;look
-							(Print 1 48) ;"Looking into the car, you see nothing out of the ordinary."
+						(998 ;look area
+							(switch (Random 0 1)
+							(0
+							(LocPrint 22 12)
+								
+							)
+							(1
+								(if (ego inRect: 150 0 250 146)
+									(if (== currentCar 13)
+										(LocPrint 22 13)
+									else
+										(LocPrint 22 14)
+									)
+								else
+									(LocPrint 22 15)
+								)
+
+							)
+							)
 						)
 						(995 ;hand
 							(if (ego inRect: 264 120 320 145) ;near personal car
@@ -975,87 +990,128 @@
 						)
 					)
 				)
-;;;				(if
-;;;					(or
-;;;						(ClickedOnObj carWork (event x?) (event y?)) ;clicked on unmarked car
-;;;						(and
-;;;							(ClickedOnObj carPersonal (event x?) (event y?))
-;;;							(== currentCar carWork)
-;;;						)
-;;;					)
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(998 ;look maletero/trunk
-;;;								(if
-;;;									(and
-;;;										(ego inRect: 176 123 206 135)
-;;;										(cast contains: unTrunk)
-;;;									)
-;;;									(inventory
-;;;										carrying: {The car's trunk contains:}
-;;;										empty: {The car's trunk is empty.}
-;;;										showSelf: 13
-;;;									)
-;;;								else
-;;;									(LocPrint 22 17)
-;;;								)
-;;;						)
-;;;						
-;;;						(995 ; use hand on unmarked car
-;;;						(cond 
-;;;							((== currentCar carWork)
-;;;								(if (ego inRect: 176 123 206 135)
-;;;									(cond 
-;;;										(workCarTrunkOpened
-;;;											(Print 22 85)
-;;;												(if (ego inRect: 176 123 206 135)
-;;;												(if workCarTrunkOpened
-;;;													(if (== ((inventory at: iFieldKit) owner?) 13)
-;;;														(LocPrint 22 95)
-;;;														(ego get: iFieldKit)
-;;;													else
-;;;														(LocPrint 22 96)
-;;;													)
-;;;												else
-;;;													(LocPrint 22 93)
-;;;												)
-;;;											else
-;;;												(LocPrint 22 94)
-;;;											)
-;;;										)
-;;;								
-;;;
-;;;										
-;;;										((ego has: iUnmarkedCarKeys)
-;;;											(carScript changeState: 14)
-;;;											
-;;;											
-;;;											
-;;;											
-;;;											
-;;;										)
-;;;										(else
-;;;											(LocPrint 22 86) ;You need a key to open this trunk.
-;;;										)
-;;;									)
-;;;								else
-;;;									(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
-;;;								)
-;;;							)
-;;;							((ego inRect: 176 123 206 135)
-;;;								(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
-;;;							)
-;;;							(else
-;;;								(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
-;;;							)
-;;;						)
-;;;					)
-;;;					)
-;;;				)
-;;;					
-;;;			
-;;;	
-;;;
+				(if
+					(or
+						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
+						(and
+							(ClickedOnObj car (event x?) (event y?))
+							(== currentCar carWork)
+						)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look maletero/trunk
+								(if
+									(and
+										(ego inRect: 176 123 206 135)
+										(cast contains: unTrunk)
+									)
+									(inventory
+										carrying: {The car's trunk contains:}
+										empty: {The car's trunk is empty.}
+										showSelf: 13
+									)
+								else
+									(LocPrint 22 17) ;You're not close enough to an open trunk.
+								)
+						)
+						
+						(995 ; use hand on unmarked car
+						(cond 
+							((== currentCar carWork)
+								(if (ego inRect: 176 123 206 135)
+									(cond 
+										(workCarTrunkOpened
+											(Print 22 85) ;It's already open.
+												(if (ego inRect: 176 123 206 135)
+												(if workCarTrunkOpened
+													(if (== ((inventory at: iFieldKit) owner?) 13)
+														(LocPrint 22 95) ;You take your field kit from the trunk.
+														(ego get: iFieldKit)
+														(if (== currentCar carWork) ;close trunk
+															(if (ego inRect: 176 123 206 135)
+																(if workCarTrunkOpened
+																	(carScript changeState: 16)
+																else
+																	(Print 22 89)
+																)
+															else
+																(NotClose)
+															)
+														else
+															(LocPrint 22 88)
+														)
+													)
+												)									
+																						
+																						
+																						
+														
+														
+																										
+											else
+												(LocPrint 22 96) ;The field kit is not in the trunk.
+												(if (== currentCar carWork)
+													(if (ego inRect: 176 123 206 135)
+														(if workCarTrunkOpened
+															(carScript changeState: 16)
+														else
+															(Print 22 89) ;It's already closed.
+														)
+													else
+														(NotClose)
+													)
+												else
+													(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
+												)
+											)
+
+												
+			
+												else
+													(LocPrint 22 93)
+												)
+											else
+												(LocPrint 22 94)
+											)
+										)
+								
+
+										
+										((ego has: iUnmarkedCarKeys)
+											(carScript changeState: 14)
+											
+											
+											
+											
+											
+										)
+										(else
+											(LocPrint 22 86) ;You need a key to open this trunk.
+										)
+									)
+								else
+									(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+								)
+							)
+							((ego inRect: 176 123 206 135)
+								(LocPrint 22 88) ;Your car's "hatch-back" hasn't worked since its warranty expired.
+							)
+							(else
+								(LocPrint 22 87) ;You're not close enough to your trunk, and you shouldn't open anybody else's trunk!
+							)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					
+					)
+				)
+					
+			
+	
+
 						
 		
 ;;;
@@ -1103,11 +1159,11 @@
 							)
 						)
 						(else
-							(event claimed: TRUE)
+							(event claimed: FALSE)
 						)
 					)
 				)	
-				(if (ClickedInRect 91 319 99 189 event) ; abajo, look suelo
+				(if (ClickedInRect 91 180 99 189 event) ; abajo, look suelo
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look area
@@ -1124,7 +1180,7 @@
 							)
 						)
 						(else
-							(event claimed: TRUE)
+							(event claimed: FALSE)
 						)
 					)
 				)						
@@ -1140,7 +1196,7 @@
 							(LocPrint 22 28)
 						)
 						(else
-							(event claimed: TRUE)
+							(event claimed: FALSE)
 						)
 					)
 				)	
@@ -1151,12 +1207,24 @@
 					
 					(switch theCursor				
 						(996 ;talk keith
-							(LocPrint 22 61)
+						(if
+							(and
+								(== currentCar 13)
+								(< (keith y?) 10)
+							)
+							(if (ego inRect: 235 102 300 158)
+								(LocPrint 22 31)
+							else
+								(LocPrint 22 32)
+							)
+						else
+							(event claimed: 0)
+						)
 						)
 					
 						
 						(else
-							(event claimed: TRUE)
+							(event claimed: FALSE)
 						)
 					)
 				)
@@ -1372,7 +1440,8 @@
 		
 	)
 					)
-		)
+		
+	)
 	)
 )
 
@@ -1619,4 +1688,4 @@
 		)
 	)
 )
-(instance keith of Actor)
+

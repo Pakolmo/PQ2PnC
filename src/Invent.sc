@@ -253,7 +253,7 @@
 		(= useI (DButton new:))
 		(useI 
 ;;;			text: "Use", ;ENGLISH
-			text: "Uso", ;SPANISH
+			text: "Usar", ;SPANISH
 			setSize:,
 			moveTo: 
 				(+ nsLeft (+ MARGIN (lookI nsRight?)))
