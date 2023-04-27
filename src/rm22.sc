@@ -346,7 +346,7 @@
 							cel: 2
 							posn: 209 138
 							setPri: 9
-							init:
+							init: ;unTrunk spawned if coming from Jail AND trunk is open
 						)
 					)
 					(car addToPic:)

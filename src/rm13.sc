@@ -1256,17 +1256,17 @@
 				)
 				
 				
-				(if (ClickedInRect 99 117 108 119 event) ;speedometer
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ;look					
-							(if onTheRoad (Print 13 16) else (Print 13 17))
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
+;;;				(if (ClickedInRect 99 117 108 119 event) ;speedometer
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor				
+;;;						(998 ;look					
+;;;							(if onTheRoad (Print 13 16) else (Print 13 17))
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
 				
 				(if (ClickedInRect 144 159 110 126 event) ;List
 					(event claimed: TRUE)
@@ -1289,8 +1289,8 @@
 			
 			(if 
 				(or
-					(ClickedOnObj kShoulder (event x?) (event y?)) ;kShoulder keithBud
-					(ClickedOnObj keithBud (event x?) (event y?))
+					(ClickedOnPicView kShoulder (event x?) (event y?)) ;kShoulder keithBud
+					(ClickedOnPicView keithBud (event x?) (event y?))
 				)
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -1310,13 +1310,20 @@
 			
 			(if
 				(and 
-					(ClickedOnObj wheel (event x?) (event y?)) ;wheel
+					(ClickedInRect 97 137 97 120 event) ;wheel
 					(== (event claimed?) FALSE)
 				)
 				(event claimed: TRUE)
-				(switch theCursor	
-						(103 ;unmarked keys drive. 
+				(switch theCursor
+					(995 ;hand on wheel to drive
+						(if (ego has: iUnmarkedCarKeys)
 							(theGame newRoom: 166)
+						else
+							(Print {You don't have the keys for this car.})
+						)
+					)	
+					(103 ;unmarked keys drive. 
+						(theGame newRoom: 166)
 ;;;								(= drive
 ;;;										(PrintSpecial
 ;;;											{Where to drive?}

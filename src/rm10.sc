@@ -1624,8 +1624,8 @@
 								(= mX (+ (event x?) 6)) ;for use in changeState 20 below
 								(= mY (+ (event y?) 73))
 								;(Printf {mX: %d mY: %d} mX mY)
-								(= mX (+ mX (mod gunWindageScrew 6)))
-								(= mY (- mY (mod gunElevationScrew 6)))
+								;(= mX (+ mX (mod gunWindageScrew 6)))
+								;(= mY (- mY (mod gunElevationScrew 6)))
 								;(Printf {Post change mX: %d mY: %d} mX mY)
 								(self changeState: 20) ;1
 							)
@@ -1767,20 +1767,6 @@
 				(event claimed: TRUE)
 				(elevationScrewdriver
 					cel:
-						(if (== (elevationScrewdriver cel?) 0)
-							(elevationScrewdriver lastCel:)
-						else
-							(- (elevationScrewdriver cel?) 1)
-						)
-					setPri: 15
-				)
-				(windageScrewdriver setPri: 0)
-				(-- gunElevationScrew)
-			)
-			(if (ClickedOnObj arrowU (event x?) (event y?))
-				(event claimed: TRUE)
-				(elevationScrewdriver
-					cel:
 						(if
 							(== (elevationScrewdriver cel?) (- (NumCels elevationScrewdriver) 1))
 							0
@@ -1791,6 +1777,20 @@
 				)
 				(windageScrewdriver setPri: 0)
 				(++ gunElevationScrew)
+			)
+			(if (ClickedOnObj arrowU (event x?) (event y?))
+				(event claimed: TRUE)
+				(elevationScrewdriver
+					cel:
+						(if (== (elevationScrewdriver cel?) 0)
+							(elevationScrewdriver lastCel:)
+						else
+							(- (elevationScrewdriver cel?) 1)
+						)
+					setPri: 15
+				)
+				(windageScrewdriver setPri: 0)
+				(-- gunElevationScrew)
 			)
 			(if
 				(and
