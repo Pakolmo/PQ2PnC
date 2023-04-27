@@ -9,9 +9,7 @@
 (use User)
 (use Actor)
 (use System)
-;;;
 
-(use PncMenu)
 (public
 	rm22 0
 )
@@ -35,15 +33,7 @@
 	cameraIsOscillating
 	;local17 set in cameraScript, but never used
 	lockerUnlocked
-	print0
-	print1
-	print2
-	
 )
-
-(instance carWork1 of View)
-(instance carPersonal1 of View)
-(instance keith of View)
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
 )
@@ -154,7 +144,7 @@
 			addToPic:
 		)
 		(if (== currentCar carPersonal)
-		(carPersonal1
+			((View new:)
 				view: 54
 				loop: 1
 				cel: 3
@@ -233,7 +223,6 @@
 		)
 		(self setLocales: regFieldKit)
 		(self setScript: rm22Script)
-		(curRoom setRegions: 950)
 	)
 )
 
@@ -371,14 +360,41 @@
 			)
 		)
 	)
-	
 
 	(method (handleEvent event)
-		(if (event claimed?)
-			(return)
-		)	
-		
-		
+		(if
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)
+			(if
+				(and
+					(ClickedInRect 191 215 111 125 event) ;clicked on trunk. UnTrunk only exsits when trunk is open.
+					(== (event claimed?) FALSE)
+				)
+				;new trunk code
+				(event claimed: TRUE)
+				(Print {clicked on Trunk})
+			)
+			(if
+				(and
+					(ClickedOnObj car (event x?) (event y?)) ;clicked on car
+					(== (event claimed?) FALSE)
+				)
+				;new trunk code
+				(event claimed: TRUE)
+				(Print {clicked on car})
+			)
+			(if
+				(and
+					(ClickedInRect 142 163 67 85 event) ;clicked on lockers
+					(== (event claimed?) FALSE)
+				)
+				;new locker code
+				(event claimed: TRUE)
+				(Print {clicked on lockers})
+			)
+		)
 		(switch (event type?)
 			(saidEvent
 				(cond 
@@ -939,505 +955,10 @@
 						)
 					)
 				)
-				
 			)
-		)		
-				
-		
-		(cond
-			(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				(if
-					(or
-						(ClickedOnObj car (event x?) (event y?)) ;clicked on personal car
-						(and
-							(ClickedOnObj carPersonal1 (event x?) (event y?))
-							(== currentCar carPersonal)
-						)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look area
-							(switch (Random 0 1)
-							(0
-							(LocPrint 22 12)
-								
-							)
-							(1
-								(if (ego inRect: 150 0 250 146)
-									(if (== currentCar 13)
-										(LocPrint 22 13)
-									else
-										(LocPrint 22 14)
-									)
-								else
-									(LocPrint 22 15)
-								)
-
-							)
-							)
-						)
-						(995 ;hand
-							(if (ego inRect: 264 120 320 145) ;near personal car
-								(EnterCar)
-							)
-						)
-						(else 
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if
-					(or
-						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
-						(and
-							(ClickedOnObj carWork1 (event x?) (event y?))
-							(== currentCar carWork)
-						)
-					)
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					(event claimed: TRUE)
-				
-					(switch theCursor
-						(998 ;look maletero/trunk
-								(if
-									(and
-										(ego inRect: 176 123 206 135)
-										(cast contains: unTrunk)
-									)
-									(inventory
-										carrying: {The car's trunk contains:}
-										empty: {The car's trunk is empty.}
-										showSelf: 13
-									)
-								else
-									(LocPrint 22 17) ;You're not close enough to an open trunk.
-								)
-						)
-						
-						(995 ; use hand on unmarked car 
-							(cond  ;Open trunk
-							((== currentCar carWork)
-								(if (ego inRect: 176 123 206 135)
-									(cond 
-										(workCarTrunkOpened
-										;	(Print 22 85) ;It's already open. Coger maletin
-											(if workCarTrunkOpened
-												;(carScript changeState: 16) ;abrir capó
-											(if (== ((inventory at: iFieldKit) owner?) 13)
-												(LocPrint 22 95)
-												(ego get: iFieldKit)
-												(carScript changeState: 16)
-											else
-												
-;;;												(LocPrint 22 96)
-											)
-											else
-												(Print 22 89)
-											)
-
-											
-										)
-										((ego has: iUnmarkedCarKeys)
-										(cond 
-							((== currentCar carWork)
-								(if (ego inRect: 176 123 206 135)
-
-									
-											(carScript changeState: 14)
-								)
-										
-
-								else
-									(LocPrint 22 87)
-								)
-							)
-							((ego inRect: 176 123 206 135)
-								(LocPrint 22 88)
-							)
-							(else
-								(LocPrint 22 87)
-							)
-						)
-
-
-
-										)
-									)
-								)
-							)
-							)
-						)
-					)
-				)
-		
-
-						
-		
-;;;
-;;;
-;;;				(if (ClickedOnObj keith (event x?) (event y?))
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor				
-;;;						(998 ;look keith
-;;;								(if
-;;;									(and
-;;;										(== currentCar 13)
-;;;										(< (keith y?) 10)
-;;;									)
-;;;									(if (ego inRect: 235 102 300 158)
-;;;										(LocPrint 22 2)
-;;;									else
-;;;										(LocPrint 22 3)
-;;;									)
-;;;								else
-;;;									(event claimed: 0)
-;;;								)
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;				)
-;;;
-;;;
-				
-				(if (ClickedInRect 1 319 21 52 event) ; arriba, look area
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ;look area
-							(switch (Random 0 1)
-							(0
-							(Print 22 4 #width 260 #at -1 120)
-								(if (>= gamePhase 1)
-									(Print 22 5 #width 280 #at -1 120)
-								)
-							)
-							(1
-								(LocPrint 22 6)
-							)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
-				(if (ClickedInRect 91 180 99 189 event) ; abajo, look suelo
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ;look area
-							(switch (Random 0 1)
-							(0
-							(Print 22 4 #width 260 #at -1 120)
-								(if (>= gamePhase 1)
-									(Print 22 5 #width 280 #at -1 120)
-								)
-							)
-							(1
-								(LocPrint 22 7)
-							)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)						
-				
-				
-				
-				(if (ClickedOnObj camera (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor				
-						(996 ;talk camera
-						)
-						(998 ; Look
-							(LocPrint 22 28)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
-											
-
-				(if (ClickedOnObj ego (event x?) (event y?))
-					(event claimed: TRUE)
-					
-					(switch theCursor				
-						(996 ;talk keith
-						(if
-							(and
-								(== currentCar 13)
-								(< (keith y?) 10)
-							)
-							(if (ego inRect: 235 102 300 158)
-								(LocPrint 22 31)
-							else
-								(LocPrint 22 32)
-							)
-						else
-							(event claimed: 0)
-						)
-						)
-					
-						
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-						
-									
-				(if (ClickedInRect 143 162 68 84 event) ;locker
-					(event claimed: TRUE)
-					(switch theCursor				
-						(995 ;use (locker)
-							(= print0			
-								(PrintSpecialSimple
-
-											
-											{Select an object}
-											#button {Locker} 1
-											#button {Key} 2
-											#button {Gun} 3
-										;
-										)
-									)
-						
-									(event claimed: TRUE)
-									(switch print0
-
-										(1 ;Use locker
-												(= print1			
-													(Print
-
-														{What do you want to do?}
-														#button {Open Locker} 11
-														#button {Close Locker} 12
-													)
-												)
-													(event claimed: TRUE)
-													(switch print1
-														(11 ;Open Locker
-															(event claimed: TRUE)
-															(cond 
-																(jailLockerOpen (LocPrint 22 42))
-																((ego inRect: 135 99 163 108)
-																	(if (== ((inventory at: iHandGun) owner?) 22)
-																		(LocPrint 22 43)
-																	else
-																		(LocPrint 22 44)
-																	)
-																	(= jailLockerOpen 1)
-																	(= lockerUnlocked 1)
-																)
-																(else
-																	(LocPrint 22 45)
-																)
-															)	
-														)
-													
-														
-														(12 ; Close Locker
-															(event claimed: TRUE)
-															(if (ego inRect: 135 99 163 108)
-																(if jailLockerOpen
-																	(= jailLockerOpen 0)
-																	(LocPrint 22 74)
-																	(if (== ((inventory at: iHandGun) owner?) 22)
-																		(SolvePuzzle 3 fLockedUpGunAtJail)
-																	)
-																else
-																	(LocPrint 22 75)
-																)
-															else
-																(LocPrint 22 62)
-															)
-														)
-														(else
-															(event claimed: FALSE)
-														)
-													)
-													)
-												
-						
-
-										(2 ; key
-											(event claimed: TRUE)
-												(if lockerUnlocked
-												(AlreadyTook)
-											else
-												(LocPrint 22 71) ;You must close and lock the locker in order to get the key.
-											)
-
-											(if
-												(and
-													(ego inRect: 135 99 163 108)
-													lockerUnlocked
-												)
-												(LocPrint 22 72) ;You have the locker key.
-;;;											else
-;;;												(LocPrint 22 73) ;You have the car keys. ;Not sense.
-											)	
-										)	
-									
-										(3 ;gun	
-											
-												(= print2			
-													(Print
-
-														{What do you want to do?}
-														#button {Deposite Gun} 21
-														#button {Remove Gun} 22
-													)
-												)											
-													(event claimed: TRUE)
-													(switch print2
-														(21 ;Deposite Gun
-															(event claimed: TRUE)		
-																(cond 
-																	((not (ego inRect: 135 99 163 108))
-																		(LocPrint 22 62) ;You're too far away.
-																	)
-																	((not jailLockerOpen)
-																		(LocPrint 22 63) ;You should open the locker first.
-																	)
-																	((not (ego has: iHandGun))
-																		(LocPrint 22 67) ;You place your gun in the locker.
-																	)
-																	(gunDrawn
-																		(LocPrint 22 68) ;First, holster your gun.
-																	)
-																	(else
-																		(LocPrint 22 69)
-																		(ego put: iHandGun 22)
-																	)
-																)
-															)	
-														(22 ;Remove Gun
-															(cond 
-																((ego has: iHandGun)
-																	(AlreadyTook)
-																)
-																((not (ego inRect: 135 99 163 108))
-																	(LocPrint 22 62)
-																)
-																((not jailLockerOpen)
-																	(LocPrint 22 63)
-																)
-																(gunStolenFromLocker
-																	(LocPrint 22 64)
-																	(EgoDead
-																		{Yes, even in peaceful Lytton, crimes of opportunity still occur. Next time, keep track of your piece.}
-																	)
-																)
-																((== ((inventory at: iHandGun) owner?) 22)
-																	(LocPrint 22 65)
-																	(ego get: iHandGun)
-																	(= jailLockerOpen 0)
-																)
-																(else
-																	(LocPrint 22 66)
-																)
-															)
-														)
-																
-;;;										(11 ;Open Locker
-;;;															(event claimed: TRUE)
-;;;															(cond 
-;;;																(jailLockerOpen (LocPrint 22 42))
-;;;																((ego inRect: 135 99 163 108)
-;;;																	(if (== ((inventory at: iHandGun) owner?) 22)
-;;;																		(LocPrint 22 43)
-;;;																	else
-;;;																		(LocPrint 22 44)
-;;;																	)
-;;;																	(= jailLockerOpen 1)
-;;;																	(= lockerUnlocked 1)
-;;;																)
-;;;																(else
-;;;																	(LocPrint 22 45)
-;;;																)
-;;;															)	
-;;;														)
-;;;													
-;;;														
-;;;														(12 ; Close Locker
-;;;															(event claimed: TRUE)
-;;;															(if (ego inRect: 135 99 163 108)
-;;;																(if jailLockerOpen
-;;;																	(= jailLockerOpen 0)
-;;;																	(LocPrint 22 74)
-;;;																	(if (== ((inventory at: iHandGun) owner?) 22)
-;;;																		(SolvePuzzle 3 fLockedUpGunAtJail)
-;;;																	)
-;;;																else
-;;;																	(LocPrint 22 75)
-;;;																)
-;;;															else
-;;;																(LocPrint 22 62)
-;;;															)
-;;;														)
-
-							
-										(else
-											(event claimed: FALSE)
-										)											
-																				
-													)
-										)			
-
-									
-									)
-						
-		
-					)
-			)
-		
-		
-	)
-					)
-		
-	)
+		)
 	)
 )
-
 
 (instance cameraScript of Script
 	(properties)
@@ -1682,4 +1203,3 @@
 		)
 	)
 )
-

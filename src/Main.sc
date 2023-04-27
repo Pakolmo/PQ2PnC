@@ -12,6 +12,7 @@
 (use System)
 (use IconI)
 (use SysWindow)
+(use Actor)
 
 (public
 	PQ 0
@@ -583,15 +584,28 @@
 )
 
 (procedure (ClickedOnObj obj eventX eventY)
-	(if 
-		(and
-			(< eventX (obj nsRight?))
-			(> eventX (obj nsLeft?))
-			(< eventY (obj nsBottom?))
-			(> eventY (obj nsTop?))
+;;;	(Printf {obj: %s class: %d} obj (obj ?))
+;;;	(if (== (obj name?) PicView)
+		(if 
+			(and
+				(< eventX (+ (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
+				(> eventX (- (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
+				(< eventY (obj y?))
+				(> eventY (- (obj y?) (CelHigh (obj view?)(obj loop?)(obj cel?))))
+			)
+			(return)
+;;;		)
+;;;	else
+;;;		(if 
+;;;			(and
+;;;				(< eventX (obj nsRight?))
+;;;				(> eventX (obj nsLeft?))
+;;;				(< eventY (obj nsBottom?))
+;;;				(> eventY (obj nsTop?))
+;;;			)
+			(return)
 		)
-		(return)
-	)
+;;;	)
 )
 
 (procedure (ClickedInRect l r t b event)
