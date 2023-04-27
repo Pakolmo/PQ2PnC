@@ -585,12 +585,11 @@
 (procedure (ClickedOnObj obj eventX eventY)
 	(if 
 		(and
-			(< eventX (+ (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
-			(> eventX (- (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
-			(< eventY (obj y?))
-			(> eventY (- (obj y?) (CelHigh (obj view?)(obj loop?)(obj cel?))))
+			(< eventX (obj nsRight?))
+			(> eventX (obj nsLeft?))
+			(< eventY (obj nsBottom?))
+			(> eventY (obj nsTop?))
 		)
-		
 		(return)
 	)
 )
