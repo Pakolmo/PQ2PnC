@@ -370,19 +370,18 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
-			(if
-				(and
-					(ClickedInRect 191 215 111 125 event) ;clicked on trunk. UnTrunk only exsits when trunk is open.
-					(== (event claimed?) FALSE)
-				)
-				;new trunk code
-
-				
-				(event claimed: TRUE)
-;;;				(Print {clicked on Trunk})
-				(switch theCursor
-					(998 ;look trunk
-						(if
+				(if
+					(or
+						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
+						(and
+							(ClickedOnObj car (event x?) (event y?))
+							(== currentCar carWork)
+						)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look maletero/trunk
+								(if
 									(and
 										(ego inRect: 176 123 206 135)
 										(cast contains: unTrunk)
@@ -395,59 +394,37 @@
 								else
 									(LocPrint 22 17)
 								)
-					)
-					(995 ;open trunk
+						
+
+						)
+						(995 ; use hand on unmarked car
 						(cond 
 							((== currentCar carWork)
 								(if (ego inRect: 176 123 206 135)
 									(cond 
 										(workCarTrunkOpened
 											(Print 22 85) ;It's already open.
-											(if (ego inRect: 176 123 206 135)
-												(if workCarTrunkOpened
-													(if (== ((inventory at: iFieldKit) owner?) 13)
-														(LocPrint 22 95) ;You take your field kit from the trunk.
-														(ego get: iFieldKit)
-														;cerramos trunk
-														(if (== currentCar carWork)
-															(if (ego inRect: 176 123 206 135)
-																(if workCarTrunkOpened
-																	(carScript changeState: 16)
-																else
-																	(Print 22 89) ;It's already closed.
-																)
-															else
-																(NotClose)
-															)
-														else
-															(LocPrint 22 88)
-														)													
-																						
-																						
-																						
-																						
-														else
-														(LocPrint 22 96)
-													)
-												else
-													(LocPrint 22 93)
-												)
-											else
-												(LocPrint 22 94)
-											)
-																
-																
-																
+											;cerramos
+																	(if (== currentCar carWork)
+							(if (ego inRect: 176 123 206 135)
+								(if workCarTrunkOpened
+									(carScript changeState: 16)
+								else
+									(Print 22 89)
+								)
+							else
+								(NotClose)
+							)
+						else
+							(LocPrint 22 88)
+						)
+											
+											
+											
+											
 										)
 										((ego has: iUnmarkedCarKeys)
 											(carScript changeState: 14)
-				
-																
-											
-											
-											
-											
-											
 										)
 										(else
 											(LocPrint 22 86)
@@ -464,53 +441,67 @@
 								(LocPrint 22 87)
 							)
 						)
-					)
-;;;					(998 ;look trunk
-;;;						(if (ego inRect: 176 123 206 135)
-;;;							(if workCarTrunkOpened
-;;;								(if (== ((inventory at: iFieldKit) owner?) 13)
-;;;									(LocPrint 22 95)
-;;;									(ego get: iFieldKit)
-;;;								else
-;;;									(LocPrint 22 96)
-;;;								)
-;;;							else
-;;;								(LocPrint 22 93)
-;;;							)
-;;;						else
-;;;							(LocPrint 22 94)
-;;;						)
-;;;						
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
+												(if (ego inRect: 176 123 206 135)
+							(if workCarTrunkOpened
+								(if (== ((inventory at: iFieldKit) owner?) 13)
+									(LocPrint 22 95)
+									(ego get: iFieldKit)
+								else
+									(LocPrint 22 96)
+								)
+							else
+								(LocPrint 22 93) ;Open the trunk first.
+						(cond 
+							((== currentCar carWork)
+								(if (ego inRect: 176 123 206 135)
+									(cond 
+										(workCarTrunkOpened
+											(Print 22 85)
+										)
+										((ego has: iUnmarkedCarKeys)
+											(= workCarTrunkOpened TRUE)
+											
+											(carScript changeState: 14)
+										)
+										(else
+											(LocPrint 22 86)
+										)
+									)
+								else
+									(LocPrint 22 87)
+								)
+							)
+							((ego inRect: 176 123 206 135)
+								(LocPrint 22 88)
+							)
+							(else
+								(LocPrint 22 87)
+							)
+						)								
+								
+								
+								
+								
+								
+								
+							)
+						else
+							(LocPrint 22 94)
+						)
+					
 						
-				)
-				
-				
-			)
-			(if
-				(and
-					(ClickedOnObj car (event x?) (event y?)) ;clicked on car
-					(== (event claimed?) FALSE)
-				)
-				;new trunk code
-				(event claimed: TRUE)
-;;;				(Print {clicked on car})
-			)
-			(if
-				(and
-					(ClickedInRect 142 163 67 85 event) ;clicked on lockers
-					(== (event claimed?) FALSE)
-				)
-				;new locker code
-				(event claimed: TRUE)
-				(Print {clicked on lockers})
-			)
-		)
-		
-							
+						
+						
+						)
+
+						(110 ;maletin ;use fieldKit on car
+						)
+						(else
+							(event claimed: FALSE)	
+						)
+					)
+				) ;end Unmarked car				
+		)		
 		
 ;;;
 ;;;
