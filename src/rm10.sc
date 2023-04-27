@@ -26,7 +26,6 @@
 	[shooter 4]
 	[local9 4]
 	local13
-	target
 	local15
 	targetShots
 	bulletHole1
@@ -45,7 +44,6 @@
 	elevationScrewdriver
 	local73 ;isAdjustingSights?
 	talkedToKen
-	;wearingEarProtectors
 	viewingTarget
 	local77
 	inBooth
@@ -129,6 +127,12 @@
 	
 	(method (doit)
 		(self posn: (ego x?) (ego y?))
+	)
+)
+
+(instance target of Prop
+	(properties
+		signal $6810
 	)
 )
 
@@ -618,7 +622,7 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
-			(if (ClickedOnObj target3 (event x?) (event y?))
+			(if (ClickedOnObj target (event x?) (event y?))
 				(event claimed: TRUE)
 				(switch theCursor				
 					(100
@@ -837,7 +841,7 @@
 					)
 					(rightArm init: signal: 26640 doit:) ;26640 doesnt match signal defines
 					(leftArm init: signal: 26640 doit:)
-					((= target (Prop new:))
+					(target
 						view: 70
 						posn: 159 59
 						setLoop: 2
@@ -845,7 +849,7 @@
 						cel: 4
 						setPri: 4
 						init:
-						stopUpd:
+						;stopUpd:
 					)
 					(if (>= oldEgoX 107)
 						((View new:)
@@ -1035,7 +1039,7 @@
 				(target startUpd: setCycle: BegLoop self)
 			)
 			(8
-				(target cel: 0 stopUpd:)
+				(target cel: 0)
 				(if targetShots
 					(= eventMessage_2 0)
 					(while (< eventMessage_2 targetShots)
@@ -1084,7 +1088,7 @@
 				(target setCycle: EndLoop self)
 			)
 			(11
-				(target stopUpd:)
+				;(target stopUpd:)
 				(User canControl: 1 canInput: 1)
 				(= inBooth 0)
 			)
@@ -1404,21 +1408,90 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)			
-;;;			(if (ClickedOnObj target3 (event x?) (event y?))
-;;;				(event claimed: TRUE)
-;;;				(switch theCursor				
-;;;					(100
-;;;						; Gun
-;;;						;(draw)
-;;;					)
-;;;					(994
-;;;						(fire)
-;;;					)
-;;;					(else
-;;;						(event claimed: FALSE)
-;;;					)
-;;;				)
-;;;			)
+			(if (ClickedOnObj target (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ;look target
+						(cond 
+							((== (target cel?) 4)
+								(Print 10 49)
+							)
+							((not targetShots)
+								(Print 10 50)
+							)
+							(viewingTarget
+								(Print 10 51)
+							)
+							((not local15)
+								(Print 10 52)
+							)
+							(
+								(and
+									(<= -6 gunWindageScrew)
+									(<= gunWindageScrew 6)
+									(<= -4 gunElevationScrew)
+									(<= gunElevationScrew 4)
+								)
+								(Print 10 53)
+							)
+							((< gunElevationScrew -4)
+								(Print
+									(Format
+										@temp1 10 54
+										(cond 
+											((> gunWindageScrew 6) { and to the right})
+											((< gunWindageScrew -6) { and to the left})
+											(else {})
+										)
+									)
+								)
+							)
+							((> gunElevationScrew 4)
+								(Print
+									(Format
+										@temp1 10 55
+										(cond 
+											((> gunWindageScrew 6) { and to the right})
+											((< gunWindageScrew -6) { and to the left})
+											(else {})
+										)
+									)
+								)
+							)
+							(else
+								(Print
+									(Format
+										@temp1 10 56
+										(cond 
+											((> gunWindageScrew 6) {right})
+											((< gunWindageScrew 6) {left})
+										)
+									)
+								)
+							)
+						)
+					)
+					(995 ;hand on target
+						(cond 
+							((== (target cel?) 4)
+								(Print 10 64) ;You can't change the target while it is back there.
+							)
+							(gunDrawn
+								(Print 10 61) ;Lower your weapon first.
+							)
+							(inBooth
+								(Print 10 47) ;Wait a while
+							)
+							(else
+								(self changeState: 9)
+							)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
 			(if (ClickedInRect 54 64 54 71 event) ;clicked on upper button
 				(event claimed: TRUE)
 				(switch theCursor
@@ -1486,19 +1559,7 @@
 					(ClickedInRect 80 237 19 137 event) ;clicked on screen in booth
 					(== (event claimed?) FALSE)
 				)
-				(switch theCursor
-					(999 ;walk exit
-						(if inBooth
-							(Print 10 47) ;wait a while
-						else
-							(curRoom drawPic: 10)
-							;(cast eachElementDo: #dispose)
-							;(cast eachElementDo: #delete)
-							(target3 dispose:)
-							(rm10 setScript: rm10Script)
-							(rm10Script changeState: 4)
-						)
-					)				
+				(switch theCursor			
 					(100 ;gun invItem
 						(event claimed: TRUE)
 						(cond 
@@ -1509,10 +1570,10 @@
 								(return)	
 							)
 							(gunDrawn
-								(boothScript changeState: 5) ;holster
+								(self changeState: 5) ;holster
 							)
 							(else
-								(boothScript changeState: 3) ;draw
+								(self changeState: 3) ;draw
 							)
 						)
 					)
@@ -1526,10 +1587,10 @@
 								(return)	
 							)
 							(gunDrawn
-								(boothScript changeState: 5) ;holster
+								(self changeState: 5) ;holster
 							)
 							(else
-								(boothScript changeState: 3) ;draw
+								(self changeState: 3) ;draw
 							)
 						)
 					)
@@ -1559,14 +1620,14 @@
 								(Print 10 43) ;target too close
 							)
 							((not inBooth)
-								(Printf {windage: %d elevation: %d} gunWindageScrew gunElevationScrew)
+								;(Printf {windage: %d elevation: %d} gunWindageScrew gunElevationScrew)
 								(= mX (+ (event x?) 6)) ;for use in changeState 20 below
 								(= mY (+ (event y?) 73))
-								(Printf {mX: %d mY: %d} mX mY)
+								;(Printf {mX: %d mY: %d} mX mY)
 								(= mX (+ mX (mod gunWindageScrew 6)))
 								(= mY (- mY (mod gunElevationScrew 6)))
-								(Printf {Post change mX: %d mY: %d} mX mY)
-								(boothScript changeState: 20) ;1
+								;(Printf {Post change mX: %d mY: %d} mX mY)
+								(self changeState: 20) ;1
 							)
 						)
 					)
@@ -1574,6 +1635,23 @@
 			)
 			(if (ClickedInRect 0 320 15 190 event) ;clicked anywere else in booth
 				(event claimed: TRUE) ;suppress default messages	
+				(if
+					(or
+						(== theCursor 999) ;walk to exit
+						(== theCursor 991) ;salir
+					)
+					(if inBooth
+						(Print 10 47) ;wait a while
+					else
+						(curRoom drawPic: 10)
+						;(cast eachElementDo: #dispose)
+						;(cast eachElementDo: #delete)
+						(target dispose:)
+						(rm10 setScript: rm10Script)
+						(theGame setCursor: 999 (HaveMouse))
+						(rm10Script changeState: 4)
+					)
+				)	
 			) 
 		)
 	)
@@ -1842,18 +1920,5 @@
 		(if (ego inRect: 100 139 220 160)
 			(FaceObject self ego)
 		)
-	)
-)
-	
-(instance target3 of Prop
-	(properties
-		view 70
-		x 159 
-		y 59
-		loop 2
-;;;		cycleSpeed: 3
-		cel 4
-;;;		init:
-;;;		stopUpd:	
 	)
 )

@@ -352,6 +352,9 @@
 									(Print {You can only adjust the gun sights at the shooting range.})
 								)
 							)
+							((== ((el value?) view?) 101) ;used extra clips/reload alternate of using clips on gun to reload
+						 		(load)
+							)
 							((== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
 								(Print {You flip the buisness card over.})
 								(if (not (Btst fDiscoveredLockerCombo))
@@ -393,15 +396,19 @@
 						)
 					)
 					(998 ;look at item
-						((el value?) showSelf:) ;display the inventory item normally.
-;;;						(if (== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
-;;;							(if (== ((Inventory at: 37) cel?) 0) ;flip each look
-;;;								((Inventory at: 37) cel: 1) 
-;;;							else
-;;;								((Inventory at: 37) cel: 0)
-;;;								(Bset fDiscoveredLockerCombo)
-;;;							)
-;;;						)
+						(if
+							(and 
+								(== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
+								(== curRoomNum 10)
+								(== ((el value?) view?) 100) ;looked at gun during booth script to trigger adjustments sames as hand
+							)
+							(Bset fPnCAdjustSights)
+							(= theCursor oldCur)
+							(theGame setCursor: oldCur (HaveMouse))
+							(break)
+						else
+							((el value?) showSelf:) ;display the inventory item normally.
+						)
 					)
 					(101 ;extra ammo clips
 						(if (== ((el value?) view?) 100) ;clicked gun with clips
@@ -415,7 +422,6 @@
 				)
 			)
 		)
-		;Dispose of everything
 		(self dispose:)
 	)
 
