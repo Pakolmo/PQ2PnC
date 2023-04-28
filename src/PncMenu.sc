@@ -1580,7 +1580,7 @@
 			)
 			(1
 				(= sGauge2
-					(PrintSpecial
+					(PrintSpecialSimple
 						950 33 ;"configuration:" 
 						;#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
 						;#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
@@ -1589,11 +1589,11 @@
 						;#button {\n_INSULT_\n_} 3 ;ENGLISH
 						;#button {\n_AUTOSAVE_\n_} 4 ;ENGLISH
 						;#button {\n_ABOUT_\n_} 5 ;ENGLISH
-						;#button {\n_TEXT COLOR_\n_} 6 ;ENGLISH
+						;#button {\n__SCORE__\n_} 6 ;ENGLISH
 						;#button {\n_INSULTO_\n_} 3 ;SPANISH
 						;#button {\n_AUTOSALVAR_\n_} 4 ;SPANISH
 						#button {\n__CREDITOS_\n_} 5 ;SPANISH
-						;#button {\n_COLORES_\n_} 6 ;SPANISH
+						#button {\n__PUNTOS__\n_} 6 ;SPANISH
 
 					)
 				)
@@ -1690,8 +1690,8 @@
 					#icon 999 2 0
 				)
 			)
-			(60 ;text color
-				
+			(60 ;score
+				(Print (Format @str 0 0 score possibleScore))
 			)
 			(100 (levelsIcon loop: 0))
 		)

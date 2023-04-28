@@ -806,6 +806,7 @@
 					(switch theCursor
 						(998 ;look
 							(Print 1 61) ;"You pause, briefly, to gaze at the U.S. flag flying overhead."
+							
 						)
 						(995 ;hand
 							(Print 1 69) ;"Giving a quick, smart, salute, your heart swells with pride."

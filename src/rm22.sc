@@ -714,7 +714,7 @@
 ;;;
 
 				
-				(if (and (ClickedInRect 1 319 21 52 event) ; arriba, look area
+				(if (and (ClickedInRect 1 319 21 45 event) ; arriba, look area
 						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)

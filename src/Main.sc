@@ -565,7 +565,7 @@
 	)
 )
 
-(procedure (SolvePuzzle pValue pFlag)
+(procedure (SolvePuzzle pValue pFlag &tmp [str 200])
 	(if
 		(and
 			(== argc 2)
@@ -574,10 +574,12 @@
 		(return)
 	)
 	(theGame changeScore: pValue)
+	
 	(if (Btst fGotPoints)
 		(Bclr fGotPoints)
 	else
 		(music number: 6 play:)
+		(Print (Format @str 0 0 score possibleScore)) ;add
 	)
 	(if (== argc 2)
 		(Bset pFlag)
@@ -845,13 +847,14 @@
 		(= ego egoObj)
 		(User alterEgo: ego blocks: 0 y: 155)
 
-		(TheMenuBar init:)
+;;;		(TheMenuBar init:)
 		
 
-		
-		
-		
 		(StatusLine code: statusCode)
+		(TheMenuBar init:)		
+		
+		
+;;;		(StatusLine code: statusCode)
 		(= possibleScore 300)
 		(= captainWarningTimer 700)
 		(= gunWindageScrew
@@ -921,7 +924,7 @@
 
 		(ego get: iMoneyClip)
 		;(ego get: 10 get: 2 get: 4 get: 5 get: 6 get: 7 get: 9 get: 11 get: 12 get: 13 get: 14 get: 15 get: 16 get: 17 get: 18 get: 19 get: 20 get: 21 get: 22 get:23 get:24 get:25 get:26 get: 27) ;maletin
-		(ego get: 0  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37) ;maletin
+		;(ego get: 0  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37) ;maletin
 
 		(HandsOn)
 		(= showStyle HSHUTTER)
@@ -938,12 +941,19 @@
 			(StatusLine enable:)
 			(self newRoom: 99) ;99
 		else
+			(TheMenuBar draw:) ;add
+			(StatusLine enable:) ;add
 			(self newRoom: 99) ;99
 		)
 	
 	)
 	
 	(method (doit)
+		(TheMenuBar draw:)
+		(StatusLine enable:)
+		
+		
+		
 		(super doit:)
 		(diverClock doit:)
 		(if (!= oldSysTime (= thisTime (GetTime TRUE)))
