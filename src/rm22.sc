@@ -42,6 +42,15 @@
 	print2
 	fieldKitToggle
 )
+
+
+(instance carWork1 of View)
+
+(instance carPersonal1 of View)
+
+
+(instance keith of View)
+
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
 )
@@ -152,7 +161,8 @@
 			addToPic:
 		)
 		(if (== currentCar carPersonal)
-			((View new:)
+			(carPersonal1
+;;;			((View new:)
 				view: 54
 				loop: 1
 				cel: 3
@@ -380,7 +390,7 @@
 					(or
 						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
 						(and
-							(ClickedOnObj car (event x?) (event y?))
+							(ClickedOnObj carPersonal1 (event x?) (event y?))
 							(== currentCar carPersonal)
 						)
 					)
@@ -392,7 +402,7 @@
 								(EnterCar)
 							)
 							((ego inRect: 225 128 262 140)
-;;;								(LocPrint 22 37)
+								(LocPrint 22 37)
 							)
 							(else
 								(LocPrint 22 38)
@@ -421,7 +431,7 @@
 								(EnterCar)
 							)
 							((ego inRect: 225 128 262 140)
-;;;								(LocPrint 22 37)
+								(LocPrint 22 37)
 							)
 							(else
 								(LocPrint 22 38)
@@ -498,8 +508,8 @@
 								else
 									(carScript changeState: 16)
 								)
-;;;																	(if (!= ((inventory at: iFieldKit) owner?) 13)
-;;;									(carScript changeState: 16))
+																	(if (!= ((inventory at: iFieldKit) owner?) 13)
+									(carScript changeState: 16))
 								)
 							)
 						)(else ;cerrado
@@ -573,7 +583,9 @@
 				)
 		)
 		
-			(if (ClickedOnObj door (event x?) (event y?))
+			(if 	(and (ClickedOnObj door (event x?) (event y?))
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look
@@ -596,7 +608,9 @@
 					)
 			)
 
-				(if (ClickedInRect 192 197 77 85 event) ; button
+				(if (and (ClickedInRect 192 197 77 85 event) ; button
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look button
@@ -665,36 +679,39 @@
 	
 		
 
-
-				(if (ClickedOnObj keith (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ;look keith
-								(if
-									(and
-										(== currentCar 13)
-										(< (keith y?) 10)
-									)
-									(if (ego inRect: 235 102 300 158)
-										(LocPrint 22 2)
-									else
-										(LocPrint 22 3)
-									)
-								else
-									(event claimed: 0)
-								)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-
+;;;
+;;;				(if (and (ClickedOnObj keith (event x?) (event y?))
+;;;						(cast contains: keith)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor				
+;;;						(998 ;look keith
+;;;								(if
+;;;									(and
+;;;										(== currentCar 13)
+;;;										(< (keith y?) 10)
+;;;									)
+;;;									(if (ego inRect: 235 102 300 158)
+;;;										(LocPrint 22 2)
+;;;									else
+;;;										(LocPrint 22 3)
+;;;									)
+;;;								else
+;;;									(event claimed: 0)
+;;;								)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;
 
 				
 				(if (and (ClickedInRect 1 319 21 52 event) ; arriba, look area
 					(== (event claimed?) FALSE)
-					)
+					)	
+					
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look area
@@ -715,7 +732,9 @@
 						)
 					)
 				)	
-				(if (ClickedInRect 91 180 99 189 event) ; abajo, look suelo
+				(if (and (ClickedInRect 91 180 99 189 event) ; abajo, look suelo
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look area
@@ -739,7 +758,9 @@
 				
 				
 				
-				(if (ClickedOnObj camera (event x?) (event y?))
+				(if (and (ClickedOnObj camera (event x?) (event y?))
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(996 ;talk camera
@@ -754,7 +775,9 @@
 				)	
 											
 
-				(if (ClickedOnObj ego (event x?) (event y?))
+				(if (and (ClickedOnObj ego (event x?) (event y?))
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					
 					(switch theCursor				
@@ -781,7 +804,9 @@
 					)
 				)
 							
-				(if (ClickedInRect 143 162 68 84 event) ;locker
+				(if (and (ClickedInRect 143 162 68 84 event) ;locker
+					(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(995 ;use (locker)	
