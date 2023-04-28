@@ -41,6 +41,7 @@
 	ClickedOnObj 23
 	ClickedInRect 24
 	DrawRect 25
+	ClickedOnPicView 26
 )
 
 (local
@@ -584,28 +585,15 @@
 )
 
 (procedure (ClickedOnObj obj eventX eventY)
-;;;	(Printf {obj: %s class: %d} obj (obj ?))
-;;;	(if (== (obj name?) PicView)
-		(if 
-			(and
-				(< eventX (+ (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
-				(> eventX (- (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
-				(< eventY (obj y?))
-				(> eventY (- (obj y?) (CelHigh (obj view?)(obj loop?)(obj cel?))))
-			)
-			(return)
-;;;		)
-;;;	else
-;;;		(if 
-;;;			(and
-;;;				(< eventX (obj nsRight?))
-;;;				(> eventX (obj nsLeft?))
-;;;				(< eventY (obj nsBottom?))
-;;;				(> eventY (obj nsTop?))
-;;;			)
-			(return)
+	(if 
+		(and
+			(< eventX (obj nsRight?))
+			(> eventX (obj nsLeft?))
+			(< eventY (obj nsBottom?))
+			(> eventY (obj nsTop?))
 		)
-;;;	)
+		(return)
+	)
 )
 
 (procedure (ClickedInRect l r t b event)
@@ -680,6 +668,18 @@
 		(Graph GDrawLine t r  b r col) ;top-right to bottom right...
 		(Graph GDrawLine b r b l col) 
 		(Graph GDrawLine b l t l col) 
+	)
+)
+
+(procedure (ClickedOnPicView obj eventX eventY)
+	(if 
+		(and
+			(< eventX (+ (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
+			(> eventX (- (obj x?) (/ (CelWide (obj view?)(obj loop?)(obj cel?))2)))
+			(< eventY (obj y?))
+			(> eventY (- (obj y?) (CelHigh (obj view?)(obj loop?)(obj cel?))))
+		)
+		(return)
 	)
 )
 
