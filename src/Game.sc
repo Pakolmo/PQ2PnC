@@ -1012,11 +1012,12 @@
 		code 0
 	)
 	
-	(method (doit &tmp temp0)
+	(method (doit &tmp [str 150])
 ;;;		(if code
 ;;;			(= temp0 (Memory memALLOC_CRIT (if 0 240 else 82)))
 ;;;			(code doit: temp0)
-			(DrawStatus (if state temp0 else 0))
+			;(DrawStatus (if state temp0 else 0))
+			(DrawStatus (Format @str {_Police Quest II_____________________Score: %d of %d} score possibleScore))
 ;;;			(Memory memFREE temp0)
 ;;;		)
 	)
