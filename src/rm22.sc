@@ -53,6 +53,7 @@
 
 (procedure (LocPrint)
 	(Print &rest #at -1 130)
+	
 )
 
 (procedure (EnterCar)
@@ -380,12 +381,19 @@
 	)
 
 	(method (handleEvent event)
-		(if
-			(and
-				(== (event type?) evMOUSEBUTTON)
-				(not (& (event modifiers?) emRIGHT_BUTTON))
-			)
-			
+		(if (event claimed?)
+			(return)
+		)
+		
+		
+	(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+
 				(if
 					(or
 						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
@@ -581,11 +589,11 @@
 				)
 		)
 				)
+			)
 		)
 		
-			(if 	(and (ClickedOnObj door (event x?) (event y?))
-					(== (event claimed?) FALSE)
-					)
+			(if (ClickedOnObj door (event x?) (event y?))
+
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look
@@ -608,9 +616,8 @@
 					)
 			)
 
-				(if (and (ClickedInRect 192 197 77 85 event) ; button
-					(== (event claimed?) FALSE)
-					)
+				(if  (ClickedInRect 192 197 77 85 event) ; button
+
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look button
@@ -680,9 +687,8 @@
 		
 
 ;;;
-;;;				(if (and (ClickedOnObj keith (event x?) (event y?))
-;;;						(cast contains: keith)
-;;;					)
+;;;				(if (ClickedOnObj keith (event x?) (event y?))
+
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor				
 ;;;						(998 ;look keith
@@ -709,21 +715,24 @@
 
 				
 				(if (and (ClickedInRect 1 319 21 52 event) ; arriba, look area
-					(== (event claimed?) FALSE)
-					)	
-					
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look area
 							(switch (Random 0 1)
 							(0
+								(event claimed: TRUE)
 							(Print 22 4 #width 260 #at -1 120)
 								(if (>= gamePhase 1)
 									(Print 22 5 #width 280 #at -1 120)
 								)
+								(event claimed: FALSE)
 							)
 							(1
+								(event claimed: TRUE)
 								(LocPrint 22 6)
+								(event claimed: FALSE)
 							)
 							)
 						)
@@ -740,13 +749,17 @@
 						(998 ;look area
 							(switch (Random 0 1)
 							(0
+							(event claimed: TRUE)
 							(Print 22 4 #width 260 #at -1 120)
 								(if (>= gamePhase 1)
 									(Print 22 5 #width 280 #at -1 120)
 								)
+								(event claimed: FALSE)
 							)
 							(1
+								(event claimed: TRUE)
 								(LocPrint 22 7)
+								(event claimed: FALSE)
 							)
 							)
 						)
@@ -761,12 +774,15 @@
 				(if (and (ClickedOnObj camera (event x?) (event y?))
 					(== (event claimed?) FALSE)
 					)
-					(event claimed: TRUE)
+;;;					(event claimed: FALSE)
+;;;					(event claimed: TRUE)
 					(switch theCursor				
-						(996 ;talk camera
-						)
+;;;						(996 ;talk camera
+;;;						)
 						(998 ; Look
+							(event claimed: TRUE)
 							(LocPrint 22 28)
+							(event claimed: FALSE)
 						)
 						(else
 							(event claimed: FALSE)
@@ -775,9 +791,8 @@
 				)	
 											
 
-				(if (and (ClickedOnObj ego (event x?) (event y?))
-					(== (event claimed?) FALSE)
-					)
+				(if (ClickedOnObj ego (event x?) (event y?))
+				
 					(event claimed: TRUE)
 					
 					(switch theCursor				
@@ -804,9 +819,8 @@
 					)
 				)
 							
-				(if (and (ClickedInRect 143 162 68 84 event) ;locker
-					(== (event claimed?) FALSE)
-					)
+				(if (ClickedInRect 143 162 68 84 event) ;locker
+					
 					(event claimed: TRUE)
 					(switch theCursor				
 						(995 ;use (locker)	
