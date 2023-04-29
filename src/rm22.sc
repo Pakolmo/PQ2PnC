@@ -384,8 +384,10 @@
 		(if (event claimed?)
 			(return)
 		)
-		
-		
+;;;		
+;;;			(if modelessDialog
+;;;				(modelessDialog dispose:)
+;;;			)	
 	(cond
 			(
 				(and
@@ -395,13 +397,12 @@
 				
 
 				(if
-					(or
-						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
+
 						(and
-							(ClickedOnObj carPersonal1 (event x?) (event y?))
+							(ClickedOnObj car (event x?) (event y?))
 							(== currentCar carPersonal)
 						)
-					)
+
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
@@ -424,13 +425,12 @@
 			
 			
 				(if
-					(or
-						(ClickedOnObj car (event x?) (event y?)) ;clicked on unmarked car
+
 						(and
 							(ClickedOnObj car (event x?) (event y?))
 							(== currentCar carWork)
 						)
-					)
+
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
@@ -589,8 +589,8 @@
 				)
 		)
 				)
-			)
-		)
+;;;			)
+;;;		)
 		
 			(if (ClickedOnObj door (event x?) (event y?))
 
@@ -616,8 +616,9 @@
 					)
 			)
 
-				(if  (ClickedInRect 192 197 77 85 event) ; button
-
+				(if  (and (ClickedInRect 192 197 77 85 event) ; button
+					(== (event claimed?) FALSE)
+					 )
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look button
@@ -685,10 +686,10 @@
 	
 	
 		
-
 ;;;
-;;;				(if (ClickedOnObj keith (event x?) (event y?))
-
+;;;
+;;;				(if (ClickedOnPicView keith (event x?) (event y?))
+;;;
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor				
 ;;;						(998 ;look keith
@@ -722,17 +723,17 @@
 						(998 ;look area
 							(switch (Random 0 1)
 							(0
-								(event claimed: TRUE)
+								
 							(Print 22 4 #width 260 #at -1 120)
 								(if (>= gamePhase 1)
 									(Print 22 5 #width 280 #at -1 120)
 								)
-								(event claimed: FALSE)
+								
 							)
 							(1
-								(event claimed: TRUE)
+								
 								(LocPrint 22 6)
-								(event claimed: FALSE)
+								
 							)
 							)
 						)
@@ -825,7 +826,7 @@
 					(switch theCursor				
 						(995 ;use (locker)	
 							 ;abrir	
-								(event claimed: TRUE)
+;;;								(event claimed: TRUE)
 												(cond 
 													(jailLockerOpen );(LocPrint 22 42)) ;The locker is already open.
 													((ego inRect: 135 99 163 108)
@@ -1127,10 +1128,10 @@
 ;;;						
 ;;;		
 ;;;					)
-;;;			)
+			)
 ;;;		
 ;;;		
-;;;	)
+	)
 					
 		
 			
