@@ -34,6 +34,9 @@
 	whichFile
 	local16
 	local17
+	opened = 1
+	bainsFile
+	peteFile
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 125)
@@ -43,7 +46,7 @@
 	(= local9 1)
 	(curRoom drawPic: 90 WIPERIGHT)
 	(switch whichFile
-		(0
+		(bainsFile
 			(mugShot1 posn: 52 62)
 			(paperClip posn: 31 28)
 			(if (== ((inventory at: iNewMugShot) owner?) 23)
@@ -60,7 +63,7 @@
 				p_width 300
 			)
 		)
-		(1
+		(peteFile
 			(mugShot2 posn: 69 62)
 			(Animate (cast elements?) 0)
 			(Display 23 2
@@ -83,7 +86,7 @@
 	(= local10 1)
 	(curRoom drawPic: 90 WIPELEFT)
 	(switch whichFile
-		(0
+		(0 ;was 0
 			(mugShot1 posn: 0 0)
 			(paperClip posn: 0 0)
 			(if (== ((inventory at: 12) owner?) 23)
@@ -92,7 +95,7 @@
 			(Animate (cast elements?) 0)
 			(Display 23 4 p_at 20 7 p_width 300 117)
 		)
-		(1
+		(1 ;was 1
 			(mugShot2 posn: 0 0)
 			(Animate (cast elements?) 0)
 			(Display 23 5 p_at 20 10 p_width 300 117)
@@ -321,6 +324,515 @@
 	)
 	
 	(method (handleEvent event)
+		(if (event claimed?)
+			(return)
+		)
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+
+				(if ;mugshot photo
+					(and
+						(ClickedOnObj mugShot1 (event x?) (event y?))
+						(== 1 1) ;opened 1
+					)
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;hand
+								(if (== whichFile 0)
+									(if (== ((inventory at: iNewMugShot) owner?) 23)
+										(removeableMugShot dispose:)
+										(ego get: iNewMugShot)
+										(SolvePuzzle 2)
+									else
+										(LocPrint 23 11)
+									)
+								else
+									(LocPrint 23 12)
+								)
+						)
+						(998 ;look
+							(if nearJailer
+									(if (>= gamePhase 1)
+										(LocPrint 23 24)
+									else
+										(LocPrint 23 25)
+									)
+								else
+									(LocPrint 23 26)
+								)
+						)
+					)
+				
+				(if 
+					(and
+						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= whichFile bainsFile)
+							(folderScript changeState: 0)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= whichFile bainsFile)
+							(folderScript changeState: 0)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if ;peteFile
+					(and
+						(ClickedOnObj peteFile (event x?) (event y?))
+						(== opened 1)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(= whichFile peteFile)
+							(folderScript changeState: 1)
+							(= opened 0)
+						)
+						(995 ;hand
+							(= whichFile peteFile)
+							(folderScript changeState: 1)
+							(= opened 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+        		(if (== theCursor 999) ;walk to exit 
+					(if (== opened 0)	
+						(Print 7 30)
+						(folderScript changeState: 2)
+						(= opened 1)
+					else
+						(cast eachElementDo: #dispose)
+						(curRoom newRoom: 23)
+					)
+				)
+				(if ;change page
+					(and
+						(or
+							(== theCursor 995) ;hand
+							(== theCursor 998) ;or look to change page
+						)
+						(== opened 0)
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(if local12
+						(NextPage)
+					else
+						(Print 7 25 #at -1 140)
+					)
+				
+				)
+				)
+	
+
+
+				(if
+
+						(and
+							(ClickedOnObj jailer (event x?) (event y?))
+							(cast contains: jailer)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+					(107 ;Gun_wallet	
+						(if nearJailer
+							(if (== ((inventory at: iHandGun) owner?) 23)
+								(jailerScript changeState: 13)
+							else
+								(LocPrint 23 75)
+							)
+						else
+							(LocPrint 23 26)
+						)
+					)
+					(110 ;maletin
+						(if nearJailer
+							(if (== ((inventory at: iFieldKit) owner?) 23)
+								(LocPrint 23 76)
+								(ego get: iFieldKit)
+								(jailerScript changeState: 12)
+							else
+								(LocPrint 23 77)
+							)
+						)
+					)
+						
+					(123 ;photo bains old
+						(cond 
+							(nearJailer
+								(cond 
+									((> local17 0)
+										(if (>= gamePhase 1)
+											(LocPrint 23 63)
+										else
+											(LocPrint 23 50)
+											(Print 23 51 #at -1 125)
+										)
+									)
+									((>= gamePhase 1)
+										(if
+										(or (== (mod (++ local13) 2) 1) (< local13 2))
+											(if (> local13 1)
+												(LocPrint 23 64)
+											else
+												(LocPrint 23 65)
+											)
+											(= whichFile 0)
+											(jailerScript changeState: 7)
+										else
+											(LocPrint 23 66)
+										)
+									)
+									((< gamePhase 1) (LocPrint 23 50) (Print 23 51 #at -1 125))
+								)
+							)
+							(local2
+								(if local5
+									(LocPrint 23 67)
+								else
+									(LocPrint 23 28)
+								)
+							)
+							(else (LocPrint 23 26))
+						)
+						(cond 
+							(nearJailer
+								(cond 
+									((> local17 0) (LocPrint 23 68))
+									((== gamePhase 0) (LocPrint 23 69))
+									((>= gamePhase 1)
+										(if
+										(or (== (mod (++ local14) 2) 1) (< local14 2))
+											(if (> local14 1)
+												(LocPrint 23 64)
+											else
+												(LocPrint 23 70)
+											)
+											(= whichFile 1)
+											(SolvePuzzle 2 117)
+											(jailerScript changeState: 7)
+										else
+											(LocPrint 23 66)
+										)
+									)
+								)
+							)
+							(
+								(or
+									local3
+									local4
+								)
+								(if local5
+									(LocPrint 23 71)
+								else
+									(LocPrint 23 28)
+								)
+							)
+							(else
+								(LocPrint 23 26)
+							)
+						)
+					)							
+											
+						
+						
+						
+					(112 ;photo bains new filepete
+
+						(cond 
+							(nearJailer
+								(cond 
+									((> local17 0) (LocPrint 23 68))
+									((== gamePhase 0) (LocPrint 23 69))
+									((>= gamePhase 1)
+										(if
+										(or (== (mod (++ local14) 2) 1) (< local14 2))
+											(if (> local14 1)
+												(LocPrint 23 64)
+											else
+												(LocPrint 23 70)
+											)
+											(= whichFile 1)
+											(SolvePuzzle 2 117)
+											(jailerScript changeState: 7)
+										else
+											(LocPrint 23 66)
+										)
+									)
+								)
+							)
+							(
+								(or
+									local3
+									local4
+								)
+								(if local5
+									(LocPrint 23 71)
+								else
+									(LocPrint 23 28)
+								)
+							)
+							(else
+								(LocPrint 23 26)
+							)
+						)
+					)							
+					
+					(996 ;talk
+;;;						(if nearJailer
+;;;							(Print 23 33)
+;;;						else
+;;;							(Print 23 34)
+;;;						)
+						(cond 
+							((>= gamePhase 1)
+								(cond 
+									(
+										(and
+											nearJailer
+											(not local2)
+											(not local4)
+										)
+										(= local1 1)
+										(if local0
+											(LocPrint 23 29)
+										else
+											(= local0 1)
+											(LocPrint 23 30)
+											(LocPrint 23 31)
+											(SolvePuzzle 1 fAskedToSeeWitness)
+										)
+									)
+									(local2
+										(cond 
+											(nearJailer
+												(LocPrint 23 36)
+											)
+											(local5
+												(LocPrint 23 37)
+											)
+											(else
+												(LocPrint 23 28)
+											)
+										)
+									)
+									(else
+										(LocPrint 23 20)
+									)
+								)
+							)
+							(nearJailer
+								(LocPrint 23 25)
+							)
+							(else
+								(LocPrint 23 26)
+							)
+						)
+					
+					
+				
+						(if nearJailer
+							(LocPrint 23 25)
+						else
+							(LocPrint 23 26)
+						)
+
+
+						(cond 
+							(
+								(and
+									nearJailer
+									(>= gamePhase 1)
+									(not local3)
+									(not local4)
+								)
+								(= local1 1)
+								(if local0
+									(LocPrint 23 29)
+								else
+									(= local0 1)
+									(LocPrint 23 30)
+									(LocPrint 23 31)
+									(SolvePuzzle 1 fAskedToSeeWitness)
+								)
+							)
+							((>= gamePhase 1)
+								(cond 
+									(local3
+										(if local5
+											(if (Btst fInterrogatedWitness)
+												(LocPrint 23 38)
+												(= local4 1)
+												(= local3 0)
+											else
+												(SolvePuzzle 2 fInterrogatedWitness)
+												(witnessTalking play:)
+												(LocPrint 23 39)
+												(Print 23 40 #at -1 125)
+												(Print 23 41 #at -1 125)
+												(= local4 1)
+												(= local3 0)
+											)
+										else
+											(LocPrint 23 28)
+										)
+									)
+									((> (ego x?) 210)
+										(LocPrint 23 42)
+									)
+									(local4
+										(LocPrint 23 43)
+									)
+									(else
+										(LocPrint 23 26)
+									)
+								)
+							)
+							(else
+								(LocPrint 23 44)
+							)
+						)
+						(switch (Random 0 1)
+						
+						(0
+						(cond 
+							(nearJailer
+								(cond 
+									((> local17 0)
+										(if (>= gamePhase 1)
+											(LocPrint 23 63)
+										else
+											(LocPrint 23 50)
+											(Print 23 51 #at -1 125)
+										)
+									)
+									((>= gamePhase 1)
+										(if
+										(or (== (mod (++ local13) 2) 1) (< local13 2))
+											(if (> local13 1)
+												(LocPrint 23 64)
+											else
+												(LocPrint 23 65)
+											)
+											(= whichFile 0)
+											(jailerScript changeState: 7)
+										else
+											(LocPrint 23 66)
+										)
+									)
+									((< gamePhase 1) (LocPrint 23 50) (Print 23 51 #at -1 125))
+								)
+							)
+							(local2
+								(if local5
+									(LocPrint 23 67)
+								else
+									(LocPrint 23 28)
+								)
+							)
+							(else (LocPrint 23 26))
+						)
+						)
+				
+					(1
+
+						(cond 
+							(nearJailer
+								(cond 
+									((> local17 0) (LocPrint 23 68))
+									((== gamePhase 0) (LocPrint 23 69))
+									((>= gamePhase 1)
+										(if
+										(or (== (mod (++ local14) 2) 1) (< local14 2))
+											(if (> local14 1)
+												(LocPrint 23 64)
+											else
+												(LocPrint 23 70)
+											)
+											(= whichFile 1)
+											(SolvePuzzle 2 117)
+											(jailerScript changeState: 7)
+										else
+											(LocPrint 23 66)
+										)
+									)
+								)
+							)
+							(
+								(or
+									local3
+									local4
+								)
+								(if local5
+									(LocPrint 23 71)
+								else
+									(LocPrint 23 28)
+								)
+							)
+							(else
+								(LocPrint 23 26)
+							)
+						)
+					)
+						
+					)	
+						
+						
+							
+					
+					)
+					
+					(998 ; look
+						(cond 
+									(nearJailer
+										(if (>= gamePhase 1)
+											(LocPrint 23 22)
+										else
+											(LocPrint 23 21)
+										)
+									)
+									(local2
+										(if local5
+											(LocPrint 23 27)
+										else
+											(LocPrint 23 28)
+										)
+									)
+									(else (LocPrint 23 20))
+								)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)
+	
+		
+		
+
+		
+		
 		(switch (event type?)
 			(saidEvent
 				(cond 
@@ -963,13 +1475,146 @@
 		)
 	)
 )
-
+	
+		
+	)
+)
 (instance folderScript of Script
 	(properties)
 	
 	(method (init)
 		(User canInput: 1)
 	)
+
+
+;;;	(method (handleEvent event)
+;;;		
+;;;		(if (event claimed?)
+;;;			(return)
+;;;		)
+;;;
+;;;
+;;;				(and
+;;;					(== (event type?) evMOUSEBUTTON)
+;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;				)
+;;;				(if ;mugshot photo
+;;;					(and
+;;;						(ClickedOnObj mugShot1 (event x?) (event y?))
+;;;						(== 1 1) ;opened 1)
+;;;				
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995 ;hand
+;;;								(if (== whichFile bainsFile)
+;;;									(if (== ((inventory at: iNewMugShot) owner?) 23)
+;;;										(removeableMugShot dispose:)
+;;;										(ego get: iNewMugShot)
+;;;										(SolvePuzzle 2)
+;;;									else
+;;;										(LocPrint 23 11)
+;;;									)
+;;;								else
+;;;									(LocPrint 23 12)
+;;;								)
+;;;						)
+;;;						(998 ;look
+;;;							(Print 7 32)
+;;;						)
+;;;					)
+;;;				)
+;;;				(if 
+;;;					(and
+;;;						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+;;;						(== opened 1)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998 ;look
+;;;							(= whichFile bainsFile)
+;;;							(folderScript changeState: 0)
+;;;							(= opened 0)
+;;;						)
+;;;						(995 ;hand
+;;;							(= whichFile bainsFile)
+;;;							(folderScript changeState: 0)
+;;;							(= opened 0)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;				(if ;peteFile
+;;;					(and
+;;;						(ClickedOnObj peteFile (event x?) (event y?))
+;;;						(== opened 1)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998 ;look
+;;;							(= whichFile peteFile)
+;;;							(folderScript changeState: 1)
+;;;							(= opened 0)
+;;;						)
+;;;						(995 ;hand
+;;;							(= whichFile peteFile)
+;;;							(folderScript changeState: 1)
+;;;							(= opened 0)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;
+;;;        		(if (== theCursor 999) ;walk to exit 
+;;;					(if (== opened 0)	
+;;;						(Print 7 30)
+;;;						(folderScript changeState: 2)
+;;;						(= opened 1)
+;;;					else
+;;;						(cast eachElementDo: #dispose)
+;;;						(curRoom newRoom: 23)
+;;;					)
+;;;				)
+;;;				(if ;change page
+;;;					(and
+;;;						(or
+;;;							(== theCursor 995) ;hand
+;;;							(== theCursor 998) ;or look to change page
+;;;						)
+;;;						(== opened 0)
+;;;						(== (event claimed?) FALSE)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(if local12
+;;;						(NextPage)
+;;;					else
+;;;						(Print 7 25 #at -1 140)
+;;;					)
+;;;				
+;;;			)
+;;;		
+;;;	)
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+
+
+
+
+
+
+
 	
 	(method (changeState newState)
 		(switch (= state newState)

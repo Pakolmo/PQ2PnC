@@ -686,40 +686,41 @@
 	
 	
 		
-;;;
-;;;
-;;;				(if (ClickedOnPicView keith (event x?) (event y?))
-;;;
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor				
-;;;						(998 ;look keith
-;;;								(if
-;;;									(and
-;;;										(== currentCar 13)
-;;;										(< (keith y?) 10)
-;;;									)
-;;;									(if (ego inRect: 235 102 300 158)
-;;;										(LocPrint 22 2)
-;;;									else
-;;;										(LocPrint 22 3)
-;;;									)
-;;;								else
-;;;									(event claimed: 0)
-;;;								)
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;				)
-;;;
+
+
+				(if (ClickedOnPicView keith (event x?) (event y?))
+
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look keith
+								(if
+									(and
+										(== currentCar 13)
+										(< (keith y?) 10)
+									)
+									(if (ego inRect: 235 102 300 158)
+										(LocPrint 22 2)
+									else
+										(LocPrint 22 3)
+									)
+								else
+									(event claimed: 0)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
 
 				
 				(if (and (ClickedInRect 1 319 21 45 event) ; arriba, look area
 						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)
-					(switch theCursor				
+					(switch theCursor		
+	
 						(998 ;look area
 							(switch (Random 0 1)
 							(0
