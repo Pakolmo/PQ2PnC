@@ -37,6 +37,7 @@
 	opened = 1
 	bainsFile
 	peteFile
+
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 125)
@@ -76,36 +77,36 @@
 				p_width 300
 			)
 		)
-;;;		(bainsFile
-;;;			(mugShot1 posn: 52 62)
-;;;			(paperClip posn: 31 28)
-;;;			(if (== ((inventory at: iNewMugShot) owner?) 23)
-;;;				(removeableMugShot posn: 57 66)
-;;;			)
-;;;			(Animate (cast elements?) 0)
-;;;			(Display 23 0
-;;;				p_at 120 15
-;;;				p_width 200
-;;;				p_font 0
-;;;			)
-;;;			(Display 23 1
-;;;				p_at 20 72
-;;;				p_width 300
-;;;			)
-;;;		)
-;;;		(peteFile
-;;;			(mugShot2 posn: 69 62)
-;;;			(Animate (cast elements?) 0)
-;;;			(Display 23 2
-;;;				p_at 120 15
-;;;				p_width 200
-;;;				p_font 0
-;;;			)
-;;;			(Display 23 3
-;;;				p_at 20 65
-;;;				p_width 300
-;;;			)
-;;;		)		
+		(bainsFile
+			(mugShot1 posn: 52 62)
+			(paperClip posn: 31 28)
+			(if (== ((inventory at: iNewMugShot) owner?) 23)
+				(removeableMugShot posn: 57 66)
+			)
+			(Animate (cast elements?) 0)
+			(Display 23 0
+				p_at 120 15
+				p_width 200
+				p_font 0
+			)
+			(Display 23 1
+				p_at 20 72
+				p_width 300
+			)
+		)
+		(peteFile
+			(mugShot2 posn: 69 62)
+			(Animate (cast elements?) 0)
+			(Display 23 2
+				p_at 120 15
+				p_width 200
+				p_font 0
+			)
+			(Display 23 3
+				p_at 20 65
+				p_width 300
+			)
+		)		
 	)
 	(= local10 0)
 	(User canInput: 1)
@@ -123,32 +124,40 @@
 				(removeableMugShot posn: 0 0)
 			)
 			(Animate (cast elements?) 0)
-			(Display 23 4 p_at 20 7 p_width 300 117)
+			(Display 23 4 p_at 20 7 p_width 300) ;(Display 23 4 p_at 20 7 p_width 300 117)
 		)
 		(1 ;was 1
 			(mugShot2 posn: 0 0)
 			(Animate (cast elements?) 0)
-			(Display 23 5 p_at 20 10 p_width 300 117)
+			(Display 23 5 p_at 20 10 p_width 300) ;(Display 23 5 p_at 20 10 p_width 300 117)
 		)
-;;;		(bainsFile ;was 0
-;;;			(mugShot1 posn: 0 0)
-;;;			(paperClip posn: 0 0)
-;;;			(if (== ((inventory at: 12) owner?) 23)
-;;;				(removeableMugShot posn: 0 0)
-;;;			)
-;;;			(Animate (cast elements?) 0)
-;;;			(Display 23 4 p_at 20 7 p_width 300 117)
-;;;		)
-;;;		(peteFile ;was 1
-;;;			(mugShot2 posn: 0 0)
-;;;			(Animate (cast elements?) 0)
-;;;			(Display 23 5 p_at 20 10 p_width 300 117)
-;;;		)		
+		(bainsFile ;was 0
+			(mugShot1 posn: 0 0)
+			(paperClip posn: 0 0)
+			(if (== ((inventory at: 12) owner?) 23)
+				(removeableMugShot posn: 0 0)
+			)
+			(Animate (cast elements?) 0)
+			(Display 23 4 p_at 20 7 p_width 300)
+		)
+		(peteFile ;was 1
+			(mugShot2 posn: 0 0)
+			(Animate (cast elements?) 0)
+			(Display 23 5 p_at 20 10 p_width 300)
+		)		
 		
 		
 		
 	)
 )
+
+(instance bainsFile1 of Actor
+	(properties)
+)
+(instance peteFile1 of Actor
+	(properties)
+)
+
 
 (instance mugShot1 of View
 	(properties)
@@ -196,6 +205,18 @@
 		(Load VIEW 204)
 		(= nearJailer 1)
 		(= gunFireState 3)
+				(bainsFile1
+
+					init:
+					stopUpd:
+				)
+		(peteFile1
+
+					init:
+					stopUpd:
+				)
+			
+			
 		(mugShot1
 			view: 204
 			loop: 2
@@ -396,17 +417,20 @@
 										(removeableMugShot dispose:)
 										(ego get: iNewMugShot)
 										(SolvePuzzle 2)
+										(= whichFile 1)
+										(folderScript changeState: 1)
+										(= opened 0)
 									else
-										(LocPrint 23 11)
+										(LocPrint 23 11) ;Ya tienes esa fotograf|a en particular.
 									)
 								else
-									(LocPrint 23 12)
+									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
 								)
 						)
 						(998 ;look
 							(if nearJailer
 									(if (>= gamePhase 1)
-										(LocPrint 23 24)
+										(LocPrint 23 24) ;"&Qu+ archivo quieres ver?"
 									else
 										(LocPrint 23 25)
 									)
@@ -421,20 +445,46 @@
 				
 				(if 
 					(and
-						(ClickedOnObj removeableMugShot (event x?) (event y?)) ;clicked on bainsfile
+						(ClickedOnObj bainsFile1 (event x?) (event y?)) ;clicked on bainsfile
 						(== opened 1)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
+							
 							(= whichFile 0)
 							(folderScript changeState: 0)
 							(= opened 0)
+							(if (== whichFile 0)
+									(if (== ((inventory at: iNewMugShot) owner?) 23)
+										(removeableMugShot dispose:)
+										(ego get: iNewMugShot)
+										(SolvePuzzle 2)
+
+									else
+										(LocPrint 23 11)
+									)
+								else
+									(LocPrint 23 12)
+								)
 						)
 						(995 ;hand
 							(= whichFile 0)
 							(folderScript changeState: 0)
 							(= opened 0)
+								(if (== whichFile 0)
+									(if (== ((inventory at: iNewMugShot) owner?) 23)
+										(removeableMugShot dispose:)
+										(ego get: iNewMugShot)
+										(SolvePuzzle 2)
+
+									else
+										(LocPrint 23 11) ;Ya tienes esa fotograf|a en particular.
+
+									)
+								else
+									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
+								)
 						)
 						(else
 							(event claimed: FALSE)
@@ -476,6 +526,7 @@
 									(mugShot2 posn: 0 0)
 								)
 								(folderScript changeState: 2)
+								(= opened 1)
 							)
 					)
 				
@@ -483,8 +534,8 @@
 						(cast eachElementDo: #dispose)
 						(curRoom newRoom: 23)
 					)
-				
 				)
+				
 				(if ;change page
 					(and
 						(or
@@ -495,7 +546,17 @@
 						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)
-					(if local9 (NextPage) else (LocPrint 23 13))
+					(if local9 (NextPage) else (LocPrint 23 13);#Este es el final del archivo!
+								(= whichFile 1)
+																(if local10
+									(DisplayFile)
+								)
+								(= local10 0)
+								(= opened 1)	
+						) ;#Este es el final del archivo!
+;;;								(if local10
+;;;									(DisplayFile)
+;;;								)
 				
 				)
 				
@@ -572,43 +633,7 @@
 							)
 							(else (LocPrint 23 26))
 						)
-						(cond 
-							(nearJailer
-								(cond 
-									((> local17 0) (LocPrint 23 68))
-									((== gamePhase 0) (LocPrint 23 69))
-									((>= gamePhase 1)
-										(if
-										(or (== (mod (++ local14) 2) 1) (< local14 2))
-											(if (> local14 1)
-												(LocPrint 23 64)
-											else
-												(LocPrint 23 70)
-											)
-											(= whichFile 1)
-											(SolvePuzzle 2 117)
-											(jailerScript changeState: 7)
-										else
-											(LocPrint 23 66)
-										)
-									)
-								)
-							)
-							(
-								(or
-									local3
-									local4
-								)
-								(if local5
-									(LocPrint 23 71)
-								else
-									(LocPrint 23 28)
-								)
-							)
-							(else
-								(LocPrint 23 26)
-							)
-						)
+
 					)							
 											
 						
@@ -769,94 +794,94 @@
 								(LocPrint 23 44)
 							)
 						)
-						(switch (Random 0 1)
-						
-						(0
-						(cond 
-							(nearJailer
-								(cond 
-									((> local17 0)
-										(if (>= gamePhase 1)
-											(LocPrint 23 63)
-										else
-											(LocPrint 23 50)
-											(Print 23 51 #at -1 125)
-										)
-									)
-									((>= gamePhase 1)
-										(if
-										(or (== (mod (++ local13) 2) 1) (< local13 2))
-											(if (> local13 1)
-												(LocPrint 23 64)
-											else
-												(LocPrint 23 65)
-											)
-											(= whichFile 0)
-											(jailerScript changeState: 7)
-										else
-											(LocPrint 23 66)
-										)
-									)
-									((< gamePhase 1) (LocPrint 23 50) (Print 23 51 #at -1 125))
-								)
-							)
-							(local2
-								(if local5
-									(LocPrint 23 67)
-								else
-									(LocPrint 23 28)
-								)
-							)
-							(else (LocPrint 23 26))
-						)
-						)
-				
-					(1
-
-						(cond 
-							(nearJailer
-								(cond 
-									((> local17 0) (LocPrint 23 68))
-									((== gamePhase 0) (LocPrint 23 69))
-									((>= gamePhase 1)
-										(if
-										(or (== (mod (++ local14) 2) 1) (< local14 2))
-											(if (> local14 1)
-												(LocPrint 23 64)
-											else
-												(LocPrint 23 70)
-											)
-											(= whichFile 1)
-											(SolvePuzzle 2 117)
-											(jailerScript changeState: 7)
-										else
-											(LocPrint 23 66)
-										)
-									)
-								)
-							)
-							(
-								(or
-									local3
-									local4
-								)
-								(if local5
-									(LocPrint 23 71)
-								else
-									(LocPrint 23 28)
-								)
-							)
-							(else
-								(LocPrint 23 26)
-							)
-						)
-					)
-						
-					)	
-						
-						
-							
-					
+;;;						(switch (Random 0 0) ;0 1
+;;;						
+;;;						(0
+;;;						(cond 
+;;;							(nearJailer
+;;;								(cond 
+;;;									((> local17 0)
+;;;										(if (>= gamePhase 1)
+;;;											(LocPrint 23 63)
+;;;										else
+;;;											(LocPrint 23 50)
+;;;											(Print 23 51 #at -1 125)
+;;;										)
+;;;									)
+;;;									((>= gamePhase 1)
+;;;										(if
+;;;										(or (== (mod (++ local13) 2) 1) (< local13 2))
+;;;											(if (> local13 1)
+;;;												(LocPrint 23 64)
+;;;											else
+;;;												(LocPrint 23 65)
+;;;											)
+;;;											(= whichFile 0)
+;;;											(jailerScript changeState: 7)
+;;;										else
+;;;											(LocPrint 23 66)
+;;;										)
+;;;									)
+;;;									((< gamePhase 1) (LocPrint 23 50) (Print 23 51 #at -1 125))
+;;;								)
+;;;							)
+;;;							(local2
+;;;								(if local5
+;;;									(LocPrint 23 67)
+;;;								else
+;;;									(LocPrint 23 28)
+;;;								)
+;;;							)
+;;;							(else (LocPrint 23 26))
+;;;						)
+;;;						)
+;;;				
+;;;					(1
+;;;
+;;;						(cond 
+;;;							(nearJailer
+;;;								(cond 
+;;;									((> local17 0) (LocPrint 23 68))
+;;;									((== gamePhase 0) (LocPrint 23 69))
+;;;									((>= gamePhase 1)
+;;;										(if
+;;;										(or (== (mod (++ local14) 2) 1) (< local14 2))
+;;;											(if (> local14 1)
+;;;												(LocPrint 23 64)
+;;;											else
+;;;												(LocPrint 23 70)
+;;;											)
+;;;											(= whichFile 1)
+;;;											(SolvePuzzle 2 117)
+;;;											(jailerScript changeState: 7)
+;;;										else
+;;;											(LocPrint 23 66)
+;;;										)
+;;;									)
+;;;								)
+;;;							)
+;;;							(
+;;;								(or
+;;;									local3
+;;;									local4
+;;;								)
+;;;								(if local5
+;;;									(LocPrint 23 71)
+;;;								else
+;;;									(LocPrint 23 28)
+;;;								)
+;;;							)
+;;;							(else
+;;;								(LocPrint 23 26)
+;;;							)
+;;;						)
+;;;					)
+;;;						
+;;;					)	
+;;;						
+;;;						
+;;;							
+;;;					
 					)
 					
 					(998 ; look
@@ -1531,6 +1556,7 @@
 			)
 		)
 	)
+		
 		)
 	)
 )
@@ -1880,7 +1906,7 @@
 			(10
 				(HandsOff)
 				(LocPrint 23 97)
-				(LocPrint 23 98)
+				(LocPrint 23 98) ;El carcelero pone el archivo en su sitio.
 				(jailer
 					setLoop: 0
 					setMotion: MoveTo 275 129
