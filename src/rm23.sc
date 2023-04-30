@@ -407,6 +407,7 @@
 					(and
 						(ClickedOnObj mugShot1 (event x?) (event y?))
 						(== 1 1) ;opened 1
+						(cast contains: mugShot1)
 					)
 					
 					(event claimed: TRUE)
@@ -419,11 +420,15 @@
 										(SolvePuzzle 2)
 										(= whichFile 1)
 										(folderScript changeState: 1)
+										(mugShot2 posn: 69 62)
 										(= opened 0)
 									else
 										(LocPrint 23 11) ;Ya tienes esa fotograf|a en particular.
 									)
 								else
+									
+									(folderScript changeState: 2)
+									(mugShot2 posn: 69 62)
 									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
 								)
 						)
@@ -443,31 +448,35 @@
 						)
 					)
 				
+				
 				(if 
 					(and
 						(ClickedOnObj bainsFile1 (event x?) (event y?)) ;clicked on bainsfile
 						(== opened 1)
+						(cast contains: bainsFile1)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
-						(998 ;look
-							
-							(= whichFile 0)
-							(folderScript changeState: 0)
-							(= opened 0)
-							(if (== whichFile 0)
-									(if (== ((inventory at: iNewMugShot) owner?) 23)
-										(removeableMugShot dispose:)
-										(ego get: iNewMugShot)
-										(SolvePuzzle 2)
-
-									else
-										(LocPrint 23 11)
-									)
-								else
-									(LocPrint 23 12)
-								)
-						)
+;;;						(998 ;look
+;;;							
+;;;							(= whichFile 0)
+;;;							(folderScript changeState: 0)
+;;;							(= opened 0)
+;;;							(if (== whichFile 0)
+;;;									(if (== ((inventory at: iNewMugShot) owner?) 23)
+;;;										(removeableMugShot dispose:)
+;;;										(ego get: iNewMugShot)
+;;;										(SolvePuzzle 2)
+;;;
+;;;									else
+;;;										(LocPrint 23 11)
+;;;									)
+;;;								else
+;;;									(mugShot2 posn: 69 62)
+;;;									(folderScript changeState: 2)
+;;;									(LocPrint 23 12)
+;;;								)
+;;;						)
 						(995 ;hand
 							(= whichFile 0)
 							(folderScript changeState: 0)
@@ -483,6 +492,7 @@
 
 									)
 								else
+
 									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
 								)
 						)
@@ -490,11 +500,12 @@
 							(event claimed: FALSE)
 						)
 					)
-				)
+				
 				(if ;peteFile
 					(and
 						(ClickedOnObj mugShot2 (event x?) (event y?))
 						(== opened 1)
+						(cast contains: mugShot2)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
@@ -512,7 +523,7 @@
 							(event claimed: FALSE)
 						)
 					)
-				)
+				
 ;;;
         		(if (== theCursor 999) ;walk to exit 
 					(if (== opened 0)	
@@ -522,11 +533,13 @@
 									(mugShot1 posn: 0 0)
 									(paperClip posn: 0 0)
 									(if (not (ego has: 12)) (removeableMugShot posn: 0 0))
+									(mugShot2 posn: 69 62)
+									(folderScript changeState: 2)
 								else
-									(mugShot2 posn: 0 0)
+									(mugShot2 posn: 69 62)
+									(folderScript changeState: 2)
+									(= opened 1)
 								)
-								(folderScript changeState: 2)
-								(= opened 1)
 							)
 					)
 				
@@ -535,7 +548,7 @@
 						(curRoom newRoom: 23)
 					)
 				)
-				
+		
 				(if ;change page
 					(and
 						(or
@@ -559,8 +572,8 @@
 ;;;								)
 				
 				)
-				
-		
+				)
+				)
 
 
 				(if
@@ -1904,9 +1917,20 @@
 				(folderScript changeState: 0)
 			)
 			(10
+				(mugShot1 dispose:)
+				(mugShot2 dispose:)
+				(paperClip dispose:)
+				(mugShot1 hide:)
+				(mugShot2 hide:)
+				(paperClip hide:)
 				(HandsOff)
 				(LocPrint 23 97)
-				(LocPrint 23 98) ;El carcelero pone el archivo en su sitio.
+				(LocPrint 23 98) ;El carcelero pone el archivo en su sitio.´
+				
+				
+				
+				
+				
 				(jailer
 					setLoop: 0
 					setMotion: MoveTo 275 129
