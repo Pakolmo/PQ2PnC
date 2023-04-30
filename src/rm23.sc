@@ -76,37 +76,36 @@
 				p_width 300
 			)
 		)
-		(bainsFile
-			(mugShot1 posn: 52 62)
-			(paperClip posn: 31 28)
-			(if (== ((inventory at: iNewMugShot) owner?) 23)
-				(removeableMugShot posn: 57 66)
-			)
-			(Animate (cast elements?) 0)
-			(RedrawCast)
-			(Display 23 0
-				p_at 120 15
-				p_width 200
-				p_font 0
-			)
-			(Display 23 1
-				p_at 20 72
-				p_width 300
-			)
-		)
-		(peteFile
-			(mugShot2 posn: 69 62)
-			(Animate (cast elements?) 0)
-			(Display 23 2
-				p_at 120 15
-				p_width 200
-				p_font 0
-			)
-			(Display 23 3
-				p_at 20 65
-				p_width 300
-			)
-		)		
+;;;		(bainsFile
+;;;			(mugShot1 posn: 52 62)
+;;;			(paperClip posn: 31 28)
+;;;			(if (== ((inventory at: iNewMugShot) owner?) 23)
+;;;				(removeableMugShot posn: 57 66)
+;;;			)
+;;;			(Animate (cast elements?) 0)
+;;;			(Display 23 0
+;;;				p_at 120 15
+;;;				p_width 200
+;;;				p_font 0
+;;;			)
+;;;			(Display 23 1
+;;;				p_at 20 72
+;;;				p_width 300
+;;;			)
+;;;		)
+;;;		(peteFile
+;;;			(mugShot2 posn: 69 62)
+;;;			(Animate (cast elements?) 0)
+;;;			(Display 23 2
+;;;				p_at 120 15
+;;;				p_width 200
+;;;				p_font 0
+;;;			)
+;;;			(Display 23 3
+;;;				p_at 20 65
+;;;				p_width 300
+;;;			)
+;;;		)		
 	)
 	(= local10 0)
 	(User canInput: 1)
@@ -131,20 +130,20 @@
 			(Animate (cast elements?) 0)
 			(Display 23 5 p_at 20 10 p_width 300 117)
 		)
-		(bainsFile ;was 0
-			(mugShot1 posn: 0 0)
-			(paperClip posn: 0 0)
-			(if (== ((inventory at: 12) owner?) 23)
-				(removeableMugShot posn: 0 0)
-			)
-			(Animate (cast elements?) 0)
-			(Display 23 4 p_at 20 7 p_width 300 117)
-		)
-		(peteFile ;was 1
-			(mugShot2 posn: 0 0)
-			(Animate (cast elements?) 0)
-			(Display 23 5 p_at 20 10 p_width 300 117)
-		)		
+;;;		(bainsFile ;was 0
+;;;			(mugShot1 posn: 0 0)
+;;;			(paperClip posn: 0 0)
+;;;			(if (== ((inventory at: 12) owner?) 23)
+;;;				(removeableMugShot posn: 0 0)
+;;;			)
+;;;			(Animate (cast elements?) 0)
+;;;			(Display 23 4 p_at 20 7 p_width 300 117)
+;;;		)
+;;;		(peteFile ;was 1
+;;;			(mugShot2 posn: 0 0)
+;;;			(Animate (cast elements?) 0)
+;;;			(Display 23 5 p_at 20 10 p_width 300 117)
+;;;		)		
 		
 		
 		
@@ -386,7 +385,7 @@
 				(if ;mugshot photo
 					(and
 						(ClickedOnObj mugShot1 (event x?) (event y?))
-						(== opened 1) ;opened 1
+						(== 1 1) ;opened 1
 					)
 					
 					(event claimed: TRUE)
@@ -481,8 +480,8 @@
 					)
 				
 					(if (== opened 1)
-;;;						(cast eachElementDo: #dispose)
-;;;						(curRoom newRoom: 23)
+						(cast eachElementDo: #dispose)
+						(curRoom newRoom: 23)
 					)
 				
 				)
