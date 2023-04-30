@@ -46,6 +46,36 @@
 	(= local9 1)
 	(curRoom drawPic: 90 WIPERIGHT)
 	(switch whichFile
+		(0
+			(mugShot1 posn: 52 62)
+			(paperClip posn: 31 28)
+			(if (== ((inventory at: iNewMugShot) owner?) 23)
+				(removeableMugShot posn: 57 66)
+			)
+			(Animate (cast elements?) 0)
+			(Display 23 0
+				p_at 120 15
+				p_width 200
+				p_font 0
+			)
+			(Display 23 1
+				p_at 20 72
+				p_width 300
+			)
+		)
+		(1
+			(mugShot2 posn: 69 62)
+			(Animate (cast elements?) 0)
+			(Display 23 2
+				p_at 120 15
+				p_width 200
+				p_font 0
+			)
+			(Display 23 3
+				p_at 20 65
+				p_width 300
+			)
+		)
 		(bainsFile
 			(mugShot1 posn: 52 62)
 			(paperClip posn: 31 28)
@@ -53,6 +83,7 @@
 				(removeableMugShot posn: 57 66)
 			)
 			(Animate (cast elements?) 0)
+			(RedrawCast)
 			(Display 23 0
 				p_at 120 15
 				p_width 200
@@ -75,7 +106,7 @@
 				p_at 20 65
 				p_width 300
 			)
-		)
+		)		
 	)
 	(= local10 0)
 	(User canInput: 1)
@@ -100,6 +131,23 @@
 			(Animate (cast elements?) 0)
 			(Display 23 5 p_at 20 10 p_width 300 117)
 		)
+		(bainsFile ;was 0
+			(mugShot1 posn: 0 0)
+			(paperClip posn: 0 0)
+			(if (== ((inventory at: 12) owner?) 23)
+				(removeableMugShot posn: 0 0)
+			)
+			(Animate (cast elements?) 0)
+			(Display 23 4 p_at 20 7 p_width 300 117)
+		)
+		(peteFile ;was 1
+			(mugShot2 posn: 0 0)
+			(Animate (cast elements?) 0)
+			(Display 23 5 p_at 20 10 p_width 300 117)
+		)		
+		
+		
+		
 	)
 )
 
@@ -338,7 +386,7 @@
 				(if ;mugshot photo
 					(and
 						(ClickedOnObj mugShot1 (event x?) (event y?))
-						(== 1 1) ;opened 1
+						(== opened 1) ;opened 1
 					)
 					
 					(event claimed: TRUE)
@@ -367,22 +415,25 @@
 									(LocPrint 23 26)
 								)
 						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
 				
 				(if 
 					(and
-						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+						(ClickedOnObj removeableMugShot (event x?) (event y?)) ;clicked on bainsfile
 						(== opened 1)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(= whichFile bainsFile)
+							(= whichFile 0)
 							(folderScript changeState: 0)
 							(= opened 0)
 						)
 						(995 ;hand
-							(= whichFile bainsFile)
+							(= whichFile 0)
 							(folderScript changeState: 0)
 							(= opened 0)
 						)
@@ -393,18 +444,18 @@
 				)
 				(if ;peteFile
 					(and
-						(ClickedOnObj peteFile (event x?) (event y?))
+						(ClickedOnObj mugShot2 (event x?) (event y?))
 						(== opened 1)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(= whichFile peteFile)
+							(= whichFile 1)
 							(folderScript changeState: 1)
 							(= opened 0)
 						)
 						(995 ;hand
-							(= whichFile peteFile)
+							(= whichFile 1)
 							(folderScript changeState: 1)
 							(= opened 0)
 						)
@@ -413,16 +464,27 @@
 						)
 					)
 				)
-
+;;;
         		(if (== theCursor 999) ;walk to exit 
 					(if (== opened 0)	
-						(Print 7 30)
-						(folderScript changeState: 2)
-						(= opened 1)
-					else
-						(cast eachElementDo: #dispose)
-						(curRoom newRoom: 23)
+
+
+								(if (== whichFile 0)
+									(mugShot1 posn: 0 0)
+									(paperClip posn: 0 0)
+									(if (not (ego has: 12)) (removeableMugShot posn: 0 0))
+								else
+									(mugShot2 posn: 0 0)
+								)
+								(folderScript changeState: 2)
+							)
 					)
+				
+					(if (== opened 1)
+;;;						(cast eachElementDo: #dispose)
+;;;						(curRoom newRoom: 23)
+					)
+				
 				)
 				(if ;change page
 					(and
@@ -434,15 +496,11 @@
 						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)
-					(if local12
-						(NextPage)
-					else
-						(Print 7 25 #at -1 140)
-					)
+					(if local9 (NextPage) else (LocPrint 23 13))
 				
 				)
-				)
-	
+				
+		
 
 
 				(if
@@ -1474,11 +1532,13 @@
 			)
 		)
 	)
+		)
+	)
 )
 	
 		
-	)
-)
+	
+
 (instance folderScript of Script
 	(properties)
 	
@@ -1486,7 +1546,7 @@
 		(User canInput: 1)
 	)
 
-
+;;;
 ;;;	(method (handleEvent event)
 ;;;		
 ;;;		(if (event claimed?)
@@ -1494,20 +1554,16 @@
 ;;;		)
 ;;;
 ;;;
-;;;				(and
-;;;					(== (event type?) evMOUSEBUTTON)
-;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;				)
 ;;;				(if ;mugshot photo
 ;;;					(and
 ;;;						(ClickedOnObj mugShot1 (event x?) (event y?))
-;;;						(== 1 1) ;opened 1)
-;;;				
+;;;						(== 1 1) ;opened 1
 ;;;					)
+;;;					
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor
 ;;;						(995 ;hand
-;;;								(if (== whichFile bainsFile)
+;;;								(if (== whichFile 0)
 ;;;									(if (== ((inventory at: iNewMugShot) owner?) 23)
 ;;;										(removeableMugShot dispose:)
 ;;;										(ego get: iNewMugShot)
@@ -1520,10 +1576,18 @@
 ;;;								)
 ;;;						)
 ;;;						(998 ;look
-;;;							(Print 7 32)
+;;;							(if nearJailer
+;;;									(if (>= gamePhase 1)
+;;;										(LocPrint 23 24)
+;;;									else
+;;;										(LocPrint 23 25)
+;;;									)
+;;;								else
+;;;									(LocPrint 23 26)
+;;;								)
 ;;;						)
 ;;;					)
-;;;				)
+;;;				
 ;;;				(if 
 ;;;					(and
 ;;;						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
@@ -1595,19 +1659,17 @@
 ;;;						(Print 7 25 #at -1 140)
 ;;;					)
 ;;;				
-;;;			)
-;;;		
+;;;				)
+;;;				)
+;;;
+;;;
 ;;;	)
 ;;;
-;;;
-;;;
-;;;
-;;;
-;;;
-;;;
-;;;
-;;;
-;;;
+
+
+
+
+
 
 
 
