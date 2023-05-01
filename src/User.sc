@@ -448,6 +448,14 @@
 				(self said:event)
 			)
 		)
+		;; for generating custom said events
+		(if (== (event modifiers?) 999)
+        	(StrCpy @inputLine (event message?))
+			(if (Parse @inputLine event)
+				(event type:saidEvent)
+				(self said:event)
+			)
+        )
 		;;Finally, dispose of the event. - NO, it's an instance
 		;;(event dispose:)
 		(= lastEvent 0)

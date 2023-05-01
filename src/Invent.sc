@@ -411,6 +411,10 @@
 									(Print 10 30) ;"wear ep when in the booth"
 								)	
 							)
+							((== ((el value?) view?) 110) ;used field Kit
+            					(= fieldKitToggle 1)
+            					(break)								 
+							)
 							(else
 								(Print {You don't need to use that item.})
 							)

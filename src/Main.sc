@@ -351,6 +351,7 @@
 		localize
 		driveDest
 		driveFix
+		fieldKitToggle
 		
 )
 
@@ -949,7 +950,7 @@
 	
 	)
 	
-	(method (doit)
+	(method (doit &tmp newEvent)
 		(TheMenuBar draw:)
 		(StatusLine enable:)
 		
@@ -1000,6 +1001,18 @@
 		(if (Btst fPnCSaveFlag)
 			(Bclr fPnCSaveFlag)
 			(theGame save:)	
+		)
+		(if fieldKitToggle
+			(= fieldKitToggle 0)
+			(= newEvent (Event new:))
+			(newEvent
+				type: evKEYBOARD
+				message: {open briefcase}
+				modifiers: 999
+				claimed: 0
+			)
+			(User handleEvent: newEvent)
+            (newEvent dispose:)	
 		)
 	)
 	
