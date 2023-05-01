@@ -13,6 +13,7 @@
 (local
 	local0
 	dontHaveFieldKit
+	
 )
 (instance fKit of View
 	(properties
@@ -60,9 +61,9 @@
 	)
 	
 	(method (handleEvent event)
-		(if (or (event claimed?) (!= (event type?) saidEvent))
-			(return)
-		)
+;;;		(if (or (event claimed?) (!= (event type?) saidEvent))
+;;;			(return)
+;;;		)
 		(= dontHaveFieldKit (not (ego has: iFieldKit)))
 		(cond 
 			((Said 'look,open,use/briefcase')

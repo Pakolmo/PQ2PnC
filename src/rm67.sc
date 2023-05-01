@@ -25,11 +25,49 @@
 	[carRect 4]
 	[trunkRect 4]
 	[carDoorRect 4]
+	car
 )
 (procedure (localproc_1bf2)
 	(return
 		(switch currentCar
-			(13
+;;;			(13
+;;;				(cond 
+;;;					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
+;;;						(Print 67 67)
+;;;					)
+;;;					((== workCarLocked 1)
+;;;						(Print 67 68)
+;;;						(return 0)
+;;;					)
+;;;					(workCarTrunkOpened
+;;;						(Print 67 69)
+;;;						(return 0)
+;;;					)
+;;;					((ego has: iFieldKit)
+;;;						(Print 67 70)
+;;;						(return 0)
+;;;					)
+;;;					(else
+;;;						(curRoom setScript: startEnter)
+;;;						(return 1)
+;;;					)
+;;;				)
+;;;			)
+;;;			(33
+;;;				(cond 
+;;;					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
+;;;						(Print 67 67)
+;;;					)
+;;;					((== personalCarLocked 1)
+;;;						(Print 67 68)
+;;;					)
+;;;					(else
+;;;						(curRoom setScript: startEnter)
+;;;					)
+;;;				)
+;;;			)
+;;;			
+			(carWork
 				(cond 
 					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
 						(Print 67 67)
@@ -52,19 +90,21 @@
 					)
 				)
 			)
-			(33
+			(carPersonal
 				(cond 
 					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
 						(Print 67 67)
 					)
 					((== personalCarLocked 1)
-						(Print 67 68)
+						(Print 67 68) ;Your car door is locked.
 					)
 					(else
 						(curRoom setScript: startEnter)
 					)
 				)
-			)
+			)			
+			
+			
 		)
 	)
 )
@@ -92,7 +132,9 @@
 (instance plight of Prop
 	(properties)
 )
-
+(instance jailercar of Prop
+	(properties)
+)
 (instance carDoor of Prop
 	(properties)
 )
@@ -196,7 +238,7 @@
 			ignoreActors: 0
 			addToPic:
 		)
-		((View new:)
+		((= car (Actor new:))
 			view: 54
 			loop: 1
 			setCel: 2
@@ -285,7 +327,7 @@
 				init:
 				setCycle: Forward
 			)
-			((View new:)
+			(jailercar
 				view: 75
 				loop: 6
 				setCel: 0
@@ -447,9 +489,507 @@
 		(if (event claimed?)
 			(return)
 		)
-		(if (!= (event type?) saidEvent)
-			(return)
-		)
+;;;		(if (!= (event type?) saidEvent)
+;;;			(return)
+;;;		)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+				(if
+
+						(ClickedOnObj haines (event x?) (event y?)) ;police
+						
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk 
+							(cond 
+								(
+									(or
+										(< gamePhase phaseMALL)
+										(> gamePhase phaseMALL)
+									)
+									(Print 67 8)
+								)
+								((== script afterSearch)
+									(Print 67 9)
+								)
+								((Btst fWomanTalkToHaines)
+									(Print 67 10)
+								)
+								((== gamePhase phaseMALL)
+									(Print 67 11)
+								)
+								(else
+									(Print 67 12 #at -1 40 #width 280)
+								)
+							)
+						)
+							(else
+								(event claimed: FALSE)
+							)
+					)
+				)
+								
+
+
+
+
+
+
+				(if
+
+						(ClickedOnObj shopwoman (event x?) (event y?))
+						
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk woman
+							(cond 
+								(
+									(or
+										(not (== gamePhase phaseMALL))
+										(not (Btst fWomanTalkToHaines))
+									)
+									(event claimed: 0)
+								)
+								((== script afterSearch)
+									(Print 67 5 #at -1 20)
+								)
+								(else
+									(Print 67 2)
+								)
+							)
+							(cond 
+								((not (== gamePhase 3))
+									(event claimed: 0)
+								)
+								((!= script afterSearch)
+									(Print 67 2)
+								)
+								((not (Btst fAskedWomanAboutCar))
+									(Print 67 6 #at -1 20 #width 280)
+									(SolvePuzzle 3)
+									(Bset fAskedWomanAboutCar)
+									(script seconds: 3)
+								)
+								(else
+									(Print 67 7 #at -1 20)
+								)
+							)
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+				(if
+
+						(ClickedOnObj jailerdoor (event x?) (event y?))
+						
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;open door
+							(cond 
+								((ego inRect: 220 195 242 214)
+									(self newRoom: 68)
+								)
+								(
+									(ego inRect: [carDoorRect 0] [carDoorRect 1] [carDoorRect 2] [carDoorRect 3])
+									(Print 67 51)
+								)
+								(
+									(and
+										(== (ego loop?) 2)
+										(ego inRect: 220 170 240 180)
+									)
+									(Print 67 52)
+								)
+								(
+									(and
+										(== (ego loop?) 3)
+										(ego inRect: 220 170 240 180)
+									)
+									(Print 67 53)
+								)
+								((ego inRect: 220 170 240 180)
+									(Print 67 54)
+								)
+								(else
+									(localproc_1bf2)
+								)
+							)
+						
+						
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if
+
+						(ClickedOnObj jailercar (event x?) (event y?))
+						
+
+					(event claimed: TRUE)
+					(switch theCursor
+					
+						
+						(998 ;look
+							(cond 
+								((ego inRect: 151 176 206 210)
+									(switch (Random 0 2)
+										(0
+											(Print 67 41)
+										)
+										(1
+											(Print 67 42)
+										)
+										(2
+											(Print 67 43)
+										)
+									)
+								)
+								((ego inRect: 252 173 304 210)
+									(switch (Random 0 2)
+										(0
+											(Print 67 48)
+										)
+										(1
+											(Print 67 49)
+										)
+										(2
+											(Print 67 50)
+										)
+									)
+								)
+								(else
+									(Print 67 47)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+		
+				(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carPersonal)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(if (ego inRect: 151 173 304 210)
+								(switch (Random 0 2)
+									(0
+										(Print 67 37)
+									)
+									(1
+										(Print 67 38)
+									)
+									(2
+										(Print 67 39)
+									)
+								)
+							else
+								(Print 67 40)
+							)
+						)
+						(995 ;hand
+							(cond 
+								((!= currentCar carWork)
+									(Print 67 15)
+								)
+								(
+									(not
+										(ego
+											inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+										)
+									)
+									(Print 67 18)
+								)
+								(workCarTrunkOpened
+									(Print 67 19)
+								)
+								(else
+									(= workCarTrunkOpened 1)
+									(unTrunk setCycle: EndLoop unTrunk)
+								)
+							)
+						)(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+				
+	
+					(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carWork)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(110 ;Field Kit
+											(cond 
+												((InRoom iFieldKit 13)
+													(Print 67 21)
+												)
+												((not (ego has: iFieldKit))
+													(Print 67 22)
+												)
+												((!= currentCar 13)
+													(Print 67 15)
+												)
+												(
+													(not
+														(ego inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3])
+													)
+													(NotClose)
+												)
+												(workCarTrunkOpened
+													(Print 67 23)
+													(PutInRoom iFieldKit 13)
+													(if (IsObject theFieldKit)
+														(theFieldKit dispose:)
+													else
+														0
+													)
+													(= fieldKitOpen 0)
+													
+												)
+												(script
+													(Print 67 24)
+												)
+												(else
+													(self setScript: kitToTrunk)
+													(PutInRoom iFieldKit 13)
+													(if (IsObject theFieldKit)
+														(theFieldKit dispose:)
+													)
+													(= fieldKitOpen 0)
+														(cond 
+															((not workCarTrunkOpened)
+																(Print 67 20)
+															)
+															(
+																(not
+																	(ego
+																		inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+																	)
+																)
+																(NotClose)
+															)
+															(else
+																(= workCarTrunkOpened 0)
+																(unTrunk setCycle: BegLoop unTrunk)
+															)
+														)
+													
+													
+													
+													
+												)
+											)
+										)
+						(998 ;look
+							(if (ego inRect: 151 173 304 210)
+								(switch (Random 0 2)
+									(0
+										(Print 67 37)
+									)
+									(1
+										(Print 67 38)
+									)
+									(2
+										(Print 67 39)
+									)
+								)
+							else
+								(Print 67 40)
+							)
+						)
+						(995 ;hand
+							(cond 
+								((ego inRect: 224 191 246 210)
+									(self newRoom: 68)
+								)
+								(
+									(ego inRect: [carDoorRect 0] [carDoorRect 1] [carDoorRect 2] [carDoorRect 3])
+									(Print 67 51)
+								)
+								(
+									(and
+										(== (ego loop?) 2)
+										(ego inRect: 220 170 240 180)
+									)
+									(Print 67 52)
+								)
+								(
+									(and
+										(== (ego loop?) 3)
+										(ego inRect: 220 170 240 180)
+									)
+									(Print 67 53)
+								)
+								((ego inRect: 220 170 240 180)
+									(Print 67 54)
+								)
+								(else
+									(localproc_1bf2)
+								)
+							)
+										
+							
+							
+							
+							
+							
+							
+							(cond 
+								((!= currentCar carWork)
+									(Print 67 15)
+								)
+								(
+									(not
+										(ego
+											inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+										)
+									)
+								;	(Print 67 18) ;You are not close enough to a trunk that you can open.
+
+											
+								)
+								(workCarTrunkOpened
+;;;									(Print 67 19) ;The trunk of the unmarked car is already open.
+									(switch theCursor
+
+										(998 ;look trunk
+											(cond 
+												((!= currentCar carWork)
+													(Print 67 15)
+												)
+												((not workCarTrunkOpened)
+													(Print 67 16))
+												(
+													(not
+														(ego
+															inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+														)
+													)
+													(Print 67 17)
+												)
+												(else
+													(inventory
+														carrying: {The car's trunk contains_}
+														empty: {The car's trunk is empty.}
+														showSelf: iHitList
+													)
+												)
+											)
+										)
+										(995 ;hand
+											(cond 
+												((ego has: iFieldKit)
+													(Print 67 25) ;You already have it.
+													(cond 
+														((not workCarTrunkOpened)
+															(Print 67 20)
+														)
+														(
+															(not
+																(ego
+																	inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+																)
+															)
+															(NotClose)
+														)
+														(else
+															(= workCarTrunkOpened 0)
+															(unTrunk setCycle: BegLoop unTrunk)
+														)
+													)
+												
+																						
+													
+													
+													
+												)
+												((not (InRoom iFieldKit 13))
+													(Print 67 26)
+												)
+												(
+													(not
+														(ego inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3])
+													)
+													(NotClose)
+												)
+												(workCarTrunkOpened
+													(Print 67 23)
+													(ego get: iFieldKit)
+												)
+												(script
+													(Print 67 24)
+												)
+												(else
+													(self setScript: kitToTrunk)
+													(ego get: iFieldKit)
+												)
+
+											)
+																						
+										)(else
+											(event claimed: TRUE)
+										 )
+									)
+								)
+								(else
+									(= workCarTrunkOpened 1)
+									(unTrunk setCycle: EndLoop unTrunk)
+								)
+							)
+						)(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+				
+	
+	
+	
+	
+	
+	
+	
+				
+				
+			)
+			)
+	
+							
+		
+		
 		(cond 
 			((Said 'chat/broad')
 				(cond 

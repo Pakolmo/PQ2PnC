@@ -1218,6 +1218,9 @@
 								)
 							)
 						)
+						(110 ;Kit
+							
+						)
 						(else
 							(theGame setCursor: 999 haveMouse)
 						)

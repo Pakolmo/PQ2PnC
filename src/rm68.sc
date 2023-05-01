@@ -9,6 +9,7 @@
 (use Actor)
 (use System)
 
+
 (public
 	rm68 0
 )
@@ -26,6 +27,10 @@
 	fingerprintState
 	dustedGloveBox
 	gloveBoxIsOpen
+	dontHaveFieldKit
+;;;	iFieldKit
+;;;	fKit
+;;;	teJustCenter
 )
 (instance rm68 of Room
 	(properties
@@ -38,7 +43,7 @@
 		(= gunNotNeeded 1)
 		(HandsOff)
 		(User canInput: 1 canControl: 1)
-		(self setLocales: 153)
+		(self setLocales: 153) ;FIELD KIT
 		(Load rsVIEW 257)
 		(Load rsVIEW 75)
 		(= fingerprintState 0)
@@ -47,9 +52,12 @@
 		(super init:)
 		(self setScript: rm68Script)
 		((inventory at: 34) moveTo: curRoomNum)
+		
 	)
 	
 	(method (dispose)
+
+	
 		(HandsOn)
 		(super dispose:)
 	)
@@ -59,6 +67,7 @@
 	(properties)
 	
 	(method (doit)
+
 		(super doit:)
 	)
 	
@@ -152,8 +161,20 @@
 	)
 	
 	(method (handleEvent event)
+		
 		(if (event claimed?) (return))
-		(if (!= (event type?) evSAID) (return))
+		
+;;;		(if (!= (event type?) evSAID) (return))
+	
+	
+	
+
+	
+	
+	
+	
+	
+		
 		(cond 
 			((Said 'look/box')
 				(if (== gloveBoxIsOpen 1)
@@ -307,6 +328,13 @@
 					(else (event claimed: 1) (Print 68 22))
 				)
 			)
+			
+		)				
+		
+			
+			
+			
+			
 		)
 	)
-)
+

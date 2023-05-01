@@ -24,6 +24,7 @@
 (use System)
 (use PncMenu)
 (use Gun)
+(use kitRegion)
 
 (local
 	yesI
@@ -34,6 +35,7 @@
 	[msgBuf 33]
 	[titleBuf 22]
 	oldCur
+	
 )
 
 ; a stock list will be able to handle the scanning required to:
@@ -192,7 +194,7 @@
 				(++ num)
 				(self add: 
 					((= el (DText new:))
-						value: obj, 
+						value: obj ; obj, 
 						text: (obj name?), 
 						nsLeft: lastX, 
 						nsTop: lastY,
@@ -368,6 +370,25 @@
 								)
 								((el value?) showSelf:) 
 							)
+						((== ((el value?) view?) 110) ;field kit
+						(if
+							(and
+								(if (== 0 (StrCmp ((curRoom script?) name?) {kitRegion}))
+								(== curRoomNum 1)
+								)
+
+												((el value?) showSelf:) 
+												(= fieldKitOpen TRUE)
+
+										(Print 153 1
+											#at 174 1
+											#draw
+											#mode teJustCenter
+											#width 120
+										)
+								
+							
+							)))
 							((== ((el value?) view?) 115) ;ear protectors
 								(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
 									(cond 
