@@ -564,7 +564,7 @@
 									
 									(folderScript changeState: 2)
 									(mugShot2 posn: 69 62)
-									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
+;;;									(LocPrint 23 12) ;No hay fotograf|as de criminales fichados aqu|. S/lo hay una foto identificativa del carcelero novato, y no puedes cogerla.
 								)
 						)
 						(998 ;look
