@@ -370,25 +370,25 @@
 								)
 								((el value?) showSelf:) 
 							)
-						((== ((el value?) view?) 110) ;field kit
-						(if
-							(and
-								(if (== 0 (StrCmp ((curRoom script?) name?) {kitRegion}))
-								(== curRoomNum 1)
-								)
-
-												((el value?) showSelf:) 
-												(= fieldKitOpen TRUE)
-
-										(Print 153 1
-											#at 174 1
-											#draw
-											#mode teJustCenter
-											#width 120
-										)
-								
-							
-							)))
+;;;						((== ((el value?) view?) 110) ;field kit
+;;;						(if
+;;;							(and
+;;;								(if (== 0 (StrCmp ((curRoom script?) name?) {kitRegion}))
+;;;								(== curRoomNum 1)
+;;;								)
+;;;
+;;;												((el value?) showSelf:) 
+;;;												(= fieldKitOpen TRUE)
+;;;
+;;;										(Print 153 1
+;;;											#at 174 1
+;;;											#draw
+;;;											#mode teJustCenter
+;;;											#width 120
+;;;										)
+;;;								
+;;;							
+;;;							)))
 							((== ((el value?) view?) 115) ;ear protectors
 								(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
 									(cond 
@@ -413,6 +413,11 @@
 							)
 							((== ((el value?) view?) 110) ;used field Kit
             					(= fieldKitToggle 1)
+;;;            						(inventory
+;;;										carrying: {You are carrying:}
+;;;										empty: {Your Detective's Field Kit is used to carry various things you will need in the course of your investigations: \n\n Plastic Baggie \n Small Camera \n Casting Plaster \n Glass Vial \n Eye Dropper \n Fingerprint Powder\n Fingerprint Brush \n Fingerprint Tape \n}
+;;;										showSelf: {Your Detective's Field Kit is used to carry various things you will need in the course of your investigations: \n\n Plastic Baggie \n Small Camera \n Casting Plaster \n Glass Vial \n Eye Dropper \n Fingerprint Powder\n Fingerprint Brush \n Fingerprint Tape \n}
+;;;									)
             					(break)								 
 							)
 							(else

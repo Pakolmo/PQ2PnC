@@ -12,6 +12,7 @@
 (use System)
 (use PncMenu)
 
+
 (public
 	rm1 0
 )
