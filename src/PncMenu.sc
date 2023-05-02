@@ -1403,6 +1403,37 @@
 						(= menuTime 0)
 						(quitIcon setScript: dothequit)
 					)
+					((== fieldKitOpen TRUE) ;when field kit is open check for clicks on field kit	
+						(if (ClickedInRect 40 79 44 53 event) ;fieldkit camera
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 5) ;look camera
+								)
+								(995 ;hand
+									(theGame setCursor: 202 haveMouse) ;swtich to camera
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(if (ClickedInRect 100 118 33 53 event) ;fieldkit plaster
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 6) ;look plaster
+								)
+								(995 ;hand
+									(theGame setCursor: 203 haveMouse) ;switch to plaster 
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						;(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
+					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny
 							(event claimed: TRUE)
