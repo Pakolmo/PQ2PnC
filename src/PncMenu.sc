@@ -957,7 +957,7 @@
 	doMenuTimer
 	menuTime
 	pickedLoad ;added for load save merge
-
+	newEvent
 
 
 )
@@ -1404,7 +1404,35 @@
 						(quitIcon setScript: dothequit)
 					)
 					((== fieldKitOpen TRUE) ;when field kit is open check for clicks on field kit	
-						(if (ClickedInRect 40 79 44 53 event) ;fieldkit camera
+						(if (ClickedInRect 83 113 48 53 event) ;VIAL
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 7) ;look vial
+								)
+								(995 ;hand
+									(theGame setCursor: 204 haveMouse) ;switch to vial 
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)						
+						(if (ClickedInRect 61 100 51 57 event) ;Fingerprint Brush
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 10) ;look Fingerprint Brush
+								)
+								(995 ;hand
+									(theGame setCursor: 207 haveMouse) ;switch Fingerprint Brush 
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)						
+						(if (ClickedInRect 40 78 64 73 event) ;fieldkit camera
 							(event claimed: TRUE)
 							(switch theCursor
 								(998 ;look
@@ -1418,21 +1446,113 @@
 								)
 							)
 						)
-						(if (ClickedInRect 100 118 33 53 event) ;fieldkit plaster
+						(if (ClickedInRect 100 118 53 73 event) ;Fingerprint Powder
 							(event claimed: TRUE)
 							(switch theCursor
 								(998 ;look
-									(Print 153 6) ;look plaster
+									(Print 153 9) ;Fingerprints leave oily residue. The powder clings to this residue.
 								)
 								(995 ;hand
-									(theGame setCursor: 203 haveMouse) ;switch to plaster 
+									(theGame setCursor: 206 haveMouse) ;Fingerprint Powder Polvo para huellas dactilares
 								)
 								(else
 									(event claimed: FALSE)
 								)
 							)
 						)
-						;(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
+						(if (ClickedInRect 58 80 44 49 event) ;Eye dropper
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 8) ;Eye dropper
+								)
+								(995 ;hand
+									(theGame setCursor: 205 haveMouse) ;Eye dropper
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(if (ClickedInRect 81 107 32 45 event) ;Esparadrapo Casting Plaster
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 6) ;Casting Plaster
+								)
+								(995 ;hand
+									(theGame setCursor: 203 haveMouse) ;Casting Plaster
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(if (ClickedInRect 51 76 32 42 event) ;bolsa
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 4) ;bolsa
+								)
+								(995 ;hand
+									(theGame setCursor: 201 haveMouse) ;bolsa
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						
+						(if (ClickedInRect 43 57 46 55 event) ;Fingerprint Tape
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 153 11) ;Fingerprint Tape
+								)
+								(995 ;hand
+									(theGame setCursor: 208 haveMouse) ;Fingerprint Tape
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)						
+						
+							(if (ClickedInRect 130 139 21 29 event) ;Close
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {close briefcase}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:) 
+								)
+								(995 ;hand
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {close briefcase}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:) 
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)						
+											
+						
+						
+						
+						(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
 					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny

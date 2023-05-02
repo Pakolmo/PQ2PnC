@@ -17,7 +17,7 @@
 )
 (instance fKit of View
 	(properties
-		y 60
+		y 80
 		x 81
 		view 110
 		priority 13
