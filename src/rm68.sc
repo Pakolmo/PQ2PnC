@@ -31,6 +31,7 @@
 ;;;	iFieldKit
 ;;;	fKit
 ;;;	teJustCenter
+	bullets1
 )
 (instance rm68 of Room
 	(properties
@@ -126,6 +127,7 @@
 						stopUpd:
 						ignoreActors:
 					)
+
 				)
 				(if (== (ego has: 20) 0)
 					((= bullets (View new:))
@@ -138,6 +140,7 @@
 						stopUpd:
 						ignoreActors:
 					)
+
 				)
 				(self cue:)
 			)
@@ -167,12 +170,353 @@
 ;;;		(if (!= (event type?) evSAID) (return))
 	
 	
-	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
 
-	
-	
-	
-	
+				(if
+					(and
+						(ClickedInRect 224  300 78 131 event) ;guantera
+						(cast contains: gloveBox)
+					)
+						
+
+			(event claimed: TRUE)
+					(switch theCursor
+						(208 ;fingerprint tape
+							(cond 
+								((not (ego has: 10)) (Print 68 11))
+								((not fingerprintState) (Print 68 16))
+								((== fingerprintState 1) (Print 68 17))
+								((ego has: 22) (Print 68 18))
+								(else
+									(global123 setPri: 0)
+									(Print 68 19 #draw)
+									(SolvePuzzle 3)
+									(global123 setPri: 15)
+									(ego get: 22)
+									(= fingerprintState 0)
+								)
+							)
+									)
+									
+									
+						
+						
+						(206 ;Use
+
+							(cond 
+								((not (ego has: 10)) (Print 68 11))
+								(dustedGloveBox
+									(Print 68 12)
+									(= fingerprintState 2)
+									(= dustedGloveBox 1)
+								)
+								(else
+									(global122 setPri: 0)
+									(global120 setPri: 0)
+									(if (Btst 41)
+										(Print 68 13 #draw)
+										(= fingerprintState 1)
+									else
+										(Print 68 14 #draw)
+										(= dustedGloveBox 1)
+										(= fingerprintState 2)
+									)
+									(global122 setPri: 15)
+									(global120 setPri: 14)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+		)
+			
+
+
+
+
+
+
+
+				(if
+					(and
+						(ClickedInRect 252 267 126 132 event) ;bullets
+												(cast contains: gloveBox)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;Use
+							(Print 68 20)
+							
+						)
+						(201
+							(cond 
+								((ego has: 20) ((inventory at: 20) showSelf:))
+								((not gloveBoxIsOpen) (Print 68 3))
+								((InRoom 20)
+									(bullets1 dispose:)
+									(bullets dispose:)
+									(Print 68 4 #draw)
+									(SolvePuzzle 1)
+									(ego get: 20)
+								)
+								(else (Print 68 5))
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+
+				(if
+					(and
+						(ClickedInRect 274 288 116 131 event) ;regitration
+												(cast contains: gloveBox)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;Use
+							(Print 68 1)
+						)
+						(998 ;Look
+							(Print 68 1)
+						)
+						(201
+							(Print 68 1)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+				(if
+					(and
+						(ClickedInRect 243 272 118 126 event) ;holster
+												(cast contains: gloveBox)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(201
+							(cond 
+								((ego has: 21) ((inventory at: 21) showSelf:))
+								((not gloveBoxIsOpen) (Print 68 2))
+								((InRoom 21)
+									(holster dispose:)
+														((= bullets1 (View new:))
+						view: 257
+						loop: 0
+						cel: 3
+						posn: 259 128
+						setPri: 12
+						init:
+						stopUpd:
+						ignoreActors:
+					)
+					(bullets1 dispose:)
+									(Print 68 6 #draw)
+									(SolvePuzzle 1)
+									(ego get: 21)
+									(Bset 50)
+								)
+								(else (Print 68 7))
+							)
+;;;							(cond  ;the bullets
+;;;								((ego has: 20) ((inventory at: 20) showSelf:))
+;;;								((not gloveBoxIsOpen) (Print 68 3))
+;;;								((InRoom 20)
+;;;									(bullets dispose:)
+;;;									(Print 68 4 #draw)
+;;;									(SolvePuzzle 1)
+;;;									(ego get: 20)
+;;;								)
+;;;								(else (Print 68 5))
+;;;							)
+						)
+						(995 ;Use 
+							(Print 68 21)
+							
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if
+					(and
+						(ClickedInRect 303 314 88 99 event) ;guantera abierta cerrar
+						(cast contains: gloveBox)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;Use close
+							(if (== gloveBoxIsOpen 1)
+								(= gloveBoxIsOpen 0)
+								(rm68Script changeState: 3)
+							else
+								(Print 68 0)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+				(if (== theCursor 999) ;use walk to close.
+					(rm68Script changeState: 5)
+				)
+
+
+
+
+
+
+
+
+
+				(if
+
+						(ClickedInRect 141  281 18 72 event) ;thecarwindows
+					(event claimed: TRUE)
+					(switch theCursor
+						(206 ;Use fingerprint powder
+							(if (not (ego has: 10))
+								(Print 68 11)
+							else
+								(global122 setPri: 0)
+								(global120 setPri: 0)
+								(Print 68 15 #draw)
+								(global122 setPri: 15)
+								(global120 setPri: 14)
+								(= fingerprintState 1)
+							)
+						)
+						(208 ;tape
+							(cond 
+								((not (ego has: 10)) (Print 68 11))
+								((not fingerprintState) (Print 68 16))
+								((== fingerprintState 1) (Print 68 17))
+								((ego has: 22) (Print 68 18))
+								(else
+									(global123 setPri: 0)
+									(Print 68 19 #draw)
+									(SolvePuzzle 3)
+									(global123 setPri: 15)
+									(ego get: 22)
+									(= fingerprintState 0)
+								)
+							)
+									
+										
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+
+
+				(if
+					(and
+						(ClickedInRect 224  300 78 131 event) ;guantera
+						(not (cast contains: gloveBox))
+					)
+						
+
+					(event claimed: TRUE)
+					(switch theCursor
+												(208 ;tape
+							(cond 
+								((not (ego has: 10)) (Print 68 11))
+								((not fingerprintState) (Print 68 16))
+								((== fingerprintState 1) (Print 68 17))
+								((ego has: 22) (Print 68 18))
+								(else
+									(global123 setPri: 0)
+									(Print 68 19 #draw)
+									(SolvePuzzle 3)
+									(global123 setPri: 15)
+									(ego get: 22)
+									(= fingerprintState 0)
+								)
+							)
+									
+										
+						)
+						
+						
+						
+						(206
+							(cond 
+					((not (ego has: 10)) (Print 68 11))
+					(dustedGloveBox
+						(Print 68 12)
+						(= fingerprintState 2)
+						(= dustedGloveBox 1)
+					)
+					(else
+						(global122 setPri: 0)
+						(global120 setPri: 0)
+						(if (Btst 41)
+							(Print 68 13 #draw)
+							(= fingerprintState 1)
+						else
+							(Print 68 14 #draw)
+							(= dustedGloveBox 1)
+							(= fingerprintState 2)
+						)
+						(global122 setPri: 15)
+						(global120 setPri: 14)
+					)
+				)
+						)
+						(998 ;look
+							(if (== gloveBoxIsOpen 1)
+;;;								(inventory
+;;;									carrying: {In the glove compartment, you see:}
+;;;									empty:
+;;;										{Other than the car's registration, the glove compartment is empty.}
+;;;									showSelf: 68
+;;;								)
+							else
+								(Print 68 0)
+							)	 	
+						)
+						(995 ;Open box
+							(if (== gloveBoxIsOpen 0)
+								(= gloveBoxIsOpen 1)
+								(Print 68 9)
+								(Bset 41)
+								(rm68Script changeState: 1)
+							else
+								(Print 68 10)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+				
+						)
+					)
+				)
+				
+				
+				
+				
+			)
+			)	
 	
 		
 		(cond 
