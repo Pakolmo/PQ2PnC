@@ -257,7 +257,7 @@
 						)
 						(201
 							(cond 
-								((ego has: 20) ((inventory at: 20) showSelf:))
+;;;								((ego has: 20) ((inventory at: 20) showSelf:))
 								((not gloveBoxIsOpen) (Print 68 3))
 								((InRoom 20)
 									(bullets1 dispose:)
@@ -308,7 +308,7 @@
 					(switch theCursor
 						(201
 							(cond 
-								((ego has: 21) ((inventory at: 21) showSelf:))
+;;;								((ego has: 21) ((inventory at: 21) showSelf:))
 								((not gloveBoxIsOpen) (Print 68 2))
 								((InRoom 21)
 									(holster dispose:)
@@ -375,8 +375,30 @@
 				)
 			
 				(if (== theCursor 999) ;use walk to close.
-					(rm68Script changeState: 5)
-				)
+
+
+					(cond
+						((if (not (ego has: 20))
+
+					 ))
+
+					 
+					
+						((if (not (ego has: 21))
+
+						))
+
+						(else
+														(rm68Script changeState: 5)
+							)
+					)
+					
+	
+							
+			)
+			
+				
+				
 
 
 
