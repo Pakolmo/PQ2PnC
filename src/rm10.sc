@@ -705,8 +705,18 @@
 						)
 					)
 					(115 ;ear protectors, devolverselos
-						(SolvePuzzle 5 67)
-						(= gunSightsAligned 1)
+						(cond 
+							((not (ego has: iEarProtectors))
+								(DontHave)
+							)
+							((!= (ego onControl: 1) cLMAGENTA)
+								(NotClose)
+							)
+							(else
+								(Print 10 22)
+								(PutInRoom iEarProtectors)
+							)
+						)
 					)	
 					(else
 						(event claimed: FALSE)
