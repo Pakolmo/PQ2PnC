@@ -341,7 +341,11 @@
 					(995 ;use
 						(cond
 							((== ((el value?) view?) 100) ;used handgun
-						 		(if (== curRoomNum 10)
+						 		(if
+						 			(and
+						 				(== curRoomNum 10)
+						 				(curRoom script?)
+									)
 						 			(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript})) ;0 = STRINGS_EQUAL
 										(Bset fPnCAdjustSights)
 										(= theCursor oldCur)
@@ -390,26 +394,30 @@
 ;;;							
 ;;;							)))
 							((== ((el value?) view?) 115) ;ear protectors
-								(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
-									(cond 
-										((not (ego has: iEarProtectors))
-											(DontHave)
+								(if (curRoom script?)
+									(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
+										(cond 
+											((not (ego has: iEarProtectors))
+												(DontHave)
+											)
+											(wearingEarProtectors
+												(Print 10 67)
+											)
+											(gunDrawn
+												(Print 10 61)
+											)
+											(else
+												(= global210 0)
+												(Print {You put on the ear protectors.})
+												(= wearingEarProtectors 1)
+											)
 										)
-										(wearingEarProtectors
-											(Print 10 67)
-										)
-										(gunDrawn
-											(Print 10 61)
-										)
-										(else
-											(= global210 0)
-											(Print {You put on the ear protectors.})
-											(= wearingEarProtectors 1)
-										)
+									else
+										(Print 10 30) ;"wear ep when in the booth"
 									)
 								else
-									(Print 10 30) ;"wear ep when in the booth"
-								)	
+									(Print 10 30)
+								)
 							)
 							((== ((el value?) view?) 110) ;used field Kit
             					(= fieldKitToggle 1)
@@ -433,11 +441,15 @@
 								(== curRoomNum 10)
 								(== ((el value?) view?) 100) ;looked at gun during booth script to trigger adjustments sames as hand
 							)
-							(if (== (StrCmp ((curRoom script?) name?) {boothScript}) 0)
-								(Bset fPnCAdjustSights)
-								(= theCursor oldCur)
-								(theGame setCursor: oldCur (HaveMouse))
-								(break)
+							(if (curRoom script?)
+								(if (== (StrCmp ((curRoom script?) name?) {boothScript}) 0)
+									(Bset fPnCAdjustSights)
+									(= theCursor oldCur)
+									(theGame setCursor: oldCur (HaveMouse))
+									(break)
+								else
+									((el value?) showSelf:)
+								)
 							else
 								((el value?) showSelf:)
 							)
