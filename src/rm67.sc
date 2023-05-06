@@ -10,6 +10,7 @@
 (use User)
 (use Actor)
 (use System)
+(use PncMenu)
 
 (public
 	rm67 0
@@ -900,13 +901,13 @@
 													)
 													(Print 67 17)
 												)
-												(else
-													(inventory
-														carrying: {The car's trunk contains_}
-														empty: {The car's trunk is empty.}
-														showSelf: iHitList
-													)
-												)
+;;;												(else
+;;;													(inventory
+;;;														carrying: {The car's trunk contains_}
+;;;														empty: {The car's trunk is empty.}
+;;;														showSelf: iHitList
+;;;													)
+;;;												)
 											)
 										)
 										(995 ;hand

@@ -926,7 +926,7 @@
 		(ego get: iMoneyClip)
 		;(ego get: 10 get: 2 get: 4 get: 5 get: 6 get: 7 get: 9 get: 11 get: 12 get: 13 get: 14 get: 15 get: 16 get: 17 get: 18 get: 19 get: 20 get: 21 get: 22 get:23 get:24 get:25 get:26 get: 27) ;maletin
 		;(ego get: 0  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37) ;maletin
-		(ego get: 37 0 1 2 3 4 5 7 10)
+		(ego get: 37 0 1 2 3 4 5 7 10 8)
 
 		(HandsOn)
 		(= showStyle HSHUTTER)
@@ -1113,6 +1113,13 @@
 				(== curRoomNum 33)
 				(== curRoomNum 40)
 				(== curRoomNum 41)
+				(== curRoomNum 60)
+				(== curRoomNum 61)
+				(== curRoomNum 62)
+				(== curRoomNum 63)
+				(== curRoomNum 64)
+				(== curRoomNum 65)		
+				(== curRoomNum 66)							
 				(== curRoomNum 67)
 				(== curRoomNum 68)
 			)

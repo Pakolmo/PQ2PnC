@@ -428,14 +428,19 @@
 					(998 ;look at item
 						(if
 							(and 
-								(== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
+								(curRoom script?)
+;;;								(== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
 								(== curRoomNum 10)
 								(== ((el value?) view?) 100) ;looked at gun during booth script to trigger adjustments sames as hand
 							)
-							(Bset fPnCAdjustSights)
-							(= theCursor oldCur)
-							(theGame setCursor: oldCur (HaveMouse))
-							(break)
+							(if (== (StrCmp ((curRoom script?) name?) {boothScript}) 0)
+								(Bset fPnCAdjustSights)
+								(= theCursor oldCur)
+								(theGame setCursor: oldCur (HaveMouse))
+								(break)
+							else
+								((el value?) showSelf:)
+							)
 						else
 							((el value?) showSelf:) ;display the inventory item normally.
 						)

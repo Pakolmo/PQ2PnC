@@ -378,19 +378,19 @@
 
 
 					(cond
-						((if (not (ego has: 20))
+						((if (ego has: 20)
 
-					 ))
+					 )(rm68Script changeState: 5))
 
 					 
 					
-						((if (not (ego has: 21))
+						((if (ego has: 21)
 
-						))
+						)(rm68Script changeState: 5))
+						((if (not (ego has: 10))
 
-						(else
-														(rm68Script changeState: 5)
-							)
+						)(rm68Script changeState: 5))
+						
 					)
 					
 	
