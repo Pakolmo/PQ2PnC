@@ -52,3 +52,6 @@ src/rm99.sc
 src/rm4.sc
 resource.001
 resource.map
+src/Main.sc
+resource.map
+resource.001

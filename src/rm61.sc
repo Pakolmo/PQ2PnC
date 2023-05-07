@@ -31,6 +31,7 @@
 	local9
 	local10
 	local11
+	
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 18)
@@ -129,9 +130,13 @@
 		top 164
 		bottom 178
 		right 30
+		left 107 ;add
 	)
 )
-
+(instance van of View
+	(properties
+	)
+)
 (instance rm61 of Room
 	(properties
 		picture 61
@@ -254,6 +259,13 @@
 			posn: 67 114
 			stopUpd:
 			addToPic:
+		)
+		(van
+				view: 154
+				loop: 0
+				cel: 0
+				posn: -55 174
+
 		)
 		(if (== prevRoomNum 60)
 			(ego observeBlocks: ourCarBlock)
@@ -1051,6 +1063,332 @@
 				)
 			)
 		)
+		
+		(if (event claimed?)
+			(return)
+		)
+
+			(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)		
+				
+					(if
+
+				(and
+							(ClickedOnObj van (event x?) (event y?))
+							(cast contains: van)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor				
+
+						(998 ;look
+
+
+								(if
+									(and
+										(> diverState 2)
+										(>= global111 3)
+									)
+									(Print 61 17)
+								else
+									(Print 61 18)
+								)
+						)
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+							
+		
+				(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carPersonal)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(if (ego inRect: 72 142 360 240)
+									(switch (Random 0 2)
+										(0
+											(Print 61 14)
+										)
+										(1
+											(Print 61 15)
+										)
+										(2
+											(Print 61 16)
+										)
+									)
+								else
+									(Print 61 10)
+								)
+						)
+						(995 ;hand
+						(if (ego inRect: 144 188 166 197)
+							(cond 
+								(
+									(and
+										(== currentCar 13)
+										(ego has: iUnmarkedCarKeys)
+									)
+									(if (== workCarLocked 1)
+										(= workCarLocked 0)
+										(Print 61 49)
+									else
+										(Print 61 50)
+									)
+								)
+								((== currentCar carWork)
+									(Print 61 51)
+								)
+							)
+							(cond 
+								(
+									(and
+										(== currentCar carPersonal)
+										(ego has: iKeyRing)
+									)
+									(if (== personalCarLocked 1)
+										(= personalCarLocked 0)
+										(Print 61 49)
+									else
+										(Print 61 50)
+									)
+								)
+								((== currentCar carPersonal)
+									(Print 61 51)
+								)
+							)
+						else
+							(NotClose)
+						)
+						)(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+				
+	
+					(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carWork)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor				
+
+						(998 ;look
+								(if (ego inRect: 72 142 360 240)
+									(switch (Random 0 2)
+										(0
+											(Print 61 14)
+										)
+										(1
+											(Print 61 15)
+										)
+										(2
+											(Print 61 16)
+										)
+									)
+								else
+									(Print 61 10)
+								)
+						)
+						(110
+						(if (ego inRect: 93 193 129 208)
+							(if workCarTrunkOpened
+								(if (ego has: iFieldKit)
+									(Print 61 36)
+									(PutInRoom iFieldKit 13)
+									(= fieldKitOpen 0)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)
+									(if (IsObject theFieldKit)
+										(theFieldKit dispose:)
+									)
+								else
+									(Print 61 37)
+								)
+							else
+								(Print 61 38)
+							)
+						else
+							(Print 61 39)
+						)	
+						)
+						(995 ;Use
+						(if (== currentCar carWork)
+							(if (ego inRect: 93 193 129 208)
+								(cond 
+									(workCarTrunkOpened
+										(Print 61 54)
+										(switch theCursor						
+											(995 ;use
+												(if (ego inRect: 93 193 129 208)
+													(if workCarTrunkOpened
+														(if (== ((inventory at: iFieldKit) owner?) 13)
+															(Print 61 40)
+															(ego get: iFieldKit)
+															
+															
+															
+															
+														else
+															(Print 61 41)
+															
+														)
+													else
+														(Print 61 38)
+													)
+												else
+													(Print 61 39)
+												)
+											)
+											(else
+												(event claimed: FALSE)
+											)
+										)
+									)
+									((ego has: iUnmarkedCarKeys)
+										(carScript changeState: 13)
+									)
+									(else
+										(Print 61 55)
+									)
+								)
+							else
+								(NotClose)
+							)
+						else
+							(Print 61 21)
+						)
+
+
+
+
+						)(else
+							(event claimed: FALSE)
+					)
+						
+					)
+				)	
+				
+				
+				
+
+		(if 		(ClickedInRect 226 257 80 110 event) ;telf
+					
+
+			
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look
+							(if (ego inRect: 208 102 273 138)
+									(Print 61 27)
+								else
+									(Print 61 10)
+								)
+					)
+					(995 ; use
+						(if (ego inRect: 240 122 246 126)
+							(HandsOff)
+							(Print 61 44 #at 120 50 #time 5)
+							(Print 61 45 #at 120 50 #time 8)
+							(Print 61 46 #at 120 50 #time 8)
+							(HandsOn)
+						else
+							(Print 61 47)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+						
+					)
+				)	
+			
+
+
+
+
+		(if (or		(ClickedInRect 193 252 133 185 event) ;fence1
+					(ClickedInRect 252 301 129 159 event) ;fence2
+
+			)
+					(event claimed: TRUE)
+					(switch theCursor
+					(995 ; use
+						
+					)	
+					(998 ;look
+						(switch (Random 0 2)
+							(0
+								
+							(if (ego inRect: 169 125 320 200)
+									(Print 61 9)
+								else
+									(Print 61 10)
+								)
+							)
+							(1 
+								(if (ego inRect: 169 125 320 200)
+									(Print 61 11)
+								else
+									(Print 61 10)
+								)
+							)
+							(2
+								(Print 61 12)
+							)
+						)
+					)(else
+						(event claimed: FALSE)
+					 )
+						
+					)
+		)
+
+		
+		(if (or
+					(ClickedOnObj grass1 (event x?) (event y?))
+					(ClickedOnObj grass2 (event x?) (event y?))
+					(ClickedOnObj grass3 (event x?) (event y?))
+			)
+					(event claimed: TRUE)
+					(switch theCursor			
+						(998 ;look
+							
+						)
+						(995 ; hand
+;;;							(if (ego inRect: 120 145 196 170)
+;;;								(Print 61 22)
+;;;							else
+;;;								(Print 61 23)
+;;;							)
+						)
+						(else
+							(event claimed: FALSE)
+						
+						)
+					)
+
+		
+		
+		)
+				)
+			)
+
 	)
 )
 
