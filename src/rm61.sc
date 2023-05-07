@@ -31,7 +31,7 @@
 	local9
 	local10
 	local11
-	
+	fieldKitTrunkToggle
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 18)
@@ -1063,153 +1063,113 @@
 				)
 			)
 		)
-		
 		(if (event claimed?)
 			(return)
 		)
-
-			(cond						
-				((and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-					
-				)		
-				
-					(if
-
+		(if						
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
+			)		
+			(if ;van
 				(and
-							(ClickedOnObj van (event x?) (event y?))
-							(cast contains: van)
+					(ClickedOnObj van (event x?) (event y?))
+					(cast contains: van)
 				)
-
-
-					(event claimed: TRUE)
-					(switch theCursor				
-
-						(998 ;look
-
-
-								(if
-									(and
-										(> diverState 2)
-										(>= global111 3)
-									)
-									(Print 61 17)
-								else
-									(Print 61 18)
-								)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ;look
+						(if
+							(and
+								(> diverState 2)
+								(>= global111 3)
+							)
+							(Print 61 17)
+						else
+							(Print 61 18)
 						)
-						(else
-							(event claimed: TRUE)
-						 )
+					)
+					(else
+						(event claimed: FALSE)
 					)
 				)
-							
-		
-				(if
-
-						(and
-							(ClickedOnObj ourCar (event x?) (event y?))
-							(== currentCar carPersonal)
-						)
-
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-								(if (ego inRect: 72 142 360 240)
-									(switch (Random 0 2)
-										(0
-											(Print 61 14)
-										)
-										(1
-											(Print 61 15)
-										)
-										(2
-											(Print 61 16)
-										)
-									)
-								else
-									(Print 61 10)
+			)
+			(if ;personal car
+				(and
+					(ClickedOnObj ourCar (event x?) (event y?))
+					(== currentCar carPersonal)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (ego inRect: 72 142 360 240)
+							(switch (Random 0 2)
+								(0
+									(Print 61 14) ;You notice that the car has four tires.
 								)
-						)
-						(995 ;hand
-						(if (ego inRect: 144 188 166 197)
-							(cond 
-								(
-									(and
-										(== currentCar 13)
-										(ego has: iUnmarkedCarKeys)
-									)
-									(if (== workCarLocked 1)
-										(= workCarLocked 0)
-										(Print 61 49)
-									else
-										(Print 61 50)
-									)
+								(1
+									(Print 61 15) ;"Hmmm," you think to yourself, "that car needs to be washed."
 								)
-								((== currentCar carWork)
-									(Print 61 51)
-								)
-							)
-							(cond 
-								(
-									(and
-										(== currentCar carPersonal)
-										(ego has: iKeyRing)
-									)
-									(if (== personalCarLocked 1)
-										(= personalCarLocked 0)
-										(Print 61 49)
-									else
-										(Print 61 50)
-									)
-								)
-								((== currentCar carPersonal)
-									(Print 61 51)
+								(2
+									(Print 61 16) ;Looking at the car, you remember that it's time to change your oil.
 								)
 							)
 						else
+							(Print 61 10) ;You're too far away to see any details.
+						)
+					)
+					(995 ;hand on trunk
+						(if (ego inRect: 144 188 166 197)
+							(Print 61 21) ;Your car's "hatch-back" hasn't worked since its warranty expired.
+						else
 							(NotClose)
 						)
-						)(else
-							(event claimed: TRUE)
-						 )
+					)
+					(102 ;personal car keys
+						(if (ego has: iKeyRing)
+							(if (== personalCarLocked 1)
+								(= personalCarLocked 0)
+								(Print 61 49) ;OK. It's unlocked.
+							else
+								(= personalCarLocked 1)
+								(Print {You lock the car.}) ;The door is already unlocked.
+							)
+						)
+					)
+					(else
+						(event claimed: FALSE)
 					)
 				)
-				
-	
-					(if
-
-						(and
-							(ClickedOnObj ourCar (event x?) (event y?))
-							(== currentCar carWork)
-						)
-
-					(event claimed: TRUE)
-					(switch theCursor				
-
-						(998 ;look
-								(if (ego inRect: 72 142 360 240)
-									(switch (Random 0 2)
-										(0
-											(Print 61 14)
-										)
-										(1
-											(Print 61 15)
-										)
-										(2
-											(Print 61 16)
-										)
-									)
-								else
-									(Print 61 10)
+			)
+			(if ;work car
+				(and
+					(ClickedOnObj ourCar (event x?) (event y?))
+					(== currentCar carWork)
+				)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ;look
+						(if (ego inRect: 72 142 360 240)
+							(switch (Random 0 2)
+								(0
+									(Print 61 14)
 								)
+								(1
+									(Print 61 15)
+								)
+								(2
+									(Print 61 16)
+								)
+							)
+						else
+							(Print 61 10)
 						)
-						(110
+					)
+					(110 ;field kit
 						(if (ego inRect: 93 193 129 208)
 							(if workCarTrunkOpened
 								(if (ego has: iFieldKit)
-									(Print 61 36)
+									(Print 61 36) ;You place your field kit inside the trunk.
 									(PutInRoom iFieldKit 13)
 									(= fieldKitOpen 0)
 									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
@@ -1217,88 +1177,67 @@
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
 									)
+									(= fieldKitTrunkToggle 1)
 								else
-									(Print 61 37)
+									(Print 61 37) ;You don't have the field kit.
 								)
 							else
-								(Print 61 38)
+								(Print 61 38) ;Open the trunk first.
 							)
 						else
-							(Print 61 39)
+							(Print 61 39) ;You're not close enough to your car's trunk.
 						)	
+					)
+					(103 ;Unmarked car keys
+						(if (ego has: iUnmarkedCarKeys)
+							(if (== workCarLocked 1)
+								(= workCarLocked 0)
+								(Print 61 49) ;OK. It's unlocked.
+							else
+								(= workCarLocked 1)
+								(Print {You lock the car.}) ;The door is already unlocked.
+							)
 						)
-						(995 ;Use
-						(if (== currentCar carWork)
-							(if (ego inRect: 93 193 129 208)
-								(cond 
-									(workCarTrunkOpened
-										(Print 61 54)
-										(switch theCursor						
-											(995 ;use
-												(if (ego inRect: 93 193 129 208)
-													(if workCarTrunkOpened
-														(if (== ((inventory at: iFieldKit) owner?) 13)
-															(Print 61 40)
-															(ego get: iFieldKit)
-															
-															
-															
-															
-														else
-															(Print 61 41)
-															
-														)
-													else
-														(Print 61 38)
-													)
-												else
-													(Print 61 39)
-												)
-											)
-											(else
-												(event claimed: FALSE)
-											)
+					)
+					(995 ;Use
+						(if (ego inRect: 93 193 129 208)
+							(cond 
+								(workCarTrunkOpened
+									(if
+										(and
+											(== ((inventory at: iFieldKit) owner?) 13)
+											(not fieldKitTrunkToggle)
 										)
-									)
-									((ego has: iUnmarkedCarKeys)
-										(carScript changeState: 13)
-									)
-									(else
-										(Print 61 55)
+										(Print 61 40) ;You take your field kit from the trunk.
+										(ego get: iFieldKit)															
+									else
+										(carScript changeState: 15) ;close trunk
+										(= fieldKitTrunkToggle 0)
+										(= workCarTrunkOpened 0)
 									)
 								)
-							else
-								(NotClose)
+								((== workCarLocked FALSE)
+									(carScript changeState: 13)	;open trunk
+								)
+								(else
+									(Print 61 55) ;You need a key to open this trunk.
+								)
 							)
 						else
-							(Print 61 21)
+							(Print 61 39) ;You're not close enough to your car's trunk.
 						)
-
-
-
-
-						)(else
-							(event claimed: FALSE)
 					)
-						
-					)
-				)	
-				
-				
-				
-
-		(if 		(ClickedInRect 226 257 80 110 event) ;telf
-					
-
-			
-					(event claimed: TRUE)
-					(switch theCursor
+				)
+			)	
+			(if (ClickedInRect 226 257 80 110 event) ;telf
+				(event claimed: TRUE)
+				(switch theCursor
 					(998 ; look
-							(if (ego inRect: 208 102 273 138)
-									(Print 61 27)
-								else
-									(Print 61 10)
-								)
+						(if (ego inRect: 208 102 273 138)
+							(Print 61 27)
+						else
+							(Print 61 10)
+						)
 					)
 					(995 ; use
 						(if (ego inRect: 240 122 246 126)
@@ -1314,28 +1253,19 @@
 					(else
 						(event claimed: FALSE)
 					)
-						
-					)
-				)	
-			
-
-
-
-
-		(if (or		(ClickedInRect 193 252 133 185 event) ;fence1
+				)
+			)	
+			(if
+				(or
+					(ClickedInRect 193 252 133 185 event) ;fence1
 					(ClickedInRect 252 301 129 159 event) ;fence2
-
-			)
-					(event claimed: TRUE)
-					(switch theCursor
-					(995 ; use
-						
-					)	
+				)
+				(event claimed: TRUE)
+				(switch theCursor
 					(998 ;look
 						(switch (Random 0 2)
-							(0
-								
-							(if (ego inRect: 169 125 320 200)
+							(0	
+								(if (ego inRect: 169 125 320 200)
 									(Print 61 9)
 								else
 									(Print 61 10)
@@ -1352,44 +1282,36 @@
 								(Print 61 12)
 							)
 						)
-					)(else
-						(event claimed: FALSE)
-					 )
-						
 					)
-		)
-
-		
-		(if (or
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(or
 					(ClickedOnObj grass1 (event x?) (event y?))
 					(ClickedOnObj grass2 (event x?) (event y?))
 					(ClickedOnObj grass3 (event x?) (event y?))
-			)
-					(event claimed: TRUE)
-					(switch theCursor			
-						(998 ;look
-							
-						)
-						(995 ; hand
-;;;							(if (ego inRect: 120 145 196 170)
-;;;								(Print 61 22)
-;;;							else
-;;;								(Print 61 23)
-;;;							)
-						)
-						(else
-							(event claimed: FALSE)
-						
+				)
+				(event claimed: TRUE)
+				(switch theCursor			
+					(998 ;look							
+					)
+					(995 ;hand
+						(if (ego inRect: 120 145 196 170)
+							(Print 61 22)
+						else
+							(Print 61 23)
 						)
 					)
-
-		
-		
-		)
+					(else
+						(event claimed: FALSE)	
+					)
 				)
 			)
-
-	)
+		)
+	)	
 )
 
 (instance carScript of Script
