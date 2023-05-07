@@ -774,6 +774,23 @@
 													(PutInRoom iFieldKit 13)
 													(if (IsObject theFieldKit)
 														(theFieldKit dispose:)
+															(cond 
+																((not workCarTrunkOpened)
+																	(Print 67 20)
+																)
+																(
+																	(not
+																		(ego
+																			inRect: [trunkRect 0] [trunkRect 1] [trunkRect 2] [trunkRect 3]
+																		)
+																	)
+																	(NotClose)
+																)
+																(else
+																	(= workCarTrunkOpened 0)
+																	(unTrunk setCycle: BegLoop unTrunk)
+																)
+															)
 													else
 														0
 													)

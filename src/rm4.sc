@@ -47,7 +47,7 @@
 (instance captain of Prop
 	(properties)
 )
-;;;(instance keith of View
+(instance keith of Prop
 ;;;	(properties
 ;;;		y 79
 ;;;		x 205
@@ -58,7 +58,7 @@
 ;;;	)
 ;;;	
 ;;;	
-;;;)
+)
  
 
 (instance blab of Prop
@@ -1169,6 +1169,8 @@
 							
 				)
 				
+
+				
 				(if (ClickedInRect 148 173 115 133 event) ;desk
 					(event claimed: TRUE)
 					(switch theCursor				
@@ -1512,7 +1514,10 @@
 							else
 								(Print 4 67) ;63
 							)
-						)
+						)(else
+							(event claimed: FALSE)
+						 )
+							
 					)
 				)
 				(if (ClickedInRect 127 168 77 98 event) ;Bulletin board
@@ -1620,7 +1625,7 @@
 						(ClickedOnObj keith (event x?) (event y?)) ;clicked on keith
 						(== (event claimed?) FALSE))
 						
-							
+		
 				
 				
 ;;;				(if (ClickedOnObj keith (event x?) (event y?))	
@@ -1822,14 +1827,16 @@
 					)	
 				)
 			)
-			(						
-				(and
+		)
+		(cond		
+						
+			(	(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				(if (== theCursor 999) ;use walk to close.
 					(curRoom drawPic: (curRoom picture?))
-;;;					(cast eachElementDo: #dispose)
+					(cast eachElementDo: #dispose)
 					(ego dispose:)
 					(captain dispose:)
 					(keith dispose:)
@@ -1840,7 +1847,7 @@
 					(carKey dispose:)
 					(wallet dispose:)
 					(marieLetter dispose:)
-;;;					(cast eachElementDo: #delete)
+					(cast eachElementDo: #delete)
 					(ego delete:)
 					(captain delete:)
 					(keith delete:)
@@ -1859,6 +1866,7 @@
 					(= theCursor 999)
 					(theGame setCursor: 999 (HaveMouse))
 				)
+				
 				(if (ClickedOnObj marieLetter (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
@@ -1904,8 +1912,9 @@
 				)
 			)
 		)
+		)
 	)		
-)
+;;;)
 
 (instance captainScript of Script
 	(properties)
