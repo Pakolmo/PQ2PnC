@@ -1211,12 +1211,24 @@
 								(if (ego has: iFieldKit)
 									(Print 61 36)
 									(PutInRoom iFieldKit 13)
-									(= fieldKitOpen 0)
+									(= itemIcon 900)
+									(= fieldKitOpen FALSE)
+;;;									(= fieldKitToggle 1)
 									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
 									(= itemIcon 900)
+									
+									
+									
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
 									)
+									(carScript changeState: 15)
+									(= workCarTrunkOpened 0)
+									
+									
+									
+									
+									
 								else
 									(Print 61 37)
 								)
@@ -1228,63 +1240,104 @@
 						)	
 						)
 						(995 ;Use
-						(if (== currentCar carWork)
-							(if (ego inRect: 93 193 129 208)
-								(cond 
-									(workCarTrunkOpened
-										(Print 61 54)
-										(switch theCursor						
-											(995 ;use
-												(if (ego inRect: 93 193 129 208)
-													(if workCarTrunkOpened
-														(if (== ((inventory at: iFieldKit) owner?) 13)
-															(Print 61 40)
-															(ego get: iFieldKit)
-															
-															
-															
-															
-														else
-															(Print 61 41)
-															
-														)
-													else
-														(Print 61 38)
+									(if (== workCarTrunkOpened 0)
+
+												(cond 
+													(workCarTrunkOpened
+														(Print 61 54)
 													)
+													((ego has: iUnmarkedCarKeys)
+
+														(= workCarTrunkOpened 1)
+															(unTrunk
+																view: 51
+																loop: 5
+																cel: 0
+																posn: 126 209
+																setPri: 15
+																init:
+																setCycle: EndLoop self
+											
+											
+															(unTrunk stopUpd:)
+															)
+														
+														
+			
+			
+													)
+													(else
+														(Print 61 55)
+													)
+												)
+									
+						
+									else
+									(cond
+										((ego has: iUnmarkedCarKeys)
+														(unTrunk
+					view: 51
+					loop: 5
+					cel: 2
+					posn: 126 209
+					setPri: 1
+					startUpd:
+					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
+														)
+				(unTrunk dispose:)
+			
+										(= workCarTrunkOpened 0)
+										(switch theCursor				
+											(995 ;use
+												(if (and (== ((inventory at: iFieldKit) owner?) 13)
+													(== fieldKitToggle 0))
+													(Print 61 40)
+													(ego get: iFieldKit)
+													(switch theCursor				
+													(995 ;use
+														(carScript changeState: 15)
+														(= workCarTrunkOpened 0)
+													)
+													(else
+														(event claimed: FALSE)
+													)
+													)
+		
 												else
-													(Print 61 39)
+													(cond
+														((ego has: iUnmarkedCarKeys)
+																		(unTrunk
+																			view: 51
+																			loop: 5
+																			cel: 2
+																			posn: 126 209
+																			setPri: 1
+																			startUpd:
+																			setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
+																		)
+																		(unTrunk dispose:)
+																		(= workCarTrunkOpened 0)
+;;;																		(= fieldKitToggle 0)
+																						
+														
+														)
+													)
 												)
 											)
-											(else
-												(event claimed: FALSE)
-											)
-										)
+
+										(else
+											(event claimed: FALSE)
 									)
-									((ego has: iUnmarkedCarKeys)
-										(carScript changeState: 13)
-									)
-									(else
-										(Print 61 55)
-									)
-								)
-							else
-								(NotClose)
-							)
-						else
-							(Print 61 21)
-						)
-
-
-
-
-						)(else
-							(event claimed: FALSE)
-					)
 						
 					)
 				)	
+									)
+									)
+						)
+					)
+					)
 				
-				
+										
 				
 
 		(if 		(ClickedInRect 226 257 80 110 event) ;telf
@@ -1580,7 +1633,7 @@
 					posn: 126 209
 					setPri: 1
 					startUpd:
-					setCycle: CycleTo 0 -1 self
+					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
 				)
 			)
 			(16
