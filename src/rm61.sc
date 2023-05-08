@@ -1171,25 +1171,13 @@
 								(if (ego has: iFieldKit)
 									(Print 61 36) ;You place your field kit inside the trunk.
 									(PutInRoom iFieldKit 13)
-									(= itemIcon 900)
-									(= fieldKitOpen FALSE)
-;;;									(= fieldKitToggle 1)
+									(= fieldKitOpen 0)
 									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
 									(= itemIcon 900)
-									
-									
-									
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
 									)
 									(= fieldKitTrunkToggle 1)
-									(carScript changeState: 15)
-									(= workCarTrunkOpened 0)
-									
-									
-									
-									
-									
 								else
 									(Print 61 37) ;You don't have the field kit.
 								)
@@ -1514,7 +1502,7 @@
 					posn: 126 209
 					setPri: 1
 					startUpd:
-					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
+					setCycle: CycleTo 0 -1 self
 				)
 			)
 			(16
