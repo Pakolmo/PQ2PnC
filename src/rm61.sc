@@ -1122,7 +1122,8 @@
 						(if (ego inRect: 144 188 166 197)
 							(Print 61 21) ;Your car's "hatch-back" hasn't worked since its warranty expired.
 						else
-							(NotClose)
+							;(NotClose)
+							(EnterCar)
 						)
 					)
 					(102 ;personal car keys
@@ -1224,7 +1225,8 @@
 								)
 							)
 						else
-							(Print 61 39) ;You're not close enough to your car's trunk.
+							(EnterCar)
+							;(Print 61 39) ;You're not close enough to your car's trunk.
 						)
 					)
 				)
