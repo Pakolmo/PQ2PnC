@@ -45,7 +45,7 @@
 	(return
 		(switch currentCar
 			(13
-				(if (not (ego inRect: 144 188 166 197))
+				(if (not (ego inRect: 140 184 170 200))   ;144 188 166 197
 					(Print 61 115)
 				else
 					(if (and (== gamePhase 5) (not shotAtBainsInCove))
@@ -1177,7 +1177,31 @@
 					)
 				)
 				
-	
+;;;					(if
+;;;
+;;;						(and
+;;;							(ClickedOnObj carDoor (event x?) (event y?))
+;;;							(== currentCar carWork)
+;;;						)
+;;;
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor				
+;;;
+;;;						(995 ;Use
+;;;							(if (ego inRect: 72 142 360 240)
+;;;							(EnterCar)
+;;;							)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;					)
+							
+							
+							
+							
+								
 					(if
 
 						(and
@@ -1240,6 +1264,13 @@
 						)	
 						)
 						(995 ;Use
+;;;							(Printf {x: %d, y: %d} (event x?) (event y?) ) ;for testing - to find rect
+;;;							(if (ego inRect: 135 196 166 186)
+							(if 	(ego inRect: 140 184 170 200)
+							(EnterCar)
+							)
+							else
+							
 									(if (== workCarTrunkOpened 0)
 
 												(cond 
@@ -1352,6 +1383,17 @@
 								else
 									(Print 61 10)
 								)
+					)
+					(104 ;money clip
+						(if (ego inRect: 240 122 246 126)
+							(HandsOff)
+							(Print 61 44 #at 120 50 #time 5)
+							(Print 61 45 #at 120 50 #time 8)
+							(Print 61 46 #at 120 50 #time 8)
+							(HandsOn)
+						else
+							(Print 61 47)
+						)
 					)
 					(995 ; use
 						(if (ego inRect: 240 122 246 126)
