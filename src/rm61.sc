@@ -31,6 +31,7 @@
 	local9
 	local10
 	local11
+	fieldKitTrunkToggle
 	
 )
 (procedure (LocPrint)
@@ -1248,7 +1249,7 @@
 									)
 									(carScript changeState: 15)
 									(= workCarTrunkOpened 0)
-									
+									(= fieldKitTrunkToggle 0)
 									
 									
 									
@@ -1263,108 +1264,138 @@
 							(Print 61 39)
 						)	
 						)
-						(995 ;Use
-;;;							(Printf {x: %d, y: %d} (event x?) (event y?) ) ;for testing - to find rect
-;;;							(if (ego inRect: 135 196 166 186)
-							(if 	(ego inRect: 140 184 170 200)
-							(EnterCar)
-							)
-							else
-							
-									(if (== workCarTrunkOpened 0)
-
-												(cond 
-													(workCarTrunkOpened
-														(Print 61 54)
-													)
-													((ego has: iUnmarkedCarKeys)
-
-														(= workCarTrunkOpened 1)
-															(unTrunk
-																view: 51
-																loop: 5
-																cel: 0
-																posn: 126 209
-																setPri: 15
-																init:
-																setCycle: EndLoop self
-											
-											
-															(unTrunk stopUpd:)
-															)
-														
-														
-			
-			
-													)
-													(else
-														(Print 61 55)
-													)
-												)
-									
-						
+(995 ;Use
+						(if (ego inRect: 93 193 129 208)
+							(cond 
+								(workCarTrunkOpened
+									(if
+										(and
+											(== ((inventory at: iFieldKit) owner?) 13)
+											(not fieldKitTrunkToggle)
+										)
+										(Print 61 40) ;You take your field kit from the trunk.
+										(ego get: iFieldKit)															
 									else
-									(cond
-										((ego has: iUnmarkedCarKeys)
-														(unTrunk
-					view: 51
-					loop: 5
-					cel: 2
-					posn: 126 209
-					setPri: 1
-					startUpd:
-					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
-														)
-				(unTrunk dispose:)
-			
+										(carScript changeState: 15) ;close trunk
+										(= fieldKitTrunkToggle 0)
 										(= workCarTrunkOpened 0)
-										(switch theCursor				
-											(995 ;use
-												(if (and (== ((inventory at: iFieldKit) owner?) 13)
-													(== fieldKitToggle 0))
-													(Print 61 40)
-													(ego get: iFieldKit)
-													(switch theCursor				
-													(995 ;use
-														(carScript changeState: 15)
-														(= workCarTrunkOpened 0)
-													)
-													(else
-														(event claimed: FALSE)
-													)
-													)
-		
-												else
-													(cond
-														((ego has: iUnmarkedCarKeys)
-																		(unTrunk
-																			view: 51
-																			loop: 5
-																			cel: 2
-																			posn: 126 209
-																			setPri: 1
-																			startUpd:
-																			setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
-																		)
-																		(unTrunk dispose:)
-																		(= workCarTrunkOpened 0)
-;;;																		(= fieldKitToggle 0)
-																						
-														
-														)
-													)
-												)
-											)
-
-										(else
-											(event claimed: FALSE)
 									)
-						
-					)
-				)	
-									)
-									)
+								)
+								((== workCarLocked FALSE)
+									(carScript changeState: 13)	;open trunk
+								)
+								(else
+									(Print 61 55) ;You need a key to open this trunk.
+								)
+							)
+						else
+							(EnterCar)
+							;(Print 61 39) ;You're not close enough to your car's trunk.
 						)
+					)
+							
+;;;						(995 ;Use
+;;;;;;							(Printf {x: %d, y: %d} (event x?) (event y?) ) ;for testing - to find rect
+;;;;;;							(if (ego inRect: 135 196 166 186)
+;;;							(if 	(ego inRect: 140 184 170 200)
+;;;							(EnterCar)
+;;;							)
+;;;							
+;;;							
+;;;									(if (== workCarTrunkOpened 0)
+;;;
+;;;												(cond 
+;;;													(workCarTrunkOpened
+;;;														(Print 61 54)
+;;;													)
+;;;													((ego has: iUnmarkedCarKeys)
+;;;
+;;;														(= workCarTrunkOpened 1)
+;;;															(unTrunk
+;;;																view: 51
+;;;																loop: 5
+;;;																cel: 0
+;;;																posn: 126 209
+;;;																setPri: 15
+;;;																init:
+;;;																setCycle: EndLoop self
+;;;											
+;;;											
+;;;															(unTrunk stopUpd:)
+;;;															)
+;;;														
+;;;														
+;;;			
+;;;			
+;;;													)
+;;;													(else
+;;;														(Print 61 55)
+;;;													)
+;;;												)
+;;;									
+;;;						
+;;;									else
+;;;									(cond
+;;;										((ego has: iUnmarkedCarKeys)
+;;;														(unTrunk
+;;;					view: 51
+;;;					loop: 5
+;;;					cel: 2
+;;;					posn: 126 209
+;;;					setPri: 1
+;;;					startUpd:
+;;;					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
+;;;														)
+;;;				(unTrunk dispose:)
+;;;			
+;;;										(= workCarTrunkOpened 0)
+;;;										(switch theCursor				
+;;;											(995 ;use
+;;;												(if (and (== ((inventory at: iFieldKit) owner?) 13)
+;;;													(== fieldKitToggle 0))
+;;;													(Print 61 40)
+;;;													(ego get: iFieldKit)
+;;;													(switch theCursor				
+;;;													(995 ;use
+;;;														(carScript changeState: 15)
+;;;														(= workCarTrunkOpened 0)
+;;;													)
+;;;													(else
+;;;														(event claimed: FALSE)
+;;;													)
+;;;													)
+;;;		
+;;;												else
+;;;													(cond
+;;;														((ego has: iUnmarkedCarKeys)
+;;;																		(unTrunk
+;;;																			view: 51
+;;;																			loop: 5
+;;;																			cel: 2
+;;;																			posn: 126 209
+;;;																			setPri: 1
+;;;																			startUpd:
+;;;																			setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
+;;;																		)
+;;;																		(unTrunk dispose:)
+;;;																		(= workCarTrunkOpened 0)
+;;;;;;																		(= fieldKitToggle 0)
+;;;																						
+;;;														
+;;;														)
+;;;													)
+;;;												)
+;;;											)
+;;;
+;;;										(else
+;;;											(event claimed: FALSE)
+;;;									)
+;;;						
+;;;					)
+;;;				)	
+;;;									)
+;;;									)
+;;;						)
 					)
 					)
 				
@@ -1673,8 +1704,8 @@
 					loop: 5
 					cel: 2
 					posn: 126 209
-					setPri: 1
-					startUpd:
+					setPri: 10
+;;;					startUpd:
 					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
 				)
 			)
