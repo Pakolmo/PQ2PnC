@@ -1696,7 +1696,7 @@
 				)
 			)
 			(14
-				(unTrunk stopUpd:)
+				;(unTrunk stopUpd:)
 			)
 			(15
 				(unTrunk
