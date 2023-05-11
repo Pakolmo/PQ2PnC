@@ -1502,7 +1502,6 @@
 								)
 							)
 						)
-						
 						(if (ClickedInRect 43 57 46 55 event) ;Fingerprint Tape
 							(event claimed: TRUE)
 							(switch theCursor
@@ -1516,9 +1515,8 @@
 									(event claimed: FALSE)
 								)
 							)
-						)						
-						
-							(if (ClickedInRect 130 139 21 29 event) ;Close
+						)							
+						(if (ClickedInRect 130 139 21 29 event) ;Close
 							(event claimed: TRUE)
 							(switch theCursor
 								(998 ;look
@@ -1548,11 +1546,7 @@
 								)
 							)
 						)						
-											
-						
-						
-						
-						(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
+						;(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
 					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny
@@ -1586,17 +1580,41 @@
 								(event type: 1 claimed: 1)
 							)
 							(990 ;clicked anywhere with gun
-								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))) ;not in shooting range booth
+								(if (curRoom script?)
+									(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))) ;not in shooting range booth
+										(event claimed: TRUE)
+										(draw)
+									)
+								else
+									(event claimed: TRUE)
+									(draw)
+								)
+							)
+							(100 ;or with gun inventory item 
+								(if (curRoom script?)
+									(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))) ;not in shooting range booth
+										(event claimed: TRUE)
+										(draw)
+									)
+								else
 									(event claimed: TRUE)
 									(draw)
 
 								)
 							)
 							(994 ;gun target
+
 								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
 									(event claimed: TRUE)
 									(fire)
 								
+
+
+								(if (curRoom script?)
+									(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
+										(event claimed: TRUE)
+										(fire)
+									)
 
 								)
 							)
