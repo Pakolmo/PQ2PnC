@@ -923,6 +923,121 @@
 				)
 			)
 		)
+		(cond		
+										
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)	
+				
+				
+				
+			(if
+
+				(and
+							(ClickedOnObj keith (event x?) (event y?))
+							(cast contains: keith)
+				)
+				
+					(event claimed: TRUE)
+					(switch theCursor	
+						(996 ;talk				
+						(if (and (cast contains: keith) (keith inRect: 0 0 320 200))
+							(if (> bainsInCoveTimer 800)
+								(Print 155 0)
+							else
+								(Print 155 1)
+							)
+						else
+							(Print 155 2)
+						)	
+						)
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+									
+			(if
+
+				(and
+							(ClickedOnObj vanDoor (event x?) (event y?))
+							(cast contains: vanDoor)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;Look
+
+								(if (and (> diverState 2) (>= global111 3))
+									(Print 60 53)
+								else
+									(Print 60 43)
+								)
+						)
+						(995 ;use
+							(if (and (> diverState 2) (>= global111 3))
+							(if (== diverState 8) (Print 60 41) else (Print 60 42))
+						else
+							(Print 60 43)
+						)
+						)
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+
+
+
+
+			(if
+
+				(and
+							(ClickedOnObj moore (event x?) (event y?))
+							(cast contains: moore)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor	
+						(107 ;WALLET
+							
+						)	
+						(996 ;Talk
+						(if (> diverState 5)
+							(if (< (ego distanceTo: moore) 40)
+								(if (== diverState 6)
+									(diverScript changeState: 3)
+								else
+									(Print 60 33)
+								)
+							else
+								(Print 60 61)
+							)
+						else
+							(Print 60 62)
+						)
+						)		
+						(998 ;Look
+							(moore inRect: 0 0 320 190) (Print 60 46))
+									
+									
+							
+							
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+			
+			
+				)
+			
+			
+		)
 	)
 )
 

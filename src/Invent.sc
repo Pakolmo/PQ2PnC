@@ -393,6 +393,18 @@
 ;;;								
 ;;;							
 ;;;							)))
+						((== ((el value?) view?) 107) 
+						(if (not (ego has: iWallet))
+							(DontHave)
+						else
+							(Print 800 50)
+							(SolvePuzzle 2 fFirstFindDivingCard)
+							(Bset fFoundDiverCard)
+						)
+						)
+
+
+
 							((== ((el value?) view?) 115) ;ear protectors
 								(if (curRoom script?)
 									(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))

@@ -1075,6 +1075,159 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)		
+	
+	
+				(if
+
+				(and
+							(ClickedOnObj keith (event x?) (event y?))
+							(cast contains: keith)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor				
+
+						(996 ;chat keith
+							(if (cast contains: keith)
+									(if (< (ego distanceTo: keith) 45)
+										(Print 61 66)
+									else
+										(Print 61 67)
+									)
+								else
+									(Print 61 68)
+								)
+						)
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+						
+		
+	
+	
+	
+	
+	
+			(if
+
+				(and
+							(ClickedOnObj gelepsi (event x?) (event y?))
+							(cast contains: gelepsi)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;look
+							(Print 61 30)
+						)
+						(996 ;chat gelepsi
+								(if (cast contains: gelepsi)
+									(if (< (ego distanceTo: gelepsi) 25)
+										(if (== currentCar carWork)
+											(cond 
+												((< (keith distanceTo: gelepsi) 30)
+													(if shotAtBainsInCove
+														(Print 61 63)
+													else
+														(Print 61 64))
+												)
+												(
+													(and
+														removedBodyFromRiver
+														(not (Btst fCalledCoroner))
+													)
+													(Print 61 60)
+													(SolvePuzzle 3 fCalledCoroner)
+												)
+												(else
+													(Print 61 61)
+												)
+											)
+										else
+											(Print 61 65)
+										)
+									else
+										(Print 61 62)
+									)
+								else
+									(Print 61 31)
+								)	
+						)
+						
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+									
+							
+							
+							
+							
+			(if
+
+				(and
+							(ClickedOnObj barbie (event x?) (event y?))
+							(cast contains: barbie)
+				)
+
+
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ;Look
+							(Print 61 32)
+						)
+						(995 ;Calm broad
+							(Print 61 57)
+						)
+						(996 
+
+;;;									(if
+;;;											(and
+;;;												(cast contains: barbie)
+;;;												(< (ego distanceTo: barbie) 38)
+;;;											)
+;;;											(if local5
+;;;												(LocPrintBottom 61 69)
+;;;											else
+;;;												(= local5 1)
+;;;												(Print 61 70)
+;;;											)
+;;;										else
+;;;											(Print 61 71)
+;;;										)
+;;;
+				(barbieScript changeState: 2)
+				(barbieScript changeState: 3)
+				(if local6
+											(Print 61 77)
+										else
+											(= local6 1)
+											(SolvePuzzle 2)
+											(barbieScript changeState: 5)
+											(LocPrint 61 78)
+										)
+										(if (> (ego distanceTo: barbie) 28)
+									(Print 61 74)
+								else
+									(barbieScript changeState: 6)
+								)				
+								
+						
+						
+					)
+						(else
+							(event claimed: TRUE)
+						 )
+					)
+				)
+				
+						
+	
 				
 					(if
 

@@ -1589,12 +1589,15 @@
 								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))) ;not in shooting range booth
 									(event claimed: TRUE)
 									(draw)
+
 								)
 							)
 							(994 ;gun target
 								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
 									(event claimed: TRUE)
 									(fire)
+								
+
 								)
 							)
 							(else ;inventory item
