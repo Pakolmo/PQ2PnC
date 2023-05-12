@@ -1255,6 +1255,129 @@
 							
 				)
 				
+
+				(if (ClickedInRect 140 180 136 143 event) ;radio
+					(event claimed: TRUE)
+					(switch theCursor				
+						(995 ;use	
+
+						(cond 
+							((and (not (Btst 27)) global127) (sequencer changeState: 63))
+							(bainsInCoveTimer (= bainsInCoveTimer 0) (sequencer changeState: 12))
+							(
+								(and
+									removedBodyFromRiver
+									(== gamePhase 5)
+									(not (Btst fCalledCoroner))
+								)
+								(SolvePuzzle 2 fCalledCoroner)
+								(sequencer changeState: 99)
+							)
+							(
+								(and
+									shotAtBainsInCove
+									(not (Btst fRadioInCoveShooting))
+								)
+								(Bset fRadioInCoveShooting)
+								(LocPrint 1 13 43)
+							)
+							(
+
+									(Btst fCanGetWarrant)
+									(== windshieldOverlay 40)
+								
+								(Bclr fCanGetWarrant)
+								(SolvePuzzle 2)
+								(= global170 200)
+								(sequencer changeState: 101)
+							)
+							(
+
+									(Btst fCanCallForBackup)
+									(== windshieldOverlay 40)
+								
+								(Bclr fCanCallForBackup)
+								(SolvePuzzle 2)
+								(= global171 200)
+								(sequencer changeState: 103)
+							)
+							((Btst fGotEmptyHolster)
+								(sequencer changeState: 93)
+							)
+							((Btst fAskedWomanAboutCar)
+								(sequencer changeState: 96)
+							)
+							((== global169 2)
+								(= global169 3)
+								(SolvePuzzle 2 fRadioedInStolenCarPlate)
+								(sequencer changeState: 46)
+							)
+							(
+								(and
+									(Btst fGotToiletGun)
+									(== gamePhase 6)
+								)
+								(Bclr fGotToiletGun)
+								(SolvePuzzle 1)
+								(sequencer changeState: 50)
+							)
+							(
+								(and
+									(Btst fReadCarRentals)
+									(== gamePhase 6)
+									(not (Btst fRadioedInRentalCar))
+								)
+								(SolvePuzzle 2 fRadioedInRentalCar)
+								(LocPrint 1 13 44)
+							)
+							(
+								(and
+									(not local105)
+									(or
+										(and (== gamePhase 2) (== prevRoomNum 22))
+										(and (== gamePhase 3) (== prevRoomNum 67))
+										(and (== gamePhase 5) (== prevRoomNum 61))
+										(and (== gamePhase 12) (== prevRoomNum 25))
+										(and (== gamePhase 10) (== prevRoomNum 27))
+									)
+								)
+								(LocPrint 1 13 45)
+								(= local105 1)
+							)
+							(else (LocPrint 1 13 46))
+						)
+						(event claimed: 1)
+						
+						
+											
+						(if bainsInCoveTimer
+							(= outsideRoom 14)
+							(sequencer changeState: 11)
+							(= local107 0)
+							(= local108 62)
+						else
+							(LocPrint 1 13 57)
+						)
+					
+						(if local114
+							(= outsideRoom 61)
+							(sequencer changeState: 34)
+							(= local107 122)
+							(= local108 12)
+						)
+				
+						
+						
+						
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
 				
 ;;;				(if (ClickedInRect 99 117 108 119 event) ;speedometer
 ;;;					(event claimed: TRUE)
