@@ -1607,6 +1607,8 @@
 								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
 									(event claimed: TRUE)
 									(fire)
+								)
+
 								
 
 

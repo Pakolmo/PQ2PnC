@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 1)
 (include game.sh)
+(include system.sh)
 (use Main)
 (use Intrface)
 (use AutoDoor)
@@ -10,7 +11,7 @@
 (use User)
 (use Actor)
 (use System)
-;(use PncMenu)
+(use PncMenu)
 
 
 (public
