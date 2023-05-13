@@ -1355,9 +1355,7 @@
 							(sequencer changeState: 11)
 							(= local107 0)
 							(= local108 62)
-						else
-							(LocPrint 1 13 57)
-						)
+												)
 					
 						(if local114
 							(= outsideRoom 61)
