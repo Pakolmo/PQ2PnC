@@ -802,8 +802,8 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-;;;				(if (ClickedOnObj flag (event x?) (event y?)) ;clicked on flag
-				(if	(ClickedInRect 168 201 21 34 event) ;fixed problems with pncmenubar
+				(if (ClickedOnObj flag (event x?) (event y?)) ;clicked on flag
+				;(if	(ClickedInRect 168 201 21 34 event) ;fixed problems with pncmenubar
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look

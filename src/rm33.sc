@@ -27,7 +27,6 @@
 	local7
 	newProp
 	glove = 0 ;cerrado
-	card = 0 
 )
 (procedure (ExitPersonalCar)
 	(if (and (== local6 local4) (== local7 local5))
@@ -118,18 +117,6 @@
 	(properties)
 )
 
-;;;(instance leftFwd of Forward
-;;;	(properties)
-;;;)
-;;;
-;;;(instance rightFwd of Forward
-;;;	(properties)
-;;;)
-;;;
-;;;(instance lineFwd of Forward
-;;;	(properties)
-;;;)
-
 (instance aTimer of Timer
 	(properties)
 )
@@ -143,7 +130,6 @@
 	(method (init)
 		(DrawRect 143 175 140 150 1)
 		(super init:)
-		(curRoom setRegions: 950)
 		(HandsOff)
 		(User canInput: 1)
 		(curRoom setLocales: 153)
@@ -227,7 +213,6 @@
 	(properties)
 	
 	(method (doit)
-;;;		(curRoom setRegions: 950)
 		(if local0
 			(if (not (< howFast 30))
 				(cond 
@@ -266,6 +251,9 @@
 			(leftScene stopUpd:)
 		)
 		(super doit:)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		) 
 	)
 	
 	(method (changeState newState)
@@ -828,7 +816,7 @@
 			(if (ClickedOnObj wheel (event x?) (event y?))
 				(event claimed: TRUE)
 				(switch theCursor				
-					(995 ; look box
+					(995 ; hand
 						(cond 
 							((not (InRoom 2 0))
 								(Print 33 44)
@@ -843,366 +831,124 @@
 							)
 						)
 					)
-					(102 ;keys drive
-						(if
-							(and
-								(== gamePhase phaseMALL)
-								(Btst fBeenAtMallCrimeScene)
-							)
-							(= gamePhase 4)
-						)
-						(if
-							(and
-								(== gamePhase 12)
-								(not (Btst fDroveToMotel))
-							)
-							(Bset fDroveToMotel) ;165	
-						)
-						(PutInRoom iKeyRing 0) 
+					(998
 						(cond 
-							(
-								(or
-									(Said '/home[<barn,to]')
-									(Said '/barn[<police,to]')
-									(Said '/office,homicide')
-								)
-								(cond 
-									((!= thePrevRoomNum 1)
-										(= thePrevRoomNum 1)
-										(= local4 122)
-										(= local5 60)
-										(localproc_000e)
-									)
-									(local0 
-										(Print 33 55)
-									)
-									(else 
-										(Print 33 56)
-									)
-								)
+							((not (InRoom 2 0))
+								(Print {The car will not start without using the keys.})
 							)
-							((Said '/jail[<lytton,to]')
-								(cond 
-									((!= thePrevRoomNum 22)
-										(= thePrevRoomNum 22)
-										(= local4 140)
-										(= local5 20)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							((Said '/cove[<cotton,to]')
-								(cond 
-									((!= thePrevRoomNum 61)
-										(= thePrevRoomNum 61)
-										(= local4 220)
-										(= local5 0)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							((Said '/airport[<lytton,to]')
-								(cond 
-									((!= thePrevRoomNum 14)
-										(= thePrevRoomNum 14)
-										(= local4 0)
-										(= local5 100)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							((Said '/inn[<snuggler,to]')
-								(cond 
-									((!= thePrevRoomNum 25)
-										(= thePrevRoomNum 25)
-										(= local4 60)
-										(= local5 120)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							(
-								(or
-									(Said '/home[<cheeks,to]')
-									(Said '/cheeks')
-									(Said '/ave<peach<lonny<222')
-									(Said '/peach<lonny<222')
-								)
-								(cond 
-									((!= thePrevRoomNum 31)
-										(= thePrevRoomNum 31)
-										(= local4 40)
-										(= local5 80)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							(
-							(or (Said '/cafe[<arnie,to]') (Said '/arnie,date,chow'))
-								(cond 
-									((!= thePrevRoomNum 29)
-										(= thePrevRoomNum 29)
-										(= local4 120)
-										(= local5 120)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							(
-								(or
-									(Said '/area<death>')
-									(Said '/death[<area,to]>')
-									(Said '/warehouse')
-									(Said '/district<warehouse')
-									(Said '/ave<rose<lonny<160')
-									(Said '/rose<lonny<160')
-								)
-								(cond 
-									(
-										(and
-											(or (Said '/area<death') (Said '/death'))
-											(!= gamePhase 10)
-										)
-										(Print 33 57)
-									)
-									((!= thePrevRoomNum 27)
-										(= thePrevRoomNum 27)
-										(= local4 62)
-										(= local5 60)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							(
-								(or
-									(Said '/mall[<(tree<fig),to]')
-									(Said '/tree<fig')
-									(Said '/mall,center<shopping')
-								)
-								(cond 
-									((!= thePrevRoomNum 67)
-										(= thePrevRoomNum 67)
-										(= local4 180)
-										(= local5 120)
-										(localproc_000e)
-									)
-									(local0
-										(Print 33 55)
-									)
-									(else
-										(Print 33 56)
-									)
-								)
-							)
-							((Said '/ave<fig<5556')
-								(Print 33 58) (User canInput: 1)
-							)
-							(
-								(or
-									(Said '/castle<caffeine[<carol,to]')
-									(Said '/willie<drunk')
-									(Said '/chamber<blue')
-									(Said '/delphoria[<hotel,to]')
-								)
-								(Print 33 59)
-							)
-							((Said '/steelton,houston,coarsegold')
-								(User canInput: 1) (Print 33 60)
-							)
-							((Said '/[*]')
-								(User canInput: 1)
-								(Print 33 61)
+							((not local0)
+								(Print {The keys are in the ignition.})
 							)
 							(else
-								(event claimed: 1)
-								(Print 33 62)
+								(Print 33 1)
 							)
 						)
+					)
+					(102 ;keys drive
+						;temp messgae, copy code from rm13
+						(Print {Not implemented. Copy from rm13.})
 					)	
-				)
-			)	
-			(if (== theCursor 999) ;walk anywhere to exit 
-				(ExitPersonalCar)
-			)
-			(if
-				(and ;look glove 146 136 136 150
-					(ClickedOnObj gloveBox (event x?) (event y?))
-					(cast contains: gloveBox)
-					(== (event claimed?) 0) ;ignore if already clicked on eyes, hair, etc...
-				)
-				(event claimed: TRUE)
-				(switch theCursor				
-					(998 ; look box
-					
-					)
-					(995 ; hand close box
-						(if (== glove 1)
-							(theGame setCursor: 997)
-							(= global137 0)
-							(gloveBoxScript changeState: 2)
-							(= glove 0)
-							(theGame setCursor: 995)
-						)
-					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)
-			(if
-				(and ;look glove 146 136 136 150
-					(ClickedInRect 146 175 136 150 event) ;Glove box area
-					(not (cast contains: gloveBoxDoor))
-					(== glove 0)		
-				)
-				(event claimed: TRUE)
-				(switch theCursor				
-					(998 ; look box
-						(if (== glove 0)
-							(theGame setCursor: 997)
-							(= global137 1)
-							(= local2 0)
-							(gloveBoxScript changeState: 0)
-							(theGame setCursor: 998)
-							(= glove 1)
-						)
-					)
-					(995 ; hand open box
-						(if (== glove 0)
-							(theGame setCursor: 997)
-							(= global137 1)
-							(= local2 0)
-							(gloveBoxScript changeState: 0)
-							(theGame setCursor: 995)
-							(= glove 1)
-						)
-					)
-					(else
-						(event claimed: FALSE)
-				 	)
-				)
-			)						
-			(if	 
-				(and
-					(ClickedOnObj registration (event x?) (event y?))
-					(cast contains: gloveBoxDoor)
-				)
-				(event claimed: TRUE)
-				(switch theCursor				
-					(995 ; look 
-						(registration startUpd: hide:)
-						(Print 33 49 #mode 1 #draw)
-						(Print 33 50)
-						(registration show: stopUpd:)		
-					)
-					(998 ; look 
-						(registration startUpd: hide:)
-						(Print 33 49 #mode 1 #draw)
-						(Print 33 50)
-						(registration show: stopUpd:)
-					)
-					(else
-						(event claimed: FALSE)
-				 	)
-				)
-			)				
-			(if	 
-				(and
-					(ClickedOnObj registration (event x?) (event y?))
-					(not (cast contains: businessCard))
-					(== card 0)
-				)
-				(event claimed: TRUE)
-				(switch theCursor				
-					(995 ; takelook registration
-						(if (== card 0)
-							(registration startUpd: hide:)
-							(Print 33 49 #mode 1 #draw)
-							(Print 33 50)
-							(registration show: stopUpd:)
-							(= card 1)
-						)
-					)
-					(998 ; look registration
-						(if (== card 0)
-						(registration startUpd: hide:)
-						(Print 33 49 #mode 1 #draw)
-						(Print 33 50)
-						(registration show: stopUpd:)
-						(= card 1)
-						)
-					)
-					(else
-						(event claimed: FALSE)
-					)
 				)
 			)
 			(if	
 				(and
 					(ClickedOnObj businessCard (event x?) (event y?))
-					(== card 0)
+					(== glove 1)
 				)
 				(event claimed: TRUE)
 				(switch theCursor				
 					(998 ; look box											
-						(ego get: 37)
-						(businessCard dispose:)
-						(Print 33 46 #draw)
-						(SolvePuzzle 1 103)
-						(= card 1)
+						(Print {It's your LPD Buisness card.})
 					)
-					(995 ; hand open box	
-						(ego get: 37)
-						(businessCard dispose:)
-						(Print 33 46 #draw)
-						(SolvePuzzle 1 103)
-						(= card 1)
+					(995 ; hand	
+						(if
+							(and
+								global137
+								(InRoom 37)
+							)
+							(ego get: 37)
+							(businessCard dispose:)
+							(Print {You take the card.} #draw)
+							(SolvePuzzle 1 103)
+						)
 					)
 					(else
 						(event claimed: FALSE)
 				 	)
+				)
+			)
+			(if
+				(and
+					(ClickedOnObj registration (event x?) (event y?))
+					(== glove 1)
+				)
+				(if
+					(or
+						(== theCursor 995)
+						(== theCursor 998)
+					)
+					(event claimed: TRUE)
+					(registration startUpd: hide:)
+					(Print 33 49 #mode 1 #draw)
+					(Print 33 50)
+					(registration show: stopUpd:)
+				)
+			)
+			(if
+				(and
+					(ClickedOnObj gloveBox (event x?) (event y?))
+					(== (event claimed?) FALSE) ;ignore if already clicked on reg or card.
+					(== glove 1)
+				)
+				(event claimed: TRUE)
+				(switch theCursor				
+					(998 ; look box
+						(Print {It's the glove box.})
+					)
+					(995 ; hand close box
+						(= global137 0)		
+						(gloveBoxScript changeState: 2)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and
+					(ClickedInRect 146 175 136 150 event) ;Glove box area
+					(== glove 0)	
+				)
+				(if ;open glove box with look or hand
+					(or
+						(== theCursor 998)
+						(== theCursor 995)
+					)
+					(event claimed: TRUE)
+					(= global137 1)
+					(= local2 0)
+					(gloveBoxScript changeState: 0)
+				)
+			)										
+			(if 
+				(and 
+					(ClickedInRect 0 320 26 190 event) ;clicked anywhere else
+					(== (event claimed?) FALSE)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(999 ;walk to exit
+						(ExitPersonalCar)
+					)
+					(991 ;exit
+						(ExitPersonalCar)
+					)
+					(998
+						(Print 33 52) ;look around
+					)
+					(else
+						(event claimed: FALSE)
+				 	)	
 				)
 			)
 		)
@@ -1217,12 +963,12 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(theGame setCursor: 997)
+				(= glove 1)
 				(gloveBox
 					view: 269
 					loop: 0
 					cel: 0
-					posn: 211 201
+					posn: 201 151 ;211 201
 					setPri: 14
 					init:
 					ignoreActors:
@@ -1232,7 +978,7 @@
 					view: 269
 					loop: 1
 					cel: (if (not local2) 0 else 1)
-					posn: 207 194
+					posn: 197 144 ;207 194
 					setPri: 15
 					init:
 					ignoreActors:
@@ -1241,7 +987,7 @@
 					view: 269
 					loop: 0
 					cel: 1
-					posn: 208 185
+					posn: 198 135 ;208 185
 					setPri: 15
 					init:
 					ignoreActors:
@@ -1250,7 +996,7 @@
 				(if (InRoom 37 33)
 					(businessCard
 						view: 269
-						posn: 202 182
+						posn: 192 132 ;202 182
 						setPri: 15
 						loop: 0
 						cel: 2
@@ -1259,33 +1005,27 @@
 					)
 
 				)
-				(if (not local2) (aTimer setReal: self 2))
-				(theGame setCursor: 995)
-;;;				(= glove 1)
+				(if (not local2)
+					(aTimer setReal: self 2)
+				)
 			)
-			(1 (gloveBoxDoor setCel: 1))
+			(1
+				(gloveBoxDoor setCel: 1)
+			)
 			(2
-;;;				(theGame setCursor: 997)
 				(gloveBoxDoor setCel: 0)
-;;;				(aTimer setReal: self 2)
-;;;				(theGame setCursor: 995)
-				(= glove 1)
-				
-;;;			)
-;;;			(3
-				(if (!= (cast indexOf: businessCard) -1)
+				(aTimer setReal: self 2)
+				(= glove 0)	
+			)
+			(3
+				(if (cast contains: businessCard)
 					(businessCard dispose:)
 				)
 				(registration dispose:)
-				(if (!= (cast indexOf: smallFlashLight) -1)
-					(smallFlashLight dispose:)
-				)
 				(gloveBox dispose:)
 				(gloveBoxDoor dispose:)
 
 			)
-
-
 		)
 	)
 )
