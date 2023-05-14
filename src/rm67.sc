@@ -71,7 +71,7 @@
 			(carWork
 				(cond 
 					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
-						(Print 67 67)
+;;;						(Print 67 67)
 					)
 					((== workCarLocked 1)
 						(Print 67 68)
@@ -94,7 +94,7 @@
 			(carPersonal
 				(cond 
 					((not (ego inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]))
-						(Print 67 67)
+;;;						(Print 67 67)
 					)
 					((== personalCarLocked 1)
 						(Print 67 68) ;Your car door is locked.
@@ -122,7 +122,7 @@
 	(properties)
 	
 	(method (cue)
-		(self stopUpd:)
+;;;		(self stopUpd:)
 	)
 )
 
@@ -734,6 +734,7 @@
 								(else
 									(= workCarTrunkOpened 1)
 									(unTrunk setCycle: EndLoop unTrunk)
+									
 								)
 							)
 						)(else
@@ -789,6 +790,7 @@
 																(else
 																	(= workCarTrunkOpened 0)
 																	(unTrunk setCycle: BegLoop unTrunk)
+																	;(unTrunk setCycle: EndLoop unTrunk)
 																)
 															)
 													else
@@ -821,7 +823,8 @@
 															)
 															(else
 																(= workCarTrunkOpened 0)
-																(unTrunk setCycle: BegLoop unTrunk)
+																;(unTrunk setCycle: BegLoop unTrunk)
+																(unTrunk setCycle: EndLoop unTrunk)
 															)
 														)
 													
@@ -946,6 +949,7 @@
 														(else
 															(= workCarTrunkOpened 0)
 															(unTrunk setCycle: BegLoop unTrunk)
+														;	(unTrunk setCycle: EndLoop unTrunk) OK No
 														)
 													)
 												
@@ -985,6 +989,7 @@
 								(else
 									(= workCarTrunkOpened 1)
 									(unTrunk setCycle: EndLoop unTrunk)
+								;	(unTrunk setCycle: BegLoop unTrunk)
 								)
 							)
 						)(else

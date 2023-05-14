@@ -778,14 +778,27 @@
 					(== (event claimed?) FALSE)
 					)
 ;;;					(event claimed: FALSE)
-;;;					(event claimed: TRUE)
+					(event claimed: TRUE)
 					(switch theCursor				
-;;;						(996 ;talk camera
-;;;						)
+						(107 ;badge camera
+						(if pressedBuzzer
+							(if (ego inRect: 145 99 205 108)
+								(if (ego has: iWallet)
+									(doorScript changeState: 0)
+								else
+									(LocPrint 22 57)
+								)
+							else
+								(LocPrint 22 58)
+							)
+						else
+							(LocPrint 22 59)
+						)
+						)
 						(998 ; Look
-							(event claimed: TRUE)
+							
 							(LocPrint 22 28)
-							(event claimed: FALSE)
+							
 						)
 						(else
 							(event claimed: FALSE)
