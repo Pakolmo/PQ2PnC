@@ -704,6 +704,61 @@
 							(else (Print 10 27))
 						)
 					)
+					(101 ;get more ammo, same as using gun on attendant
+						(cond 
+							((!= (ego onControl: 1) cLMAGENTA)
+								(Print 10 25)
+							)
+							(
+								(and
+									(not (ego has: 1))
+									(not bulletsInGun)
+								)
+								(Print 10 26)
+							)
+							(
+								(and
+									(not (ego has: iAmmoClips))
+									bulletsInGun
+								)
+								(if [numAmmoClips bulletsInGun]
+									(Print 10 27)
+								else
+									(Print 10 28)
+									(SolvePuzzle 2 68)
+									(= [numAmmoClips bulletsInGun] 7)
+								)
+							)
+							(
+								(and
+									(== [numAmmoClips 1] [numAmmoClips 2])
+									(== [numAmmoClips 2] 0)
+								)
+								(Print 10 29)
+								(SolvePuzzle 2 68)
+								(= [numAmmoClips 1] 7)
+								(= [numAmmoClips 2] 7)
+								(= bulletsInGun 0)
+							)
+							(
+								(or
+									(not [numAmmoClips 1])
+									(not [numAmmoClips 2])
+								)
+								(Print 10 28)
+								(SolvePuzzle 2 68)
+								(if (not [numAmmoClips bulletsInGun])
+									(= bulletsInGun 0)
+								)
+								(if (== [numAmmoClips 1] 0)
+									(= [numAmmoClips 1] 7)
+								else
+									(= [numAmmoClips 2] 7)
+								)
+							)
+							(else (Print 10 27))
+						)
+					)
 					(115 ;ear protectors, devolverselos
 						(cond 
 							((not (ego has: iEarProtectors))
@@ -715,6 +770,8 @@
 							(else
 								(Print 10 22)
 								(PutInRoom iEarProtectors)
+								(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+								(= itemIcon 900)
 							)
 						)
 					)	
@@ -1065,7 +1122,7 @@
 						)
 						(++ eventMessage_2)
 					)
-					(Printf {gunWindageScrew: %d gunElevationScrew: %d gunSightsAligned: %d} gunWindageScrew gunElevationScrew gunSightsAligned)
+					;(Printf {gunWindageScrew: %d gunElevationScrew: %d gunSightsAligned: %d} gunWindageScrew gunElevationScrew gunSightsAligned)
 					(if
 						(and
 							(<= -6 gunWindageScrew)
