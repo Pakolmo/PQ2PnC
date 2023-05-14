@@ -157,7 +157,7 @@
 			entranceTo: 2
 			facingLoop: -1
 			locked: TRUE
-			stopUpd:
+			;stopUpd:
 			view: 8
 			posn: 132 100
 			init:
@@ -1169,7 +1169,7 @@
 				(keith setMotion: MoveTo 121 134 self)
 			)
 			(2
-				(officeDoor stopUpd:)
+				;(officeDoor stopUpd:)
 				(ego setPri: 11)
 				(carDoor
 					view: 51
@@ -1269,7 +1269,7 @@
 			)
 			(3
 				(HandsOn)
-				(officeDoor stopUpd:)
+				;(officeDoor stopUpd:)
 			)
 		)
 	)

@@ -105,7 +105,7 @@
 		(self setLocales: 153)
 		(HandsOn)
 		(= gunFireState gunPROHIBITED)
-		((View new:)
+		((View new:) ;photos
 			view: 56
 			loop: 3
 			cel: 0
@@ -123,7 +123,7 @@
 			posn: 246 103
 			setPri: 6
 			init:
-			stopUpd:
+			;stopUpd:
 		)
 		((= homicideDoor (AutoDoor new:))
 			doorControl: 8192
@@ -134,7 +134,7 @@
 			posn: 77 113
 			setPri: 6
 			init:
-			stopUpd:
+			;stopUpd:
 		)
 		((= lockerRoomDoor (AutoDoor new:))
 			doorControl: 2048
@@ -145,7 +145,7 @@
 			posn: 122 105
 			setPri: 2
 			init:
-			stopUpd:
+			;stopUpd:
 		)
 		((= narcoticsDoor (AutoDoor new:))
 			doorControl: 16384
@@ -156,7 +156,7 @@
 			posn: 46 121
 			setPri: 7
 			init:
-			stopUpd:
+			;stopUpd:
 		)
 		(bigJon
 			view: 57
@@ -857,7 +857,9 @@
 				(RedrawCast)
 				(cond 
 					((cast contains: mrG)
-						(LocPrint 2 31)
+						(if (ego inRect: 165 105 200 112)
+							(LocPrint 2 31)
+						)
 					)
 					((or (<= gamePhase 1) local8)
 						(switch (Random 0 3)
@@ -1174,15 +1176,7 @@
 				)
 				(= local6 0)
 			)
-		
-		
-		
-		
-		
-		
-		
-)
-		
+		)
 	)
 )
 
@@ -1258,14 +1252,7 @@
 					)
 				)
 			)
-		)
-
-
-			
-			
-			
-			
-					
+		)					
 	)
 )
 

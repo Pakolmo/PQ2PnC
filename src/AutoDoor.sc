@@ -30,7 +30,10 @@
 			)
 		)
 		(super init:)
-		(self stopUpd: ignoreActors:)
+		(self
+			;stopUpd: 
+			ignoreActors:
+		)
 	)
 	
 	(method (doit)
@@ -47,7 +50,7 @@
 	)
 	
 	(method (cue)
-		(self stopUpd:)
+		;(self stopUpd:)
 		(= doorState
 			(if (== doorState doorClosing)
 				doorClosed
