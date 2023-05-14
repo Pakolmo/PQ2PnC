@@ -184,6 +184,7 @@
 			(3
 				(HandsOff)
 				(User canInput: 1)
+				
 				(= diverState 7)
 				(Print 60 2 #at -1 70 #draw)
 				(Print 60 3)
@@ -192,10 +193,11 @@
 				)
 				(= showedDivingCertificate 1)
 				(= local16 60)
+				(= cycles 1) ;add
 			)
 			(4
-				(Print 60 5 #at -1 70)
-				(= local16 60)
+				(Print 60 5 #at -1 70) ;"^Bueno? Si la tienes, ens+}amela." Dice impacientemente el agente Moore.
+				(= local16 600) ;60
 			)
 			(5
 				(= showedDivingCertificate 0)
@@ -1004,7 +1006,11 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(107 ;WALLET
-							
+						(if showedDivingCertificate
+							(Print 60 26)
+						else
+							(Print 60 27)
+						)
 						)	
 						(996 ;Talk
 						(if (> diverState 5)

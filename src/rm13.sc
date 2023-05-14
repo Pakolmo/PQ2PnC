@@ -544,6 +544,7 @@
 		(if (== prevRoomNum 166)
 			(drive)	
 		)
+		(Printf {gamePhase: %d} gamePhase)
 	)
 	
 	(method (handleEvent event)

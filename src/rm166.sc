@@ -143,14 +143,14 @@
 			cel: 0
 			init:
 		)
-		(if (Btst fPnCHideWestRose)
+;;;		(if (Btst fPnCHideWestRose)
 			(locWestRose
 				view: 166
 				loop: 0
 				cel: 0
 				init:
 			)
-		)		
+;;;		)		
 	)
 	
 	(method (dispose)

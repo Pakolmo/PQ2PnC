@@ -25,13 +25,15 @@
 	vest
 	wetSuit
 	goggles
-	fins
+	finsYellow
+	finsBlack
 	tank1
 	tank2
 	tank3
 	tank4
 	askedWhichTank
 	local113
+	OxygenOK
 )
 (instance rm66 of Room
 	(properties
@@ -102,7 +104,7 @@
 			init:
 			stopUpd:
 		)
-		((= fins (View new:))
+		((= finsYellow (View new:))
 			view: 96
 			loop: 1
 			cel: 2
@@ -111,13 +113,14 @@
 			init:
 			stopUpd:
 		)
-		((View new:)
+		((= finsBlack (View new:))
 			view: 96
 			loop: 1
 			cel: 1
 			posn: 194 144
 			init:
-			addToPic:
+		;	addToPic:
+			stopUpd:
 		)
 		((= tank4 (View new:))
 			view: 96
@@ -331,7 +334,7 @@
 								)
 							)
 							((Said 'get/fin<black') (Print 66 21))
-							(else (Print 66 22 #at -1 145) (fins hide:) (Bset 5))
+							(else (Print 66 22 #at -1 145) (finsBlack hide:) (Bset 5))
 						)
 						(event claimed: 1)
 					)
@@ -394,6 +397,413 @@
 				)
 			)
 		)
+		
+		(cond		
+										
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)	
+				
+				(if (== theCursor 999) ;use walk to close.
+				(rm66Script changeState: 1)
+				)
+				(if (== theCursor 998) ;use look arround.
+						(Print 66 3 #at -1 145)
+								(Print
+									(Format
+										@temp1
+										66
+										4
+										(if (Btst 4) {} else {a wet suit,})
+										(if (Btst 6) {} else {a weight belt,})
+										(if (Btst 7) {} else {a bouyancy control vest,})
+										(if (Btst 8) {} else {a scuba mask,})
+									)
+									#at
+									-1
+									11
+								)
+				)				
+			(if
+
+				(and
+							(ClickedOnObj tank4 (event x?) (event y?)) ;vest
+							(cast contains: tank4)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(Print 66 5 #at -1 145)
+								(Print 66 6)
+						)	
+						(995 ;take	
+						(tank4 startUpd: cel: 4)
+						(Print 66 17 #at -1 140 #draw)
+						(tank4 cel: 0 stopUpd:)
+						
+
+						
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+					
+
+
+				(if
+					(and
+						(ClickedInRect 262 313 62 111 event) ;oxygen
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+
+						(995 ;take	
+							(if (== gotTank 3)
+								(airScript changeState: 1)
+
+							)
+							(if (== gotTank 2)
+								(airScript changeState: 1)
+
+							)
+							(if (== gotTank 1)
+								(airScript changeState: 1)
+
+							)
+																					
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+					
+				
+
+
+			(if
+
+				(and
+							(ClickedOnObj tank3 (event x?) (event y?)) ;vest
+							(cast contains: tank3)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(Print 66 5 #at -1 145)
+								(Print 66 6)
+						)	
+						(995 ;take	
+						(if (Btst 3)
+							(if (== gotTank 3)
+								(Print 66 14 #at -1 145)
+							else
+								(Print 66 15 #at -1 145)
+							)
+						else
+							(Print 66 16 #at -1 145)
+							(Bset 3)
+							(tank3 setCel: 4)
+							(= gotTank 3)
+						)
+
+						(if (Btst 3)
+							(airScript changeState: 0)
+						else
+							(Print 66 2 #at -1 145)
+						)						
+						
+						
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+					
+		
+
+			(if
+
+				(and
+							(ClickedOnObj tank2 (event x?) (event y?)) ;vest
+							(cast contains: tank2)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(Print 66 5 #at -1 145)
+								(Print 66 6)
+						)	
+						(995 ;take	
+						(if (Btst 3)
+							(if (== gotTank 2)
+								(Print 66 14 #at -1 145)
+							else
+								(Print 66 15 #at -1 145)
+							)
+						else
+							(Print 66 16 #at -1 145)
+							(Bset 3)
+							(tank2 setCel: 4)
+							(= gotTank 2)
+						)
+						(if (Btst 3)
+							(airScript changeState: 0)
+						else
+							(Print 66 2 #at -1 145)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+					
+		
+	
+		
+			(if
+
+				(and
+							(ClickedOnObj tank1 (event x?) (event y?)) ;vest
+							(cast contains: tank1)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(Print 66 5 #at -1 145)
+								(Print 66 6)
+						)	
+						(995 ;take	
+						(if (Btst 3)
+							(if (== gotTank 1)
+								(Print 66 14 #at -1 145)
+							else
+								(Print 66 15 #at -1 145)
+							)
+						else
+							(Print 66 16 #at -1 145)
+							(Bset 3)
+							(tank1 setCel: 4)
+							(= gotTank 1)
+						)
+												(if (Btst 3)
+							(airScript changeState: 0)
+						else
+							(Print 66 2 #at -1 145)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+					
+		
+		
+		
+		
+		
+		
+				
+			(if
+
+				(and
+							(ClickedOnObj vest (event x?) (event y?)) ;vest
+							(cast contains: vest)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 66 8 #at -1 145)
+						)	
+						(995 ;take	
+						(if (Btst 7)
+							(Print 66 18 #at -1 145)
+						else
+							(Print 66 25 #at -1 145)
+							(vest hide:)
+							(Bset 7)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+							
+				
+						
+				
+				
+			(if
+
+				(and
+							(ClickedOnObj wetSuit (event x?) (event y?)) ;suit
+							(cast contains: wetSuit)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 66 11)
+						)	
+						(995 ;take	
+						(if (Btst 4)
+							(Print 66 23 #at -1 145)
+						else
+							(Print 66 24 #at -1 145)
+							(wetSuit hide:)
+							(Bset 4)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+							
+				
+				
+				
+				
+			(if
+
+				(and
+							(ClickedOnObj goggles (event x?) (event y?)) ;mask
+							(cast contains: goggles)
+							(== (event claimed?) FALSE)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(Print 66 10 #at -1 10)
+						)
+						(995 ;take	
+
+						(if (Btst 8)
+							(Print 66 18 #at -1 145)
+						else
+							(Print 66 20 #at -1 145)
+							(goggles hide:)
+							(Bset 8)
+						)
+
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)					
+				
+						
+			(if
+
+				(and
+							(ClickedOnObj finsYellow (event x?) (event y?))
+							(cast contains: finsYellow)
+							(== (event claimed?) FALSE)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(Print 66 9 #at -1 145)
+						)
+						
+						(995 ;take	
+
+							(if (Btst 5)
+								(Print 66 18 #at -1 145)
+							else
+								(Print 66 22 #at -1 145)
+								(finsYellow hide:)
+								(Bset 5)
+							)
+
+
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)					
+				
+				
+				
+				
+			(if
+
+				(and
+							(ClickedOnObj finsBlack (event x?) (event y?))
+							(cast contains: finsBlack)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 66 9 #at -1 145)
+						)	
+						(995 ;take	
+
+								(Print 66 21)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)				
+				
+				
+			(if
+
+				(and
+							(ClickedOnObj belt (event x?) (event y?))
+							(cast contains: belt)
+				)		
+		
+							(event claimed: TRUE)
+					(switch theCursor	
+						(995 ;take	
+			
+							(if (Btst 6)
+								(Print 66 18 #at -1 145)
+							else
+								(Print 66 19 #at -1 145)
+								(belt hide:)
+								(Bset 6)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+			)
+					
+		
+				)
+		
+		)
+		
 	)
 )
 
@@ -406,6 +816,8 @@
 				(if (== correctScubaTank gotTank)
 					(= scubaTankOxygen 2200)
 					(SolvePuzzle 2 74)
+					(= OxygenOK 1)
+					(airScript changeState: 1) ;add
 				else
 					(= scubaTankOxygen (+ 243 (* 13 gotTank)))
 				)
@@ -421,9 +833,29 @@
 					dsBACKGROUND
 					1
 				)
-				(= local113 300)
+			;	(= local113 300)
+				
+				
+				
+				
+				
 			)
 			(1
+				(if (!= correctScubaTank gotTank)
+						(if gotTank
+							(switch gotTank
+								(1 (tank1 cel: 1 forceUpd:))
+								(2 (tank2 cel: 2 forceUpd:))
+								(3 (tank3 cel: 3 forceUpd:))
+							)
+							(Print 66 28 #at -1 145)
+							(= gotTank 0)
+							(Bclr 3)
+							(= local113 1)
+;;;						else
+;;;							(Print 66 29 #at -1 145)
+						)
+				)
 				(DrawCel 161 0 2 262 62 15)
 				(Display
 					@oxygenStr
