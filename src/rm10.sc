@@ -1065,6 +1065,7 @@
 						)
 						(++ eventMessage_2)
 					)
+					(Printf {gunWindageScrew: %d gunElevationScrew: %d gunSightsAligned: %d} gunWindageScrew gunElevationScrew gunSightsAligned)
 					(if
 						(and
 							(<= -6 gunWindageScrew)
@@ -1631,8 +1632,8 @@
 							)
 							((not inBooth)
 								;(Printf {windage: %d elevation: %d} gunWindageScrew gunElevationScrew)
-								(= mX (+ (event x?) 6)) ;for use in changeState 20 below
-								(= mY (+ (event y?) 73))
+								(= mX (+ (event x?) 7)) ;for use in State 20
+								(= mY (+ (event y?) 78))
 								;(Printf {mX: %d mY: %d} mX mY)
 								;(= mX (+ mX (mod gunWindageScrew 6)))
 								;(= mY (- mY (mod gunElevationScrew 6)))

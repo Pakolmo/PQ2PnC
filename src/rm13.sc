@@ -1249,22 +1249,29 @@
 		)
 		
 		(cond
-					(						
+			(						
 				(and
 					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-							
+					(not (& (event modifiers?) emRIGHT_BUTTON))			
 				)
-				
-
 				(if (ClickedInRect 140 180 136 143 event) ;radio
-					(event claimed: TRUE)
-					(switch theCursor				
-						(995 ;use	
-
+					(if
+						(or 
+							(== theCursor 995) ;hand
+							(== theCursor 996) ;mouth
+						)
 						(cond 
-							((and (not (Btst 27)) global127) (sequencer changeState: 63))
-							(bainsInCoveTimer (= bainsInCoveTimer 0) (sequencer changeState: 12))
+							(
+								(and
+									(not (Btst 27))
+									global127
+								)
+								(sequencer changeState: 63)
+							)
+							(bainsInCoveTimer
+								(= bainsInCoveTimer 0)
+								(sequencer changeState: 12)
+							)
 							(
 								(and
 									removedBodyFromRiver
@@ -1283,20 +1290,31 @@
 								(LocPrint 1 13 43)
 							)
 							(
-
+								(and
+;;;									(or
+;;;										(Said '/warrant')
+;;;										(Said '/dispatch/warrant')
+;;;										(Said '/dispatch[/!*]')
+;;;										(Said '[/!*]')
+;;;									)
 									(Btst fCanGetWarrant)
 									(== windshieldOverlay 40)
-								
+								)
 								(Bclr fCanGetWarrant)
 								(SolvePuzzle 2)
 								(= global170 200)
 								(sequencer changeState: 101)
 							)
 							(
-
+								(and
+;;;									(or
+;;;										(Said '/dispatch/[!*]')
+;;;										(Said '/backup,swat,team')
+;;;										(Said '/dispatch/backup,swat,team')
+;;;									)
 									(Btst fCanCallForBackup)
 									(== windshieldOverlay 40)
-								
+								)
 								(Bclr fCanCallForBackup)
 								(SolvePuzzle 2)
 								(= global171 200)
@@ -1348,36 +1366,8 @@
 							(else (LocPrint 1 13 46))
 						)
 						(event claimed: 1)
-						
-						
-											
-						(if bainsInCoveTimer
-							(= outsideRoom 14)
-							(sequencer changeState: 11)
-							(= local107 0)
-							(= local108 62)
-												)
-					
-						(if local114
-							(= outsideRoom 61)
-							(sequencer changeState: 34)
-							(= local107 122)
-							(= local108 12)
-						)
-				
-						
-						
-						
-						)
-						
-						(else
-							(event claimed: FALSE)
-						)
-					)
+					)		
 				)
-
-
-				
 ;;;				(if (ClickedInRect 99 117 108 119 event) ;speedometer
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor				
