@@ -37,6 +37,9 @@
 		)
 		(ego setStep: 3 2)
 		(curRoom newRoom: thePrevRoomNum)
+		(if (== theCursor 991) ;reset cursor from exit to walk
+			(theGame setCursor: 999 (HaveMouse))
+		)
 	else
 		(Print 33 1)
 	)
@@ -813,6 +816,17 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
+			(if
+				(and
+					(ClickedInRect 0 320 26 190 event) ;exit car
+					(or
+						(== theCursor 999) ;walk
+						(== theCursor 991) ;exit
+					)
+				)
+				(event claimed: TRUE)
+				(ExitPersonalCar)
+			)
 			(if (ClickedOnObj wheel (event x?) (event y?))
 				(event claimed: TRUE)
 				(switch theCursor				
@@ -937,12 +951,6 @@
 				)
 				(event claimed: TRUE)
 				(switch theCursor
-					(999 ;walk to exit
-						(ExitPersonalCar)
-					)
-					(991 ;exit
-						(ExitPersonalCar)
-					)
 					(998
 						(Print 33 52) ;look around
 					)
