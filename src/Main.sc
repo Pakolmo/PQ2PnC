@@ -352,7 +352,7 @@
 		driveDest
 		driveFix
 		fieldKitToggle
-		
+		gunDrawAllowed		
 )
 
 (procedure (EgoDead)
@@ -1125,6 +1125,17 @@
 				(== curRoomNum 68)
 			)
 			(curRoom setRegions: 950)
+		)
+		(if ;prevent drawing gun from PnCMenu
+			(or
+				(== curRoomNum 7) ;file cabinet
+				(== curRoomNum 13) ;unmarked car
+				(== curRoomNum 33) ;personal car
+				(== curRoomNum 166) ;driving map
+			)
+			(= gunDrawAllowed 0) ;gun not allowed
+		else
+			(= gunDrawAllowed 1)
 		)					
 		(Load SOUND 6)
 	)

@@ -25,7 +25,7 @@
 	wallet
 	whereIsKeith
 	egoSitting
-	local4 ;which captain/keith comment to print based on gamePhaze?
+	local4 ;which captain/keith comment to print based on gamePhase?
 	onPhone
 	closedDrawer
 	captainCanTalk
@@ -48,19 +48,8 @@
 	(properties)
 )
 (instance keith of Prop
-;;;	(properties
-;;;		y 79
-;;;		x 205
-;;;	;	view 200
-;;;	;	cel 1
-;;;	;	loop 6
-;;;	;	signal ignrAct
-;;;	)
-;;;	
-;;;	
 )
  
-
 (instance blab of Prop
 	(properties)
 )
@@ -98,10 +87,8 @@
 		(Load VIEW 65)
 		(Load VIEW 62)
 		(Load VIEW 3)
-		;(addToPics add: wallet)
 		(= gunFireState gunPROHIBITED)
 		(NormalEgo)
-
 		(if
 			(and
 				(< gamePhase 1)
@@ -131,7 +118,7 @@
 				(
 					(and
 						global127
-						(not (Btst fReportedMarieMissingToCaptain)) ;fFlag31
+						(not (Btst fReportedMarieMissingToCaptain))
 					)
 					8
 				)
@@ -141,7 +128,7 @@
 				(global162
 					9
 				)
-				((== gamePhase 0) ;keith and captain mention bains exscape
+				((== gamePhase 0)
 					1
 				)
 				((== prevRoomNum 7)
@@ -176,11 +163,9 @@
 				(ego posn: 120 162 init: setMotion: MoveTo 120 10)
 				(User prevDir: 1)
 			)
-			(33 ;testing fist room
-				
-					(curRoom setRegions: 950)
-							(ego posn: 120 162 init: setMotion: MoveTo 120 10)
-				;(User prevDir: 1)
+			(33 
+				(ego posn: 120 162 init: setMotion: MoveTo 120 10)
+				(User prevDir: 1)
 			)	
 			(7
 				(ego posn: 238 148 loop: 3 init:)
@@ -272,8 +257,8 @@
 							talkedToCaptain
 							(== isOnDuty 0)
 						)
-						(cond 
-							((== local4 2)) ;returns 2?
+						(cond ;sets global162 and local4
+							((== local4 2))
 							((== local4 1))
 							((== local4 6))
 							((== local4 8))
@@ -313,8 +298,8 @@
 					(== local4 8)
 					(not (Btst fReportedMarieMissingToCaptain))
 				)
-					(captainScript changeState: 25)
-				)
+				(captainScript changeState: 25)
+			)
 		)
 		(curRoom setRegions: 950)
 		(super doit:)
@@ -1072,7 +1057,7 @@
 					)
 					((Said 'open/drawer,desk')
 						(if egoSitting
-							(if (not (Btst fEgoDeskLocked)) ;renamed from fEgoDeskUnlocked
+							(if (not (Btst fEgoDeskLocked))
 								(self changeState: 1)
 							else
 								(Print 4 86)
@@ -1168,16 +1153,13 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 							
 				)
-				
-
-				
 				(if (ClickedInRect 148 173 115 133 event) ;desk
 					(event claimed: TRUE)
 					(switch theCursor				
 						(995 ; unlock drawer
 							(User canControl: FALSE)
 							(if egoSitting
-								(if (not (Btst fEgoDeskLocked)) ;renamed from fEgoDeskUnlocked
+								(if (not (Btst fEgoDeskLocked))
 									(self changeState: 1)
 								else
 									(Print 4 86)
@@ -1238,8 +1220,6 @@
 						)
 					)		
 				)	
-
-				
 				(if (and 
 						(ClickedInRect 192 207 124 135 event) ;clicked on computer
 						(== (event claimed?) FALSE)
@@ -1247,38 +1227,32 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 ;look
-							
-						(if
-							(or
-								(== (ego onControl:) cYELLOW) ;16384
-								(== (ego onControl:) -16384) ;not needed?
-							)
+							(if
+								(or
+									(== (ego onControl:) cYELLOW) ;16384
+									(== (ego onControl:) -16384) ;not needed?
+								)
 								(curRoom newRoom: 8)
-						else
-							(NotClose)
-						)
-						(event claimed: TRUE)
+							else
+								(NotClose)
+							)
 						)
 						(995 ;use
-						(if
-							(or
-								(== (ego onControl:) cYELLOW) ;16384
-								(== (ego onControl:) -16384) ;not needed?
+							(if
+								(or
+									(== (ego onControl:) cYELLOW) ;16384
+									(== (ego onControl:) -16384) ;not needed?
+								)
+									(curRoom newRoom: 8)
+							else
+								(NotClose)
 							)
-								(curRoom newRoom: 8)
-						else
-							(NotClose)
-						)
-					)		
+						)		
 						(else
-								(event claimed: FALSE)
+							(event claimed: FALSE)
 						)
-						
 					)
-				)			
-							
-							
-							
+				)						
 				(if (ClickedInRect 244 269 94 140 event) ;file cabinet
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -1310,10 +1284,9 @@
 						(998
 							(Print 4 40)
 							(Print 4 41)
-							)
-					
+						)
 						(else
-								(event claimed: FALSE)
+							(event claimed: FALSE)
 						)
 					)
 					
@@ -1323,63 +1296,56 @@
 					(switch theCursor	
 						(998 
 							(if (ego inRect: 90 117 142 132)
-							(Print 4 65)
-						)
+								(Print 4 65)
+							)
 						)			
 						(996 ;talk blab
 							(cond 
-							((ego inRect: 90 117 137 132)
-								(Print 4 13) ;"Jim is a muscular, quiet man. He has nothing to say to you."
-							)
-
-							(else
-								(Print 4 15) ;"Get closer to him."
+								((ego inRect: 90 117 137 132)
+									(Print 4 13) ;"Jim is a muscular, quiet man. He has nothing to say to you."
+								)
+								(else
+									(Print 4 15) ;"Get closer to him."
+								)
 							)
 						)
-							)
 						(else
-								(event claimed: FALSE)
+							(event claimed: FALSE)
 						)
-						
 					)
 				)
-				
 				(if (ClickedInRect 82 105 117 133 event);desk captain papers
 					(event claimed: TRUE)
 					(switch theCursor				
 						(998 ;look
-						(cond 
-							((ego inRect: 122 117 168 124)
-								(Print 4 7)
-								(Print 4 8)
-								(SolvePuzzle 1 123)
-							)
-							(
-								(and
-									(ego inRect: 70 128 99 140)
-									(== (ego loop?) 1)
+							(cond 
+								((ego inRect: 122 117 168 124)
+									(Print 4 7)
+									(Print 4 8)
+									(SolvePuzzle 1 123)
 								)
-									(Print 4 9)
+								(
+									(and
+										(ego inRect: 70 128 99 140)
+										(== (ego loop?) 1)
+									)
+										(Print 4 9)
+								)
+								((ego inRect: 71 130 124 157)
+									(Print 4 10)
+									(Print 4 11)
+									(SolvePuzzle 1 124)
+								)
+								(else
+									(event claimed: 0)
+								)
 							)
-							((ego inRect: 71 130 124 157)
-								(Print 4 10)
-								(Print 4 11)
-								(SolvePuzzle 1 124)
-							)
-							(else
-								(event claimed: 0)
-							)
-						)
 						)
 						(else
-								(event claimed: FALSE)
-						)
-						
+							(event claimed: FALSE)
+						)	
 					)
-				)
-	
-				
-				
+				)	
 				(if (ClickedOnObj captain (event x?) (event y?))	;captain "hall".
 					(event claimed: TRUE)
 					(switch theCursor
@@ -1387,19 +1353,17 @@
 							(Print 4 64) ;"Captain Fletcher Hall is a very large man with an over-powering presence."
 						)				
 						(996 ;talk captain
-						(if (!= isOnDuty 1)
-							(if (== (captain loop?) 3)
-								(Print 4 17)
+							(if (!= isOnDuty 1)
+								(if (== (captain loop?) 3)
+									(Print 4 17)
+								else
+									(Print 4 18)
+								)
 							else
-								(Print 4 18)
+								(captainScript changeState: 14)
 							)
-						else
-							(captainScript changeState: 14)
 						)
-						)
-
-						(else
-							
+						(else	
 							(event claimed: FALSE)
 						)
 					)		
@@ -1514,10 +1478,10 @@
 							else
 								(Print 4 67) ;63
 							)
-						)(else
+						)
+						(else
 							(event claimed: FALSE)
-						 )
-							
+						)	
 					)
 				)
 				(if (ClickedInRect 127 168 77 98 event) ;Bulletin board
@@ -1581,7 +1545,7 @@
 						)
 					)
 				)
-				(if (ClickedInRect 130 156 105 111 event) ;Keys on wall
+				(if (ClickedInRect 130 156 104 111 event) ;Keys on wall
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -1619,16 +1583,12 @@
 							(event claimed: FALSE)		
 						)
 					)
-				)
-				
-		(if (and 
+				)	
+				(if
+					(and 
 						(ClickedOnObj keith (event x?) (event y?)) ;clicked on keith
-						(== (event claimed?) FALSE))
-						
-		
-				
-				
-;;;				(if (ClickedOnObj keith (event x?) (event y?))	
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor			
 						(998
@@ -1651,19 +1611,13 @@
 								(Print 4 23)
 							)	
 						)
-						(995 ;
+						(995
 							(switch (Random 0 1)
 								(0
 									(Print 4 24)
 								)
 								(1 						
 									(cond 
-;;;										((ego inRect: 70 131 122 156) ;Not clicked on Captain
-;;;											(Print 4 12) ;"Captain Hall doesn't like to be interrupted."
-;;;										)
-;;;										((ego inRect: 90 117 137 132) Not clicked on jim.
-;;;											(Print 4 13) ;"Jim is a muscular, quiet man. He has nothing to say to you."
-;;;										)
 										((< (ego distanceTo: keith) 46)
 											(Print 4 14)
 										)
@@ -1687,21 +1641,25 @@
 (instance drawerScript of Script
 	(properties)
 	
+	(method (doit)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)	
+	)
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-;;;				(cast eachElementDo: #hide)
 				(captain hide:)
 				(keith hide:)
 				(ego hide:)
-
-(blab hide:)
-(carKey hide:)
-(smoke hide:)
-(rambo hide:)
-(phone hide:)					
+				(blab hide:)
+				(carKey hide:)
+				(smoke hide:)
+				(rambo hide:)
+				(phone hide:)					
 				(curRoom drawPic: 12)
-				(curRoom setRegions: 950)
+				(= gunDrawAllowed 0)
 				(if (InRoom iThankYouLetter 12)
 					((= marieLetter (View new:))
 						view: 59
@@ -1829,12 +1787,16 @@
 			)
 		)
 		(cond		
-						
-			(	(and
+			(
+				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (== theCursor 999) ;use walk to close.
+				(if
+					(or 
+						(== theCursor 991) ;exit to close
+						(== theCursor 999) ;or walk just in case.
+					)
 					(curRoom drawPic: (curRoom picture?))
 					(cast eachElementDo: #dispose)
 					(ego dispose:)
@@ -1856,17 +1818,17 @@
 					(rambo delete:)
 					(phone delete:)
 					(carKey delete:)
-(marieLetter delete:)
-(wallet delete:)
+					(marieLetter delete:)
+					(wallet delete:)
 
 					(ego init:)
+					(= gunDrawAllowed 0)
 					(= closedDrawer 1)
 					(rm4 setScript: rm4Script)
 					(rm4Script changeState: 3)
 					(= theCursor 999)
 					(theGame setCursor: 999 (HaveMouse))
 				)
-				
 				(if (ClickedOnObj marieLetter (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor				
@@ -1878,14 +1840,14 @@
 							)
 						)
 						(995 ;hand
-						(if (InRoom iThankYouLetter 12)
-							(marieLetter dispose:)
-							(Print 4 83 #draw)
-							(ego get: iThankYouLetter)
-							(SolvePuzzle 1 106)
-						else
-							(Print 4 97)
-						)
+							(if (InRoom iThankYouLetter 12)
+								(marieLetter dispose:)
+								(Print 4 83 #draw)
+								(ego get: iThankYouLetter)
+								(SolvePuzzle 1 106)
+							else
+								(Print 4 97)
+							)
 						)
 						(else
 							(event claimed: FALSE)
@@ -1912,9 +1874,9 @@
 				)
 			)
 		)
-		)
-	)		
-;;;)
+	)	
+)		
+
 
 (instance captainScript of Script
 	(properties)
@@ -2205,25 +2167,4 @@
 			)
 		)
 	)
-)
-;;;(instance wallet of View
-;;;	(properties
-;;;						view 59
-;;;						loop 0
-;;;						cel 0
-;;;						x 105 
-;;;						y 90
-;;;
-;;;
-;;;		
-;;;		
-;;;		
-;;;	)
-;;;				
-;;;	
-;;;	(method (init)
-;;;		(super init:)
-;;;	(self ignoreActors: stopUpd:)
-;;;	)
-;;;)
-;;;					
+)				
