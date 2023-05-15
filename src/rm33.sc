@@ -920,7 +920,9 @@
 						(Print {It's the glove box.})
 					)
 					(995 ; hand close box
-						(= global137 0)		
+						(= glove 0)
+						(= global137 0)	
+						(ego setScript: gloveBoxScript)	
 						(gloveBoxScript changeState: 2)
 					)
 					(else
@@ -931,6 +933,7 @@
 			(if
 				(and
 					(ClickedInRect 146 175 136 150 event) ;Glove box area
+					(== (event claimed?) FALSE)
 					(== glove 0)	
 				)
 				(if ;open glove box with look or hand
@@ -938,9 +941,11 @@
 						(== theCursor 998)
 						(== theCursor 995)
 					)
+					(= glove 1)
 					(event claimed: TRUE)
 					(= global137 1)
 					(= local2 0)
+					(ego setScript: gloveBoxScript)	
 					(gloveBoxScript changeState: 0)
 				)
 			)										
@@ -971,7 +976,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(= glove 1)
+				(HandsOff)
 				(gloveBox
 					view: 269
 					loop: 0
@@ -1013,17 +1018,21 @@
 					)
 
 				)
-				(if (not local2)
-					(aTimer setReal: self 2)
-				)
+;;;				(if (not local2)
+;;;					(aTimer setReal: self 2)
+;;;				)
+				(= seconds 2)
 			)
 			(1
 				(gloveBoxDoor setCel: 1)
+				(HandsOn)
+				(self dispose:)
 			)
 			(2
+				(HandsOff)
 				(gloveBoxDoor setCel: 0)
-				(aTimer setReal: self 2)
-				(= glove 0)	
+				;(aTimer setReal: self 2)
+				(= seconds 2)
 			)
 			(3
 				(if (cast contains: businessCard)
@@ -1032,7 +1041,8 @@
 				(registration dispose:)
 				(gloveBox dispose:)
 				(gloveBoxDoor dispose:)
-
+				(HandsOn)
+				(self dispose:)
 			)
 		)
 	)

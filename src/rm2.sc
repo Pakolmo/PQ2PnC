@@ -793,6 +793,8 @@
 									(theFieldKit dispose:)
 								)
 								(PutInRoom iFieldKit)
+								(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+								(= itemIcon 900)
 							)
 							(else
 								(Print 2 30)

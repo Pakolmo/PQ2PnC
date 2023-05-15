@@ -834,6 +834,8 @@
 						(995 ;hand
 							(if (ego inRect: 264 120 320 145) ;near personal car
 								(EnterCar)
+							else 
+								(NotClose)
 							)
 						)
 						(else 
