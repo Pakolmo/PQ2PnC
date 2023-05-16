@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 29)
-(include sci.sh)
+;(include sci.sh)
+(include game.sh)
 (use Main)
 (use Intrface)
 (use AutoDoor)
@@ -39,34 +40,42 @@
 (procedure (localproc_0ef8)
 	(return
 		(switch currentCar
-			(13 ;13
+			(carWork
 				(cond 
-					(
-						(not
-							(ego
-								inRect: [local10 0] [local10 1] [local10 2] [local10 3]
-							)
-						)
+					((not (ego inRect: [local10 0] [local10 1] [local10 2] [local10 3]))
 						(localproc_005a 29 44)
 					)
-					(workCarLocked (localproc_005a 29 45) (return 0))
-					(workCarTrunkOpened (localproc_005a 29 46) (return 0))
-					((ego has: 10) (localproc_005a 29 47) (return 0))
-					(else (carScript changeState: 4) (return 1))
+					(workCarLocked
+						(localproc_005a 29 45)
+						(return 0)
+					)
+					(workCarTrunkOpened
+						(localproc_005a 29 46)
+						(return 0)
+					)
+					((ego has: iFieldKit)
+						(localproc_005a 29 47)
+						(return 0)
+					)
+					(else
+						(carScript changeState: 4)
+						(return 1)
+					)
 				)
 			)
-			(33 ;33
+			(carPersonal
 				(cond 
 					(
 						(not
-							(ego
-								inRect: [local10 0] [local10 1] [local10 2] [local10 3]
-							)
-						)
+							(ego inRect: [local10 0] [local10 1] [local10 2] [local10 3]))
 						(localproc_005a 29 44)
 					)
-					(personalCarLocked (localproc_005a 29 45))
-					(else (carScript changeState: 4))
+					(personalCarLocked
+						(localproc_005a 29 45)
+					)
+					(else
+						(carScript changeState: 4)
+					)
 				)
 			)
 		)
@@ -90,12 +99,12 @@
 		(= local6
 			(if (== prevRoomNum 33) else (== prevRoomNum 13))
 		)
-		(Load rsVIEW 0)
-		(Load rsVIEW 20)
-		(Load rsVIEW 54)
-		(Load rsVIEW 51)
-		(Load rsVIEW 265)
-		(Load rsVIEW 75)
+		(Load VIEW 0)
+		(Load VIEW 20)
+		(Load VIEW 54)
+		(Load VIEW 51)
+		(Load VIEW 265)
+		(Load VIEW 75)
 		(if local6 (HandsOff) else (HandsOn))
 		(if (== currentCar 13)
 			(= [local10 0] 32)
@@ -117,7 +126,7 @@
 		(= local8 100)
 		(= local9 44)
 		(= local15 30)
-		((View new:)
+		((View new:) ;ARNIES
 			view: 265
 			loop: 1
 			cel: 0
@@ -128,12 +137,12 @@
 		((View new:)
 			view: 265
 			loop: 1
-			cel: (if local16 4 else 1)
+			cel: (if local16 4 else 1) ;CLOSED or OPEN sign
 			posn: 225 86
 			init:
 			addToPic:
 		)
-		((View new:)
+		((View new:) ;VISA credit card sign
 			view: 265
 			loop: 1
 			cel: 2
@@ -141,7 +150,7 @@
 			init:
 			addToPic:
 		)
-		((View new:)
+		((View new:) ;Mastercard credit card sign
 			view: 265
 			loop: 1
 			cel: 3
@@ -150,7 +159,7 @@
 			addToPic:
 		)
 		(if (not local16)
-			((View new:)
+			((View new:) ;RED car
 				view: 54
 				loop: 0
 				cel: 2
@@ -158,7 +167,7 @@
 				init:
 				addToPic:
 			)
-			((View new:)
+			((View new:) ;GREY car facing right
 				view: 75
 				loop: 2
 				cel: 1
@@ -166,7 +175,7 @@
 				init:
 				addToPic:
 			)
-			((View new:)
+			((View new:) ;YELLOW car facing right
 				view: 75
 				loop: 2
 				cel: 2
@@ -175,7 +184,7 @@
 				addToPic:
 			)
 		)
-		((View new:)
+		((View new:) ;baricade
 			view: 265
 			posn: 28 128
 			loop: 2
@@ -183,7 +192,7 @@
 			init:
 			addToPic:
 		)
-		((Prop new:)
+		((Prop new:) ;baricade lights
 			view: 265
 			loop: 3
 			posn: 28 103
@@ -209,9 +218,7 @@
 			(= local6 0)
 			(HandsOn)
 		)
-		((= newAct (Actor new:))
-;;;		((= ourCar (Actor new:))
-;;;		(ourCar
+		(ourCar
 			view: 54
 			setStep: 3 3
 			setLoop: 0
@@ -300,9 +307,9 @@
 	)
 	
 	(method (handleEvent event)
-		
 		(if (event claimed?)
-		(return)		
+			(return)
+		)		
 		(switch (event type?)
 			(evSAID
 				(cond 
@@ -519,91 +526,72 @@
 					)
 				)
 			)
-
-;;;		)
-				
-;;;
-;;;			(cond						
-				(
-					(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-					
-				)		
-	
-
-				(if
-
-;;;						(and
-							(ClickedInRect 12 99 166 180 event)
-;;;							(== currentCar 33) ;carPersonal
-;;;						)
-
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look			
-							(localproc_005a 29 4)
-						)
-						(else
-							(event claimed: FALSE)
-						)
+		)			
+		(if						
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))	
+			)
+			(if ;clicked on personal car
+				(and
+					(ClickedOnObj ourCar (event x?) (event y?))
+					(== currentCar carPersonal)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look			
+						(localproc_005a 29 4)
+					)
+					(else
+						(event claimed: FALSE)
 					)
 				)
-		
-		
-				(if
-
-						(and
-							(ClickedInRect 12 99 166 180 event)
-							(== currentCar 13) ;carWork
-						)
-
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;use
-							(if (ego inRect: 79 174 116 187)
-								(cond 
-									(workCarTrunkOpened (Print 29 39))
-									((ego has: 3) (carScript changeState: 7))
-									(else (localproc_005a 29 40))
-								)
-							else
-								(NotClose)
-							)	
-						)						
-						(998 ;look		
-		
-									(if
-										(and
-											(ego inRect: 79 174 116 187)
-											(cast contains: unTrunk)
-										)
-										(inventory
-											carrying: {The car's trunk contains:}
-											empty: {The car's trunk is empty.}
-											showSelf: 13
-										)
-									else
-										(localproc_005a 29 3)
-									)	
-						)
-						(else
-							(event claimed: FALSE)	
-						)
+			)
+			(if ;clicked on work car
+				(and
+					(ClickedOnObj ourCar (event x?) (event y?))
+					(== currentCar carWork)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;use
+						(if (ego inRect: 79 174 116 187)
+							(cond 
+								(workCarTrunkOpened (Print 29 39))
+								((ego has: 3) (carScript changeState: 7))
+								(else (localproc_005a 29 40))
+							)
+						else
+							(NotClose)
+						)	
+					)						
+					(998 ;look				
+						(if
+							(and
+								(ego inRect: 79 174 116 187)
+								(cast contains: unTrunk)
+							)
+							(inventory
+								carrying: {The car's trunk contains:}
+								empty: {The car's trunk is empty.}
+								showSelf: 13
+							)
+						else
+							(localproc_005a 29 3)
+						)	
+					)
+					(else
+						(event claimed: FALSE)	
 					)
 				)
-	
-	
-			
-				)
+			)
 		)
-		)
-
 	)
 )
 
-(instance ourCar of Actor)
-
+(instance ourCar of Actor
+	(properties)
+)
 
 (instance carScript of Script
 	(properties)
@@ -620,7 +608,6 @@
 					startUpd:
 				)
 				((= newProp (Prop new:))
-				
 					view: 51
 					loop: (if (== currentCar 13) 2 else 0)
 					cel: 0
@@ -629,7 +616,7 @@
 					init:
 					setCycle: EndLoop self
 				)
-				(if (== currentCar 13)
+				(if (== currentCar carWork)
 					(keith
 						posn: 51 184
 						setStep: 1 2
