@@ -29,6 +29,8 @@
 	newAutoDoor
 	local18
 	local19
+	
+	
 )
 (procedure (localproc_005a)
 	(Print &rest #at -1 15)
@@ -37,7 +39,7 @@
 (procedure (localproc_0ef8)
 	(return
 		(switch currentCar
-			(13
+			(13 ;13
 				(cond 
 					(
 						(not
@@ -53,7 +55,7 @@
 					(else (carScript changeState: 4) (return 1))
 				)
 			)
-			(33
+			(33 ;33
 				(cond 
 					(
 						(not
@@ -208,6 +210,8 @@
 			(HandsOn)
 		)
 		((= newAct (Actor new:))
+;;;		((= ourCar (Actor new:))
+;;;		(ourCar
 			view: 54
 			setStep: 3 3
 			setLoop: 0
@@ -272,6 +276,7 @@
 			(
 			(and (== global132 (not local6)) (== (not local6) 1)) (= global132 0) (localproc_0ef8))
 		)
+		(curRoom setRegions: 950)
 		(super doit:)
 	)
 	
@@ -295,6 +300,9 @@
 	)
 	
 	(method (handleEvent event)
+		
+		(if (event claimed?)
+		(return)		
 		(switch (event type?)
 			(evSAID
 				(cond 
@@ -511,9 +519,91 @@
 					)
 				)
 			)
+
+;;;		)
+				
+;;;
+;;;			(cond						
+				(
+					(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)		
+	
+
+				(if
+
+;;;						(and
+							(ClickedInRect 12 99 166 180 event)
+;;;							(== currentCar 33) ;carPersonal
+;;;						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look			
+							(localproc_005a 29 4)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+				(if
+
+						(and
+							(ClickedInRect 12 99 166 180 event)
+							(== currentCar 13) ;carWork
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use
+							(if (ego inRect: 79 174 116 187)
+								(cond 
+									(workCarTrunkOpened (Print 29 39))
+									((ego has: 3) (carScript changeState: 7))
+									(else (localproc_005a 29 40))
+								)
+							else
+								(NotClose)
+							)	
+						)						
+						(998 ;look		
+		
+									(if
+										(and
+											(ego inRect: 79 174 116 187)
+											(cast contains: unTrunk)
+										)
+										(inventory
+											carrying: {The car's trunk contains:}
+											empty: {The car's trunk is empty.}
+											showSelf: 13
+										)
+									else
+										(localproc_005a 29 3)
+									)	
+						)
+						(else
+							(event claimed: FALSE)	
+						)
+					)
+				)
+	
+	
+			
+				)
 		)
+		)
+
 	)
 )
+
+(instance ourCar of Actor)
+
 
 (instance carScript of Script
 	(properties)
@@ -530,6 +620,7 @@
 					startUpd:
 				)
 				((= newProp (Prop new:))
+				
 					view: 51
 					loop: (if (== currentCar 13) 2 else 0)
 					cel: 0
@@ -606,7 +697,7 @@
 					setCycle: EndLoop self
 				)
 			)
-			(8 (unTrunk stopUpd:))
+;;;			(8 (unTrunk stopUpd:))
 			(9
 				(= workCarTrunkOpened 0)
 				(unTrunk
