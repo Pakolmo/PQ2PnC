@@ -626,7 +626,7 @@
 								)
 							)
 						)						
-						;(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
+						(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
 					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny

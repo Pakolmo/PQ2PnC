@@ -40,7 +40,7 @@
 (procedure (localproc_0ef8)
 	(return
 		(switch currentCar
-			(carWork
+			(13
 				(cond 
 					((not (ego inRect: [local10 0] [local10 1] [local10 2] [local10 3]))
 						(localproc_005a 29 44)
@@ -63,7 +63,7 @@
 					)
 				)
 			)
-			(carPersonal
+			(33
 				(cond 
 					(
 						(not
@@ -218,7 +218,7 @@
 			(= local6 0)
 			(HandsOn)
 		)
-		(ourCar
+		((= newAct (Actor new:))
 			view: 54
 			setStep: 3 3
 			setLoop: 0
@@ -532,59 +532,311 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
-			(if ;clicked on personal car
-				(and
-					(ClickedOnObj ourCar (event x?) (event y?))
-					(== currentCar carPersonal)
-				)
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look			
-						(localproc_005a 29 4)
+
+			(if 	
+					(ClickedInRect 173 201 61 106 event) ;look door arnie
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+
+								(if local16
+									(localproc_005a 29 19)
+								else
+									(localproc_005a 29 20)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
 			)
-			(if ;clicked on work car
-				(and
-					(ClickedOnObj ourCar (event x?) (event y?))
-					(== currentCar carWork)
+
+
+
+
+			(if 	
+					(ClickedInRect 15 41 98 128 event) ;look construction
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(localproc_005a 29 21)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+			(if 	
+					(ClickedInRect 159 20 216 39 event) ;look sign
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(localproc_005a 29 12)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+			
+			(if 	(or
+					(ClickedInRect 150 163 69 86 event) ;look arround
+					(ClickedInRect 212 242 77 87 event) ;open closed
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							
+							
+												
+					(if (ego inRect: 160 105 215 128)
+						(localproc_005a 29 9) ;Visa. Mastercard.
+						
+						(if local16
+							(localproc_005a 29 10) ;Cerrado.
+							
+						else
+							(localproc_005a 29 11) ;abierto
+							
+						)
+					else
+						(localproc_005a 29 12) ;El restaurante se llama Arnie.
+						
+					)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			
+			(if
+
+						(and
+							(ClickedInRect 64 85 152 178 event) ;trunk
+							(== currentCar 33) ;carPersonal
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look			
+							(localproc_005a 29 4)
+
+						)
+						(995 ;use			
+							(localproc_005a 29 4)
+
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
 				)
-				(event claimed: TRUE)
-				(switch theCursor
-					(995 ;use
-						(if (ego inRect: 79 174 116 187)
+
+			(if
+
+						(and
+							(ClickedInRect 64 89 152 181 event) ;trunk
+							(== currentCar 13) ;WorkCar
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look			
+							(localproc_005a 29 4)
+
+						)
+						(110 ;maletin
+							(if (ego inRect: 79 174 116 187)
+							(if workCarTrunkOpened
+								(if (ego has: 10)
+									(localproc_005a 29 25)
+									(PutInRoom 10 13)
+									(if (IsObject theFieldKit) (theFieldKit dispose:))
+									(= fieldKitOpen 0)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)
+								else
+									(localproc_005a 29 26)
+								)
+							else
+								(localproc_005a 29 27)
+							)
+						else
+							(localproc_005a 29 28)
+						)
+							
+							
+						)
+						(995 ;use			
+
+						(if (== currentCar 13)
+							(if (ego inRect: 79 174 116 187)
+								(cond 
+									(workCarTrunkOpened 
+										;(Print 29 39)
+										(if (== currentCar 13)
+							(if (ego inRect: 79 174 116 187)
+								(if workCarTrunkOpened
+									(carScript changeState: 9)
+									(= workCarTrunkOpened 0)
+								else
+									(Print 29 41)
+								)
+							else
+								(NotClose)
+							)
+						else
+							(localproc_005a 29 4)
+						)
+										
+										
+										)
+									((ego has: 3) 			
+									(= workCarTrunkOpened 1)
+									(unTrunk
+										view: 51
+										loop: 4
+										cel: 0
+										posn: [local4 0] [local4 1]
+										setPri: 14
+										init:
+										setCycle: EndLoop self
+									)
+										
+										(if (ego inRect: 79 174 116 187)
+							(if workCarTrunkOpened
+								(if (InRoom 10 13)
+									(localproc_005a 29 29)
+									(ego get: 10)
+								else
+;;;									(localproc_005a 29 30)
+								)
+							else
+								(localproc_005a 29 27)
+							)
+						else
+							(localproc_005a 29 28)
+						)
+										
+										)
+									(else (localproc_005a 29 40))
+								)
+							else
+								(NotClose)
+							)
+						else
+							(localproc_005a 29 4)
+						)
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+				(if
+
+						(and
+							(ClickedInRect 20 45 157 180 event) ;doorcar
+							(== currentCar 13) ;carWork
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use
 							(cond 
-								(workCarTrunkOpened (Print 29 39))
-								((ego has: 3) (carScript changeState: 7))
-								(else (localproc_005a 29 40))
+							(local6 (= global132 1))
+							((not (ego inRect: 160 105 215 128)) (localproc_0ef8))
+							(local16 (localproc_005a 29 31))
+							(else (localproc_005a 29 32))
 							)
-						else
-							(NotClose)
-						)	
-					)						
-					(998 ;look				
-						(if
-							(and
-								(ego inRect: 79 174 116 187)
-								(cast contains: unTrunk)
-							)
-							(inventory
-								carrying: {The car's trunk contains:}
-								empty: {The car's trunk is empty.}
-								showSelf: 13
-							)
-						else
-							(localproc_005a 29 3)
-						)	
-					)
-					(else
-						(event claimed: FALSE)	
+						)
+						(998 ;look			
+							(localproc_005a 29 4)
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
 				)
-			)
+		
+		
+		
+			
+			
+;;;			
+;;;			
+;;;			
+;;;			
+;;;			(if ;clicked on personal car
+;;;				(and
+;;;;;;					(ClickedOnObj ourCar (event x?) (event y?))
+;;;					(ClickedInRect 29 57 155 180 event) ;doorcar
+;;;					(== currentCar carPersonal)
+;;;				)
+;;;				(event claimed: TRUE)
+;;;				(switch theCursor
+;;;					(998 ;look			
+;;;						(localproc_005a 29 4)
+;;;					)
+;;;					(else
+;;;						(event claimed: FALSE)
+;;;					)
+;;;				)
+;;;			)
+;;;			(if ;clicked on work car
+;;;				(and
+;;;					(ClickedOnObj ourCar (event x?) (event y?))
+;;;					(== currentCar carWork)
+;;;				)
+;;;				(event claimed: TRUE)
+;;;				(switch theCursor
+;;;					(995 ;use
+;;;						(if (ego inRect: 79 174 116 187)
+;;;							(cond 
+;;;								(workCarTrunkOpened 
+;;;									;(Print 29 39) ;Ya est* abierta.
+;;;									(if workCarTrunkOpened
+;;;									(carScript changeState: 9)
+;;;									(= workCarTrunkOpened 0)
+;;;								else
+;;;									(Print 29 41)
+;;;								)
+;;;									
+;;;									
+;;;									)
+;;;								((ego has: 3) (carScript changeState: 7))
+;;;								(else (localproc_005a 29 40))
+;;;							)
+;;;						else
+;;;							(NotClose)
+;;;						)	
+;;;					)						
+;;;					(998 ;look				
+;;;						(if
+;;;							(and
+;;;								(ego inRect: 79 174 116 187)
+;;;								(cast contains: unTrunk)
+;;;							)
+;;;							(inventory
+;;;								carrying: {The car's trunk contains:}
+;;;								empty: {The car's trunk is empty.}
+;;;								showSelf: 13
+;;;							)
+;;;						else
+;;;							(localproc_005a 29 3)
+;;;						)	
+;;;					)
+;;;					(else
+;;;						(event claimed: FALSE)	
+;;;					)
+;;;				)
+;;;			)
 		)
 	)
 )
@@ -684,7 +936,9 @@
 					setCycle: EndLoop self
 				)
 			)
-;;;			(8 (unTrunk stopUpd:))
+			(8 
+;;;			(unTrunk stopUpd:)
+			)
 			(9
 				(= workCarTrunkOpened 0)
 				(unTrunk
