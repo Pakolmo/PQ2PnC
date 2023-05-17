@@ -676,6 +676,34 @@
 					
 				)		
 
+
+		(if 		(ClickedInRect 315 319 68 90 event) ;up right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 321 78)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)				
+		(if 		(ClickedInRect 313 319 118 185 event) ;down right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 321 149)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)		
+
+
+
+
+
 				(if
 					(and
 						(ClickedOnObj diver (event x?) (event y?))

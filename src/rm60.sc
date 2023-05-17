@@ -932,9 +932,52 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)	
-				
-				
-				
+		(if 		(ClickedInRect 1 8 61 81 event) ;up left
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo -5 87)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+						
+		(if 		(ClickedInRect 1 8 130 188 event) ;down left
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo -3 159)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)							
+						
+		(if 		(ClickedInRect 315 319 68 94 event) ;up right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 321 87)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)				
+		(if 		(ClickedInRect 313 319 123 185 event) ;down right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 321 156)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)				
 			(if
 
 				(and
