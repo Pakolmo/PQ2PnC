@@ -282,16 +282,19 @@
 			ignoreActors:
 			setScript: carpScript
 		)
+		
 		(super init:)
-				
+
+			(airScript changeState: 0)
+
 		(self setScript: rm65Script)
 	)
 	
 	(method (dispose)
-(airScript changeState: 0)
+;;;		(airScript changeState: 0)
 		(carpScript dispose:)
 		(bodyScript dispose:)
-;;;		(airScript dispose:)
+		(airScript dispose:)
 		(DisposeScript 988)
 		(super dispose:)
 	)
@@ -537,7 +540,7 @@
 					(switch theCursor
 						(995
 						(if (Btst 109)
-							
+							(airScript changeState: 6)
 							(bodyScript changeState: 3)
 							
 
@@ -739,7 +742,7 @@
 					(<= scubaTankOxygen 27)
 					(not local105)
 				)
-				(airScript changeState: 2)
+				(airScript changeState: 2) ;2
 				(= scubaTankOxygen 13)
 				(localproc_055c 65 35)
 			)
@@ -749,14 +752,14 @@
 					(<= scubaTankOxygen 60)
 					(not local105)
 				)
-				(airScript changeState: 2)
+				(airScript changeState: 2) ;2
 				(= scubaTankOxygen 49)
 				(localproc_055c 65 36)
 			)
 		)
 		(cond 
 			((> local107 1) (-- local107))
-			((== local107 1) (= local107 0) (airScript changeState: 2))
+			((== local107 1) (= local107 0) (airScript changeState: 2)) ;2
 		)
 	)
 	
@@ -848,14 +851,25 @@
 			(2
 				(DrawCel 161 0 1 154 22 1)
 				(Display @str dsCOORD 168 36 dsCOLOR 1 dsBACKGROUND 1)
-;;;				(airScript changeState: 0)
+				(airScript changeState: 0)
 			)
-;;;			(3
-;;;				
-;;;				(DrawCel 161 0 1 154 22 1)
-;;;				(Display @str dsCOORD -168 -36 dsCOLOR 1 dsBACKGROUND 1)
-;;;				
-;;;			)
+			(3
+				(DrawCel 161 0 0 154 22 1)
+				(= local107 15)
+;;;				(self cue:)
+				
+				
+			)
+			(4
+				(Format @str 65 37 scubaTankOxygen)
+				(Display @str dsCOORD 168 36 dsCOLOR 14 dsBACKGROUND 1)
+			)
+			(5
+				(self cue:)
+				
+			)
+			(6
+			)			
 		)
 	)
 )
@@ -914,12 +928,17 @@
 				(User canInput: 1)
 				(= removedBodyFromRiver 1)
 				(SolvePuzzle 5)
-				(airScript changeState: 2) ;2
-				(curRoom drawPic: 104 21) ;104 7
+				(airScript changeState: 5) ;2
 				(cast eachElementDo: #delete)
+						(cast eachElementDo: #dispose)	
+						(cast eachElementDo: #delete)			
+				(curRoom drawPic: 104 21) ;104 7
 
-				(cast eachElementDo: #dispose)
-			
+
+
+
+;;;						(cast eachElementDo: #delete)
+							
 				(= local104 5)
 				(= diverState 15)
 			)
@@ -937,7 +956,7 @@
 					dsCOLOR
 					15
 				)
-				(divers view: 12 posn: 200 95 setLoop: 7 init:)
+				(divers view: 12 posn: 200 95 setLoop: 7 init: priority: 1)
 				(= local103 1000)
 			)
 			(5

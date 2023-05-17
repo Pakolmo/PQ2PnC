@@ -833,7 +833,7 @@
 					dsBACKGROUND
 					1
 				)
-			;	(= local113 300)
+				(= local113 300)
 				
 				
 				

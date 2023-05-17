@@ -209,7 +209,7 @@
 			ignoreActors:
 			addToPic:
 		)
-;;;		(if (InRoom 14)
+		(if (InRoom 14)
 			(knife
 				view: 91
 				loop: 3
@@ -219,7 +219,7 @@
 				init:
 				ignoreActors:
 			)
-;;;		)
+		)
 		(carp
 			view: 165
 			setCycle: 0
