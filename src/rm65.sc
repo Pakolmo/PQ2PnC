@@ -283,14 +283,15 @@
 			setScript: carpScript
 		)
 		(super init:)
-		(airScript changeState: 0)
+				
 		(self setScript: rm65Script)
 	)
 	
 	(method (dispose)
+(airScript changeState: 0)
 		(carpScript dispose:)
 		(bodyScript dispose:)
-		(airScript dispose:)
+;;;		(airScript dispose:)
 		(DisposeScript 988)
 		(super dispose:)
 	)
@@ -512,6 +513,23 @@
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
 
+			(if (ClickedOnObj ego (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(airScript changeState: 0)
+						)
+						(998
+							(airScript changeState: 0)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+
 			(if (and (ClickedOnObj body (event x?) (event y?))
 					(cast contains: body))
 					
@@ -521,7 +539,8 @@
 						(if (Btst 109)
 							
 							(bodyScript changeState: 3)
-							(airScript delete:)
+							
+
 						else
 							(Print 65 22 #at -1 145)
 						)	
@@ -624,7 +643,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(999 ;swim
-							(ego setMotion: MoveTo -20 125 self)
+							(ego setMotion: MoveTo -45 125 self)
 						)
 						(else
 							(event claimed: FALSE)
@@ -829,13 +848,14 @@
 			(2
 				(DrawCel 161 0 1 154 22 1)
 				(Display @str dsCOORD 168 36 dsCOLOR 1 dsBACKGROUND 1)
-				(airScript changeState: 0)
+;;;				(airScript changeState: 0)
 			)
-			(3
-				
-
-				
-			)
+;;;			(3
+;;;				
+;;;				(DrawCel 161 0 1 154 22 1)
+;;;				(Display @str dsCOORD -168 -36 dsCOLOR 1 dsBACKGROUND 1)
+;;;				
+;;;			)
 		)
 	)
 )
@@ -894,10 +914,10 @@
 				(User canInput: 1)
 				(= removedBodyFromRiver 1)
 				(SolvePuzzle 5)
-				(airScript changeState: 3) ;2
+				(airScript changeState: 2) ;2
 				(curRoom drawPic: 104 21) ;104 7
 				(cast eachElementDo: #delete)
-				(cast 
+
 				(cast eachElementDo: #dispose)
 			
 				(= local104 5)

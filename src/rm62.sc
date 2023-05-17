@@ -677,6 +677,36 @@
 				)		
 
 				(if
+					(and
+						(ClickedOnObj diver (event x?) (event y?))
+						(cast contains: diver)
+					)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995
+								(localproc_028a 62 34)
+							)
+							(996
+								(if (< (ego distanceTo: diver) 60)
+									(localproc_028a 62 54)
+							else
+								(localproc_027b 62 55)
+							)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						
+							
+						)
+				)
+	
+
+
+
+
+
+				(if
 
 						(ClickedOnObj BodyPete (event x?) (event y?))
 						(event claimed: TRUE)

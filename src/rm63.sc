@@ -777,11 +777,11 @@
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
 
-			(if (ClickedInRect 1 12 99 149 event) ;left
+			(if (ClickedInRect 1 12 99 122 event) ;left
 					(event claimed: TRUE)
 					(switch theCursor
 						(999 ;swim
-							(ego setMotion: MoveTo -20 125 self)
+							(ego setMotion: MoveTo -45 110)
 						)
 						(else
 							(event claimed: FALSE)
@@ -789,7 +789,17 @@
 					)
 			)
 
-
+			(if (ClickedInRect 1 12 122 154 event) ;left2
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;swim
+							(ego setMotion: MoveTo -45 138)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
 
 
 			(if (ClickedOnObj moore (event x?) (event y?))
