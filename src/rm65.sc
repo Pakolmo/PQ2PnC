@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 65)
-(include sci.sh)
+;(include sci.sh)
+(include game.sh)
 (use Main)
 (use Intrface)
 (use Extra)
@@ -32,7 +33,7 @@
 	local112
 	sweptAway
 )
-(procedure (localproc_055c)
+(procedure (localPrint)
 	(Print &rest #at -1 40)
 )
 
@@ -40,7 +41,7 @@
 	(properties)
 )
 
-(instance hand of View
+(instance hand of Prop
 	(properties)
 )
 
@@ -117,9 +118,9 @@
 	)
 	
 	(method (init)
-		(Load rsVIEW 12)
-		(Load rsVIEW 91)
-		(Load rsVIEW 161)
+		(Load VIEW 12)
+		(Load VIEW 91)
+		(Load VIEW 161)
 		(= local109 (if (Btst 7) 5 else 2))
 		(weed1
 			pauseCel: -1
@@ -259,8 +260,9 @@
 			view: 91
 			loop: 3
 			cel: (if (Btst 108) 11 else 10)
-			posn: 296 129
+			posn: 301 136 ;296 129
 			init:
+			setPri: 8
 			ignoreActors:
 		)
 		(body
@@ -306,9 +308,9 @@
 				(if (> local103 0) (= local103 3))
 				(if
 					(or
-						(== (= temp0 (event message?)) KEY_F6)
-						(== temp0 KEY_F8)
-						(== temp0 KEY_F10)
+						(== (= temp0 (event message?)) $4000) ;KEY_F6
+						(== temp0 $4200) ;KEY_F8
+						(== temp0 $4400) ;KEY_F10
 					)
 					(event claimed: 1)
 				else
@@ -337,7 +339,7 @@
 					((Said 'look>')
 						(cond 
 							(
-							(Said '[<at,around][/!*,clearwater,water,garbage,crud]') (localproc_055c 65 3))
+							(Said '[<at,around][/!*,clearwater,water,garbage,crud]') (localPrint 65 3))
 							(
 								(Said
 									'/air,pressure,(supply[<air]),(tank[<air]),(gauge[<air,pressure])'
@@ -351,8 +353,8 @@
 										(findMusic play:)
 										(bodyScript changeState: 2)
 									)
-									((Btst 108) (localproc_055c 65 4))
-									(else (localproc_055c 65 5))
+									((Btst 108) (localPrint 65 4))
+									(else (localPrint 65 5))
 								)
 							)
 							((Said '/rock,boulder')
@@ -362,44 +364,44 @@
 										(ego inRect: 244 125 319 145)
 										(or (== (ego loop?) 0) (== (ego loop?) 3))
 									)
-									(localproc_055c 65 6)
+									(localPrint 65 6)
 								else
-									(localproc_055c 65 7)
+									(localPrint 65 7)
 								)
 							)
-							((Said '/fish,carp,sucker') (localproc_055c 65 8))
-							((Said '<up') (localproc_055c 65 9))
-							((Said '/boat') (localproc_055c 65 10))
-							((Said '/grass,plant,bush') (localproc_055c 65 11))
+							((Said '/fish,carp,sucker') (localPrint 65 8))
+							((Said '<up') (localPrint 65 9))
+							((Said '/boat') (localPrint 65 10))
+							((Said '/grass,plant,bush') (localPrint 65 11))
 							((Said '/bottle[<beer]')
 								(if (ego inRect: 0 90 87 130)
-									(localproc_055c 65 12)
+									(localPrint 65 12)
 								else
-									(localproc_055c 65 13)
+									(localPrint 65 13)
 								)
 							)
 							((Said '/newspaper,wrapper')
 								(if (ego inRect: 0 130 110 189)
-									(localproc_055c 65 14)
+									(localPrint 65 14)
 								else
-									(localproc_055c 65 13)
+									(localPrint 65 13)
 								)
 							)
 							((Said '/metal')
 								(if (ego inRect: 174 111 226 150)
-									(localproc_055c 65 15)
+									(localPrint 65 15)
 								else
-									(localproc_055c 65 13)
+									(localPrint 65 13)
 								)
 							)
 							((Said '/can[<coca,beer]')
 								(if (ego inRect: 179 150 226 189)
-									(localproc_055c 65 16)
+									(localPrint 65 16)
 								else
-									(localproc_055c 65 13)
+									(localPrint 65 13)
 								)
 							)
-							((Said '/tire') (localproc_055c 65 17))
+							((Said '/tire') (localPrint 65 17))
 							((Said '/body,luis,body')
 								(cond 
 									((and (ego inRect: 244 125 319 145) (Btst 109)) (Print 65 18 #at -1 145))
@@ -411,8 +413,8 @@
 										)
 										(bodyScript changeState: 2)
 									)
-									((Btst 108) (localproc_055c 65 4))
-									(else (localproc_055c 65 5))
+									((Btst 108) (localPrint 65 4))
+									(else (localPrint 65 5))
 								)
 							)
 							(
@@ -428,14 +430,14 @@
 											(ego inRect: 244 125 319 145)
 											(or (== (ego loop?) 0) (== (ego loop?) 3))
 										)
-										(localproc_055c 65 6)
+										(localPrint 65 6)
 									)
-									((ego inRect: 179 150 226 189) (localproc_055c 65 16))
-									((ego inRect: 0 130 110 189) (localproc_055c 65 14))
-									((ego inRect: 174 111 226 150) (localproc_055c 65 15))
-									((ego inRect: 0 90 87 130) (localproc_055c 65 12))
-									((ego inRect: 87 115 180 130) (localproc_055c 65 10))
-									(else (localproc_055c 65 19))
+									((ego inRect: 179 150 226 189) (localPrint 65 16))
+									((ego inRect: 0 130 110 189) (localPrint 65 14))
+									((ego inRect: 174 111 226 150) (localPrint 65 15))
+									((ego inRect: 0 90 87 130) (localPrint 65 12))
+									((ego inRect: 87 115 180 130) (localPrint 65 10))
+									(else (localPrint 65 19))
 								)
 							)
 						)
@@ -445,7 +447,7 @@
 							(if (not (Btst 108))
 								(bodyScript changeState: 0)
 							else
-								(localproc_055c 65 20)
+								(localPrint 65 20)
 							)
 						else
 							(Print 65 21 #at -1 145 #draw)
@@ -460,36 +462,36 @@
 					)
 					((Said 'get,move,pull,hoist,remove>')
 						(cond 
-							((Said '/grass,plant,bush') (localproc_055c 65 23))
-							((Said '/tire') (localproc_055c 65 24))
-							((Said '/fish,carp,sucker') (localproc_055c 65 25))
-							((Said '/boat') (localproc_055c 65 26))
+							((Said '/grass,plant,bush') (localPrint 65 23))
+							((Said '/tire') (localPrint 65 24))
+							((Said '/fish,carp,sucker') (localPrint 65 25))
+							((Said '/boat') (localPrint 65 26))
 							((Said '/bottle[<beer]')
 								(if (ego inRect: 0 90 87 130)
-									(localproc_055c 65 27)
+									(localPrint 65 27)
 								else
-									(localproc_055c 65 28)
+									(localPrint 65 28)
 								)
 							)
 							((Said '/can[<coca,beer]')
 								(if (ego inRect: 179 150 226 189)
-									(localproc_055c 65 29)
+									(localPrint 65 29)
 								else
-									(localproc_055c 65 28)
+									(localPrint 65 28)
 								)
 							)
 							((Said '/newspaper,wrapper')
 								(if (ego inRect: 0 130 110 189)
-									(localproc_055c 65 30)
+									(localPrint 65 30)
 								else
-									(localproc_055c 65 28)
+									(localPrint 65 28)
 								)
 							)
 							((Said '/metal')
 								(if (ego inRect: 174 111 226 150)
-									(localproc_055c 65 31)
+									(localPrint 65 31)
 								else
-									(localproc_055c 65 28)
+									(localPrint 65 28)
 								)
 							)
 							((Said '/hand,arm')
@@ -500,168 +502,152 @@
 										(Print 65 28 #at -1 145)
 									)
 								else
-									(localproc_055c 65 33)
+									(localPrint 65 33)
 								)
 							)
-							(else (event claimed: 1) (localproc_055c 65 28))
+							(else (event claimed: 1) (localPrint 65 28))
 						)
 					)
 				)
 			)
 		)
-		
-						(if						
+		(if						
 			(and
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
-
-			(if (ClickedOnObj ego (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor
-						(995
-							(airScript changeState: 0)
-						)
-						(998
-							(airScript changeState: 0)
-						)
-						(else
-							(event claimed: FALSE)
+			(if (cast contains: divers)
+				(event claimed: TRUE)
+				(bodyScript changeState: 5)
+			)
+			(if
+				(and
+					(ClickedOnObj body (event x?) (event y?))
+					(== (event claimed?) FALSE)
+					(Btst fFoundJailerBody)
+				)		
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;use
+						(if (ego inRect: 244 125 319 145)
+							(bodyScript changeState: 3)
+						else
+							(localPrint 65 4) ;You're not close enough.
 						)
 					)
-			)
-
-
-
-			(if (and (ClickedOnObj body (event x?) (event y?))
-					(cast contains: body))
-					
-					(event claimed: TRUE)
-					(switch theCursor
-						(995
-						(if (Btst 109)
-							(airScript changeState: 6)
-							(bodyScript changeState: 3)
-							
-
+					(998 ;look
+						(if (ego inRect: 244 125 319 145)
+							(Print 65 18 #at -1 145) ;It would be better to remove the body from the river first.
 						else
-							(Print 65 22 #at -1 145)
-						)	
+							(localPrint 65 4) ;You're not close enough.
 						)
-						(998 ;body
-								(cond 
-									((and (ego inRect: 244 125 319 145) (Btst 109)) (Print 65 18 #at -1 145))
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if
+				(and ;hand + rock
+					(ClickedInRect 293 308 115 135 event)
+					(== (event claimed?) FALSE)
+				)	
+				(event claimed: TRUE)
+				(switch theCursor
+					(995 ;hand
+						(cond 
+							((ego inRect: 244 125 319 145)
+								(cond
+									((not (Btst fFoundJailerHand))
+										(bodyScript changeState: 0)
+									)
 									(
 										(and
-											(ego inRect: 244 125 319 145)
-											(Btst 108)
-											(not (Btst 109))
+											(Btst fFoundJailerHand)
+											(not (Btst fFoundJailerBody))
 										)
-										(bodyScript changeState: 2)
-									)
-									((Btst 108) (localproc_055c 65 4))
-									(else (localproc_055c 65 5))
-								)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-			)
-
-
-
-
-
-
-
-			(if (and (ClickedOnObj hand (event x?) (event y?))
-					(cast contains: hand))
-					
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;hand
-								(cond 
-									((and (ego inRect: 244 125 319 145) (Btst 108))
 										(cSound stop:)
 										(findMusic play:)
 										(bodyScript changeState: 2)
 									)
-									((Btst 108) (localproc_055c 65 4))
-									(else (localproc_055c 65 5))
+									(else
+										(bodyScript changeState: 3)	
+									)		
 								)
-						)
-						(else
-							(event claimed: FALSE)
+							)
+							(else
+								(localPrint 65 4) ;You're not close enough.
+							)
 						)
 					)
-			)
-
-
-			(if (ClickedInRect 266 302 101 128 event) ;body rock
-					(event claimed: TRUE)
-					(switch theCursor
-						(995 ;arms
-							(if (ego inRect: 244 125 319 145)
-							(if (not (Btst 108))
-								(bodyScript changeState: 0)
-							else
-								(localproc_055c 65 20)
+					(998 ;look rock
+						(if
+							(and
+								(ego inRect: 244 125 319 145)
+								(or
+									(== (ego loop?) 0)
+									(== (ego loop?) 3)
+								)
+							)
+							(cond
+								((not (Btst fFoundJailerHand))
+									(localPrint 65 6) ;You notice something apparently hidden behind some rocks.
+								)
+								(
+									(and
+										(Btst fFoundJailerHand)
+										(not (Btst fFoundJailerBody))
+									)
+									(cSound stop:)
+									(findMusic play:)
+									(bodyScript changeState: 2)
+								)
+								(else
+									 (Print {It appears a body is wedged into the rocks.})
+								)
 							)
 						else
-							(Print 65 21 #at -1 145 #draw)
-						)
-						
-					
-
-						)
-						
-						
-						(998 ;look rock
-								(if
-									(and
-										(not (Btst 108))
-										(ego inRect: 244 125 319 145)
-										(or (== (ego loop?) 0) (== (ego loop?) 3))
-									)
-									(localproc_055c 65 6)
-								else
-									(localproc_055c 65 7)
-								)
-						)
-						(else
-							(event claimed: FALSE)
+							;(localPrint 65 7) ;You see nothing unusual. You're getting pretty tired of looking at rocks.
+							(localPrint 65 4) ;You're not close enough.
 						)
 					)
-			)
-
-
-
-
-
-
-
-
-			(if (ClickedInRect 1 12 99 149 event) ;left
-					(event claimed: TRUE)
-					(switch theCursor
-						(999 ;swim
-							(ego setMotion: MoveTo -45 125 self)
-						)
-						(else
-							(event claimed: FALSE)
-						)
+					(else
+						(event claimed: FALSE)
 					)
+				)
 			)
-
-						)
-	)
-		
-		
-		
-		
-		
-	)
+			(if
+				(and
+					(ClickedOnObj ego (event x?) (event y?))
+					(== (event claimed?) FALSE)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(995
+						(airScript changeState: 0)
+					)
+					(998
+						(airScript changeState: 0)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if (ClickedInRect 1 12 90 180 event) ;exit left
+				(event claimed: TRUE)
+				(switch theCursor
+					(999 ;swim
+						(ego setMotion: MoveTo -45 (event y?) self)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+		)
+	)		
+)
 
 
 (instance rm65Script of Script
@@ -696,13 +682,13 @@
 					(not sweptAway)
 					(or
 						(ego inRect: 265 75 319 102)
-						(ego inRect: 295 103 319 115)
+						(ego inRect: 295 103 319 110) ;115)
 					)
 				)
 				(= sweptAway 1)
 				(cSound stop:)
 				(sweepMusic play:)
-				(localproc_055c 65 34)
+				(localPrint 65 34)
 			)
 		)
 		(cond 
@@ -742,9 +728,9 @@
 					(<= scubaTankOxygen 27)
 					(not local105)
 				)
-				(airScript changeState: 2) ;2
+				(airScript changeState: 2)
 				(= scubaTankOxygen 13)
-				(localproc_055c 65 35)
+				(localPrint 65 35)
 			)
 			(
 				(and
@@ -752,9 +738,9 @@
 					(<= scubaTankOxygen 60)
 					(not local105)
 				)
-				(airScript changeState: 2) ;2
+				(airScript changeState: 2)
 				(= scubaTankOxygen 49)
-				(localproc_055c 65 36)
+				(localPrint 65 36)
 			)
 		)
 		(cond 
@@ -846,30 +832,12 @@
 			)
 			(1
 				(Format @str 65 37 scubaTankOxygen)
-				(Display @str dsCOORD 168 36 dsCOLOR 14 dsBACKGROUND 1)
+				(Display @str p_at 168 36 p_color 14 p_back 1)
 			)
 			(2
 				(DrawCel 161 0 1 154 22 1)
-				(Display @str dsCOORD 168 36 dsCOLOR 1 dsBACKGROUND 1)
-				(airScript changeState: 0)
+				(Display @str p_at 168 36 p_color 1 p_back 1)
 			)
-			(3
-				(DrawCel 161 0 0 154 22 1)
-				(= local107 15)
-;;;				(self cue:)
-				
-				
-			)
-			(4
-				(Format @str 65 37 scubaTankOxygen)
-				(Display @str dsCOORD 168 36 dsCOLOR 14 dsBACKGROUND 1)
-			)
-			(5
-				(self cue:)
-				
-			)
-			(6
-			)			
 		)
 	)
 )
@@ -909,52 +877,39 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Bset 108)
+				(Bset fFoundJailerHand)
 				(hand setCel: 11)
-				(localproc_055c 65 38 83)
+				(localPrint 65 38 83)
 				(self cue:)
 			)
 			(1
 				(ego x: (- (ego x?) 4))
-				(localproc_055c 65 39 83)
+				(localPrint 65 39 83)
 			)
 			(2
 				(body posn: 270 56)
 				(Print 65 40 #at -1 145 #draw)
-				(Bset 109)
+				(Bset fFoundJailerBody)
 			)
 			(3
 				(HandsOff)
 				(User canInput: 1)
 				(= removedBodyFromRiver 1)
 				(SolvePuzzle 5)
-				(airScript changeState: 5) ;2
-				(cast eachElementDo: #delete)
-						(cast eachElementDo: #dispose)	
-						(cast eachElementDo: #delete)			
-				(curRoom drawPic: 104 21) ;104 7
-
-
-
-
-;;;						(cast eachElementDo: #delete)
-							
+				(airScript changeState: 2)
+				(curRoom drawPic: 104 7)
+				(cast eachElementDo: #dispose)	
+				(cast eachElementDo: #delete)						
 				(= local104 5)
 				(= diverState 15)
 			)
 			(4
 				(Display
-					65
-					41
-					dsCOORD
-					20
-					100
-					dsWIDTH
-					200
-					dsFONT
-					0
-					dsCOLOR
-					15
+					65 41
+					p_at 20 100
+					p_width	200
+					p_font 0
+					p_color 15
 				)
 				(divers view: 12 posn: 200 95 setLoop: 7 init: priority: 1)
 				(= local103 1000)
