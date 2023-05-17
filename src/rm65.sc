@@ -283,6 +283,7 @@
 			setScript: carpScript
 		)
 		(super init:)
+		(airScript changeState: 0)
 		(self setScript: rm65Script)
 	)
 	
@@ -504,8 +505,142 @@
 				)
 			)
 		)
+		
+						(if						
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))	
+			)
+
+			(if (and (ClickedOnObj body (event x?) (event y?))
+					(cast contains: body))
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+						(if (Btst 109)
+							
+							(bodyScript changeState: 3)
+							(airScript delete:)
+						else
+							(Print 65 22 #at -1 145)
+						)	
+						)
+						(998 ;body
+								(cond 
+									((and (ego inRect: 244 125 319 145) (Btst 109)) (Print 65 18 #at -1 145))
+									(
+										(and
+											(ego inRect: 244 125 319 145)
+											(Btst 108)
+											(not (Btst 109))
+										)
+										(bodyScript changeState: 2)
+									)
+									((Btst 108) (localproc_055c 65 4))
+									(else (localproc_055c 65 5))
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+
+
+
+
+
+			(if (and (ClickedOnObj hand (event x?) (event y?))
+					(cast contains: hand))
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;hand
+								(cond 
+									((and (ego inRect: 244 125 319 145) (Btst 108))
+										(cSound stop:)
+										(findMusic play:)
+										(bodyScript changeState: 2)
+									)
+									((Btst 108) (localproc_055c 65 4))
+									(else (localproc_055c 65 5))
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+			(if (ClickedInRect 266 302 101 128 event) ;body rock
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;arms
+							(if (ego inRect: 244 125 319 145)
+							(if (not (Btst 108))
+								(bodyScript changeState: 0)
+							else
+								(localproc_055c 65 20)
+							)
+						else
+							(Print 65 21 #at -1 145 #draw)
+						)
+						
+					
+
+						)
+						
+						
+						(998 ;look rock
+								(if
+									(and
+										(not (Btst 108))
+										(ego inRect: 244 125 319 145)
+										(or (== (ego loop?) 0) (== (ego loop?) 3))
+									)
+									(localproc_055c 65 6)
+								else
+									(localproc_055c 65 7)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+
+
+
+
+
+
+			(if (ClickedInRect 1 12 99 149 event) ;left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;swim
+							(ego setMotion: MoveTo -20 125 self)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+						)
 	)
-)
+		
+		
+		
+		
+		
+	)
+
 
 (instance rm65Script of Script
 	(properties)
@@ -694,6 +829,12 @@
 			(2
 				(DrawCel 161 0 1 154 22 1)
 				(Display @str dsCOORD 168 36 dsCOLOR 1 dsBACKGROUND 1)
+				(airScript changeState: 0)
+			)
+			(3
+				
+
+				
 			)
 		)
 	)
@@ -753,9 +894,12 @@
 				(User canInput: 1)
 				(= removedBodyFromRiver 1)
 				(SolvePuzzle 5)
-				(airScript changeState: 2)
-				(curRoom drawPic: 104 7)
+				(airScript changeState: 3) ;2
+				(curRoom drawPic: 104 21) ;104 7
+				(cast eachElementDo: #delete)
+				(cast 
 				(cast eachElementDo: #dispose)
+			
 				(= local104 5)
 				(= diverState 15)
 			)

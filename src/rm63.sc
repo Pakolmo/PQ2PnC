@@ -292,6 +292,7 @@
 			setScript: mooreScript
 		)
 		(ego init:)
+		(airScript changeState: 0)
 		(super init:)
 		(self setScript: rm63Script)
 	)
@@ -501,6 +502,8 @@
 	
 	(method (handleEvent event &tmp temp0)
 		(if (event claimed?) (return))
+		
+		
 		(switch (event type?)
 			(evKEYBOARD
 				(if
@@ -766,6 +769,108 @@
 				)
 			)
 		)
+		
+
+				(if						
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))	
+			)
+
+			(if (ClickedInRect 1 12 99 149 event) ;left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;swim
+							(ego setMotion: MoveTo -20 125 self)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+
+
+			(if (ClickedOnObj moore (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(localproc_03fc 63 27)
+						)
+						(995
+							(localproc_03fc 63 27)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+					
+
+			(if 	
+				(and
+					(if (ClickedInRect 189 219 135 169 event) ;badge
+						(cast contains: badge))
+
+				
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+						(cond 
+									((not (InRoom 18)) (AlreadyTook))
+									(
+										(or
+											(and (ego inRect: 146 141 186 158) (== (ego loop?) 0))
+											(and (ego inRect: 213 143 245 158) (== (ego loop?) 1))
+											(and (ego inRect: 184 137 205 149) (== (ego loop?) 2))
+											(and (ego inRect: 184 155 206 169) (== (ego loop?) 3))
+										)
+										(badge posn: 0 0)
+										(ego get: 18)
+										(SolvePuzzle 2)
+										(localproc_03fc 63 40 83)
+										(localproc_03fc 63 41 83)
+									)
+									(else (NotClose))
+									
+
+						)
+						)
+				
+						
+						(998 ;look
+								(cond 
+									((ego has: 18) (event claimed: 0))
+									(
+										(or
+											(and (ego inRect: 146 141 186 158) (== (ego loop?) 0))
+											(and (ego inRect: 213 143 245 158) (== (ego loop?) 1))
+											(and (ego inRect: 184 137 205 149) (== (ego loop?) 2))
+											(and (ego inRect: 184 155 206 169) (== (ego loop?) 3))
+										)
+										(localproc_03fc 63 12)
+										(localproc_03fc 63 13)
+									)
+									(else (localproc_03fc 63 19))
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			
+				)
+		
+		
+		
+		
+		
+				)
+		
+		
+		
 	)
 )
 
@@ -843,6 +948,7 @@
 			(2
 				(DrawCel 161 0 1 227 16 1)
 				(Display @str dsCOORD 244 30 dsCOLOR 1 dsBACKGROUND 1)
+				(airScript changeState: 0)
 			)
 		)
 	)

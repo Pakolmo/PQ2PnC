@@ -209,17 +209,17 @@
 			ignoreActors:
 			addToPic:
 		)
-		(if (InRoom 14)
+;;;		(if (InRoom 14)
 			(knife
 				view: 91
 				loop: 3
 				cel: 8
 				posn: 142 146
-				setPri: 10
+				setPri: 15 ;10
 				init:
 				ignoreActors:
 			)
-		)
+;;;		)
 		(carp
 			view: 165
 			setCycle: 0
@@ -231,6 +231,7 @@
 			setScript: carpScript
 		)
 		(super init:)
+		(airScript changeState: 0)
 		(self setScript: rm64Script)
 	)
 	
@@ -474,7 +475,81 @@
 				)
 			)
 		)
+		
+				(if						
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))	
+			)
+
+			(if 	
+				(and
+					(if (ClickedOnObj knife (event x?) (event y?)) ;knife
+						(cast contains: knife)
+;;;						(or (ClickedInRect 92 128 150 152 event)
+;;;							(ClickedInRect 150 128 184 152 event)
+;;;							(ClickedInRect 120 133 160 139 event)
+;;;							(ClickedInRect 120 135 160 165 event)
+;;;						)
+					)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+															
+									(if
+										(or
+											(ego inRect: 82 138 140 162) 
+											(ego inRect: 140 138 174 162)
+											(ego inRect: 110 143 150 149)
+											(ego inRect: 110 145 150 175)
+										)
+										(knife posn: 0 0)
+										(ego get: 14)
+										(SolvePuzzle 2)
+										(localproc_000c 64 30 83)
+										(localproc_000c 64 31 83)
+										(localproc_000c 64 32 83)
+									else
+										(Print 64 33)
+									)
+
+							
+							
+						)
+						(998 ;look
+								
+									(if
+										(or
+;;;											(ego inRect: 92 128 150 152) 
+;;;											(ego inRect: 150 128 184 152) 
+;;;											(ego inRect: 120 133 160 139)
+;;;											(ego inRect: 120 135 160 165)
+											(ego inRect: 82 138 140 162) 
+											(ego inRect: 140 138 174 162)
+											(ego inRect: 110 143 150 149)
+											(ego inRect: 110 145 150 175)
+										)
+										(localproc_000c 64 14)
+									else
+										(localproc_000c 64 13)
+									)
+								
+						)
+						(else
+							(event claimed: FALSE)		
+						)
+					)
+			)
+		
+		
+			)
+		
+			)
+				
 	)
+		
+
 )
 
 (instance rm64Script of Script
@@ -658,6 +733,7 @@
 			(2
 				(DrawCel 161 4 1 40 16 1)
 				(Display @str dsCOORD 54 30 dsCOLOR 1 dsBACKGROUND 1)
+				(airScript changeState: 0)
 			)
 		)
 	)

@@ -58,7 +58,9 @@
 (instance diver of Actor
 	(properties)
 )
-
+(instance BodyPete of Actor ;add
+	(properties)
+)
 (instance blood of View
 	(properties)
 )
@@ -199,7 +201,8 @@
 		)
 		(if (>= global111 3)
 			(if removedBodyFromRiver
-				((View new:)
+;;;				((View new:)
+			(BodyPete
 					view: 93
 					loop: 0
 					cel: 0
@@ -672,6 +675,29 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)		
+
+				(if
+
+						(ClickedOnObj BodyPete (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(995
+								(localproc_028a 62 34)
+							)
+							(998
+								(switch (Random 1 3)
+									(1 (localproc_028a 62 35))
+									(2 (localproc_028a 62 36))
+									(3 (localproc_028a 62 37))
+							)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						
+							
+						)
+				)
 	
 				(if
 
