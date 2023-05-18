@@ -292,7 +292,7 @@
 			setScript: mooreScript
 		)
 		(ego init:)
-		(airScript changeState: 0)
+;;;		(airScript changeState: 0)
 		(super init:)
 		(self setScript: rm63Script)
 	)
@@ -776,7 +776,24 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
-
+			(if
+				(and
+					(ClickedOnObj ego (event x?) (event y?))
+					(== (event claimed?) FALSE)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(995
+						(airScript changeState: 0)
+					)
+					(998
+						(airScript changeState: 0)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
 			(if (ClickedInRect 1 12 99 122 event) ;left
 					(event claimed: TRUE)
 					(switch theCursor
@@ -958,7 +975,7 @@
 			(2
 				(DrawCel 161 0 1 227 16 1)
 				(Display @str dsCOORD 244 30 dsCOLOR 1 dsBACKGROUND 1)
-				(airScript changeState: 0)
+;;;				(airScript changeState: 0)
 			)
 		)
 	)

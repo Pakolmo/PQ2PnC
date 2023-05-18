@@ -231,7 +231,7 @@
 			setScript: carpScript
 		)
 		(super init:)
-		(airScript changeState: 0)
+;;;		(airScript changeState: 0)
 		(self setScript: rm64Script)
 	)
 	
@@ -481,7 +481,24 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
-
+			(if
+				(and
+					(ClickedOnObj ego (event x?) (event y?))
+					(== (event claimed?) FALSE)
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(995
+						(airScript changeState: 0)
+					)
+					(998
+						(airScript changeState: 0)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
 			(if 	
 				(and
 					(if (ClickedOnObj knife (event x?) (event y?)) ;knife
@@ -733,7 +750,7 @@
 			(2
 				(DrawCel 161 4 1 40 16 1)
 				(Display @str dsCOORD 54 30 dsCOLOR 1 dsBACKGROUND 1)
-				(airScript changeState: 0)
+;;;				(airScript changeState: 0)
 			)
 		)
 	)
