@@ -675,8 +675,73 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)		
+		(if 		(ClickedInRect 1 16 171 178 event) ;brush1
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look 
+						(localproc_027b 62 70)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)
+		(if 		(ClickedInRect 295 311 93 114 event) ;brush2
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look 
+						(localproc_027b 62 70)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)
+		(if 		(ClickedInRect 1 75 21 88 event) ;tree1
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look 
+						(localproc_027b 62 71)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)
+		(if 		(ClickedInRect 1 50 89 128 event) ;tree2
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look 
+						(localproc_027b 62 71)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)
 
-
+		(if 		(ClickedInRect 1 33 89 172 event) ;tree3
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look 
+						(localproc_027b 62 69)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)
+		(if 		(ClickedInRect 1 319 21 57 event) ;up
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look arround
+						(localproc_027b 62 72)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
 		(if 		(ClickedInRect 315 319 68 90 event) ;up right
 					(event claimed: TRUE)
 					(switch theCursor
@@ -860,17 +925,18 @@
 
 
 
-
-
 				(if
 					(and
 						(ClickedInRect 23 76 87 129 event) ;bloodview
 						(cast contains: bloodView)
+;;;						(not (cast contains: BodyPete))
+;;;						(not (cast contains: diver))
+;;;						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
 					(998 ;look
-						(Print {You will need your field kit to take the clues."})
+						(Print {You will need your field kit to take clues.})
 						
 						
 					)

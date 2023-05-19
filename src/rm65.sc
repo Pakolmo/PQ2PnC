@@ -287,7 +287,7 @@
 		
 		(super init:)
 
-			(airScript changeState: 0)
+;;;			(airScript changeState: 0)
 
 		(self setScript: rm65Script)
 	)
@@ -516,6 +516,217 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
+
+				(if
+					(and
+						(ClickedInRect 9 99 129 164 event) ;rock1
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(if
+									(and
+										(not (Btst 108))
+										(ego inRect: 244 125 319 145)
+										(or (== (ego loop?) 0) (== (ego loop?) 3))
+									)
+									(localPrint 65 6)
+								else
+									(localPrint 65 7)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if
+					(and
+						(ClickedInRect 245 264 90 104 event) ;pneumatic
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998				
+							(localPrint 65 17)
+						)
+
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+								
+				(if
+					(and
+						(ClickedInRect 122 184 98 113 event) ;boat
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998				
+							(localPrint 65 10)
+						)
+
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+										
+				
+				
+					
+				(if
+					(and
+						(ClickedInRect 127 204 110 129 event) ;rock3
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(if
+									(and
+										(not (Btst 108))
+										(ego inRect: 244 125 319 145)
+										(or (== (ego loop?) 0) (== (ego loop?) 3))
+									)
+									(localPrint 65 6)
+								else
+									(localPrint 65 7)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)					
+				(if
+					(and
+						(ClickedInRect 59 107 63 92 event) ;rock2
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(if
+									(and
+										(not (Btst 108))
+										(ego inRect: 244 125 319 145)
+										(or (== (ego loop?) 0) (== (ego loop?) 3))
+									)
+									(localPrint 65 6)
+								else
+									(localPrint 65 7)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+				(if
+					(and
+						(ClickedInRect 1 319 21 45 event) ;UP
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;UP
+							(rm65Script changeState: 3)
+						)
+						(998 ;look up
+							(localPrint 65 3)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+			
+			
+			(if (or
+				(ClickedOnObj weed7 (event x?) (event y?))
+				(ClickedOnObj weed6 (event x?) (event y?))
+				(ClickedOnObj weed5 (event x?) (event y?))
+				(ClickedOnObj weed4 (event x?) (event y?))
+				(ClickedOnObj weed3 (event x?) (event y?))
+				(ClickedOnObj weed2 (event x?) (event y?))
+				(ClickedOnObj weed1 (event x?) (event y?))
+				)
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(localPrint 65 11)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if 
+				(ClickedOnObj paper (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (ego inRect: 0 130 110 189)
+									(localPrint 65 14)
+								else
+									(localPrint 65 13)
+								)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)				
+			(if 
+				(ClickedOnObj metal (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (ego inRect: 174 111 226 150)
+							(localPrint 65 15)
+						else
+							(localPrint 65 13)
+						)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)			
+			(if 
+				(ClickedOnObj can (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (ego inRect: 179 150 226 189)
+									(localPrint 65 16)
+								)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+			(if 
+				(ClickedOnObj bottle (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor
+					(998 ;look
+						(if (ego inRect: 0 90 87 130)
+								(localPrint 65 12)
+							else
+								(localPrint 65 13)
+						)						
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)							
 			(if (cast contains: divers)
 				(event claimed: TRUE)
 				(bodyScript changeState: 5)

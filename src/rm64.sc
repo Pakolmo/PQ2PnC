@@ -39,7 +39,7 @@
 	(properties)
 )
 
-(instance knife of View
+(instance knife of Actor ;View
 	(properties)
 )
 
@@ -481,6 +481,7 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))	
 			)
+				
 			(if
 				(and
 					(ClickedOnObj ego (event x?) (event y?))
@@ -499,27 +500,78 @@
 					)
 				)
 			)
-			(if 	
-				(and
-					(if (ClickedOnObj knife (event x?) (event y?)) ;knife
-						(cast contains: knife)
-;;;						(or (ClickedInRect 92 128 150 152 event)
-;;;							(ClickedInRect 150 128 184 152 event)
-;;;							(ClickedInRect 120 133 160 139 event)
-;;;							(ClickedInRect 120 135 160 165 event)
-;;;						)
+			(if (or
+				(ClickedOnObj weed1 (event x?) (event y?))
+				(ClickedOnObj weed2 (event x?) (event y?))
+				(ClickedOnObj weed3 (event x?) (event y?))
+				(ClickedOnObj weed4 (event x?) (event y?))
+				)
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(localproc_000c 64 17)
+						)
+						(else
+							(event claimed: FALSE)		
+						)
 					)
+			)
+			
+				(if
+					(and
+						(ClickedInRect 184 251 96 131 event) ;Rockpart1
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(localproc_000c 64 16)	
+						)
+						(995
+							(localproc_000c 64 18)
+						)
+						(else
+							(event claimed: FALSE)		
+						)
+					)
+			)	
+				(if
+					(and
+						(ClickedInRect 251 296 122 137 event) ;Rockpart2
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(localproc_000c 64 16)	
+						)
+						(995
+							(localproc_000c 64 18)
+						)
+						(else
+							(event claimed: FALSE)		
+						)
+					)
+				)			
 
+
+				(if
+;;;					(and
+						(ClickedInRect 121 150 134 154 event) ;Knife
+;;;						(InRoom 14)
+
+;;;					)				
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
 															
+								(if (InRoom 14)
 									(if
 										(or
-											(ego inRect: 82 138 140 162) 
-											(ego inRect: 140 138 174 162)
-											(ego inRect: 110 143 150 149)
-											(ego inRect: 110 145 150 175)
+											(and (ego inRect: 92 128 150 152) (== (ego loop?) 0))
+											(and (ego inRect: 150 128 184 152) (== (ego loop?) 1))
+											(and (ego inRect: 120 133 160 139) (== (ego loop?) 2))
+											(and (ego inRect: 120 135 160 165) (== (ego loop?) 3))
 										)
 										(knife posn: 0 0)
 										(ego get: 14)
@@ -530,44 +582,49 @@
 									else
 										(Print 64 33)
 									)
-
-							
-							
+								else
+									(AlreadyTook)
+								)
 						)
 						(998 ;look
-								
-									(if
-										(or
-;;;											(ego inRect: 92 128 150 152) 
-;;;											(ego inRect: 150 128 184 152) 
-;;;											(ego inRect: 120 133 160 139)
-;;;											(ego inRect: 120 135 160 165)
-											(ego inRect: 82 138 140 162) 
-											(ego inRect: 140 138 174 162)
-											(ego inRect: 110 143 150 149)
-											(ego inRect: 110 145 150 175)
-										)
+
 										(localproc_000c 64 14)
-									else
-										(localproc_000c 64 13)
-									)
+
 								
 						)
 						(else
 							(event claimed: FALSE)		
 						)
 					)
-			)
-		
-		
-			)
-		
-			)
-				
-	)
-		
+				)
+						
+				(if
+					(and
+						(ClickedOnObj waterFall (event x?) (event y?))
+						(== (event claimed?) FALSE)
+					)
 
-)
+
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(localproc_000c 64 3)
+						)
+
+						(else
+							(event claimed: FALSE)		
+						)
+					)
+				)
+
+			
+
+
+				)
+				)
+	)
+
+
 
 (instance rm64Script of Script
 	(properties)

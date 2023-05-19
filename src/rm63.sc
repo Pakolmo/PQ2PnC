@@ -39,7 +39,9 @@
 (instance mooreBubble of Actor
 	(properties)
 )
-
+(instance carBroken of View
+	(properties)
+)
 (instance badge of View
 	(properties)
 )
@@ -83,8 +85,8 @@
 	)
 	
 	(method (init)
-		(User canInput: 1)
-		(User canControl: 1)
+;;;		(User canInput: 1)
+;;;		(User canControl: 1)
 		(Load rsSCRIPT 988)
 		(Load rsVIEW 12)
 		(Load rsVIEW 165)
@@ -171,7 +173,8 @@
 			addToPic:
 			ignoreActors:
 		)
-		((View new:)
+;;;		((View new:)
+		(carBroken
 			view: 91
 			loop: 3
 			cel: 6
@@ -291,6 +294,8 @@
 			stopUpd:
 			setScript: mooreScript
 		)
+		(User canInput: 1) ;add 
+		(User canControl: 1) ;add
 		(ego init:)
 ;;;		(airScript changeState: 0)
 		(super init:)
@@ -794,6 +799,106 @@
 					)
 				)
 			)
+			(if (ClickedOnObj carBroken (event x?) (event y?))
+				(event claimed: TRUE)
+				(switch theCursor
+					(998
+							(if (< (ego x?) 160)
+									(localproc_03fc 63 11)
+								)
+							(if (ego inRect: 0 95 118 112)
+									(localproc_03fc 63 20)
+								)
+					)
+					(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			(if (ClickedInRect 135 198 139 155 event) ;rocks1
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(localproc_03fc 63 23)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			(if (ClickedInRect 261 308 106 127 event) ;rocks2
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(localproc_03fc 63 23)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)	
+			(if (ClickedInRect 26 80 109 133 event) ;oilcan+pneumatic
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(if (ego inRect: 0 112 108 139)
+									(localproc_03fc 63 17)
+								else
+									(localproc_03fc 63 19)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)		
+			(if (ClickedInRect 108 130 129 142 event) ;glasses
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(if (ego inRect: 105 109 159 139)
+									(localproc_03fc 63 16)
+								else
+									(localproc_03fc 63 19)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			(if (and (ClickedInRect 3 319 10 40 event) ;up2
+					(== (event claimed?) FALSE)
+				)
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;swim
+							(rm63Script changeState: 4)
+						)
+						(998 ;look
+							(localproc_03fc 63 7)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+												
+			(if (ClickedInRect 3 319 41 66 event) ;up
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;swim
+							(localproc_03fc 63 8)
+						)
+						(998 ;look
+							(localproc_03fc 63 7)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			
 			(if (ClickedInRect 1 12 99 122 event) ;left
 					(event claimed: TRUE)
 					(switch theCursor

@@ -1076,6 +1076,21 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)		
+				
+		(if 		(ClickedInRect 1 319 21 69 event) ;up
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; look
+						(Print 61 34)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+						
+				
+				
 		(if 		(ClickedInRect 1 9 71 105 event) ;up left
 					(event claimed: TRUE)
 					(switch theCursor

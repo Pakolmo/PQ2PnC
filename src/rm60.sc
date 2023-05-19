@@ -932,6 +932,49 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)	
+
+		(if 		(ClickedInRect 268 315 78 123 event) ;bush
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; Look
+							(Print 60 55)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+
+
+				
+		(if 		(ClickedInRect 1 53 21 132 event) ;tree
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; Look
+								(if (ego inRect: 0 117 62 147)
+									(Print 60 56)
+								else
+									(Print 60 57)
+								)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)				
+				
+				
+		(if 		(ClickedInRect 54 319 21 70 event) ;up
+					(event claimed: TRUE)
+					(switch theCursor
+					(998 ; Look
+						(Print 60 58)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)					
 		(if 		(ClickedInRect 1 8 61 81 event) ;up left
 					(event claimed: TRUE)
 					(switch theCursor
