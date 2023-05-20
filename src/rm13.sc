@@ -1429,12 +1429,14 @@
 				(switch theCursor
 					(995 ;hand on wheel to drive
 						(if (ego has: iUnmarkedCarKeys)
+							(cSound loop: 1 fade:) ;prevent sound bug
 							(theGame newRoom: 166)
 						else
 							(Print {You don't have the keys for this car.})
 						)
 					)	
 					(103 ;unmarked keys drive. 
+						(cSound loop: 1 fade:) ;prevent sound bug
 						(theGame newRoom: 166)
 ;;;								(= drive
 ;;;										(PrintSpecial
