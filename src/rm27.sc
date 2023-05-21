@@ -22,7 +22,8 @@
 	newAct_2
 	newAct_3
 	newProp_2
-	newAct_4
+;;;	newAct_4 ;ourCar
+	ourCar
 	newProp
 	local6
 	local7
@@ -53,7 +54,8 @@
 			(switch currentCar
 				(13
 					(cond 
-						((not (ego inRect: 268 152 290 161)) (Print 27 103))
+;;;						((not (ego inRect: 268 152 290 161)) (Print 27 103))
+						((not (ego inRect: 268 152 290 161)) )					
 						((== workCarLocked 1) (Print 27 104) (return 0))
 						(workCarTrunkOpened (Print 27 105) (return 0))
 						((ego has: 10) (Print 27 106) (return 0))
@@ -62,7 +64,8 @@
 				)
 				(33
 					(cond 
-						((not (ego inRect: 268 152 290 161)) (Print 27 103))
+;;;						((not (ego inRect: 268 152 290 161)) (Print 27 103))
+						((not (ego inRect: 268 152 290 161)))
 						((== personalCarLocked 1) (Print 27 104))
 						(else (carScript changeState: 8))
 					)
@@ -71,6 +74,7 @@
 		)
 	)
 )
+
 
 (instance qDoor of Prop
 	(properties)
@@ -328,7 +332,8 @@
 			(if (== roomCarParked curRoomNum) (not local8) else 0)
 		)
 		(if (not local8) (= local6 1) else (= local6 0))
-		((= newAct_4 (Actor new:))
+;;;		((= newAct_4 (Actor new:))
+		((= ourCar (Actor new:))
 			view: 54
 			setStep: 1
 			setLoop: 1
@@ -359,7 +364,7 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed?) (return))
+;;;		(if (event claimed?) (return))
 		(switch (event type?)
 			(evSAID
 				(if (== local9 1)
@@ -574,10 +579,13 @@
 						(if (ego inRect: 207 156 258 178)
 							(if workCarTrunkOpened
 								(if (localproc_000c)
-									(Print 27 54)
+									(Print 27 54) ;Colocas tu malet|n de trabajo dentro del maletero.
 									(PutInRoom 10 13)
 									(if (IsObject theFieldKit) (theFieldKit dispose:))
 									(= fieldKitOpen 0)
+
+									
+									
 								else
 									(Print 27 55)
 								)
@@ -704,6 +712,120 @@
 					)
 				)
 			)
+			
+		)
+			(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)				
+
+		
+		
+						(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar 13)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(110 ;Deposit briefcase
+							(if (ego inRect: 207 156 258 178)
+							(if workCarTrunkOpened
+								(if (localproc_000c)
+									(Print 27 54)
+									(PutInRoom 10 13)
+									(if (IsObject theFieldKit) (theFieldKit dispose:))
+									(= fieldKitOpen 0)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)
+									;Cerramos
+									(if workCarTrunkOpened
+										(carScript changeState: 17)
+										(= workCarTrunkOpened 0)
+;;;									else
+;;;										(Print 27 76)
+									)									
+									
+									
+									
+									
+									
+								else
+									(Print 27 55)
+								)
+							else
+								(Print 27 56)
+							)
+						else
+							(Print 27 57)
+						)
+						
+						)
+						(995 ;hand		Open door	
+							(if local6 (= global132 1) else (localproc_2146))
+							
+							
+							
+							
+							(cond ;Open trunk
+							((ego inRect: 170 133 196 149) (Print 27 71))
+							((== currentCar 13)
+								(if (ego inRect: 207 156 258 178)
+									(cond 
+										(workCarTrunkOpened 
+											(if (ego inRect: 207 156 258 178)
+												(if workCarTrunkOpened
+													(if (InRoom 10 13)
+														(Print 27 58)
+														(ego get: 10)
+													else
+;;;														(Print 27 59); El malet|n de trabajo no est* en el maletero. Cerrar.
+															(if workCarTrunkOpened
+																(carScript changeState: 17)
+																(= workCarTrunkOpened 0)
+															else
+																(Print 27 76)
+															)
+													)
+												else
+													(Print 27 56)
+												)
+											else
+												(Print 27 57)
+											)
+																
+																
+																
+											
+;;;											(Print 27 72) El maletero ya est* abierto.
+													) 
+										((ego has: 3) (carScript changeState: 15) (= workCarTrunkOpened 1))
+										(else (Print 27 73))
+									)
+								else
+									(NotClose)
+								)
+							)
+							(else (Print 27 74))
+						)
+							
+			
+			
+						)
+					)
+						)
+				)
+			
+			
+			
+
+			
+			
+			
 		)
 	)
 )
@@ -714,7 +836,7 @@
 	(method (doit)
 		(cond 
 			(
-			(and global132 local6 (not (cast contains: newAct_4))) (= global132 0) (carScript changeState: 0))
+			(and global132 local6 (not (cast contains: ourCar))) (= global132 0) (carScript changeState: 0))
 			(
 			(and (== global132 (not local6)) (== (not local6) 1)) (= global132 0) (localproc_2146))
 		)
@@ -761,10 +883,11 @@
 				(if (not local8)
 					(= workCarTrunkOpened 0)
 					(stopScript init:)
-					(newAct_4 setMotion: MoveTo 288 169 stopScript)
+;;;					(newAct_4 setMotion: MoveTo 288 169 stopScript)
+					(ourCar setMotion: MoveTo 288 169 stopScript)
 					(= global132 1)
 				else
-					(newAct_4 addToPic:)
+					(ourCar addToPic:)
 				)
 				(if (!= roomCarParked curRoomNum)
 					(= roomCarParked curRoomNum)
@@ -939,7 +1062,7 @@
 					setCycle: EndLoop self
 				)
 			)
-			(16 (unTrunk stopUpd:))
+;;;			(16 (unTrunk stopUpd:))
 			(17
 				(= workCarTrunkOpened 0)
 				(unTrunk
@@ -967,7 +1090,7 @@
 				(if (== currentCar 13) (keith stopUpd:))
 			)
 			(1
-				(newAct_4 ignoreActors: 0 addToPic:)
+				(ourCar ignoreActors: 0 addToPic:)
 				(HandsOn)
 			)
 		)
