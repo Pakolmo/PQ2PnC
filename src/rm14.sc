@@ -31,7 +31,7 @@
 	(Print &rest #at -1 15)
 )
 
-(procedure (localproc_19fc)
+(procedure (EnterCar)
 	(cond 
 		(
 			(and (!= global169 0) (ego inRect: 240 180 287 192))
@@ -62,7 +62,7 @@
 							(not
 								(ego inRect: [local4 0] [local4 1] [local4 2] [local4 3])
 							)
-							(LocPrint 14 74)
+;;;							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
 						)
 						(workCarLocked
 							(LocPrint 14 75)
@@ -85,7 +85,7 @@
 							(not
 								(ego inRect: [local4 0] [local4 1] [local4 2] [local4 3])
 							)
-							(LocPrint 14 74)
+							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
 						)
 						((== personalCarLocked 1)
 							(LocPrint 14 75)
@@ -787,7 +787,7 @@ code_096b:
 					(== (not local0) 1)
 				)
 				(= global132 0)
-				(localproc_19fc)
+				(EnterCar)
 			)
 			(
 				(and
@@ -962,7 +962,7 @@ code_096b:
 							(Said 'open/auto,door')
 							(Said 'get,look<in,in[/auto]')
 						)
-						(localproc_19fc)
+						(EnterCar)
 					)
 					(
 						(or
@@ -1255,6 +1255,301 @@ code_096b:
 				)
 			)
 		)
+		
+		(if (event claimed?)
+			(return)
+		)
+
+			(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)		
+				
+;;;					(if
+;;;
+;;;						(and
+;;;							(ClickedOnObj ourCar (event x?) (event y?))
+;;;							(== currentCar carPersonal)
+;;;						)
+;;;
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995 ;use Untrunk
+;;;						(if (== currentCar 13)
+;;;							(if (ego inRect: 146 132 172 142)
+;;;								(if (ego has: iUnmarkedCarKeys)
+;;;									(if workCarTrunkOpened
+;;;										(Print 14 58)
+;;;									else
+;;;										(carScript changeState: 10)
+;;;									)
+;;;								else
+;;;									(LocPrint 14 59)
+;;;								)
+;;;							else
+;;;								(LocPrint 14 60)
+;;;							)
+;;;						else
+;;;							(LocPrint 14 61)
+;;;						)	
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							(if (== currentCar 13)
+;;;							(if (ego inRect: 146 132 172 142)
+;;;								(if workCarTrunkOpened
+;;;									(carScript changeState: 12)
+;;;								else
+;;;									(Print 14 62)
+;;;								)
+;;;							else
+;;;								(NotClose)
+;;;							)
+;;;						else
+;;;							(LocPrint 14 61) ;La "puerta del maletero" de tu coche no ha funcionado desde que expir/ la garant|a.
+;;;						)
+;;;						
+;;;						(if (== currentCar 13)
+;;;							(if (ego inRect: 146 132 172 142)
+;;;								(if workCarTrunkOpened
+;;;									(carScript changeState: 12)
+;;;								else
+;;;									(Print 14 62)
+;;;								)
+;;;							else
+;;;								(NotClose)
+;;;							)
+;;;						else
+;;;							(LocPrint 14 61)
+;;;						)
+;;;						
+;;;						)(else
+;;;							(event claimed: TRUE)
+;;;						 )
+;;;					)
+;;;				)
+;;;		
+;;;					(if
+;;;
+;;;							(ClickedInRect 197 233 112 129 event) ;open door car personal or car work
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;							(localproc_19fc)
+;;;							
+;;;						
+;;;						)
+;;;						(else	
+;;;										(event claimed: TRUE)
+;;;						 )
+;;;					
+;;;				)
+;;;		
+		
+		
+		
+						(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carPersonal)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;hand
+							(if (ego inRect: 132 112 235 201 ) ;near door personal car
+								(EnterCar)
+							)
+							(if (ego inRect:  137 117 182 160) ;near trunk personal car
+								(LocPrint 14 61)
+							)
+						)
+						(998 ;look
+							(if (ego inRect:  137 117 182 160) ;near trunk personal car
+								(LocPrint 14 61)
+							)		
+						)
+						
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+						(if
+
+						(and
+							(ClickedOnObj ourCar (event x?) (event y?))
+							(== currentCar carWork)
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(110 ;field kit
+						(if (ego inRect: 146 132 172 142)
+							(if workCarTrunkOpened
+								(if (ego has: iFieldKit)
+									(LocPrint 14 45) ;Colocas tu malet|n de trabajo dentro del maletero. Cerrar maletero
+									(carScript changeState: 12)
+									
+									
+									
+									(PutInRoom iFieldKit 13)
+									(if (IsObject theFieldKit) (theFieldKit dispose:))
+									(= fieldKitOpen 0)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)					
+									
+									
+									
+									
+								else
+									(LocPrint 14 46) ;No tienes el malet|n de trabajo. Close trunk
+									(if (ego inRect: 146 132 172 142)
+										(if workCarTrunkOpened
+											(carScript changeState: 12)
+										else
+										(Print 14 62)
+									)
+							else
+								(NotClose)
+							)
+									
+									
+									
+								)
+							else
+								(LocPrint 14 47)
+							)
+						else
+							(LocPrint 14 48)
+						)							
+							
+						)
+						(995 ;hand
+							(if (ego inRect: 132 112 235 201 ) ;near door personal car
+								(EnterCar)
+							(if (ego inRect:  146 132 172 142) ;near trunk personal car 137 117 182 160
+							(if (== currentCar 13)
+							(if (ego inRect: 137 117 182 160)
+								(if (ego has: iUnmarkedCarKeys)
+									(if workCarTrunkOpened
+;;;										(Print 14 58) ;Ya est* abierto. Close trunk
+														(if (== currentCar 13)
+															(if (ego inRect: 146 132 172 142)
+																(if workCarTrunkOpened
+																	(carScript changeState: 12)
+																else
+																	(Print 14 62)
+																)
+															else
+																(NotClose)
+															)
+														)
+										
+										
+											(if (ego inRect: 146 132 172 142)
+											(if workCarTrunkOpened
+												(if (== ((inventory at: iFieldKit) owner?) 13)
+													(LocPrint 14 49)
+													(ego get: iFieldKit) ;close trunk
+														(if (== currentCar 13)
+															(if (ego inRect: 146 132 172 142)
+																(if workCarTrunkOpened
+																	(carScript changeState: 12)
+																else
+																	(Print 14 62)
+																)
+															else
+																(NotClose)
+															)
+														)
+													
+													
+													
+;;;												else
+;;;													(LocPrint 14 50)
+												)
+											else
+;;;												(LocPrint 14 47) ;Primero abre el maletero.
+											)
+										else
+											(LocPrint 14 48)
+										)
+									else
+										(carScript changeState: 10) ;open trunk
+										
+										(if (ego inRect: 146 132 172 142) ;take field kit
+											(if workCarTrunkOpened
+												(if (== ((inventory at: iFieldKit) owner?) 13)
+													(LocPrint 14 49)
+													(ego get: iFieldKit)
+
+												)
+											)
+										else
+											(LocPrint 14 48)
+										)										
+										
+										
+										
+										
+										
+										
+									)
+								else
+									(LocPrint 14 59)
+								)
+							else
+								(LocPrint 14 60)
+							)
+;;;						else
+;;;							(LocPrint 14 61) ;La "puerta del maletero" de tu coche no ha funcionado desde que expir/ la garant|a.
+						)
+							)
+						)
+						)
+						(998 ;look
+							(if (ego inRect:  137 117 182 160) ;near trunk personal car
+;;;								(LocPrint 14 61)
+							)		
+						)
+						
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				)
+			)
 	)
 )
 
@@ -1392,7 +1687,7 @@ code_096b:
 				)
 			)
 			(11
-				(unTrunk stopUpd:)
+;;;				(unTrunk stopUpd:)
 			)
 			(12
 				(= workCarTrunkOpened 0)
