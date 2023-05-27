@@ -63,7 +63,7 @@
 					(User canInput: 1)
 				)
 				(= local101
-					(if (== prevRoomNum 14) (>= global169 2) else 0)
+					(if (== driveFix 14) (>= global169 2) else 0)
 				)
 			)
 		)
@@ -89,7 +89,7 @@
 					(User canInput: 1)
 				)												
 				(= local101
-					(if (== prevRoomNum 14)
+					(if (== driveFix 14)
 						(>= global169 2)
 					else
 						0
@@ -112,7 +112,7 @@
 					(User canInput: 1)
 				)
 				(= local101
-					(if (== prevRoomNum 14)
+					(if (== driveFix 14)
 						(>= global169 2)
 					else 
 						0
@@ -142,7 +142,7 @@
 					(User canInput: 1)
 				)
 				(= local101
-					(if (== prevRoomNum 14)
+					(if (== driveFix 14)
 						(>= global169 2)
 					else
 						0
@@ -165,7 +165,7 @@
 					(User canInput: 1)
 				)
 				(= local101
-					(if (== prevRoomNum 14)
+					(if (== driveFix 14)
 						(>= global169 2)
 					else
 						0
@@ -187,7 +187,7 @@
 					(User canInput: 1)
 				)
 				(= local101
-					(if (== prevRoomNum 14) (>= global169 2) else 0)
+					(if (== driveFix 14) (>= global169 2) else 0)
 				)
 			)												
 		)
@@ -206,7 +206,7 @@
 					(User canInput: 1)
 				)											
 				(= local101
-					(if (== prevRoomNum 14) (>= global169 2) else 0)
+					(if (== driveFix 14) (>= global169 2) else 0)
 				)	
 			)
 		)
@@ -232,7 +232,7 @@
 					)
 				)						
 				(= local101
-					(if (== prevRoomNum 14) (>= global169 2) else 0)
+					(if (== driveFix 14) (>= global169 2) else 0)
 				)	
 			)	
 		)						
@@ -251,7 +251,7 @@
 					(User canInput: 1)			
 				)											
 				(= local101
-					(if (== prevRoomNum 14) (>= global169 2) else 0)
+					(if (== driveFix 14) (>= global169 2) else 0)
 				)	
 			)		
 		)
@@ -434,10 +434,10 @@
 		(if (not (== prevRoomNum 166))
 			(= driveFix prevRoomNum)	
 		)
-		;(= outsideRoom prevRoomNum)
+		;(= outsideRoom driveFix)
 		(= outsideRoom driveFix)
 		(= windshieldOverlay
-			(switch driveFix ;prevRoomNum
+			(switch driveFix ;driveFix
 				(14 0)
 				(25 40)
 				(225 40)
@@ -452,7 +452,7 @@
 		)
 		(= local108
 			(= local110
-				(switch driveFix ;prevRoomNum
+				(switch driveFix ;driveFix
 					(14 62)
 					(25 100)
 					(29 100)
@@ -544,7 +544,7 @@
 		(if (== prevRoomNum 166)
 			(drive)	
 		)
-		(Printf {gamePhase: %d} gamePhase)
+		;(Printf {gamePhase: %d} gamePhase)
 	)
 	
 	(method (handleEvent event)
@@ -715,7 +715,7 @@
 					(and
 						(not (Btst 22))
 						(== gamePhase 6)
-						(== prevRoomNum 14)
+						(== driveFix 14)
 					)
 					(sequencer changeState: 53)
 					(= local117 25)
@@ -727,7 +727,7 @@
 				((and (not (Btst 24))
 						(== gamePhase 10)) (sequencer changeState: 57))
 				(
-				(and (not (Btst fKidnappingReported)) global127 (== prevRoomNum 31)) (sequencer changeState: 63))
+				(and (not (Btst fKidnappingReported)) global127 (== driveFix 31)) (sequencer changeState: 63))
 				((and (not (Btst 28)) (Btst 52)) (sequencer changeState: 68))
 			)
 			(if (not local117)
@@ -1013,11 +1013,11 @@
 								(and
 									(not local105)
 									(or
-										(and (== gamePhase 2) (== prevRoomNum 22))
-										(and (== gamePhase 3) (== prevRoomNum 67))
-										(and (== gamePhase 5) (== prevRoomNum 61))
-										(and (== gamePhase 12) (== prevRoomNum 25))
-										(and (== gamePhase 10) (== prevRoomNum 27))
+										(and (== gamePhase 2) (== driveFix 22))
+										(and (== gamePhase 3) (== driveFix 67))
+										(and (== gamePhase 5) (== driveFix 61))
+										(and (== gamePhase 12) (== driveFix 25))
+										(and (== gamePhase 10) (== driveFix 27))
 									)
 								)
 								(LocPrint 1 13 45)
@@ -1203,7 +1203,7 @@
 							)
 						)
 						(= local101
-							(if (== prevRoomNum 14) (>= global169 2) else 0)
+							(if (== driveFix 14) (>= global169 2) else 0)
 						)
 					)
 					((Said 'chase[/bains]')
@@ -1353,11 +1353,11 @@
 								(and
 									(not local105)
 									(or
-										(and (== gamePhase 2) (== prevRoomNum 22))
-										(and (== gamePhase 3) (== prevRoomNum 67))
-										(and (== gamePhase 5) (== prevRoomNum 61))
-										(and (== gamePhase 12) (== prevRoomNum 25))
-										(and (== gamePhase 10) (== prevRoomNum 27))
+										(and (== gamePhase 2) (== driveFix 22))
+										(and (== gamePhase 3) (== driveFix 67))
+										(and (== gamePhase 5) (== driveFix 61))
+										(and (== gamePhase 12) (== driveFix 25))
+										(and (== gamePhase 10) (== driveFix 27))
 									)
 								)
 								(LocPrint 1 13 45)
@@ -1481,7 +1481,7 @@
 ;;;														(User canInput: 1)
 ;;;													)
 ;;;													(= local101
-;;;													(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;													(if (== driveFix 14) (>= global169 2) else 0)
 ;;;						)
 ;;;												)
 ;;;										)
@@ -1510,7 +1510,7 @@
 ;;;									)												
 ;;;												
 ;;;													(= local101
-;;;													(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;													(if (== driveFix 14) (>= global169 2) else 0)
 ;;;													)
 ;;;											)
 ;;;										)
@@ -1538,7 +1538,7 @@
 ;;;													(User canInput: 1)
 ;;;												)
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;													)
 ;;;											)
 ;;;										)
@@ -1568,7 +1568,7 @@
 ;;;														(User canInput: 1)
 ;;;													)
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)
 ;;;											
@@ -1600,7 +1600,7 @@
 ;;;													(User canInput: 1)
 ;;;												)
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)
 ;;;											
@@ -1631,7 +1631,7 @@
 ;;;													(User canInput: 1)
 ;;;												)
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)												
 ;;;										)
@@ -1659,7 +1659,7 @@
 ;;;													(User canInput: 1)
 ;;;												)											
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)
 ;;;										)
@@ -1703,7 +1703,7 @@
 ;;;									)
 ;;;										
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)											
 ;;;											
@@ -1736,7 +1736,7 @@
 ;;;										
 ;;;									)											
 ;;;												(= local101
-;;;												(if (== prevRoomNum 14) (>= global169 2) else 0)
+;;;												(if (== driveFix 14) (>= global169 2) else 0)
 ;;;												)	
 ;;;											)											
 ;;;																						
@@ -2037,7 +2037,7 @@
 				(Bset 111)
 				(if
 					(and
-						(== prevRoomNum 61)
+						(== driveFix 61)
 						(== gamePhase 5)
 						(!= outsideRoom 61)
 					)
@@ -2047,7 +2047,7 @@
 				)
 				(if
 					(and
-						(== prevRoomNum 27)
+						(== driveFix 27)
 						(== gamePhase 10)
 						(!= captainWarningTimer 1)
 					)
