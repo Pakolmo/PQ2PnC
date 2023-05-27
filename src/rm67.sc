@@ -415,7 +415,7 @@
 					x: (+ (ourCar x?) 38)
 					y: (+ (ourCar y?) 4)
 					setCel: (if workCarTrunkOpened 255 else 0)
-					stopUpd:
+;;;					stopUpd:
 					init:
 				)
 			)
@@ -1670,7 +1670,7 @@
 				(unTrunk setCycle: BegLoop self)
 			)
 			(3
-				(unTrunk stopUpd:)
+;;;				(unTrunk stopUpd:)
 				(client setScript: 0)
 				(HandsOn)
 			)
@@ -1710,7 +1710,7 @@
 							setPri: 12
 							x: (+ (ourCar x?) 38)
 							y: (+ (ourCar y?) 4)
-							stopUpd:
+;;;							stopUpd:
 							init:
 						)
 					)
@@ -1731,7 +1731,7 @@
 						setPri: 12
 						x: (+ (ourCar x?) 38)
 						y: (+ (ourCar y?) 4)
-						stopUpd:
+;;;						stopUpd:
 						init:
 					)
 				)

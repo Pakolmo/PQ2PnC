@@ -1267,92 +1267,52 @@ code_096b:
 					
 				)		
 				
-;;;					(if
-;;;
-;;;						(and
-;;;							(ClickedOnObj ourCar (event x?) (event y?))
-;;;							(== currentCar carPersonal)
-;;;						)
-;;;
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(995 ;use Untrunk
-;;;						(if (== currentCar 13)
-;;;							(if (ego inRect: 146 132 172 142)
-;;;								(if (ego has: iUnmarkedCarKeys)
-;;;									(if workCarTrunkOpened
-;;;										(Print 14 58)
-;;;									else
-;;;										(carScript changeState: 10)
-;;;									)
-;;;								else
-;;;									(LocPrint 14 59)
-;;;								)
-;;;							else
-;;;								(LocPrint 14 60)
-;;;							)
-;;;						else
-;;;							(LocPrint 14 61)
-;;;						)	
-;;;							
-;;;							
-;;;							
-;;;							
-;;;							
-;;;							
-;;;							(if (== currentCar 13)
-;;;							(if (ego inRect: 146 132 172 142)
-;;;								(if workCarTrunkOpened
-;;;									(carScript changeState: 12)
-;;;								else
-;;;									(Print 14 62)
-;;;								)
-;;;							else
-;;;								(NotClose)
-;;;							)
-;;;						else
-;;;							(LocPrint 14 61) ;La "puerta del maletero" de tu coche no ha funcionado desde que expir/ la garant|a.
-;;;						)
-;;;						
-;;;						(if (== currentCar 13)
-;;;							(if (ego inRect: 146 132 172 142)
-;;;								(if workCarTrunkOpened
-;;;									(carScript changeState: 12)
-;;;								else
-;;;									(Print 14 62)
-;;;								)
-;;;							else
-;;;								(NotClose)
-;;;							)
-;;;						else
-;;;							(LocPrint 14 61)
-;;;						)
-;;;						
-;;;						)(else
-;;;							(event claimed: TRUE)
-;;;						 )
-;;;					)
-;;;				)
-;;;		
-;;;					(if
-;;;
-;;;							(ClickedInRect 197 233 112 129 event) ;open door car personal or car work
-;;;					)
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(995
-;;;							(localproc_19fc)
-;;;							
-;;;						
-;;;						)
-;;;						(else	
-;;;										(event claimed: TRUE)
-;;;						 )
-;;;					
-;;;				)
-;;;		
-		
-		
+						(if
+
+
+							(ClickedOnObj littleCarParked (event x?) (event y?))
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;hand
+							(cond 
+							(
+								(and
+									(!= global169 0)
+									(ego inRect: 240 180 287 192)
+								)
+								(LocPrint 14 63 25 4)
+								(= perspective 0)
+								(curRoom newRoom: 104)
+							)
+							(
+							(and
+								(!= global169 0)
+								(ego inRect: 223 156 291 190))
+								(LocPrint 14 64)
+							)
+							((ego inRect: [local4 0] [local4 1] [local4 2] [local4 3])
+								(LocPrint 14 65)
+							)
+							(else
+								(LocPrint 14 66)
+							)
+						)
+							
+							
+							
+						)
+						
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+
+
+
 		
 						(if
 
