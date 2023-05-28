@@ -18,11 +18,11 @@
 (local
 	local0
 	local1
-	local2
-	local3
+	local2 ;pulling in car x
+	local3 ;parked car x
 	[local4 4] ;sonny's car rect
 	local8
-	nextRoom
+	nextRoom = 15
 	local10
 	[local11 2]
 	local13
@@ -62,7 +62,7 @@
 							(not
 								(ego inRect: [local4 0] [local4 1] [local4 2] [local4 3])
 							)
-;;;							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
+							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
 						)
 						(workCarLocked
 							(LocPrint 14 75)
@@ -231,7 +231,7 @@
 		(if local0
 			(= workCarTrunkOpened 0)
 		else
-			(gEgo observeBlocks: ourCarBlock)
+			(ego observeBlocks: ourCarBlock)
 			(if (and workCarTrunkOpened (== currentCar 13))
 				(unTrunk
 					view: 51
@@ -357,10 +357,16 @@
 			setCel: (if (== currentCar 13) 1 else 5)
 			setCycle: 0
 			;posn: (if local0 (= global132 1)) 140
-			posn: (if local0 (= global132 1) local2 else local3) 140
+			posn: (if (and local0 (not local1)) local2 else local3) 140
 			illegalBits: 0
 			ignoreActors:
 			init:
+		)
+		(if (or
+				(== prevRoomNum 13)
+				(== prevRoomNum 33)
+			)
+			(= global132 1)
 		)
 		(self setScript: rm14Script)
 	)
@@ -934,7 +940,7 @@
 					(== (not local0) 1)
 				)
 				(= global132 0)
-				(EnterCar)
+				(EnterCar) ;Somethind is wrong here
 			)
 			(
 				(and
