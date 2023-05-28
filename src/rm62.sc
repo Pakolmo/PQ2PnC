@@ -669,262 +669,218 @@
 				)
 			)
 		)
-					(cond						
-				((and
+		(cond						
+			(
+				(and
 					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-					
+					(not (& (event modifiers?) emRIGHT_BUTTON))	
 				)		
-		(if 		(ClickedInRect 1 16 171 178 event) ;brush1
+				(if (ClickedInRect 1 16 171 178 event) ;brush1
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look 
-						(localproc_027b 62 70)
+						(998 ; look 
+							(localproc_027b 62 70)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)
-		(if 		(ClickedInRect 295 311 93 114 event) ;brush2
+				)
+				(if (ClickedInRect 295 311 93 114 event) ;brush2
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look 
-						(localproc_027b 62 70)
+						(998 ; look 
+							(localproc_027b 62 70)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)
-		(if 		(ClickedInRect 1 75 21 88 event) ;tree1
+				)
+				(if (ClickedInRect 1 75 21 88 event) ;tree1
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look 
-						(localproc_027b 62 71)
+						(998 ; look 
+							(localproc_027b 62 71)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)
-		(if 		(ClickedInRect 1 50 89 128 event) ;tree2
+				)
+				(if (ClickedInRect 1 50 89 128 event) ;tree2
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look 
-						(localproc_027b 62 71)
+						(998 ; look 
+							(localproc_027b 62 71)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)
-
-		(if 		(ClickedInRect 1 33 89 172 event) ;tree3
+				)
+				(if (ClickedInRect 1 33 89 172 event) ;tree3
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look 
-						(localproc_027b 62 69)
+						(998 ; look 
+							(localproc_027b 62 69)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)
-		(if 		(ClickedInRect 1 319 21 57 event) ;up
+				)
+				(if (ClickedInRect 1 319 21 57 event) ;up
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ; look arround
-						(localproc_027b 62 72)
+						(998 ; look arround
+							(localproc_027b 62 72)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)	
-		(if 		(ClickedInRect 315 319 68 90 event) ;up right
+				)
+				(if (ClickedInRect 315 319 68 90 event) ;up right
 					(event claimed: TRUE)
 					(switch theCursor
-					(999 ; Walk
-						(ego setMotion: MoveTo 321 78)
+						(999 ; Walk
+							(ego setMotion: MoveTo 321 78)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)				
-		(if 		(ClickedInRect 313 319 118 185 event) ;down right
+				)				
+				(if (ClickedInRect 313 319 118 185 event) ;down right
 					(event claimed: TRUE)
 					(switch theCursor
-					(999 ; Walk
-						(ego setMotion: MoveTo 321 149)
+						(999 ; Walk
+							(ego setMotion: MoveTo 321 149)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-					)
-		)		
-
-
-
-
-
+				)		
 				(if
 					(and
 						(ClickedOnObj diver (event x?) (event y?))
 						(cast contains: diver)
 					)
-						(event claimed: TRUE)
-						(switch theCursor
-							(995
-								(localproc_028a 62 34)
-							)
-							(996
-								(if (< (ego distanceTo: diver) 60)
-									(localproc_028a 62 54)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(localproc_028a 62 34)
+						)
+						(996
+							(if (< (ego distanceTo: diver) 60)
+								(localproc_028a 62 54)
 							else
 								(localproc_027b 62 55)
 							)
-							)
-							(else
-								(event claimed: FALSE)
-							)
-						
-							
 						)
+						(else
+							(event claimed: FALSE)
+						)		
+					)
 				)
-	
-
-
-
-
-
-				(if
-
-						(ClickedOnObj BodyPete (event x?) (event y?))
-						(event claimed: TRUE)
-						(switch theCursor
-							(995
-								(localproc_028a 62 34)
-							)
-							(998
-								(switch (Random 1 3)
-									(1 (localproc_028a 62 35))
-									(2 (localproc_028a 62 36))
-									(3 (localproc_028a 62 37))
-							)
-							)
-							(else
-								(event claimed: FALSE)
-							)
-						
-							
-						)
-				)
-	
-				(if
-
-						(ClickedOnObj blood (event x?) (event y?))
-						
+				(if	(ClickedOnObj BodyPete (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor
-
-					(998 ;look blood
-							(if
-								(and (ego inRect: 58 70 135 100) (>= global111 3))
-									(bloodView posn: 52 135 forceUpd:) ;39 107
-									(= local105 1)
-									(SolvePuzzle 1 71)
-									(localproc_028a 62 60 83)
-									(localproc_028a 62 61)
-									(if (and (== currentCar 13) (== diverState 0))
-										(rm62 setScript: keithAmbles)
-									)
-								else
-;;;									(localproc_027b 62 62)
-									(NotClose)
-								)
+						(995
+							(localproc_028a 62 34)
+						)
+						(998
+							(switch (Random 1 3)
+								(1 (localproc_028a 62 35))
+								(2 (localproc_028a 62 36))
+								(3 (localproc_028a 62 37))
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)			
 					)
-					(else
-						(event claimed: TRUE)
+				)
+				(if (ClickedOnObj blood (event x?) (event y?))	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look blood
+							(if
+								(and
+									(ego inRect: 58 70 135 100)
+									(>= global111 3)
+								)
+								(bloodView posn: 52 135 forceUpd:) ;39 107
+								(= local105 1)
+								(SolvePuzzle 1 71)
+								(localproc_028a 62 60 83)
+								(localproc_028a 62 61)
+								(if (and (== currentCar 13) (== diverState 0))
+									(rm62 setScript: keithAmbles)
+								)
+							else
+;;;								(localproc_027b 62 62)
+								(NotClose)
+							)
+						)
+						(else
+							(event claimed: FALSE)
 						 )
 					)
 				)	
-						
-						
-						
-						
-						
-
-				(if
-
-						(ClickedInRect 259 277 90 112 event) ;garbage
-						
-
+				(if (ClickedInRect 259 277 90 112 event) ;garbage
 					(event claimed: TRUE)
 					(switch theCursor
-					(995 ;use 
-
-						
-									(cond 
-							((not (InRoom 26)) (Print 62 49))
-							((ego inRect: 248 97 293 121)
-								(if (and local102 (InRoom 26))
-									(SolvePuzzle 1)
-									(localproc_028a 62 50)
-									(localproc_028a 62 51)
-									(ego get: 26)
+						(995 ;use 						
+							(cond 
+								((not (InRoom 26))
+									(Print 62 49)
+								)
+								((ego inRect: 248 97 293 121)
+									(if (and local102 (InRoom 26))
+										(SolvePuzzle 1)
+										(localproc_028a 62 50)
+										(localproc_028a 62 51)
+										(ego get: 26)
+									)
+								)
+								(else
+									(localproc_027b 62 43)
 								)
 							)
-							(else (localproc_027b 62 43))
-						)
 							(if (ego has: 26)
 								(SolvePuzzle 2 73)
 								(localproc_028a 62 58)
-							)
-						
-						
-					)	
-					(998 ;look
-						
-						
-
+							)	
+						)	
+						(998 ;look
 							(if (ego inRect: 248 97 293 121)
 								(localproc_028a 62 42)
 							else
 								(localproc_027b 62 43)
 							)
-						
 							(if (ego inRect: 248 97 293 121)
-							(if
-								(and
-									(== ((inventory at: 26) owner?) 62)
-									(>= global111 3)
+								(if
+									(and
+										(== ((inventory at: 26) owner?) 62)
+										(>= global111 3)
+									)
+									(localproc_028a 62 44)
+									(= local102 1)
+								else
+									(localproc_028a 62 45)
 								)
-								(localproc_028a 62 44)
-								(= local102 1)
 							else
-								(localproc_028a 62 45)
+								(localproc_027b 62 43)
 							)
-						else
-							(localproc_027b 62 43)
-						)	
-							
-							)
-							
-
-						
-						
-						
-						
-					(else
-						(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
 						 )
 					)
 				)
-
-
-
 				(if
 					(and
 						(ClickedInRect 23 76 87 129 event) ;bloodview
@@ -935,25 +891,24 @@
 					)
 					(event claimed: TRUE)
 					(switch theCursor
-					(998 ;look
-						(Print {You will need your field kit to take clues.})
-						
-						
-					)
-					(110 ;open field kit
-								(= newEvent (Event new:))
-									(newEvent
-									    type: evKEYBOARD
-									    message: {open briefcase}
-									    modifiers: 999
-									    claimed: 0
-									)
-									(User handleEvent: newEvent)
-									(newEvent dispose:) 
-						
-					)						
+						(998 ;look
+							(Print {You will need your field kit to take clues.})	
+						)
+						(110 ;open field kit
+							(= newEvent (Event new:))
+							(newEvent
+							    type: evKEYBOARD
+							    message: {open briefcase}
+							    modifiers: 999
+							    claimed: 0
+							)
+							(User handleEvent: newEvent)
+							(newEvent dispose:)
+						)						
 						(201 ;use bag
-							(if (localproc_025c) (localproc_027b 62 33))
+							(if (localproc_025c)
+								(localproc_027b 62 33)
+							)
 						)
 						(202 ;Use camera
 							(if (localproc_025c)
@@ -964,56 +919,48 @@
 							)
 						)
 						(206 ;Fingerprint powder
-									(if (localproc_025c)
-										(if (ego has: 17)
-											(localproc_028a 62 29)
-										else
-											(gDView startUpd: setPri: 0)
-											(localproc_028a 62 30 83)
-											(localproc_028a 62 31)
-											(ego get: 17)
-											(SolvePuzzle 2)
-											(gDView setPri: 13 stopUpd:)
-											(localproc_028a 62 32 83)
-											(if (and (== currentCar 13) (== diverState 0))
-												(rm62 setScript: keithAmbles)
-											)
-										)
+							(if (localproc_025c)
+								(if (ego has: 17)
+									(localproc_028a 62 29)
+								else
+									(gDView startUpd: setPri: 0)
+									(localproc_028a 62 30 83)
+									(localproc_028a 62 31)
+									(ego get: 17)
+									(SolvePuzzle 2)
+									(gDView setPri: 13 stopUpd:)
+									(localproc_028a 62 32 83)
+									(if (and (== currentCar 13) (== diverState 0))
+										(rm62 setScript: keithAmbles)
 									)
-							
-							
-							
-							
+								)
+							)				
 						)
 						(204 ;vial of blood
-									(if (localproc_025c)
-										(if (Btst 144)
-											(localproc_028a 62 26)
-										else
-											(global119 startUpd: setPri: 0)
-											(global118 startUpd: setPri: 0)
-											(SolvePuzzle 2)
-											(localproc_028a 62 27 83)
-											(ego get: 28)
-											(Bset 144)
-											(global119 setPri: 13 stopUpd:)
-											(Print 62 28 #draw)
-											(if (and (== currentCar 13) (== diverState 0))
-												(rm62 setScript: keithAmbles)
-											)
-										)
+							(if (localproc_025c)
+								(if (Btst 144)
+									(localproc_028a 62 26)
+								else
+									(global119 startUpd: setPri: 0)
+									(global118 startUpd: setPri: 0)
+									(SolvePuzzle 2)
+									(localproc_028a 62 27 83)
+									(ego get: 28)
+									(Bset 144)
+									(global119 setPri: 13 stopUpd:)
+									(Print 62 28 #draw)
+									(if (and (== currentCar 13) (== diverState 0))
+										(rm62 setScript: keithAmbles)
 									)
-
+								)
+							)
 						)
 						(else
-							(event claimed: TRUE)
-						 )
+							(event claimed: FALSE)
+						)
 					)
 				)
-					
-		
-				)
-		
+			)
 		)
 	)
 )

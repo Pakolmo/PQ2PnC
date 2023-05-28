@@ -380,7 +380,6 @@
 						(= menuTime 0)
 						(theGame setCursor: 990 haveMouse)
 					)
-
 ;;;					(
 ;;;						(and
 ;;;							(> (event x?) (background nsLeft?))
@@ -690,10 +689,6 @@
 								)
 							)
 							(994 ;gun target
-								(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
-									(event claimed: TRUE)
-									(fire)
-								)
 								(if (curRoom script?)
 									(if (not (== 0 (StrCmp ((curRoom script?) name?) {boothScript})))
 										(event claimed: TRUE)
