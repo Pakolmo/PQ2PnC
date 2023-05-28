@@ -986,12 +986,18 @@
 					)
 					)
 		)	
+					
 						
-		(if 		(ClickedInRect 1 8 130 188 event) ;down left
+		(if 		
+						(ClickedInRect 1 8 130 188 event) ;down left
+
+						
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
+
 						(ego setMotion: MoveTo -3 159)
+
 					)
 					(else
 						(event claimed: FALSE)
@@ -1010,11 +1016,17 @@
 					)
 					)
 		)				
-		(if 		(ClickedInRect 313 319 123 185 event) ;down right
+		(if 	(and	(ClickedInRect 313 319 123 185 event) ;down right
+				(!= currentEgoView 17) ;prevent a bug
+			
+					)
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
-						(ego setMotion: MoveTo 321 156)
+						(if (!= currentEgoView 17)
+							(Print {Test})
+							(ego setMotion: MoveTo 321 156)
+						)
 					)
 					(else
 						(event claimed: FALSE)
