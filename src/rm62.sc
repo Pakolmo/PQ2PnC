@@ -31,6 +31,7 @@
 	local105
 	local106
 	newEvent
+	blood1 = 0
 )
 (procedure (localproc_025c)
 	(return
@@ -814,6 +815,7 @@
 								)
 								(bloodView posn: 52 135 forceUpd:) ;39 107
 								(= local105 1)
+								(= blood1 1)
 								(SolvePuzzle 1 71)
 								(localproc_028a 62 60 83)
 								(localproc_028a 62 61)
@@ -884,26 +886,42 @@
 				(if
 					(and
 						(ClickedInRect 23 76 87 129 event) ;bloodview
-						(cast contains: bloodView)
-;;;						(not (cast contains: BodyPete))
-;;;						(not (cast contains: diver))
-;;;						(== (event claimed?) FALSE)
-					)
+;;;						(localproc_025c))
+						(== currentCar 13) (== local103 1)(== global187 1))
+	
+
+							
+;;;						(== currentCar 13) 
+;;;						(== diverState 0)
+;;;						(== (ego view?) 0)
+;;;						(>= global111 3)
+;;;						(== local105 1)
+
+							
+					 ;Prevent bug bloodview
+
+				
+
+				
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {You will need your field kit to take clues.})	
+;;;							(if (localproc_025c)
+								(Print {You will need your field kit to take clues.})	
+;;;							)
 						)
 						(110 ;open field kit
-							(= newEvent (Event new:))
-							(newEvent
-							    type: evKEYBOARD
-							    message: {open briefcase}
-							    modifiers: 999
-							    claimed: 0
-							)
-							(User handleEvent: newEvent)
-							(newEvent dispose:)
+;;;							(if (localproc_025c)
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+;;;							)
 						)						
 						(201 ;use bag
 							(if (localproc_025c)
@@ -958,6 +976,8 @@
 						(else
 							(event claimed: FALSE)
 						)
+						
+					
 					)
 				)
 			)

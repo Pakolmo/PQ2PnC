@@ -260,7 +260,7 @@
 ;;;								((ego has: 20) ((inventory at: 20) showSelf:))
 								((not gloveBoxIsOpen) (Print 68 3))
 								((InRoom 20)
-									(bullets1 dispose:)
+;;;									(bullets1 dispose:)
 									(bullets dispose:)
 									(Print 68 4 #draw)
 									(SolvePuzzle 1)
@@ -395,7 +395,7 @@
 					
 	
 							
-			)
+				)
 			
 				
 				

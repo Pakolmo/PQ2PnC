@@ -979,7 +979,13 @@
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
+						(if (or (== (ego view?) 17)
+								(== (ego view?) 98)
+							)
+							(Print {Can't leave in weatsuit})
+						else
 						(ego setMotion: MoveTo -5 87)
+						)
 					)
 					(else
 						(event claimed: FALSE)
@@ -995,9 +1001,13 @@
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
-
+						(if (or (== (ego view?) 17)
+								(== (ego view?) 98)
+							)
+							(Print {Can't leave in weatsuit})
+						else
 						(ego setMotion: MoveTo -3 159)
-
+						)
 					)
 					(else
 						(event claimed: FALSE)
@@ -1009,22 +1019,32 @@
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
+						(if (or (== (ego view?) 17)
+								(== (ego view?) 98)
+							)
+							(Print {Can't leave in weatsuit})
+						else
 						(ego setMotion: MoveTo 321 87)
+						)
 					)
 					(else
 						(event claimed: FALSE)
 					)
 					)
 		)				
-		(if 	(and	(ClickedInRect 313 319 123 185 event) ;down right
-				(!= currentEgoView 17) ;prevent a bug
+		(if 		(ClickedInRect 313 319 123 185 event) ;down right
+				
 			
-					)
+					
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
-						(if (!= currentEgoView 17)
-							(Print {Test})
+						(if (or (== (ego view?) 17)
+								(== (ego view?) 98)
+							)
+							(Print {Can't leave in weatsuit})
+						else
+						
 							(ego setMotion: MoveTo 321 156)
 						)
 					)
