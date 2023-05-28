@@ -1138,6 +1138,7 @@
 				(== curRoomNum 66)							
 				(== curRoomNum 67)
 				(== curRoomNum 68)
+				(== curRoomNum 104)
 			)
 			(curRoom setRegions: 950)
 		)

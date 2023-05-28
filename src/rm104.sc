@@ -20,6 +20,7 @@
 	seeingGloveBox
 	local4
 	local5
+	FirstTime = 1
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 15)
@@ -235,6 +236,149 @@
 				)
 			)
 		)
+		
+				
+		(if (event claimed?)
+;;;			(return)
+		)
+
+			(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)		
+				
+					(if (== theCursor 999) ;use walk to close.
+						(HandsOn)
+						(curRoom newRoom: 14)
+					)
+		
+					(if (== theCursor 998) ;look vin
+						(if (== FirstTime 1)
+							(localproc_000c 104 0) (SolvePuzzle 1 77)
+							(= FirstTime 0)
+						)
+					)
+
+
+					(if (== theCursor 206) ;Use powders
+
+						(if (ego has: 10)
+							(global122 setPri: 0)
+							(global120 setPri: 0)
+
+									(if (not (ego has: 19))
+										(localproc_000c 104 36)
+										(= dustedMirror 1)
+									else
+										(localproc_000c 104 37)
+									)
+
+							(global122 setPri: 15)
+							(global120 setPri: 15)
+						else
+							(localproc_000c 104 38)
+							(event claimed: 1)
+						)
+					
+						(if (not (ego has: 19))
+							(if dustedMirror
+								(global123 setPri: 0)
+								(localproc_000c 104 1 83)
+								(SolvePuzzle 3)
+								(ego get: 19)
+								(global123 setPri: 15)
+							else
+								(localproc_000c 104 2) ;No has encontrado una huella v*lida a{n.
+							)
+						else
+							(localproc_000c 104 3)
+						)
+					)
+
+
+
+
+
+
+
+
+
+					(if
+					(and
+						(ClickedInRect 218  310 129 187 event) ;guantera
+						(!= gloveBoxClosed 0)
+					)
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+;;;								(= gloveBoxClosed 0)
+								(gloveBox setPri: 12)
+								(gloveBoxDoor setPri: 13)
+								(if (or gloveBoxClosed seeingGloveBox)
+									(localproc_000c 104 15 83)
+								else
+									(localproc_000c 104 16)
+								)
+						)
+						(995
+						(gloveBoxDoor setCel: 0)
+						(gloveBox setPri: 0)
+						(gloveBoxDoor setPri: 0)
+						(= seeingGloveBox 1)
+						(= gloveBoxClosed 1)
+						)
+	
+						(else
+							(event claimed: FALSE)
+				
+						)
+					)
+				)
+		
+					(if
+					(and
+						(ClickedInRect 256  312 101 128 event) ;guantera
+						(!= gloveBoxClosed 0)
+					)
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+						
+							(if gloveBoxClosed
+								(gloveBox setPri: 12)
+								(gloveBoxDoor setPri: 13)
+							)
+							(gloveBoxDoor setCel: 1)
+							(= seeingGloveBox 0)
+							(localproc_000c 104 4 83)
+							
+							(if (not gloveBoxClosed)
+								(gloveBoxDoor setCel: 0)
+								(gloveBox setPri: 0)
+								(gloveBoxDoor setPri: 0)
+								(= seeingGloveBox 1)
+								(= gloveBoxClosed 1)
+							)
+						)
+							
+						(else
+							(event claimed: FALSE)
+				
+						)
+					)
+				)
+						
+						
+						
+				)
+			)
+		
+		
+		
 	)
 )
 
