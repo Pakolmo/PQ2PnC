@@ -419,7 +419,7 @@
 								(LocPrint 22 37)
 							)
 							(else
-								(LocPrint 22 38)
+								(LocPrint 22 38) ;No est*s lo suficientemente cerca.
 							)
 						)
 						)(else
@@ -446,9 +446,9 @@
 							((ego inRect: 225 128 262 140)
 								(LocPrint 22 37)
 							)
-							(else
-								(LocPrint 22 38)
-							)
+;;;							(else
+;;;								(LocPrint 22 38) ;No est*s lo suficientemente cerca.
+;;;							)
 						)
 						)(else
 							(event claimed: FALSE)
@@ -465,6 +465,8 @@
 												(PutInRoom iFieldKit 13)
 												(if (IsObject theFieldKit)
 													(theFieldKit dispose:)
+													(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+													(= itemIcon 900)
 																			(if (== currentCar carWork)
 							(if (ego inRect: 176 123 206 135)
 								(if workCarTrunkOpened
@@ -517,6 +519,8 @@
 									(if (== ((inventory at: iFieldKit) owner?) 13)
 									(LocPrint 22 95)
 									(ego get: iFieldKit)
+									(theGame setCursor: 110 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 110)
 									
 								else
 									(carScript changeState: 16)

@@ -32,6 +32,7 @@
 ;;;	fKit
 ;;;	teJustCenter
 	bullets1
+	newEvent
 )
 (instance rm68 of Room
 	(properties
@@ -373,6 +374,21 @@
 						)
 					)
 				)
+			
+			
+				(if (== theCursor 110) ;use fieldkit
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+				)
+			
+			
 			
 				(if (== theCursor 999) ;use walk to close.
 

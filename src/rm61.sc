@@ -1442,7 +1442,8 @@
 									(carScript changeState: 15)
 									(= workCarTrunkOpened 0)
 									(= fieldKitTrunkToggle 0)
-									
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)									
 									
 									
 									
@@ -1466,7 +1467,9 @@
 											(not fieldKitTrunkToggle)
 										)
 										(Print 61 40) ;You take your field kit from the trunk.
-										(ego get: iFieldKit)															
+										(ego get: iFieldKit)
+										(theGame setCursor: 110 (HaveMouse)) ;switch to empty hand
+										(= itemIcon 110)															
 									else
 										(carScript changeState: 15) ;close trunk
 										(= fieldKitTrunkToggle 0)

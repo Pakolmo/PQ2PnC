@@ -711,6 +711,8 @@
 								(if (InRoom 10 13)
 									(localproc_005a 29 29)
 									(ego get: 10)
+									(theGame setCursor: 110 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 110)
 								else
 ;;;									(localproc_005a 29 30)
 								)

@@ -21,6 +21,7 @@
 	local4
 	local5
 	FirstTime = 1
+	newEvent
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 15)
@@ -253,7 +254,21 @@
 						(HandsOn)
 						(curRoom newRoom: 14)
 					)
-		
+					(if (== theCursor 110)
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+					)
+						
+						
+						
+						
 					(if (== theCursor 998) ;look vin
 						(if (== FirstTime 1)
 							(localproc_000c 104 0) (SolvePuzzle 1 77)

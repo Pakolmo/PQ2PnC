@@ -62,7 +62,7 @@
 							(not
 								(ego inRect: [local4 0] [local4 1] [local4 2] [local4 3])
 							)
-							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
+;;;							(LocPrint 14 74) ;No est*s lo suficientemente cerca de la puerta del coche.
 						)
 						(workCarLocked
 							(LocPrint 14 75)
@@ -1420,11 +1420,15 @@
 					
 				)		
 				
+										
 						(if
 
 
-							(ClickedOnObj littleCarParked (event x?) (event y?))
-
+;;;								(and
+;;;									(!= global169 0)
+;;;									(ClickedInRect 198 301 159 181 event)
+;;;								)
+								(ClickedOnObj jailerCar (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995 ;hand
@@ -1518,7 +1522,9 @@
 									
 									
 									(PutInRoom iFieldKit 13)
-									(if (IsObject theFieldKit) (theFieldKit dispose:))
+									(if (IsObject theFieldKit) (theFieldKit dispose:)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900) )
 									(= fieldKitOpen 0)
 									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
 									(= itemIcon 900)					
@@ -1576,6 +1582,8 @@
 												(if (== ((inventory at: iFieldKit) owner?) 13)
 													(LocPrint 14 49)
 													(ego get: iFieldKit) ;close trunk
+													(theGame setCursor: 110 (HaveMouse)) ;switch to empty hand
+													(= itemIcon 110)
 														(if (== currentCar 13)
 															(if (ego inRect: 146 132 172 142)
 																(if workCarTrunkOpened
@@ -1605,9 +1613,11 @@
 										(if (ego inRect: 146 132 172 142) ;take field kit
 											(if workCarTrunkOpened
 												(if (== ((inventory at: iFieldKit) owner?) 13)
-													(LocPrint 14 49)
+													(LocPrint 14 49) ;Coges tu malet|n de trabajo del maletero.
 													(ego get: iFieldKit)
 
+													(theGame setCursor: 110 (HaveMouse)) ;switch to empty hand
+													(= itemIcon 110)
 												)
 											)
 										else

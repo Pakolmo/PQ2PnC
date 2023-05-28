@@ -407,7 +407,9 @@
 				)	
 				
 				(if (== theCursor 999) ;use walk to close.
-				(rm66Script changeState: 1)
+					(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+					(= itemIcon 900)
+					(rm66Script changeState: 1)
 				)
 				(if (== theCursor 998) ;use look arround.
 						(Print 66 3 #at -1 145)

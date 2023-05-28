@@ -729,6 +729,8 @@
 									(PutInRoom iFieldKit 13)
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
+										(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+										(= itemIcon 900)
 										(cond 
 											((not workCarTrunkOpened)
 												(Print 67 20)
@@ -755,6 +757,8 @@
 									(PutInRoom iFieldKit 13)
 									(if (IsObject theFieldKit)
 										(theFieldKit dispose:)
+										(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+										(= itemIcon 900)
 									)
 									(= fieldKitOpen 0)
 									(cond 
@@ -895,6 +899,8 @@
 												(workCarTrunkOpened
 													(Print 67 23)
 													(ego get: iFieldKit)
+													(theGame setCursor: 110 (HaveMouse)) ;switch to FieldKit
+													(= itemIcon 110)
 												)
 												(script
 													(Print 67 24)

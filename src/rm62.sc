@@ -886,16 +886,10 @@
 				(if
 					(and
 						(ClickedInRect 23 76 87 129 event) ;bloodview
-;;;						(localproc_025c))
-						(== currentCar 13) (== local103 1)(== global187 1))
-	
+						(== local105 1)
+						
 
-							
-;;;						(== currentCar 13) 
-;;;						(== diverState 0)
-;;;						(== (ego view?) 0)
-;;;						(>= global111 3)
-;;;						(== local105 1)
+							)
 
 							
 					 ;Prevent bug bloodview
@@ -976,8 +970,6 @@
 						(else
 							(event claimed: FALSE)
 						)
-						
-					
 					)
 				)
 			)
