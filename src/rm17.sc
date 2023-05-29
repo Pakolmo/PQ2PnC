@@ -598,6 +598,173 @@
 				)
 			)
 		)
+		
+			(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)
+			(if
+					(and
+						(ClickedInRect 163 175 75 90 event) ;agent girl
+						(== (event claimed?) FALSE)
+					)
+		
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk list
+								(if (ego inRect: 124 116 218 124)
+									(agentScript changeState: 1)
+								else
+									(LocPrint 17 14)
+								) ;gracias
+								(if (ego inRect: 124 116 218 124)
+									(agentScript changeState: 3)
+								else
+									(LocPrint 17 19)
+								)	
+						
+						)						
+						(123 ;mugshotold
+							(agentScript changeState: 2)
+						)
+						(112 ;newmugshot
+							(agentScript changeState: 2)
+						)
+						(107 ;wallet
+						(if (ego has: iWallet)
+							(if (ego inRect: 124 116 218 124)
+								(= nearCounter 1)
+							)
+							(cond 
+								((== whichAgent 1)
+									(LocPrint 17 24)
+								)
+								((== whichAgent 2)
+									(LocPrint 17 25)
+								)
+								((<= (scruffy distanceTo: ego) 50)
+									(LocPrint 17 26)
+								)
+								(else
+									(LocPrint 17 27)
+								)
+							)
+						)	
+						)
+						(998 ;look
+
+										(LocPrint 17 17) ;La chica que trabaja en el mostrador de alquiler de coches es agradable.
+								
+						)
+						(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)
+		
+				(if
+					(and
+						(ClickedInRect 311 319 139 158 event) ;exit right
+						(== (event claimed?) FALSE)
+					)
+		
+					(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk		
+							(ego setMotion: MoveTo 330 145)
+						)
+						(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)	
+						
+				(if
+					(and
+						(ClickedInRect 190 204 72 88 event) ;agent boy
+						(== (event claimed?) FALSE)
+					)
+		
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk list
+								(if (ego inRect: 124 116 218 124)
+									(agentScript changeState: 1)
+								else
+									(LocPrint 17 14)
+								) ;gracias
+								(if (ego inRect: 124 116 218 124)
+									(agentScript changeState: 3)
+								else
+									(LocPrint 17 19)
+								)	
+						
+						)
+						(123 ;mugshotold
+							(agentScript changeState: 2)
+						)
+						(112 ;newmugshot
+							(agentScript changeState: 2)
+						)
+						(107 ;wallet
+						(if (ego has: iWallet)
+							(if (ego inRect: 124 116 218 124)
+								(= nearCounter 1)
+							)
+							(cond 
+								((== whichAgent 1)
+									(LocPrint 17 24)
+								)
+								((== whichAgent 2)
+									(LocPrint 17 25)
+								)
+								((<= (scruffy distanceTo: ego) 50)
+									(LocPrint 17 26)
+								)
+								(else
+									(LocPrint 17 27)
+								)
+							)
+						)	
+						)
+						(998 ;look
+
+						(cond 
+									((== whichAgent 1)
+										(LocPrint 17 17)
+									)
+									((== whichAgent 2)
+										(LocPrint 17 15) ; El agente de alquiler de coches parece el marido de su exnovia.
+									)
+									(else
+										(LocPrint 17 16)
+									)
+								)
+								
+						)
+						(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				)
+			)
+		
+		
 	)
 )
 
