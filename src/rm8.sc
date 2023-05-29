@@ -34,7 +34,7 @@
 	;local153 unused?
 	local154 ;inputCursorX
 )
-(procedure (localproc_000c &tmp newEvent) ;clean up DIR CD listing?
+(procedure (localproc_000c &tmp newEvent)
 	(while ((= newEvent (Event new:)) type?)
 		(newEvent dispose:)
 	)
@@ -113,6 +113,10 @@
 		(Format @str 8 0)
 		(self setScript: rm8Script)
 	)
+	
+	(method (dispose)
+		(theGame setCursor: 995 (HaveMouse))
+	)
 )
 
 (instance rm8Script of Script
@@ -133,7 +137,7 @@
 								(theGame setCursor: 993 (HaveMouse))
 								(lite1 hide:)
 								(lite2 hide:)
-								(rm8 setScript: computerScript)
+								(rm8 setScript: mouseComputerScript)
 							)
 							(else
 								(event claimed: FALSE)	
@@ -197,6 +201,164 @@
 						(rm8 setScript: computerScript)
 					)
 					((Said '[<around,at][/(anyword)]') (Print 8 5))
+				)
+			)
+		)
+	)
+)
+
+(instance mouseComputerScript of Script
+	(properties)	
+	
+	(method (init)
+		(PrintDirs)
+	)
+	
+	(method (handleEvent event)
+		(switch (event type?)
+			(evMOUSEBUTTON
+				(if (& (event modifiers?) emRIGHT_BUTTON)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 
+							(theGame setCursor: 993 (HaveMouse))
+						)
+						(993 
+							(theGame setCursor: 998 (HaveMouse))
+						)
+						(998 
+							(theGame setCursor: 995 (HaveMouse))
+						)
+					)
+				else ;handle left clicks
+					(if (ClickedInRect 230 252 140 155 event) ;Power button
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								;(Print 8 1)
+								(Print {This button turns the computer on and off.})
+							)
+							(995 ;hand
+								(curRoom newRoom: prevRoomNum)
+							)
+							(993 ;pointer
+								(theGame setCursor: 995 (HaveMouse))
+								(curRoom newRoom: prevRoomNum)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					(if (ClickedInRect 0 41 48 180 event) ;book
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(Print 8 1)
+							)
+							(995 ;hand
+								(Print 8 1)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					;Screen clicks
+					(if (== theCursor 993)
+						(event claimed: true)
+						(if (ClickedInRect 70 153 14 23 event) ;back/shutdow top line
+							(switch local145
+								(0 ;shutdown
+									(Display 8 9
+										p_at 73 14
+										p_font 7
+										p_color 0
+										p_back 0
+									)
+									(Display 8 9
+										p_at 73 15
+										p_font 7
+										p_color 0
+										p_back 0
+									)
+									(Display 8 10 ;session complete
+										p_at 73 14
+										p_font 7
+										p_color 14
+										p_back 0
+									)
+									(= newRoomNum prevRoomNum)
+								)
+								(1 ;from sierra dir
+									(ClearScreen)
+									(= local145 0) ;switch to root
+									(PrintDirs)
+								)
+								(2 ;from personal dir
+									(ClearScreen)
+									(= local145 0) ;switch to root
+									(PrintDirs)
+								)
+								(3 ;from Criminal dir
+									(ClearScreen)
+									(= local145 0) ;switch to root
+									(PrintDirs)
+								)
+							)
+						)
+						(if (ClickedInRect 70 153 24 33 event) ;Choice/line #1 left
+							(switch local145
+								(0
+									(ClearScreen)
+									(= local145 3) ;switch to Criminal dir
+									(PrintDirs)
+								)
+							)
+						)
+						(if (ClickedInRect 70 153 34 43 event) ;Choice/line #2 left
+							(switch local145
+								(0
+									(ClearScreen)
+									(= local145 1) ;switch to sierra dir
+									(PrintDirs)
+								)
+							)
+						)
+						(if (ClickedInRect 70 153 44 53 event) ;Choice/line #3 left
+							(switch local145
+								(0
+									(ClearScreen)
+									(= local145 2) ;switch to Personal dir
+									(PrintDirs)
+								)
+							)	
+						)
+						(if (ClickedInRect 70 153 54 63 event) ;Choice/line #4 left
+							
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 0 190 event) ;clicked anywhere else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 8 5)
+							)
+							(995 ;hand
+								(Print {Press the power button to turn on the computer.})
+							)
+							(999 ;walk exit
+								(curRoom newRoom: prevRoomNum)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
 				)
 			)
 		)
@@ -776,7 +938,7 @@
 							)
 							(compCursor x: 123)
 							(switch local145
-								(0
+								(0 ;display root dir
 									(Display 8 123
 										p_at 73 24
 										p_color 9
@@ -796,7 +958,7 @@
 										p_back 0
 									)
 								)
-								(1
+								(1 ;display sierra files
 									(Display 8 126
 										p_at 73 24
 										p_color 9
@@ -851,42 +1013,36 @@
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 135)
 									(Display 8 135
 										p_at 73 114
 										p_color 9
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 136)
 									(Display 8 136
 										p_at 160 24
 										p_color 9
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 137)
 									(Display 8 137
 										p_at 160 34
 										p_color 9
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 138)
 									(Display 8 138
 										p_at 160 44
 										p_color 9
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 139)
 									(Display 8 139
 										p_at 160 54
 										p_color 9
 										p_font 7
 										p_back 0
 									)
-									;(Display (Format @local0 8 140)
 									(Display 8 140
 										p_at 160 64
 										p_color 9
@@ -897,38 +1053,32 @@
 									(= local152 1)
 									(fileCursor view: 9 loop: 1 posn: 71 32 init:)
 								)
-								(2
-									;(Display (Format @local0 8 141)
+								(2 ;display personel files
 									(Display 8 141
 										p_at 73 24
 										p_color 9
 										p_font 7
 									)
-									;(Display (Format @local0 8 142)
 									(Display 8 142
 										p_at 73 34
 										p_color 9
 										p_font 7
 									)
-									;(Display (Format @local0 8 143)
 									(Display 8 143
 										p_at 73 44
 										p_color 9
 										p_font 7
 									)
-									;(Display (Format @local0 8 144)
 									(Display 8 144
 										p_at 73 54
 										p_color 9
 										p_font 7
 									)
-									;(Display (Format @local0 8 145)
 									(Display 8 145
 										p_at 73 64
 										p_color 9
 										p_font 7
 									)
-									;(Display (Format @local0 8 146)
 									(Display 8 146
 										p_at 73 74
 										p_color 9
@@ -993,7 +1143,7 @@
 									(= local152 1)
 									(fileCursor view: 9 loop: 1 posn: 71 32 init:)
 								)
-								(3
+								(3 ;display criminal dir
 									(Display 8 158
 										p_at 73 24
 										p_color 9
@@ -1019,7 +1169,7 @@
 										p_back 0
 									)
 								)
-								(4
+								(4 ;display hommicide files
 									(Display 8 162
 										p_at 73 24
 										p_color 9
@@ -1102,7 +1252,7 @@
 									(= local152 1)
 									(fileCursor view: 9 loop: 1 posn: 71 32 init:)
 								)
-								(7
+								(7 ;display vice files
 									(Display 8 175
 										p_at 73 24
 										p_color 9
@@ -1233,4 +1383,541 @@
 			)
 		)
 	)
+)
+
+(procedure (PrintDirs)
+	;(Format @str 8 0)
+;;;	(Display 8 13
+;;;		p_at 123 14
+;;;		p_color 9 ;0
+;;;		p_font 7
+;;;		p_back 0
+;;;	)
+;;;	(Display 8 13
+;;;		p_at 123 15
+;;;		p_color 9 ;0
+;;;		p_font 7
+;;;		p_back 0
+;;;	)
+	;(compCursor x: 123)
+	(switch local145
+		(0 ;display root dir
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {ROOT [SHUTDOWN]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			) 
+			(Display 8 123
+				p_at 73 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 124
+				p_at 73 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 125
+				p_at 73 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+		)
+		(1 ;display sierra files
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {SIERRA [BACK]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			) 
+			(Display 8 126
+				p_at 73 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 127
+				p_at 73 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 128
+				p_at 73 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 129
+				p_at 73 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 130
+				p_at 73 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 131
+				p_at 73 74
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 132
+				p_at 73 84
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 133
+				p_at 73 94
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 134
+				p_at 73 104
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 135
+				p_at 73 114
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 136
+				p_at 160 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 137
+				p_at 160 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 138
+				p_at 160 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 139
+				p_at 160 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 140
+				p_at 160 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+		)
+		(2 ;display personel files
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {PERSONAL [BACK]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 141
+				p_at 73 24
+				p_color 9
+				p_font 7
+			)
+			(Display 8 142
+				p_at 73 34
+				p_color 9
+				p_font 7
+			)
+			(Display 8 143
+				p_at 73 44
+				p_color 9
+				p_font 7
+			)
+			(Display 8 144
+				p_at 73 54
+				p_color 9
+				p_font 7
+			)
+			(Display 8 145
+				p_at 73 64
+				p_color 9
+				p_font 7
+			)
+			(Display 8 146
+				p_at 73 74
+				p_color 9
+				p_font 7
+			)
+			(Display 8 147
+				p_at 73 84
+				p_color 9
+				p_font 7
+			)
+			(Display 8 148
+				p_at 73 94
+				p_color 9
+				p_font 7
+			)
+			(Display 8 149
+				p_at 73 104
+				p_color 9
+				p_font 7
+			)
+			(Display 8 150
+				p_at 73 114
+				p_color 9
+				p_font 7
+			)
+			(Display 8 151
+				p_at 155 24
+				p_color 9
+				p_font 7
+			)
+			(Display 8 152
+				p_at 155 34
+				p_color 9
+				p_font 7
+			)
+			(Display 8 153
+				p_at 155 44
+				p_color 9
+				p_font 7
+			)
+			(Display 8 154
+				p_at 155 54
+				p_color 9
+				p_font 7
+			)
+			(Display 8 155
+				p_at 155 64
+				p_color 9
+				p_font 7
+			)
+			(Display 8 156
+				p_at 155 74
+				p_color 9
+				p_font 7
+			)
+			(Display 8 157
+				p_at 155 84
+				p_color 9
+				p_font 7
+			)
+		)
+		(3 ;display criminal dir
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {CRIMINAL [BACK]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 158
+				p_at 73 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 159
+				p_at 73 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 160
+				p_at 73 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 161
+				p_at 73 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+		)
+		(4 ;display homicide files
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {HOMICIDE [BACK]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 162
+				p_at 73 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 163
+				p_at 73 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 164
+				p_at 73 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 165
+				p_at 73 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 166
+				p_at 73 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 167
+				p_at 73 74
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 168
+				p_at 73 84
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 169
+				p_at 158 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 170
+				p_at 158 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 171
+				p_at 158 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 172
+				p_at 158 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 173
+				p_at 158 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 174
+				p_at 158 74
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+		)
+		(7 ;display vice files
+			(Display 8 13
+				p_at 73 14
+				p_color 0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 13
+				p_at 73 15
+				p_color 0
+				p_font 7
+				p_back 0
+			)  
+			(Display {VICE [BACK]}
+				p_at 73 14
+				p_color 4 ;0
+				p_font 7
+				p_back 0
+			)
+			(Display 8 175
+				p_at 73 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 176
+				p_at 73 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 177
+				p_at 73 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 178
+				p_at 73 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 179
+				p_at 73 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 180
+				p_at 73 74
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 181
+				p_at 73 84
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 182
+				p_at 73 94
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 183
+				p_at 73 104
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 184
+				p_at 154 24
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 185
+				p_at 154 34
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 186
+				p_at 154 44
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 187
+				p_at 154 54
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 188
+				p_at 154 64
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+			(Display 8 189
+				p_at 154 74
+				p_color 9
+				p_font 7
+				p_back 0
+			)
+		)		
+	)
+)
+
+(procedure (ClearScreen)
+	(= local143 24)
+	(while (<= local143 114)
+		(Display 8 6
+			p_at 73 local143
+			p_font 7
+			p_color 0
+			p_back 0
+		)
+		(= local143 (+ local143 10))
+	)	
 )
