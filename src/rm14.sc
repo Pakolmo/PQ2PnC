@@ -1431,6 +1431,67 @@
 								(ClickedOnObj jailerCar (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor
+						(998
+							(if (!= global169 0)
+									(cond 
+										((not (Btst fReadJailerVIN))
+											(cond 
+												((ego inRect: 130 163 315 200)
+													(LocPrint 14 33)
+													(= global169 2)
+												)
+												((== global169 2)
+													(LocPrint 14 34)
+												)
+												(else
+													(LocPrint 14 35)
+												)
+											)
+										)
+										((ego inRect: 130 163 315 200)
+											(LocPrint 14 36)
+										)
+										(else
+											(LocPrint 14 34)
+										)
+									)
+								else
+									(LocPrint 14 37)
+								)
+
+								(if (!= global169 0)
+									(cond 
+										((ego inRect: 162 163 208 189)
+											(LocPrint 14 38)
+										)
+										((ego inRect: 295 159 322 190)
+											(LocPrint 14 39)
+											(= global169 2)
+											(SolvePuzzle 1 fReadJailerVIN)
+											(if
+												(and
+													(== currentCar carWork)
+													(cast contains: keith)
+													(< (keith x?) 50)
+												)
+												(keith
+													posn: 5 164
+													setMotion: Follow ego 36
+													setAvoider: (Avoider new:)
+												)
+												(LocPrint 14 40 83)
+											)
+										)
+										(else (LocPrint 14 41))
+									)
+								else
+									(LocPrint 14 42)
+								)
+						)
+						
+						
+						
+						
 						(995 ;hand
 							(cond 
 							(
