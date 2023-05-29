@@ -39,6 +39,10 @@
 	local17
 	local18
 	local19
+	sino
+	talkedToW = 1
+	flores
+	
 )
 (procedure (LocPrint)
 	(if (> (ego y?) 150)
@@ -997,6 +1001,385 @@
 				)
 			)
 		)
+		
+					(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)	
+			(if 		(ClickedInRect 0 6 106 122 event) ;up left
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo -10 114)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+						
+		(if 		(ClickedInRect 0 12 185 190 event) ;down left
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo -10 188)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)							
+							
+	
+			(if 		(ClickedInRect 313 320 106 123 event) ;up right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 330 114)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+						
+		(if 		(ClickedInRect 305 320 176 190 event) ;down right
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(ego setMotion: MoveTo 330 183)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+	
+						
+		(if 		(ClickedInRect 104 239 186 190 event) ;Sur
+					(event claimed: TRUE)
+					(switch theCursor
+					(999 ; Walk
+						(= perspective 0)
+						(curRoom newRoom: 14)
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+		)	
+	
+	
+	
+				
+				(if	(ClickedOnObj flowerGirl (event x?) (event y?))
+					(event claimed: TRUE)
+							(switch theCursor
+								(996 ;talk normal
+									(cond 
+										((not local8)
+											(LocPrint 15 71)
+										)
+										(local9
+											(LocPrint 15 70)
+										)
+										(local11
+											(LocPrint 15 29)
+										)
+										(else
+											(Print 15 27 #at -1 15)
+										)
+									) ;how much?
+									(if local10
+										(LocPrint 15 72)
+									else
+										(LocPrint 15 73)
+									)
+									;pay
+										(if local10
+											(if (ego has: iFlower)
+												(LocPrint 15 74)
+											else
+												(LocPrint 15 75)
+											)
+										else
+											(LocPrint 15 76)
+										)
+								(if talkedToW
+								(= sino
+										(PrintSpecial
+											{Buy flowers}
+											#button {Afirmative} 1
+											#button {Negative} 2
+
+										)
+								)
+;;;
+								(switch sino
+									(1 ;Yes
+										(if local10
+											(LocPrint 15 54) ;"_Estupendo!" dice ella. "^Cu*les quieres?"
+											;3 tipos de flores
+											(= flores
+												(PrintSpecial
+													{Flowers}
+													#button {Rose} 1
+													#button {Bouquet} 2
+													#button {Plant} 3
+												)
+											)
+											(switch flores
+												(1 ;rose
+													(cond 
+														((not (ego has: iFlower))
+															(if local10
+																(if (ego has: iMoneyClip)
+																	(if (> dollars rosePrice)
+																		(= dollars (- dollars rosePrice))
+																		(LocPrint 15 58)
+																		(LocPrint 15 59)
+																		(SolvePuzzle 2 fBoughtFlower)
+																		(ego get: iFlower)
+																		((inventory at: iFlower) cel: 1)
+																		(flowerScript changeState: 2)
+																	else
+																		(LocPrint 15 60)
+																	)
+																else
+																	(LocPrint 15 61)
+																)
+															else
+																(LocPrint 15 55)
+															)
+														)
+														(local10
+															(LocPrint 15 62)
+														)
+														(else
+															(LocPrint 15 63)
+														)
+													)
+												)
+												(2 ;ramo
+													(cond 
+														((not (ego has: iFlower))
+															(if local10
+																(if (> dollars bouquetPrice)
+																	(= dollars (- dollars bouquetPrice))
+																	(LocPrint 15 64)
+																	(LocPrint 15 59)
+																	(SolvePuzzle 2 fBoughtFlower)
+																	(ego get: iFlower)
+																	((inventory at: iFlower) cel: 2)
+																	(flowerScript changeState: 2)
+																else
+																	(LocPrint 15 60)
+																)
+															else
+																(LocPrint 15 55)
+															)
+														)
+														(local10 (LocPrint 15 62))
+														(else (LocPrint 15 63))
+													)																						
+												)
+												(3 ;Planta
+													(cond 
+														((not (ego has: iFlower))
+															(if local10
+																(if (> dollars plantPrice)
+																	(= dollars (- dollars plantPrice))
+																	(LocPrint 15 65)
+																	(LocPrint 15 59)
+																	(SolvePuzzle 2 fBoughtFlower)
+																	(ego get: iFlower)
+																	((inventory at: iFlower) cel: 0)
+																	(flowerScript changeState: 2)
+																else
+																	(LocPrint 15 60)
+																)
+															else
+																(LocPrint 15 55)
+															)
+														)
+														(local10 (LocPrint 15 62))
+														(else (LocPrint 15 63))
+													)
+												)
+											)
+										
+											
+											
+											
+											
+										else
+											(LocPrint 15 77) ;Bien, s|... ^qu+?
+										)
+									)
+									(2 ;No
+										(if local10
+											(LocPrint 15 78 25 4)
+											(LocPrint 15 79)
+											(flowerScript changeState: 2)
+										else
+											(LocPrint 15 80)
+										)
+									)
+								)
+									
+								)
+								
+								)
+								(107 ;badge/wallet
+									(cond 
+										((ego inRect: 206 110 305 145)
+											(LocPrint 15 40)
+										)
+										(local10
+											(LocPrint 15 41)
+										)
+										(else
+											(LocPrint 15 42)
+										)
+									)
+								)
+								
+								
+								
+								
+								
+								
+								(112 ;NewMugShoot
+									(if
+										(or
+											(ego has: iNewMugShot)
+											(ego has: iOldMugShot)
+										)
+										(if
+											(or
+												(ego inRect: 206 110 305 145)
+												local10
+											)
+											(LocPrint 15 32)
+										else
+											(LocPrint 15 33)
+										)
+									)
+								)
+								
+								
+								
+								(123 ;OldMugShoot
+									(if
+										(or
+											(ego has: iNewMugShot)
+											(ego has: iOldMugShot)
+										)
+										(if
+											(or
+												(ego inRect: 206 110 305 145)
+												local10
+											)
+											(LocPrint 15 32)
+										else
+											(LocPrint 15 33)
+										)
+									)
+								)
+									(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+									
+									
+					(if	(ClickedOnObj lightPole (event x?) (event y?)) ;button
+					(event claimed: TRUE)
+							(switch theCursor
+								(996 ;talk
+									(if (> (ego y?) 150)
+										(LocPrint 15 23)
+									else
+										(LocPrint 15 24)
+									)
+								)
+								(995 ;hand
+									(if (== (ego onControl: 1) cLCYAN)
+										(LocPrint 15 66)
+										(= local6 1)
+										(lightScript changeState: 1)
+										(if (> (ego y?) 170)
+											(SolvePuzzle 1 fWaitedToCrossNorth) 
+										else
+											(SolvePuzzle 1 fWaitedToCrossSouth)
+										)
+									else
+										(LocPrint 15 67)
+									)
+								)
+								(998 ;look
+									(if (== (ego onControl: 1) cLCYAN)
+										(LocPrint 15 25)
+									else
+										(LocPrint 15 26)
+									)
+								)
+								
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)								
+									
+									
+									
+									
+											
+		
+				(if	(ClickedInRect 6  14 145 156 event) ;button
+					(event claimed: TRUE)
+							(switch theCursor
+								(996 ;talk
+									(if (> (ego y?) 150)
+										(LocPrint 15 23)
+									else
+										(LocPrint 15 24)
+									)
+								)
+								(995 ;hand
+									(if (== (ego onControl: 1) cLCYAN)
+										(LocPrint 15 66)
+										(= local6 1)
+										(lightScript changeState: 1)
+										(if (> (ego y?) 170)
+											(SolvePuzzle 1 fWaitedToCrossNorth) 
+										else
+											(SolvePuzzle 1 fWaitedToCrossSouth)
+										)
+									else
+										(LocPrint 15 67)
+									)
+								)
+								(998 ;look
+									(if (== (ego onControl: 1) cLCYAN)
+										(LocPrint 15 25)
+									else
+										(LocPrint 15 26)
+									)
+								)
+								
+						(else 
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+						
+				)
+				)
+		
 	)
 )
 
@@ -1024,7 +1407,7 @@
 		(switch (= state newState)
 			(1
 				(lightPole setCel: 5)
-				(= local0 100)
+				(= local0 300) ;100
 			)
 			(2
 				(= local6 0)
