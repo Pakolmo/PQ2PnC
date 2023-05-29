@@ -34,6 +34,8 @@
 	local15
 	local16
 	newEvent
+	
+	ticket
 )
 (procedure (localproc_000c)
 	(if (not local16) (= local16 1) (cSound fade:))
@@ -89,7 +91,7 @@
 			illegalBits: 0
 			setCycle: Forward
 			cycleSpeed:
-			stopUpd:
+;;;			stopUpd:
 		)
 		(switch prevRoomNum
 			(12
@@ -393,6 +395,7 @@
 					(event claimed: TRUE)
 							(switch theCursor
 								(996 ;talk
+									(if (== lista 0)
 								(= newEvent (Event new:))								
 								(newEvent
 								    type: evKEYBOARD
@@ -401,7 +404,97 @@
 								    claimed: 0
 								)
 								(User handleEvent: newEvent)
-								(newEvent dispose:)		
+								(newEvent dispose:)
+									)
+									
+									(if (== lista 1)
+										(= ticket
+												(PrintSpecial
+													{Ticket}
+													#button {houston} 1
+													#button {steelton} 2
+													#button {beirut} 3
+													#button {coarsegold} 4
+													#button {america} 5												
+												)
+											)
+											(switch ticket
+												(1 ;houston
+													
+													(= newEvent (Event new:))								
+													(newEvent
+												    type: evKEYBOARD
+												    message: {ticket to houston}
+												    modifiers: 999
+												    claimed: 0
+												)
+												(User handleEvent: newEvent)
+												(newEvent dispose:)
+													
+
+												
+												
+												
+												
+												
+												)
+												(2 ;steelton
+													
+													(= newEvent (Event new:))								
+													(newEvent
+												    type: evKEYBOARD
+												    message: {ticket to steelton}
+												    modifiers: 999
+												    claimed: 0
+												)
+												(User handleEvent: newEvent)
+												(newEvent dispose:)		
+
+													
+												)
+												(3 ;beirut
+													
+													(= newEvent (Event new:))								
+													(newEvent
+												    type: evKEYBOARD
+												    message: {ticket to beirut}
+												    modifiers: 999
+												    claimed: 0
+												)
+												(User handleEvent: newEvent)
+												(newEvent dispose:)		
+												)																									
+												(4 ;coarsegold
+													
+													(= newEvent (Event new:))								
+													(newEvent
+												    type: evKEYBOARD
+												    message: {ticket to coarsegold}
+												    modifiers: 999
+												    claimed: 0
+												)
+												(User handleEvent: newEvent)
+												(newEvent dispose:)		
+												)										
+
+												(5 ;america
+													
+													(= newEvent (Event new:))								
+													(newEvent
+												    type: evKEYBOARD
+												    message: {ticket to america}
+												    modifiers: 999
+												    claimed: 0
+												)
+												(User handleEvent: newEvent)
+												(newEvent dispose:)		
+												)
+											)
+									)
+
+									
+									
+									
 								)
 								(107 ;show id badge
 								(= newEvent (Event new:))
@@ -2604,7 +2697,8 @@ code_17b9:
 				)
 			)
 			(1
-				(agent setLoop: 4 setCel: 0 stopUpd:)
+;;;				(agent setLoop: 4 setCel: 0 stopUpd:)
+				(agent setLoop: 4 setCel: 0)
 				(= local2 (Random 80 150))
 			)
 			(2
@@ -2616,7 +2710,7 @@ code_17b9:
 				)
 			)
 			(3
-				(agent stopUpd:)
+;;;				(agent stopUpd:)
 				(= local2 (Random 80 150))
 			)
 			(4
@@ -2645,7 +2739,7 @@ code_17b9:
 				(self cue:)
 			)
 			(9
-				(agent stopUpd:)
+;;;				(agent stopUpd:)
 				(cond 
 					((== prevRoomNum 12)
 						(= local6 1)
@@ -2723,6 +2817,7 @@ code_17b9:
 						(LocPrint 16 99)
 					)
 					((Btst fTriedToGoToHouston)
+						(= lista 2)	
 						(LocPrint 16 100)
 					)
 					((Btst fHoustonAuthorized)
@@ -2808,6 +2903,7 @@ code_17b9:
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				
 				(keith
 					posn: 165 209
 					setMotion: MoveTo 168 180 self
@@ -2854,6 +2950,7 @@ code_17b9:
 				(LocPrint 16 120)
 				(keith setMotion: Follow ego 25)
 				(HandsOn)
+				(= lista 1)
 			)
 		)
 	)
@@ -2866,6 +2963,7 @@ code_17b9:
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(= lista 2)
 				(LocPrint 16 121)
 				(= local15 1)
 				(keith setMotion: 0)

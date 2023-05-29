@@ -352,7 +352,8 @@
 		driveDest
 		driveFix
 		fieldKitToggle
-		gunDrawAllowed		
+		gunDrawAllowed
+		lista  ;from room16		
 )
 
 (procedure (EgoDead)
