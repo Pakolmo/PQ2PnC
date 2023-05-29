@@ -3,6 +3,7 @@
 (include system.sh) ;for p_at, etc.
 (include keys.sh)
 ;(include sci.sh)
+(include game.sh)
 (use Main)
 (use Intrface)
 (use Motion)
@@ -119,6 +120,63 @@
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(evMOUSEBUTTON
+				(if (not (& (event modifiers?) emRIGHT_BUTTON))
+					(if (ClickedInRect 230 252 140 155 event) ;Power button
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								;(Print 8 2)
+								(Print {This button turns the computer on and off.})
+							)
+							(995 ;hand
+								(theGame setCursor: 993 (HaveMouse))
+								(lite1 hide:)
+								(lite2 hide:)
+								(rm8 setScript: computerScript)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					(if (ClickedInRect 0 41 48 180 event) ;book
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(Print 8 1)
+							)
+							(995 ;hand
+								(Print 8 1)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 0 190 event) ;clicked anywhere else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 8 5)
+							)
+							(995 ;hand
+								(Print {Press the power button to turn on the computer.})
+							)
+							(999 ;walk exit
+								(curRoom newRoom: prevRoomNum)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					;((Said '/book,instruction,cocksucker') (Print 8 1)) 
@@ -241,6 +299,64 @@
 	
 	(method (handleEvent event &tmp [temp0 4])
 		(switch (event type?)
+			(evMOUSEBUTTON
+				(if (not (& (event modifiers?) emRIGHT_BUTTON))
+					(if (ClickedInRect 230 252 140 155 event) ;Power button
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								;(Print 8 1)
+								(Print {This button turns the computer on and off.})
+							)
+							(995 ;hand
+								(curRoom newRoom: prevRoomNum)
+							)
+							(993 ;pointer
+								(theGame setCursor: 995 (HaveMouse))
+								(curRoom newRoom: prevRoomNum)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					(if (ClickedInRect 0 41 48 180 event) ;book
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(Print 8 1)
+							)
+							(995 ;hand
+								(Print 8 1)
+							)
+							(else
+								(event claimed: FALSE)	
+							)	
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 0 190 event) ;clicked anywhere else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 8 5)
+							)
+							(995 ;hand
+								(Print {Press the power button to turn on the computer.})
+							)
+							(999 ;walk exit
+								(curRoom newRoom: prevRoomNum)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(direction ;evJOYSTICK
 				(if (or local147 local149)
 					(event claimed: 1)
