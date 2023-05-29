@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User) ;add
 
 (public
 	rm16 0
@@ -32,6 +33,7 @@
 	local14
 	local15
 	local16
+	newEvent
 )
 (procedure (localproc_000c)
 	(if (not local16) (= local16 1) (cSound fade:))
@@ -378,6 +380,86 @@
 	)
 	
 	(method (handleEvent event)
+		
+					(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)
+				(if	(or (ClickedOnObj agent (event x?) (event y?))
+						(ClickedOnPicView agent2 (event x?) (event y?))
+					)
+					(event claimed: TRUE)
+							(switch theCursor
+								(996 ;talk
+								(= newEvent (Event new:))								
+								(newEvent
+								    type: evKEYBOARD
+								    message: {ask for list}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)		
+								)
+								(107 ;show id badge
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {show id}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+								)
+								(112 ;newmugshot
+								(= newEvent (Event new:))									
+								(newEvent
+								    type: evKEYBOARD
+								    message: {show mugshot}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)											
+
+									
+							)		
+								(123 ;oldmugshot
+								(= newEvent (Event new:))										
+								(newEvent
+								    type: evKEYBOARD
+								    message: {show mugshot}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+								
+								
+
+						)								(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)
+		
+
+
+
+
+
+
+				)
+					)
+		
+		
+		
+		
+		
 		(asm
 			pushi    #type
 			pushi    0
