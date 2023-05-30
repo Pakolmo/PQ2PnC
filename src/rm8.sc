@@ -22,7 +22,7 @@
 	curDir
 	badPassword
 	xSplit
-	ClsIter
+	clsIter
 	pwdChar
 )
 
@@ -192,7 +192,7 @@
 				(= seconds 3)
 			)
 			(1
-				(TopLineString)
+				(PrintTopLine)
 				(= enteringPassword 0)
 				(= badPassword 0)
 			)
@@ -757,7 +757,7 @@
 )
 
 (procedure (PrintDirs)
-	(TopLineString)
+	(PrintTopLine)
 	(switch curDir
 		(0 ;display root dir
 			(DirP 123 73 24)
@@ -857,15 +857,15 @@
 )
 
 (procedure (ClearScreen)
-	(= ClsIter 24)
-	(while (<= ClsIter 114)
+	(= clsIter 24)
+	(while (<= clsIter 114)
 		(Display 8 6
-			p_at 73 ClsIter
+			p_at 73 clsIter
 			p_font 7
 			p_color 0
 			p_back 0
 		)
-		(= ClsIter (+ ClsIter 10))
+		(= clsIter (+ clsIter 10))
 	)	
 )
 
@@ -880,7 +880,7 @@
 	)	
 )
 
-(procedure (TopLineString)
+(procedure (PrintTopLine)
 	(ClearTopLine)
 	(Display 
 		(switch curDir
