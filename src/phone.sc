@@ -250,9 +250,10 @@ code_1ba3:
 			posn: 60 1000
 			init:
 		)
-;;;		(HandsOff)
+		;(HandsOff)
+		(theGame setCursor: 993)
 		(curRoom setScript: phoneNumber)
-			(curRoom setRegions: 950)
+		;(curRoom setRegions: 950)
 	)
 	
 	(method (handleEvent event)
@@ -325,9 +326,11 @@ code_1ba3:
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
 									(curRoom setScript: Information)
+									(break)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
 									(curRoom setScript: Information)
+									(break)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
 									(PersonSpeak 12 6)
@@ -353,11 +356,13 @@ code_1ba3:
 									;(curRoom setScript: phoneNumber)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
-									(cond 
-										((== prevRoomNum 32) (localproc_1a28 40))
-										((!= gamePhase 6) (localproc_1a28 95))
-										(else (curRoom setScript: talkingToMarie))
-									)
+									(curRoom setScript: talkingToMarie)
+									(break)
+;;;									(cond 
+;;;										((== prevRoomNum 32) (localproc_1a28 40))
+;;;										((!= gamePhase 6) (localproc_1a28 95))
+;;;										(else (curRoom setScript: talkingToMarie))
+;;;									)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
 									(if (== prevRoomNum 61)
@@ -429,6 +434,7 @@ code_1ba3:
 						)
 						(12
 							(curRoom setScript: Information)
+							(break)
 						)
 						(13
 							(= exit 1)	
@@ -460,7 +466,9 @@ code_1ba3:
 						)
 					)
 				)
-				(curRoom newRoom: 4)
+				(if (== exit 1)
+					(curRoom newRoom: prevRoomNum)
+				)
 			)	
 		)	
 	)
@@ -632,7 +640,10 @@ code_1ba3:
 						(switch temp0 
 							(1 (PersonSpeak 12 28))
 							(2 (PersonSpeak 12 29))
-							(3 (PersonHangUp))
+							(3
+								(PersonHangUp)
+								(client setScript: phoneNumber)
+							)
 							(else (self changeState: 4) (return))
 						)
 						(if (== state 2) (self changeState: 999))
@@ -661,7 +672,10 @@ code_1ba3:
 							(5 (PersonSpeak 12 25))
 							(6 (PersonSpeak 12 26))
 							(7 (PersonSpeak 12 27))
-							(8 (PersonHangUp))
+							(8
+								(PersonHangUp)
+								(client setScript: phoneNumber)
+							)
 							(else  (self changeState: 4) (return))
 						)
 						(if (== state 2) (self changeState: 999))
@@ -681,7 +695,10 @@ code_1ba3:
 								(PersonSpeak 12 31)
 								(self changeState: 999)
 							)
-							(2 (PersonHangUp))
+							(2
+								(PersonHangUp)
+								(client setScript: phoneNumber)
+							)
 							(else
 								(self changeState: 4)
 							)
@@ -696,6 +713,7 @@ code_1ba3:
 							)				
 						)
 						(PersonHangUp)
+						(client setScript: phoneNumber)
 					)
 				)
 			)
@@ -711,7 +729,7 @@ code_1ba3:
 			)
 			(999
 				(PersonHangUp)
-				;(client setScript: phoneNumber)
+				(client setScript: phoneNumber)
 			)
 		)
 	)
@@ -784,91 +802,6 @@ code_1ba3:
 
 			)
 		)
-
-;;;
-;;;
-;;;				(if 
-;;;			(and
-;;;				(== (event type?) evMOUSEBUTTON)
-;;;				(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;			)
-;;;			
-;;;
-;;;				
-;;;				
-;;;			
-;;;			(if		(and
-;;;						(ClickedOnObj person (event x?) (event y?))
-;;;						(cast contains: person);  ;checks that is on the screen
-;;;					)
-;;;
-;;;				(switch theCursor
-;;;					(996 ;talk
-;;;						(event claimed: 1)
-;;;;;;						(cond 
-;;;							(= callme
-;;;									(Print
-;;;
-;;;											
-;;;											{&A quién vas a llamar?}
-;;;											#button {Police} 1
-;;;											#button {Cheeks} 2
-;;;											#button {Cove cotton} 3
-;;;											#button {Arnie cafe} 4
-;;;											#button {Jail} 5
-;;;											#button {Airport} 6
-;;;											#button {Inn} 7
-;;;											#button {Colgar} 8
-;;;										)
-;;;									)
-;;;									(switch callme
-;;;										(1 ;Police
-;;;											
-;;;												(PersonSpeak 12 21)
-;;;											
-;;;										)
-;;;										(2 ;cheers
-;;;											
-;;;												(PersonSpeak 12 22)
-;;;											
-;;;										)
-;;;										(3 ;Cove cotton
-;;;											
-;;;												(PersonSpeak 12 23)
-;;;											
-;;;										)	
-;;;										(4 ;arnie,cafe
-;;;											
-;;;												(PersonSpeak 12 24)
-;;;											
-;;;										)
-;;;										(5 ;jail
-;;;											
-;;;												(PersonSpeak 12 25)
-;;;											
-;;;										)													
-;;;										(6 ;airport
-;;;											
-;;;												(PersonSpeak 12 26)
-;;;											
-;;;										)
-;;;										(7 ;inn
-;;;											
-;;;												(PersonSpeak 12 27)
-;;;											
-;;;										)
-;;;										(8 ;colgar
-;;;											(event claimed: 1) (self changeState: 4) (return)
-;;;										)
-;;;									)
-;;;					
-;;;			
-;;;								
-;;;							
-;;;								)
-;;;			
-;;;				
-;;	
 	)
 )
 
@@ -976,15 +909,55 @@ code_1ba3:
 		(self changeState: 1)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
-			(1 (PersonSpeak 12 32))
+			(1
+				(PersonSpeak 12 32)
+				(BondsSpeak 12 49)
+				(cond 
+					((== prevRoomNum 32) (localproc_1a28 40))
+					((!= gamePhase 6)
+						(= state 776)
+						(= cycles 1)
+					)
+					(else
+						(= state 1) ;goto state 2
+						(= cycles 1)
+					)
+				)
+			
+		
+			)
 			(2
 				(PersonSpeak 12 46)
 				(PersonSpeak 12 47)
+				(= temp0
+					(PrintSpecial
+						{Say:}
+						#at 10 125
+						#button {Yes} 1
+						#button {No} 2
+					)				
+				)
+				(switch temp0
+					(1
+						(= state 998) ;change to state 999
+						(= cycles 1)
+					)
+					(else
+						(PersonSpeak 12 50)
+						(PersonHangUp)
+						(client setScript: phoneNumber)
+					)
+				)
+			)
+			(777
+				(PersonSpeak {I'm right in the middle of something, Sonny. Call me later. Bye.})
+				(PersonHangUp)
+				(client setScript: phoneNumber)
 			)
 			(999
-				(PersonSpeak 12 48)
+				(PersonSpeak 12 48) ;I'll be waiting, Sonny. See you in a little while. Bye now.
 				(PersonHangUp)
 				(= gamePhase 7)
 				(SolvePuzzle 3)
