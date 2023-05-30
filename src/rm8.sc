@@ -24,6 +24,7 @@
 	xSplit
 	clsIter
 	pwdChar
+	pwdOffset = 128 ;start of typed passwords
 )
 
 (procedure (ToUppercase param1) ;letter to uppercase
@@ -218,7 +219,22 @@
 						(++ pwdChar)
 						(StrAt @str pwdChar 0)
 						(Display @str
-							p_at 128 14
+							p_at pwdOffset 14
+							p_font 7
+							p_color 4
+							p_back 0
+						)
+					)
+					(if
+						(and
+							(== (event message?) KEY_BACK)
+							(> pwdChar 0)
+						)
+						(-- pwdChar)
+						(StrAt @str pwdChar 0) ;string must end with 0
+						(GetPassword enteringPassword)
+						(Display @str
+							p_at pwdOffset 14
 							p_font 7
 							p_color 4
 							p_back 0
@@ -854,6 +870,18 @@
 		p_color 0
 		p_back 0
 	)
+;;;	(Display 8 9
+;;;		p_at pwdOffset 14
+;;;		p_font 7
+;;;		p_color 0
+;;;		p_back 0
+;;;	)
+;;;	(Display 8 9
+;;;		p_at pwdOffset 15
+;;;		p_font 7
+;;;		p_color 0
+;;;		p_back 0
+;;;	)
 )
 
 (procedure (ClearScreen)
