@@ -376,20 +376,28 @@ code_1ba3:
 										(localproc_1a28)
 									else
 										(curRoom setScript: talkingToColby)
+										(break)
 									)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
 									(if (== prevRoomNum 4)
-										(localproc_1a28 40)
-									else
+										(if (not (Random 0 4)) ;only sometimes pick up if calling from station
+											(curRoom setScript: lyttonPD)
+											(break)
+										else
+											(localproc_1a28 40)
+										)
+									else ;always pickup when calling from airport
 										(curRoom setScript: lyttonPD)
+										(break)
 									)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
 									(if (<= gamePhase 8)
-										(localproc_1a28 40)
+										(localproc_1a28 40) ;phone is busy
 									else
 										(curRoom setScript: steeltonPD)
+										(break)
 									)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
@@ -415,6 +423,7 @@ code_1ba3:
 									else
 										(curRoom setScript: sierra)
 									)
+									(break)
 								)
 								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
 									(if (< (Random 1 10) 4)
@@ -422,10 +431,12 @@ code_1ba3:
 									else
 										(curRoom setScript: sierra)
 									)
+									(break)
 								)
 								(else
 									(if (< (Random 1 10) 3)
 										(curRoom setScript: sicko)
+										(break)
 									else
 										(localproc_1a28)
 									)
@@ -593,25 +604,29 @@ code_1ba3:
 						#at 10 125
 						#button {Steelton} 1
 						#button {Lytton} 2
-						#button {Houston} 4
+						#button {Hurston} 4
 						#button {Coarsegold} 3
 						#button {Cancel} 5
 					)				
 				)
 				(switch temp0 
 					(1
+						(BondsSpeak {Steelton.})
 						(= infoLocation 1)
 						(self changeState: 2)
 					)
 					(2
+						(BondsSpeak {Lytton.})
 						(= infoLocation 2)
 						(self changeState: 2)
 					)
 					(3
+						(BondsSpeak {Coarsegold.})
 						(= infoLocation 3)
 						(self changeState: 2)
 					)
 					(4
+						(BondsSpeak {Hurston.})
 						(= infoLocation 4)
 						(self changeState: 2)
 					)
@@ -638,9 +653,16 @@ code_1ba3:
 							)				
 						)
 						(switch temp0 
-							(1 (PersonSpeak 12 28))
-							(2 (PersonSpeak 12 29))
+							(1
+								(BondsSpeak {Police station.})
+								(PersonSpeak 12 28)
+							)
+							(2
+								(BondsSpeak {Burt Park.})
+								(PersonSpeak 12 29)
+							)
 							(3
+								(BondsSpeak {Nevermind.})
 								(PersonHangUp)
 								(client setScript: phoneNumber)
 							)
@@ -664,14 +686,34 @@ code_1ba3:
 							)				
 						)
 						(switch temp0
-							(1 (PersonSpeak 12 21))
-							(2 (PersonSpeak 12 22))
-							;((Said '/cheeks,(cheeks<!*)') (self changeState: 3) (return))
-							(3 (PersonSpeak 12 23))
-							(4 (PersonSpeak 12 24))
-							(5 (PersonSpeak 12 25))
-							(6 (PersonSpeak 12 26))
-							(7 (PersonSpeak 12 27))
+							(1
+								(BondsSpeak {Police station.})
+								(PersonSpeak 12 21)
+							)
+							(2
+								(BondsSpeak {Marie Wilkins.})
+								(PersonSpeak 12 22)
+							)
+							(3
+								(BondsSpeak {Cotton Cove Payphone.})
+								(PersonSpeak 12 23)
+							)
+							(4
+								(BondsSpeak {Arnie's Cafe.})
+								(PersonSpeak 12 24)
+							)
+							(5
+								(BondsSpeak {Lytton Jailhouse.})
+								(PersonSpeak 12 25)
+							)
+							(6
+								(BondsSpeak {Lytton Airport.})
+								(PersonSpeak 12 26)
+							)
+							(7
+								(BondsSpeak {Lytton Inn.})
+								(PersonSpeak 12 27)
+							)
 							(8
 								(PersonHangUp)
 								(client setScript: phoneNumber)
@@ -691,11 +733,13 @@ code_1ba3:
 						)
 						(switch temp0
 							(1
+								(BondsSpeak {Sierra Online.})
 								(PersonSpeak 12 30)
 								(PersonSpeak 12 31)
 								(self changeState: 999)
 							)
 							(2
+								(BondsSpeak {Nevermind.})
 								(PersonHangUp)
 								(client setScript: phoneNumber)
 							)
@@ -709,9 +753,10 @@ code_1ba3:
 							(PrintSpecial
 								{Name:}
 								#at 10 125
-								#button {Cancel} 1
+								#button {Cancel} 1 ;;currently no info
 							)				
 						)
+						(BondsSpeak {Nevermind.})
 						(PersonHangUp)
 						(client setScript: phoneNumber)
 					)
@@ -820,8 +865,20 @@ code_1ba3:
 	
 	(method (changeState newState)
 		(switch (= state newState)
-			(1 (PersonSpeak 12 32))
-			(2 (PersonSpeak 12 33))
+			(1
+				(PersonSpeak 12 32) ;Hello
+				(BondsSpeak 12 34) ;its sonny bonds
+				(PersonSpeak 12 33) ;What do you want?
+				(BondsSpeak 12 36) ;bains escaped
+				(PersonSpeak 12 37) ;don't believe you, im in witness protection
+				(PersonSpeak 12 38) ;Well, I gotta go.
+				(SolvePuzzle 4 95) ;warned colby
+				(PersonHangUp)
+				(client setScript: phoneNumber)
+			)
+			(2
+				(PersonSpeak 12 33) ;What do you want?
+			)
 			(999
 				(PersonHangUp)
 				(client setScript: phoneNumber)
@@ -930,7 +987,7 @@ code_1ba3:
 			)
 			(2
 				(PersonSpeak 12 46)
-				(PersonSpeak 12 47)
+				(PersonSpeak 12 47) ;When you get off work, meet me at Arnie's, OK?
 				(= temp0
 					(PrintSpecial
 						{Say:}
@@ -941,11 +998,13 @@ code_1ba3:
 				)
 				(switch temp0
 					(1
+						(BondsSpeak {Yes, I'll meet you there.})
 						(= state 998) ;change to state 999
 						(= cycles 1)
 					)
 					(else
-						(PersonSpeak 12 50)
+						(BondsSpeak {No.})
+						(PersonSpeak 12 50) ;What's wrong, Sonny? You seem to be in a bad mood. Well, I guess I'll go alone.
 						(PersonHangUp)
 						(client setScript: phoneNumber)
 					)
@@ -1018,7 +1077,42 @@ code_1ba3:
 	
 	(method (changeState newState)
 		(switch (= state newState)
-			(1 (PersonSpeak 12 54))
+			(1
+				(PersonSpeak 12 54) ;Hello, Steelton Police Department.\nLieutenant Miller speaking.
+				(BondsSpeak 12 55) ;This is Detective Sonny Bonds from Lytton PD.
+				(PersonSpeak 12 56) ;Hello, Detective Bonds. Is there something I can do for you?
+				(= local5 1)
+				(= state 2)
+				(if (< gamePhase 1) ;bain still in jail
+					(if (Btst 94)
+						(PersonSpeak 12 59) ;Yeah, Bonds, I got your message. We have put the phone tap on Colby's phone.
+						(PersonSpeak 12 60) ;Thanks and bye.
+						(self changeState: 999)
+					else
+						(BondsSpeak 12 61) ;Jessie Bains escaped jail yesterday and has gone on a rampage, killing anyone who put him behind bars.
+						(BondsSpeak 12 62) ;Donald Colby lives in Steelton now and could be the next victim. You should tap Colby's phone to see if Bains calls.
+						(PersonSpeak 12 63) ;The phone tap is a good idea. Thanks a lot for the information. I'll see you later.
+						(SolvePuzzle 4 94)
+						(self changeState: 999)
+					)
+				else
+					(self changeState: 777) ;idle chitchat
+				)
+			)
+			(777
+				(if local_7
+					(BondsSpeak 12 66) ;How are things in Steelton?
+					(PersonSpeak 12 67) ;They're fine, Bonds. I'm sorry but I don't have time for chit-chat. Bye.
+					(PersonHangUp)
+					(client setScript: phoneNumber)
+				else
+					(BondsSpeak 12 68) ;hows weather?
+					(PersonSpeak 12 69) ;Well, Bonds, I don't mean to be rude, but I've got more important things to discuss than the weather.
+					(++ local_7)
+					(PersonHangUp)
+					(client setScript: phoneNumber)
+				)
+			)
 			(999
 				(PersonHangUp)
 				(client setScript: phoneNumber)
@@ -1058,13 +1152,13 @@ code_1ba3:
 					(1 (PersonSpeak 12 58))
 					(2
 						(if (Btst 94)
-							(PersonSpeak 12 59)
-							(PersonSpeak 12 60)
+							(PersonSpeak 12 59) ;Yeah, Bonds, I got your message. We have put the phone tap on Colby's phone.
+							(PersonSpeak 12 60) ;Thanks and bye.
 							(self changeState: 999)
 						else
-							(BondsSpeak 12 61)
-							(BondsSpeak 12 62)
-							(PersonSpeak 12 63)
+							(BondsSpeak 12 61) ;Jessie Bains escaped jail yesterday and has gone on a rampage, killing anyone who put him behind bars.
+							(BondsSpeak 12 62) ;Donald Colby lives in Steelton now and could be the next victim. You should tap Colby's phone to see if Bains calls.
+							(PersonSpeak 12 63) ;The phone tap is a good idea. Thanks a lot for the information. I'll see you later.
 							(SolvePuzzle 4 94)
 							(self changeState: 999)
 						)
@@ -1092,13 +1186,13 @@ code_1ba3:
 					(1 (PersonSpeak 12 41))
 					(2
 						(if local_7
-							(BondsSpeak 12 66)
-							(PersonSpeak 12 67)
+							(BondsSpeak 12 66) ;How are things in Steelton?
+							(PersonSpeak 12 67) ;They're fine, Bonds. I'm sorry but I don't have time for chit-chat. Bye.
 							(PersonHangUp)
 							(client setScript: phoneNumber)
 						else
-							(BondsSpeak 12 68)
-							(PersonSpeak 12 69)
+							(BondsSpeak 12 68) ;hows weather?
+							(PersonSpeak 12 69) ;Well, Bonds, I don't mean to be rude, but I've got more important things to discuss than the weather.
 							(++ local_7)
 						)
 					)
@@ -1119,19 +1213,86 @@ code_1ba3:
 		(self changeState: 1)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
-			(1 (PersonSpeak 12 70))
+			(1
+				(PersonSpeak 12 70) ;Lytton Police Department. Which division, please?
+				(= temp0
+					(PrintSpecial
+						{Say:}
+						#at 10 125
+						#button {Homicide} 1
+						#button {Narcotics} 2
+						#button {Burglary} 3
+						#button {Nevermind} 4
+					)				
+				)
+				(switch temp0
+					(1
+						(BondsSpeak {Homicide.})
+						(self changeState: 3)
+					)
+					(2
+						(BondsSpeak {Narcotics.})
+						(self changeState: 3)
+					)
+					(3
+						(BondsSpeak {Burglary.})
+						(self changeState: 3)
+					)
+					(else
+						(self changeState: 999)
+					)
+				)
+			)	
 			(3
-				(PersonSpeak 12 71)
+				(PersonSpeak 12 71) ;OK...wait one minute.
+				(person posn: 30 1000)
+				(personMouth posn: 60 1000)
+				(RedrawCast)
+				(= seconds 10)
+			)
+			(4
+				(person posn: 63 80)
+				(personMouth posn: 77 67)
+				(switch (Random 0 1)
+					(0
+						(PersonSpeak 12 74) ;I'm sorry, but that line is busy.
+					)
+					(else
+						(PersonSpeak 12 75) ;I'm sorry, but there isn't any answer.
+					)
+				)
+				(PersonSpeak 12 76) ;Would you like to hold?
+				(= temp0
+					(PrintSpecial
+						{Say:}
+						#at 10 125
+						#button {Yes} 1
+						#button {No} 2
+					)				
+				)
+				(switch temp0
+					(1
+						(BondsSpeak {Yes, I'll hold.})
+						(self changeState: 5)
+					)
+					(else
+						(BondsSpeak {No, thank you.})
+						(self changeState: 999)
+					)
+				)
+			)
+			(5
+				(PersonSpeak 12 71) ;OK...wait one minute.
 				(person posn: 30 1000)
 				(personMouth posn: 60 1000)
 				(RedrawCast)
 				(= seconds 20)
 			)
-			(4
-				(Print 12 72)
-				(-- state)
+			(6
+				(Print 12 72) ;You have a feeling that somehow you were forgotten.
+				(= state 998)
 				(= seconds 15)
 			)
 			(999
@@ -1203,12 +1364,16 @@ code_1ba3:
 	(method (changeState newState)
 		(switch (= state newState)
 			(1
-				(PersonSpeak 12 79)
-				(PersonSpeak 12 80)
+				(PersonSpeak 12 79) ;hello
+				(PersonSpeak 12 80) ;May I help you?
+				(BondsSpeak {Hello, I need help with PQ2 Point and Click. How do you...})
+				(PersonSpeak 12 81) ;You don't think this program is that sophisticated... to have a whole customer support within the game.
+				(PersonSpeak 12 82) ;If you want the real customer support use a real phone.
+				(self changeState: 999)
 			)
 			(2
 				(PersonSpeak 12 81)
-				(PersonSpeak 12 82)
+				(PersonSpeak 12 82) 
 				(self changeState: 999)
 			)
 			(999
@@ -1245,15 +1410,33 @@ code_1ba3:
 		(self changeState: 1)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
-			(1 (PersonSpeak 12 83))
+			(1 (PersonSpeak 12 83)) ;Hi. This is Al; Al Lowe.
 			(2
 				(PersonSpeak 12 84)
 				(PersonSpeak 12 85)
 				(PersonSpeak 12 86)
 				(PersonSpeak 12 87)
 				(PersonSpeak 12 88)
+				(= temp0
+					(PrintSpecial
+						{Say:}
+						#at 10 125
+						#button {Amazing!} 1
+						#button {Awful!} 2
+					)				
+				)
+				(switch temp0
+					(1
+						(BondsSpeak {Great! I loved playing Liesuresuit Larry 1.})
+						(self changeState: 3)
+					)
+					(else
+						(BondsSpeak {That's the dumbest thing I've ever heard.})
+						(self changeState: 4)
+					)
+				)
 			)
 			(3
 				(PersonSpeak 12 89)
@@ -1262,6 +1445,13 @@ code_1ba3:
 				(PersonSpeak 12 92)
 				(PersonSpeak 12 93)
 				(self changeState: 999)
+			)
+			(4
+				(PersonSpeak 12 94)
+				(PersonSpeak 12 95)
+				(PersonSpeak 12 96)
+				(PersonHangUp)
+				(client setScript: phoneNumber)
 			)
 			(999
 				(PersonHangUp)
@@ -1307,18 +1497,18 @@ code_1ba3:
 			(1
 				(switch local_8
 					(0
-						(PersonSpeak 12 97)
-						(BondsSpeak 12 34)
+						(PersonSpeak 12 97) ;Hhhhhhhhh
+						(BondsSpeak 12 34) ;this is detective bonds
 						(PersonHangUp)
 					)
 					(1
-						(PersonSpeak 12 98)
-						(BondsSpeak 12 34)
+						(PersonSpeak 12 98) ;You #$!@%#@. What the #$@% do you want?
+						(BondsSpeak 12 34) ;this is detective bonds
 						(PersonHangUp)
 					)
 					(2
-						(PersonSpeak 12 99)
-						(BondsSpeak 12 34)
+						(PersonSpeak 12 99) ;Yo. Whadd'ya want?
+						(BondsSpeak 12 34) ;this is detective bonds
 						(PersonHangUp)
 					)
 				)
@@ -1327,11 +1517,11 @@ code_1ba3:
 				(switch local_8
 					(0 (= cycles 1) (= state 0))
 					(1
-						(PersonSpeak 12 100)
+						(PersonSpeak 12 100) ;You @#@$%&*#$@%ing piece of crap! Don't you ever call me again!
 						(self changeState: 999)
 					)
 					(2
-						(PersonSpeak 12 101)
+						(PersonSpeak 12 101) ;Uh. Yea sure. Right on dude.
 						(self changeState: 999)
 					)
 				)
