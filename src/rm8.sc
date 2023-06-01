@@ -111,7 +111,23 @@
 	(method (handleEvent event)
 		(switch (event type?)
 			(evMOUSEBUTTON
-				(if (not (& (event modifiers?) emRIGHT_BUTTON))
+				(if (& (event modifiers?) emRIGHT_BUTTON)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 
+							(theGame setCursor: 993 (HaveMouse))
+						)
+						(993 
+							(theGame setCursor: 998 (HaveMouse))
+						)
+						(998 
+							(theGame setCursor: 991 (HaveMouse))
+						)
+						(991 ;exit 
+							(theGame setCursor: 995 (HaveMouse))
+						)
+					)
+				else
 					(if (ClickedInRect 230 252 140 155 event) ;Power button
 						(event claimed: TRUE)
 						(switch theCursor
@@ -151,13 +167,13 @@
 						)
 						(event claimed: TRUE)
 						(switch theCursor
-							(998
+							(998 ;look
 								(Print 8 5)
 							)
 							(995 ;hand
 								(Print {Press the power button to turn on the computer.})
 							)
-							(999 ;walk exit
+							(991 ;exit
 								(curRoom newRoom: prevRoomNum)
 							)
 							(else
@@ -197,6 +213,18 @@
 				(= enteringPassword 0)
 				(= badPassword 0)
 			)
+			(999
+				(= badPassword 1)
+				(ClearTopLine)
+				(Display {AUTHENTICATION CANCELED}
+					p_at 73 14
+					p_color 14 ;yellow
+					p_font 7
+					p_back 0
+				)
+				(= state 0)
+				(= seconds 3)
+			)
 		)
 	)
 	
@@ -221,7 +249,7 @@
 						(Display @str
 							p_at pwdOffset 14
 							p_font 7
-							p_color 4
+							p_color 5 ;purple ;4
 							p_back 0
 						)
 					)
@@ -236,7 +264,7 @@
 						(Display @str
 							p_at pwdOffset 14
 							p_font 7
-							p_color 4
+							p_color 5 ;purple ;4
 							p_back 0
 						)
 					)
@@ -282,478 +310,488 @@
 				)
 			)
 			(evMOUSEBUTTON
-				(if (& (event modifiers?) emRIGHT_BUTTON)
+				(if
+					(and
+						enteringPassword
+						(not badPassword)
+					)
 					(event claimed: TRUE)
-					(switch theCursor
-						(995 
-							(theGame setCursor: 993 (HaveMouse))
-						)
-						(993 
-							(theGame setCursor: 998 (HaveMouse))
-						)
-						(998 
-							(theGame setCursor: 995 (HaveMouse))
-						)
-					)
-				else ;handle left clicks
-					(if (ClickedInRect 230 252 140 155 event) ;Power button
+					(self changeState: 999) ;clicking cancels password entry
+				)
+				(if (event claimed: FALSE)
+					(if (& (event modifiers?) emRIGHT_BUTTON)
 						(event claimed: TRUE)
 						(switch theCursor
-							(998 ;look
-								;(Print 8 1)
-								(Print {This button turns the computer on and off.})
+							(995 
+								(theGame setCursor: 993 (HaveMouse))
 							)
-							(995 ;hand
-								(curRoom newRoom: prevRoomNum)
+							(993 
+								(theGame setCursor: 998 (HaveMouse))
 							)
-							(993 ;pointer
+							(998 
 								(theGame setCursor: 995 (HaveMouse))
-								(curRoom newRoom: prevRoomNum)
-							)
-							(else
-								(event claimed: FALSE)	
-							)	
-						)
-					)
-					(if (ClickedInRect 0 41 48 180 event) ;book
-						(event claimed: TRUE)
-						(switch theCursor
-							(998 ;look
-								(Print 8 1)
-							)
-							(995 ;hand
-								(Print 8 1)
-							)
-							(else
-								(event claimed: FALSE)	
-							)	
-						)
-					)
-					;Screen clicks
-					(if (== theCursor 993)
-						(event claimed: true)
-						(if enteringPassword
-							;do nothing
-						else
-							(if (ClickedInRect 70 160 14 23 event) ;back/shutdow top line
-								(switch curDir
-									(0 ;shutdown
-										(= curDir -1)
-										(= newRoomNum prevRoomNum)
-									)
-									(1 ;from sierra dir
-										(= curDir 0) ;to root
-									)
-									(2 ;from personal dir
-										(= curDir 0) ;to root
-									)
-									(3 ;from Criminal dir
-										(= curDir 0) ;to root
-									)
-									(4 ;from Homicide
-										(= curDir 3) ;to Criminal
-									)
-									(7 ;from vice
-										(= curDir 3) ;to Criminal
-									)	
-								)
-								(ClearScreen)
-								(PrintDirs)
-							)
-							(if ;clicked files
-								(or
-									(== curDir 1) ;Sierra
-									(== curDir 2) ;Personal
-									(== curDir 4) ;Homicide
-									(== curDir 7) ;Vice
-								)
-								(= xSplit
-									(switch curDir
-										(1
-											160
-										)
-										(2
-											155
-										)
-										(4
-											158
-										)
-										(7
-											154
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 24 33 event) ;line #1
-									(if (< (event x?) xSplit) ;clicked left side
-										(switch curDir
-											(1
-												(LocPrint 8 17)
-											)
-											(2
-												(LocPrint 8 52)
-												(LocPrint 8 53)
-											)
-											(4
-												(LocPrint 8 34)
-												(LocPrint 8 35)
-											)
-											(7
-												(LocPrint 8 93)
-												(LocPrint 8 94)
-											)
-										)
-									else ;clicked right side
-										(switch curDir
-											(1
-												(LocPrint 8 29)
-											)
-											(2
-												(LocPrint 8 77)
-												(LocPrint 8 78)
-											)
-											(4
-												(LocPrint 8 44)
-												(LocPrint 8 45)
-											)
-											(7
-												(LocPrint 8 111)
-												(LocPrint 8 112)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 34 43 event) ;line #2
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 18)
-											)
-											(2
-												(LocPrint 8 54)
-												(LocPrint 8 55)
-												(LocPrint 8 56)
-											)
-											(4
-												(LocPrint 8 36)
-											)
-											(7
-												(LocPrint 8 95)
-												(LocPrint 8 96)
-											)
-										)
-									else
-										(switch curDir
-											(1
-												(LocPrint 8 30)
-											)
-											(2
-												(LocPrint 8 79)
-												(LocPrint 8 80)
-												(LocPrint 8 81)
-											)
-											(4
-												(LocPrint 8 46)
-												(LocPrint 8 47)
-											)
-											(7
-												(LocPrint 8 113)
-												(LocPrint 8 114)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 44 53 event) ;line #3
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 19)
-											)
-											(2
-												(LocPrint 8 57)
-												(LocPrint 8 58)
-												(LocPrint 8 59)
-											)
-											(4
-												(LocPrint 8 37)
-												(LocPrint 8 38)
-											)
-											(7
-												(LocPrint 8 97)
-												(LocPrint 8 98)
-											)
-										)
-									else
-										(switch curDir
-											(1
-												(LocPrint 8 31)
-											)
-											(2
-												(LocPrint 8 82)
-												(LocPrint 8 83)
-												(LocPrint 8 84)
-												(LocPrint 8 85)
-											)
-											(4
-												(LocPrint 8 48)
-											)
-											(7
-												(LocPrint 8 115)
-												(LocPrint 8 116)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 54 63 event) ;line #4
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 20)
-											)
-											(2
-												(LocPrint 8 60)
-												(LocPrint 8 61)
-												(LocPrint 8 62)
-											)
-											(4
-												(LocPrint 8 39)
-											)
-											(7
-												(LocPrint 8 99)
-												(LocPrint 8 100)
-											)
-										)
-									else
-										(switch curDir
-											(1
-												(LocPrint 8 32)
-											)
-											(2
-												(LocPrint 8 86)
-												(LocPrint 8 87)
-											)
-											(4
-												(LocPrint 8 49)
-											)
-											(7
-												(LocPrint 8 117)
-												(LocPrint 8 118)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 64 73 event) ;line #5
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 21)
-												(LocPrint 8 22)
-											)
-											(2
-												(LocPrint 8 63)
-												(LocPrint 8 64)
-											)
-											(4
-												(LocPrint 8 40)
-											)
-											(7
-												(LocPrint 8 101)
-												(LocPrint 8 102)	
-											)
-										)
-									else
-										(switch curDir
-											(1
-												(LocPrint 8 33)
-											)
-											(2
-												(LocPrint 8 88)
-												(LocPrint 8 89)
-											)
-											(4
-												(LocPrint 8 50)
-											)
-											(7
-												(LocPrint 8 119)
-												(LocPrint 8 120)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 74 83 event) ;line #6
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 23)
-											)
-											(2
-												(LocPrint 8 65)
-												(LocPrint 8 66)
-											)
-											(4
-												(LocPrint 8 41)
-												(LocPrint 8 42)
-											)
-											(7
-												(LocPrint 8 103)
-												(LocPrint 8 104)
-											)
-										)
-									else
-										(switch curDir
-											(2
-												(LocPrint 8 90)
-												(LocPrint 8 91)
-											)
-											(4
-												(LocPrint 8 51)
-											)
-											(7
-												(LocPrint 8 121)
-												(LocPrint 8 122)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 84 93 event) ;line #7
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 24)
-												(LocPrint 8 25)
-											)
-											(2
-												(LocPrint 8 67)
-												(LocPrint 8 68)
-											)
-											(4
-												(LocPrint 8 43)
-											)
-											(7
-												(LocPrint 8 105)
-												(LocPrint 8 106)
-											)
-										)
-									else
-										(switch curDir
-											(2
-												(LocPrint 8 92)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 94 103 event) ;line #8
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 26)
-											)
-											(2
-												(LocPrint 8 69)
-												(LocPrint 8 70)
-												(LocPrint 8 71)
-											)
-											(7
-												(LocPrint 8 107)
-												(LocPrint 8 108)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 104 113 event) ;line #9
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 27)
-											)
-											(2
-												(LocPrint 8 72)
-												(LocPrint 8 73)
-											)
-											(7
-												(LocPrint 8 109)
-												(LocPrint 8 110)
-											)
-										)
-									)
-								)
-								(if (ClickedInRect 65 250 114 123 event) ;line #10
-									(if (< (event x?) xSplit)
-										(switch curDir
-											(1
-												(LocPrint 8 28)
-											)
-											(2
-												(LocPrint 8 74)
-												(LocPrint 8 75)
-												(LocPrint 8 76)
-												(Bset fLearnedAboutAddiction)
-											)
-										)
-									)
-								)
-							else ;clicked directories
-								(if (ClickedInRect 70 153 24 33 event) ;Choice/line #1 left
-									(switch curDir
-										(0
-											(ClearScreen)
-											(= curDir 3) ;switch to Criminal dir
-											(PrintDirs)
-										)
-										(3 ;clicked Homicide
-											(GetPassword 1)
-										)
-									)
-								)
-								(if (ClickedInRect 70 153 34 43 event) ;Choice/line #2 left
-									(switch curDir
-										(0
-											(ClearScreen)
-											(= curDir 1) ;switch to sierra dir
-											(PrintDirs)
-										)
-										(3 ;clicked Vice
-											(GetPassword 3)
-										)
-									)
-								)
-								(if (ClickedInRect 70 153 44 53 event) ;Choice/line #3 left
-									(switch curDir
-										(0
-											(GetPassword 2) ;personal
-										)
-										(3 ;burglary
-											(GetPassword 4)
-										)
-									)	
-								)
-								(if (ClickedInRect 70 153 54 63 event) ;Choice/line #4 left
-									(switch curDir
-										(3 ;firearms
-											(GetPassword 5)
-										)
-									)
-								)
 							)
 						)
-					)
-					(if
-						(and
-							(ClickedInRect 0 320 0 190 event) ;clicked anywhere else
-							(== (event claimed?) FALSE)
+					else ;handle left clicks
+						(if (ClickedInRect 230 252 140 155 event) ;Power button
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									;(Print 8 1)
+									(Print {This button turns the computer on and off.})
+								)
+								(995 ;hand
+									(curRoom newRoom: prevRoomNum)
+								)
+								(993 ;pointer
+									(theGame setCursor: 995 (HaveMouse))
+									(curRoom newRoom: prevRoomNum)
+								)
+								(else
+									(event claimed: FALSE)	
+								)	
+							)
 						)
-						(event claimed: TRUE)
-						(switch theCursor
-							(998
-								(Print 8 5)
+						(if (ClickedInRect 0 41 48 180 event) ;book
+							(event claimed: TRUE)
+							(switch theCursor
+								(998 ;look
+									(Print 8 1)
+								)
+								(995 ;hand
+									(Print 8 1)
+								)
+								(else
+									(event claimed: FALSE)	
+								)	
 							)
-							(995 ;hand
-								(Print {Press the power button to turn on the computer.})
+						)
+						;Screen clicks
+						(if (== theCursor 993)
+							(event claimed: true)
+							(if enteringPassword
+								;do nothing
+							else
+								(if (ClickedInRect 70 160 14 23 event) ;back/shutdow top line
+									(switch curDir
+										(0 ;shutdown
+											(= curDir -1)
+											(= newRoomNum prevRoomNum)
+										)
+										(1 ;from sierra dir
+											(= curDir 0) ;to root
+										)
+										(2 ;from personal dir
+											(= curDir 0) ;to root
+										)
+										(3 ;from Criminal dir
+											(= curDir 0) ;to root
+										)
+										(4 ;from Homicide
+											(= curDir 3) ;to Criminal
+										)
+										(7 ;from vice
+											(= curDir 3) ;to Criminal
+										)	
+									)
+									(ClearScreen)
+									(PrintDirs)
+								)
+								(if ;clicked files
+									(or
+										(== curDir 1) ;Sierra
+										(== curDir 2) ;Personal
+										(== curDir 4) ;Homicide
+										(== curDir 7) ;Vice
+									)
+									(= xSplit
+										(switch curDir
+											(1
+												160
+											)
+											(2
+												155
+											)
+											(4
+												158
+											)
+											(7
+												154
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 24 33 event) ;line #1
+										(if (< (event x?) xSplit) ;clicked left side
+											(switch curDir
+												(1
+													(LocPrint 8 17)
+												)
+												(2
+													(LocPrint 8 52)
+													(LocPrint 8 53)
+												)
+												(4
+													(LocPrint 8 34)
+													(LocPrint 8 35)
+												)
+												(7
+													(LocPrint 8 93)
+													(LocPrint 8 94)
+												)
+											)
+										else ;clicked right side
+											(switch curDir
+												(1
+													(LocPrint 8 29)
+												)
+												(2
+													(LocPrint 8 77)
+													(LocPrint 8 78)
+												)
+												(4
+													(LocPrint 8 44)
+													(LocPrint 8 45)
+												)
+												(7
+													(LocPrint 8 111)
+													(LocPrint 8 112)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 34 43 event) ;line #2
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 18)
+												)
+												(2
+													(LocPrint 8 54)
+													(LocPrint 8 55)
+													(LocPrint 8 56)
+												)
+												(4
+													(LocPrint 8 36)
+												)
+												(7
+													(LocPrint 8 95)
+													(LocPrint 8 96)
+												)
+											)
+										else
+											(switch curDir
+												(1
+													(LocPrint 8 30)
+												)
+												(2
+													(LocPrint 8 79)
+													(LocPrint 8 80)
+													(LocPrint 8 81)
+												)
+												(4
+													(LocPrint 8 46)
+													(LocPrint 8 47)
+												)
+												(7
+													(LocPrint 8 113)
+													(LocPrint 8 114)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 44 53 event) ;line #3
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 19)
+												)
+												(2
+													(LocPrint 8 57)
+													(LocPrint 8 58)
+													(LocPrint 8 59)
+												)
+												(4
+													(LocPrint 8 37)
+													(LocPrint 8 38)
+												)
+												(7
+													(LocPrint 8 97)
+													(LocPrint 8 98)
+												)
+											)
+										else
+											(switch curDir
+												(1
+													(LocPrint 8 31)
+												)
+												(2
+													(LocPrint 8 82)
+													(LocPrint 8 83)
+													(LocPrint 8 84)
+													(LocPrint 8 85)
+												)
+												(4
+													(LocPrint 8 48)
+												)
+												(7
+													(LocPrint 8 115)
+													(LocPrint 8 116)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 54 63 event) ;line #4
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 20)
+												)
+												(2
+													(LocPrint 8 60)
+													(LocPrint 8 61)
+													(LocPrint 8 62)
+												)
+												(4
+													(LocPrint 8 39)
+												)
+												(7
+													(LocPrint 8 99)
+													(LocPrint 8 100)
+												)
+											)
+										else
+											(switch curDir
+												(1
+													(LocPrint 8 32)
+												)
+												(2
+													(LocPrint 8 86)
+													(LocPrint 8 87)
+												)
+												(4
+													(LocPrint 8 49)
+												)
+												(7
+													(LocPrint 8 117)
+													(LocPrint 8 118)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 64 73 event) ;line #5
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 21)
+													(LocPrint 8 22)
+												)
+												(2
+													(LocPrint 8 63)
+													(LocPrint 8 64)
+												)
+												(4
+													(LocPrint 8 40)
+												)
+												(7
+													(LocPrint 8 101)
+													(LocPrint 8 102)	
+												)
+											)
+										else
+											(switch curDir
+												(1
+													(LocPrint 8 33)
+												)
+												(2
+													(LocPrint 8 88)
+													(LocPrint 8 89)
+												)
+												(4
+													(LocPrint 8 50)
+												)
+												(7
+													(LocPrint 8 119)
+													(LocPrint 8 120)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 74 83 event) ;line #6
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 23)
+												)
+												(2
+													(LocPrint 8 65)
+													(LocPrint 8 66)
+												)
+												(4
+													(LocPrint 8 41)
+													(LocPrint 8 42)
+												)
+												(7
+													(LocPrint 8 103)
+													(LocPrint 8 104)
+												)
+											)
+										else
+											(switch curDir
+												(2
+													(LocPrint 8 90)
+													(LocPrint 8 91)
+												)
+												(4
+													(LocPrint 8 51)
+												)
+												(7
+													(LocPrint 8 121)
+													(LocPrint 8 122)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 84 93 event) ;line #7
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 24)
+													(LocPrint 8 25)
+												)
+												(2
+													(LocPrint 8 67)
+													(LocPrint 8 68)
+												)
+												(4
+													(LocPrint 8 43)
+												)
+												(7
+													(LocPrint 8 105)
+													(LocPrint 8 106)
+												)
+											)
+										else
+											(switch curDir
+												(2
+													(LocPrint 8 92)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 94 103 event) ;line #8
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 26)
+												)
+												(2
+													(LocPrint 8 69)
+													(LocPrint 8 70)
+													(LocPrint 8 71)
+												)
+												(7
+													(LocPrint 8 107)
+													(LocPrint 8 108)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 104 113 event) ;line #9
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 27)
+												)
+												(2
+													(LocPrint 8 72)
+													(LocPrint 8 73)
+												)
+												(7
+													(LocPrint 8 109)
+													(LocPrint 8 110)
+												)
+											)
+										)
+									)
+									(if (ClickedInRect 65 250 114 123 event) ;line #10
+										(if (< (event x?) xSplit)
+											(switch curDir
+												(1
+													(LocPrint 8 28)
+												)
+												(2
+													(LocPrint 8 74)
+													(LocPrint 8 75)
+													(LocPrint 8 76)
+													(Bset fLearnedAboutAddiction)
+												)
+											)
+										)
+									)
+								else ;clicked directories
+									(if (ClickedInRect 70 153 24 33 event) ;Choice/line #1 left
+										(switch curDir
+											(0
+												(ClearScreen)
+												(= curDir 3) ;switch to Criminal dir
+												(PrintDirs)
+											)
+											(3 ;clicked Homicide
+												(GetPassword 1)
+											)
+										)
+									)
+									(if (ClickedInRect 70 153 34 43 event) ;Choice/line #2 left
+										(switch curDir
+											(0
+												(ClearScreen)
+												(= curDir 1) ;switch to sierra dir
+												(PrintDirs)
+											)
+											(3 ;clicked Vice
+												(GetPassword 3)
+											)
+										)
+									)
+									(if (ClickedInRect 70 153 44 53 event) ;Choice/line #3 left
+										(switch curDir
+											(0
+												(GetPassword 2) ;personal
+											)
+											(3 ;burglary
+												(GetPassword 4)
+											)
+										)	
+									)
+									(if (ClickedInRect 70 153 54 63 event) ;Choice/line #4 left
+										(switch curDir
+											(3 ;firearms
+												(GetPassword 5)
+											)
+										)
+									)
+								)
 							)
-							(999 ;walk exit
-								(curRoom newRoom: prevRoomNum)
+						)
+						(if
+							(and
+								(ClickedInRect 0 320 0 190 event) ;clicked anywhere else
+								(== (event claimed?) FALSE)
 							)
-							(else
-								(event claimed: FALSE)
+							(event claimed: TRUE)
+							(switch theCursor
+								(998
+									(Print 8 5)
+								)
+								(995 ;hand
+									(Print {Press the power button to turn on the computer.})
+								)
+								(999 ;walk exit
+									(curRoom newRoom: prevRoomNum)
+								)
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
 					)

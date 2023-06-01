@@ -21,6 +21,11 @@
 	local0
 	numPeopleInRoom
 )
+
+(instance jamesProp of Prop
+	(properties)
+)
+
 (instance James of Feature
 	(properties)
 	
@@ -893,7 +898,7 @@ code_0710:
 				addToPic:
 			)
 		)
-		((View new:) ;James
+		(jamesProp ;(View new:)
 			view: 68
 			posn: 182 148
 			loop: 0
@@ -932,6 +937,44 @@ code_0710:
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if (ClickedOnObj jamesProp (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(if
+									(or
+										(ego inRect: 124 128 192 165) ;l r t b
+										(ego inRect: 193 145 240 154)
+									)
+									(Print 6 1) ;james is cool
+								else
+									(NotClose)
+								)
+							)
+							(996 ;talk
+								(if
+									(or
+										(ego inRect: 124 128 192 165) ;l r t b
+										(ego inRect: 193 145 240 154)
+									)
+									(Print 6 2) ;what can i do for you?
+								else
+									(NotClose)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)		
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					((Said 'look>')
