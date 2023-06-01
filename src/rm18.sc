@@ -339,6 +339,117 @@
 				)
 			)
 		)
+		
+			(cond
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+	
+			(if (or (ClickedInRect 130 158 50 65 event) ;poster1
+					(ClickedInRect 41 94 110 128 event) ;poster2
+					(ClickedInRect 109 144 111 115 event) ;poster3
+					)
+					(event claimed: TRUE)
+					(switch theCursor				
+						(998 ; newmugshot	
+							(if (> (ego x?) 95)
+									(switch (Random 1 3)
+										(1
+											(LocPrint 18 2)
+										)
+										(2
+											(LocPrint 18 3)
+										)
+										(3
+											(LocPrint 18 4)
+										)
+									)
+								else
+									(LocPrint 18 2)
+								)
+								)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+	
+	
+				(if (ClickedInRect 0 4 138 157 event) ;left
+					(event claimed: TRUE)
+					(switch theCursor	
+						(999
+							(ego setMotion: MoveTo -6 144)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+	
+				(if (ClickedInRect 1 315 21 60 event) ;up
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(LocPrint 18 1)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)					
+	
+				
+				(if (or (ClickedInRect 95 105 81 103 event) ;woman
+					(ClickedInRect 112 131 71 96 event) ;man
+					)
+					(event claimed: TRUE)
+					(switch theCursor				
+						(112 ; newmugshot		
+							(if (ego inRect: 76 113 173 141)
+								(agentScript changeState: 3)
+							else
+								(LocPrint 18 0)
+							)
+		
+						)	
+						(107 ;badge
+							(if (ego inRect: 76 113 173 141)
+								(agentScript changeState: 2)
+							else
+								(LocPrint 18 18)
+							)
+						)	
+						(998
+							(LocPrint 18 15)
+						)
+						(996 ;talk
+							(if (ego inRect: 76 113 173 141)
+							(agentScript changeState: 1)
+						else
+							(LocPrint 18 16)
+						)
+							
+							
+							
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+		
+		
+		
+			)
+	)
+		
+		
+		
+		
+		
 	)
 )
 
