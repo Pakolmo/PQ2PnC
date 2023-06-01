@@ -71,7 +71,7 @@
 )
 (instance Music2 of Sound
 	(properties
-		number 251  
+		number 152  
 	)
 )
 (instance carDoor of Prop)
