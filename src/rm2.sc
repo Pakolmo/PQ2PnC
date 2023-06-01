@@ -10,6 +10,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Sound)
 
 (public
 	rm2 0
@@ -89,7 +90,11 @@
 (instance bigJon of Actor
 	(properties)
 )
-
+(instance Music of Sound
+	(properties
+		number 72  
+	)
+)
 (instance rm2 of Room
 	(properties
 		picture 2
@@ -102,6 +107,7 @@
 		(Load VIEW 0)
 		(Load VIEW 56)
 		(Load VIEW 57)
+		(Music loop: -1 play:)
 		(self setLocales: 153)
 		(HandsOn)
 		(= gunFireState gunPROHIBITED)
