@@ -41,6 +41,7 @@
 	exit = 0
 	[numStr 15]
 	count
+	changeScript
 )
 
 (procedure (RingPhone param1)
@@ -250,10 +251,8 @@ code_1ba3:
 			posn: 60 1000
 			init:
 		)
-		;(HandsOff)
 		(theGame setCursor: 993)
 		(curRoom setScript: phoneNumber)
-		;(curRoom setRegions: 950)
 	)
 	
 	(method (handleEvent event)
@@ -293,293 +292,209 @@ code_1ba3:
 			(0
 				(= count 0)
 				(= exit 0)
+				(= changeScript 0)
 				(StrCpy @numStr {Dialed: })
-				(while (not exit)
-					(= pressed
-						(PrintSpecial
-							@numStr
-							#at 10 125
-							#button {1} 1
-							#button {2} 2
-							#button {3} 3
-							#button {4} 4
-							#button {5} 5
-							#button {6} 6
-							#button {7} 7
-							#button {8} 8
-							#button {9} 9 
-							#button {0} 10
-							#button {Dial} 11
-							#button {Info} 12
-							#button {Exit} 13
-						)
+				(while (not changeScript)
+				(= pressed
+					(PrintSpecial
+						@numStr
+						#at 10 125
+						#button {1} 1
+						#button {2} 2
+						#button {3} 3
+						#button {4} 4
+						#button {5} 5
+						#button {6} 6
+						#button {7} 7
+						#button {8} 8
+						#button {9} 9 
+						#button {0} 10
+						#button {Dial} 11
+						#button {Info} 12
+						#button {Exit} 13
 					)
-					(DTMF number: 43 priority: 10 play:)
-					(switch pressed
-						(0
-							(= exit 1)
-						)
-						(11
-							(cond
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: "))
-									(Print 12 14)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
-									(curRoom setScript: Information)
-									(break)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
-									(curRoom setScript: Information)
-									(break)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
-									(PersonSpeak 12 6)
-									(PersonSpeak 12 7)
-									(PersonHangUp)
-									;(curRoom setScript: phoneNumber)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2222"))
-									(localproc_1a28)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-6844"))
-									(localproc_1a28)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-1699"))
-									(localproc_1a28)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2052"))
-									(localproc_1a28)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4495"))
-									(PersonSpeak 12 8)
-									(PersonHangUp)
-									;(curRoom setScript: phoneNumber)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
-									(curRoom setScript: talkingToMarie)
-									(break)
-;;;									(cond 
-;;;										((== prevRoomNum 32) (localproc_1a28 40))
-;;;										((!= gamePhase 6) (localproc_1a28 95))
-;;;										(else (curRoom setScript: talkingToMarie))
-;;;									)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
-									(if (== prevRoomNum 61)
-										(localproc_1a28 40)
-									else
-										(localproc_1a28)
-									)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
-									(if (or (< gamePhase 8) (Btst 95))
-										(localproc_1a28)
-									else
-										(curRoom setScript: talkingToColby)
-										(break)
-									)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
-									(if (== prevRoomNum 4)
-										(if (not (Random 0 4)) ;only sometimes pick up if calling from station
-											(curRoom setScript: lyttonPD)
-											(break)
-										else
-											(localproc_1a28 40)
-										)
-									else ;always pickup when calling from airport
-										(curRoom setScript: lyttonPD)
-										(break)
-									)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
-									(if (<= gamePhase 8)
-										(localproc_1a28 40) ;phone is busy
-									else
-										(curRoom setScript: steeltonPD)
-										(break)
-									)
-								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
+				)
+				(DTMF number: 43 priority: 10 play:)
+				(switch pressed
+					(0
+						(= exit 1)
+					)
+					(11
+						(cond
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: "))
+								(Print 12 14)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
+								(= changeScript 1) ;information
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
+								(= changeScript 1) ;information
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
+								(PersonSpeak 12 6)
+								(PersonSpeak 12 7)
+								(PersonHangUp)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2222"))
+								(localproc_1a28)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-6844"))
+								(localproc_1a28)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-1699"))
+								(localproc_1a28)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2052"))
+								(localproc_1a28)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4495"))
+								(PersonSpeak 12 8)
+								(PersonHangUp)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
+								(= changeScript 2) ;talkingToMarie
+;;;								(cond 
+;;;									((== prevRoomNum 32) (localproc_1a28 40))
+;;;									((!= gamePhase 6) (localproc_1a28 95))
+;;;									(else (curRoom setScript: talkingToMarie))
+;;;								)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
+								(if (== prevRoomNum 61)
 									(localproc_1a28 40)
+								else
+									(localproc_1a28)
 								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-4463"))
-									(if (== (Random 1 2) 1)
-										(PersonSpeak 12 9)
-										(PersonSpeak 12 10)
-										(PersonHangUp)
-										;(curRoom setScript: phoneNumber)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
+								(if (or (< gamePhase 8) (Btst 95))
+									(localproc_1a28)
+								else
+									(= changeScript 3) ;talkingToColby
+								)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
+								(if (== prevRoomNum 4)
+									(if (not (Random 0 4)) ;only sometimes pick up if calling from station
+										(= changeScript 4) ;lyttonPD
 									else
-										(PersonSpeak 12 11)
-										(PersonSpeak 12 12)
-										(PersonSpeak 12 13)
-										(PersonHangUp)
-										;(curRoom setScript: phoneNumber)
+										(localproc_1a28 40)
 									)
+								else ;always pickup when calling from airport
+									(= changeScript 4) ;lyttonPD
 								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
-									(if (< (Random 1 10) 4)
-										(curRoom setScript: alLowe)
-									else
-										(curRoom setScript: sierra)
-									)
-									(break)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
+								(if (<= gamePhase 8)
+									(localproc_1a28 40) ;phone is busy
+								else
+									(= changeScript 5) ;steeltonPD
 								)
-								((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
-									(if (< (Random 1 10) 4)
-										(curRoom setScript: alLowe)
-									else
-										(curRoom setScript: sierra)
-									)
-									(break)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
+								(localproc_1a28 40)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-4463"))
+								(if (== (Random 1 2) 1)
+									(PersonSpeak 12 9)
+									(PersonSpeak 12 10)
+									(PersonHangUp)
+								else
+									(PersonSpeak 12 11)
+									(PersonSpeak 12 12)
+									(PersonSpeak 12 13)
+									(PersonHangUp)
 								)
-								(else
-									(if (< (Random 1 10) 3)
-										(curRoom setScript: sicko)
-										(break)
-									else
-										(localproc_1a28)
-									)
+							)
+							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
+								(if (< (Random 1 10) 4)
+									(= changeScript 6) ;AlLowe
+								else
+									(= changeScript 7) ;sierra
 								)
-							)					
+							)
+							(else
+								(if (< (Random 1 10) 3)
+									(= changeScript 8) ;sicko
+								else
+									(localproc_1a28)
+								)
+							)
+						)					
+					)
+					(12
+						(= changeScript 1) ;Information
+					)
+					(13
+						(= changeScript 555)
+						(= exit 1)	
+					)
+					(else	
+						(++ count)
+						(if (== count 4)
+							(StrCat @numStr {-})
 						)
-						(12
-							(curRoom setScript: Information)
-							(break)
+						(if
+							(and
+								(== count 7)
+								(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
+							)
+							(StrCat @numStr {-})
 						)
-						(13
-							(= exit 1)	
+						(if (== pressed 10) ;esc exit hack for zero
+							(= pressed 0)	
 						)
-						(else	
-							(++ count)
-							(if (== count 4)
-								(StrCat @numStr {-})
+						(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
+							(if (< count 8)
+								(StrCat @numStr (Format @numStr2 {%d} pressed))
 							)
-							(if
-								(and
-									(== count 7)
-									(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
-								)
-								(StrCat @numStr {-})
-							)
-							(if (== pressed 10) ;esc exit hack for zero
-								(= pressed 0)	
-							)
-							(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
-								(if (< count 8)
-									(StrCat @numStr (Format @numStr2 {%d} pressed))
-								)
-							else
-								(if (< count 11)
-									(StrCat @numStr (Format @numStr2 {%d} pressed))
-								)						
-							)
+						else
+							(if (< count 11)
+								(StrCat @numStr (Format @numStr2 {%d} pressed))
+							)						
 						)
 					)
+				)
 				)
 				(if (== exit 1)
 					(curRoom newRoom: prevRoomNum)
 				)
+				(switch changeScript
+					(1
+						(curRoom setScript: Information)
+					)
+					(2
+						(curRoom setScript: talkingToMarie)
+					)
+					(3
+						(curRoom setScript: talkingToColby)
+					)
+					(4
+						(curRoom setScript: lyttonPD)
+					)
+					(5
+						(curRoom setScript: steeltonPD)
+					)
+					(6
+						(curRoom setScript: alLowe)
+					)
+					(7
+						(curRoom setScript: sierra)
+					)
+					(8
+						(curRoom setScript: sicko)
+					)
+					(else
+						(if (not exit)
+							(= state -1)
+							(= cycles 1)
+						)
+					)
+				)	
 			)	
 		)	
 	)
 )	
-;;;	(method (handleEvent event)
-;;;		(if
-;;;			(or
-;;;				(event claimed?)
-;;;				(!= (event type?) saidEvent)
-;;;			)
-;;;			(return)
-;;;		)
-;;;		(cond 
-;;;			((Said '/411,0') (curRoom setScript: Information))
-;;;			((Said '/5558723')
-;;;				(PersonSpeak 12 6)
-;;;				(PersonSpeak 12 7)
-;;;				(PersonHangUp)
-;;;				(curRoom setScript: phoneNumber)
-;;;			)
-;;;			((Said '/5552222') (localproc_1a28))
-;;;			((Said '/4075556844') (localproc_1a28))
-;;;			((Said '/5551699') (localproc_1a28))
-;;;			((Said '/5552052') (localproc_1a28))
-;;;			((Said '/5554495')
-;;;				(PersonSpeak 12 8)
-;;;				(PersonHangUp)
-;;;				(curRoom setScript: phoneNumber)
-;;;			)
-;;;			((Said '/5554169')
-;;;				(cond 
-;;;					((== prevRoomNum 32) (localproc_1a28 40))
-;;;					((!= gamePhase 6) (localproc_1a28 95))
-;;;					(else (curRoom setScript: talkingToMarie))
-;;;				)
-;;;			)
-;;;			((Said '/5553344')
-;;;				(if (== prevRoomNum 61)
-;;;					(localproc_1a28 40)
-;;;				else
-;;;					(localproc_1a28)
-;;;				)
-;;;			)
-;;;			((Said '/4075553323')
-;;;				(if (or (< gamePhase 8) (Btst 95))
-;;;					(localproc_1a28)
-;;;				else
-;;;					(curRoom setScript: talkingToColby)
-;;;				)
-;;;			)
-;;;			((Said '/5555432')
-;;;				(if (== prevRoomNum 4)
-;;;					(localproc_1a28 40)
-;;;				else
-;;;					(curRoom setScript: lyttonPD)
-;;;				)
-;;;			)
-;;;			((Said '/4075552677')
-;;;				(if (<= gamePhase 8)
-;;;					(localproc_1a28 40)
-;;;				else
-;;;					(curRoom setScript: steeltonPD)
-;;;				)
-;;;			)
-;;;			((Said '/5550001') (localproc_1a28 40))
-;;;			((Said '/2096834463')
-;;;				(if (== (Random 1 2) 1)
-;;;					(PersonSpeak 12 9)
-;;;					(PersonSpeak 12 10)
-;;;					(PersonHangUp)
-;;;					(curRoom setScript: phoneNumber)
-;;;				else
-;;;					(PersonSpeak 12 11)
-;;;					(PersonSpeak 12 12)
-;;;					(PersonSpeak 12 13)
-;;;					(PersonHangUp)
-;;;					(curRoom setScript: phoneNumber)
-;;;				)
-;;;			)
-;;;			((Said '/2096836858')
-;;;				(if (< (Random 1 10) 4)
-;;;					(curRoom setScript: alLowe)
-;;;				else
-;;;					(curRoom setScript: sierra)
-;;;				)
-;;;			)
-;;;			((Said '/unknownnumber')
-;;;				(if (< (Random 1 10) 3)
-;;;					(curRoom setScript: sicko)
-;;;				else
-;;;					(localproc_1a28)
-;;;				)
-;;;			)
-;;;			(else
-;;;				(Print 12 14) ;"please enter a number"
-;;;				(self changeState: 0)
-;;;			)
-;;;		)
-;;;	)
-;;;)
 
 (instance Information of Script
 	(properties)
@@ -785,8 +700,7 @@ code_1ba3:
 			(localproc_1b13 event)
 			(return)
 		)
-		;(if (!= (event type?) saidEvent) (return))
-		(if (event claimed?) ;only check if claimed
+		(if (event claimed?)
 			(return)
 		)
 		(switch state
@@ -982,8 +896,6 @@ code_1ba3:
 						(= cycles 1)
 					)
 				)
-			
-		
 			)
 			(2
 				(PersonSpeak 12 46)

@@ -1103,12 +1103,14 @@
 			(or
 				(== curRoomNum 1)
 				(== curRoomNum 2)
+				(== curRoomNum 3)
 				(== curRoomNum 4)
 				(== curRoomNum 5)
+				(== curRoomNum 6) 
 				(== curRoomNum 7)
 				(== curRoomNum 8)
 				(== curRoomNum 10)
-				(== curRoomNum 12)
+				;(== curRoomNum 12) no menu in phone room
 				(== curRoomNum 13)
 				(== curRoomNum 14)
 				(== curRoomNum 15)
