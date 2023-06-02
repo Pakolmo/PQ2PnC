@@ -829,6 +829,42 @@
 
 
 				(if (and
+						(ClickedInRect 192 211 83 95 event) ;TABLE
+						(== (event claimed?) FALSE)
+						
+					)
+				(if (== theCursor 104) ;pay
+						(event claimed: TRUE)
+						(if local37
+							(if local24
+								(waiterScript changeState: 6)
+							else
+								(waiterScript changeState: 28)
+							)
+						else
+							(localproc_000c 30 80)
+						)
+				)
+					
+					
+					(if (== theCursor 995) ;clicked eat/talk on Sonny table
+						(event claimed: TRUE)
+						(cond 
+							(
+							(and local31 local24 (not local36) (not local37)) (marieScript changeState: 1))
+							((and (not local24) (not local37)) (localproc_000c 30 92))
+							((not local24) (localproc_000c 30 89))
+							(local37 (localproc_000c 30 93))
+							(local36 (localproc_000c 30 94))
+							(else (localproc_000c 30 95))
+						)
+					
+					)
+				)
+
+
+
+				(if (and
 						(ClickedInRect 208 221 78 100 event) ;Sonny
 						(== (event claimed?) FALSE)
 						
