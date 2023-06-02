@@ -143,14 +143,14 @@
 			cel: 0
 			init:
 		)
-;;;		(if (Btst fPnCHideWestRose)
+		(if (Btst fPnCHideWestRose)
 			(locWestRose
 				view: 166
 				loop: 0
 				cel: 0
 				init:
 			)
-;;;		)		
+		)		
 	)
 	
 	(method (dispose)
@@ -166,7 +166,7 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
-				(if (ClickedOnObj locWestRose (event x?) (event y?)) ;West Rose
+			(if (ClickedOnObj locWestRose (event x?) (event y?)) ;West Rose
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -181,12 +181,7 @@
 					)
 				)
 			)			
-			
-			
-			
-			
-			
-		(if (ClickedOnObj locHome (event x?) (event y?)) ;Home
+			(if (ClickedOnObj locHome (event x?) (event y?)) ;Home
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -201,11 +196,7 @@
 					)
 				)
 			)			
-			
-			
-			
-			
-		(if (ClickedOnObj locInn (event x?) (event y?)) ;Inn
+			(if (ClickedOnObj locInn (event x?) (event y?)) ;Inn
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -219,16 +210,8 @@
 						(event claimed: FALSE)
 					)
 				)
-			)			
-				
-			
-			
-			
-			
-			
-			
-			
-		(if (ClickedOnObj locAirport (event x?) (event y?)) ;airport
+			)
+			(if (ClickedOnObj locAirport (event x?) (event y?)) ;airport
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -242,9 +225,8 @@
 						(event claimed: FALSE)
 					)
 				)
-			)			
-		
-		(if (ClickedOnObj locJail (event x?) (event y?)) ;jail
+			)
+			(if (ClickedOnObj locJail (event x?) (event y?)) ;jail
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -258,10 +240,8 @@
 						(event claimed: FALSE)
 					)
 				)
-			)			
-			
-			
-		(if (ClickedOnObj locOffice (event x?) (event y?)) ;Office
+			)
+			(if (ClickedOnObj locOffice (event x?) (event y?)) ;Office
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
@@ -275,11 +255,8 @@
 						(event claimed: FALSE)
 					)
 				)
-			)			
-			
-			
-			
-		(if (ClickedOnObj locMall (event x?) (event y?)) ;cove
+			)
+			(if (ClickedOnObj locMall (event x?) (event y?)) ;cove
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look

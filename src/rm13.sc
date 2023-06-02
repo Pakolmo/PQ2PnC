@@ -47,6 +47,13 @@
 )
 
 (procedure (drive)
+	(if
+		(and
+			(== gamePhase 3)
+			(Btst fBeenAtMallCrimeScene)
+		)
+		(= gamePhase 4)
+	)
 	(switch driveDest
 		(14 ;Lytton Airport
 			(if (not (ego has: 3))
@@ -124,13 +131,6 @@
 			(if (not (ego has: 3))
 				(Print 13 48)
 			else
-				(if
-					(and
-						(== gamePhase 3)
-						(Btst 152) ;fBeenAtMallCrimeScene
-					)
-					(= gamePhase 4)
-				)
 				(User canInput: 0)
 				(if (!= outsideRoom 67)
 					(= outsideRoom 67)
