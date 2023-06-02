@@ -822,7 +822,7 @@
 									)
 								)
 								((== currentCar carPersonal)
-									(Print 61 51)
+									(Print 61 51) ;Necesitas una llave para abrir esta puerta.
 								)
 							)
 						else
@@ -1341,7 +1341,7 @@
 									)
 								)
 								((== currentCar carWork)
-									(Print 61 51)
+									(Print 61 51) ;Necesitas una llave para abrir esta puerta.
 								)
 							)
 							(cond 
@@ -1358,7 +1358,8 @@
 									)
 								)
 								((== currentCar carPersonal)
-									(Print 61 51)
+;;;									(Print 61 51) ;Necesitas una llave para abrir esta puerta.
+									(EnterCar)
 								)
 							)
 						else

@@ -679,7 +679,10 @@
 						(995 ;hand
 							(cond 
 								((!= currentCar carWork)
-									(Print 67 15)
+;;;									(Print 67 15)
+									(curRoom setScript: startEnter)
+									(return 1)
+									
 								)
 								(
 									(not
@@ -826,7 +829,8 @@
 							)
 							(cond 
 								((!= currentCar carWork)
-									(Print 67 15)
+									(Print 67 15) ;OK
+
 								)
 								(
 									(not

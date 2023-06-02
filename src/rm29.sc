@@ -767,7 +767,35 @@
 					)
 				)
 		
+
+				(if
+
+						(and
+							(ClickedInRect 20 45 157 180 event) ;doorcar
+							(== currentCar 33) ;Personalcar
+						)
+
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use
+							(cond 
+							(local6 (= global132 1))
+							((not (ego inRect: 160 105 215 128)) (localproc_0ef8))
+							(local16 (localproc_005a 29 31))
+							(else (localproc_005a 29 32))
+							)
+						)
+						(998 ;look			
+							(localproc_005a 29 4)
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 		
+				
 		
 			
 			

@@ -16,7 +16,7 @@
 
 (local
 	waiter
-	newProp_6
+	marie
 	newProp
 	newProp_2
 	newProp_7
@@ -58,6 +58,10 @@
 	local43
 	local44
 	local45
+	kisstalk
+	myseat
+	Eat
+	talkedToM = 1
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 125)
@@ -135,13 +139,13 @@
 			setStep: 3 2
 			setScript: waiterScript
 		)
-		((= newProp_6 (Prop new:))
+		((= marie (Prop new:)) ;marie
 			view: 266
 			posn: 178 111
 			loop: 8
 			cel: 0
 			init:
-			stopUpd:
+;;;			stopUpd:
 			setScript: marieScript
 		)
 		((= newView (View new:))
@@ -151,7 +155,7 @@
 			cel: 7
 			setPri: 15
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 		((= newProp_7 (Prop new:))
 			view: 266
@@ -169,7 +173,7 @@
 			cel: 4
 			setPri: 9
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -179,7 +183,7 @@
 			cel: 3
 			setPri: 9
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -188,7 +192,7 @@
 			loop: 3
 			cel: 2
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -197,7 +201,7 @@
 			loop: 3
 			cel: 1
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -206,7 +210,7 @@
 			loop: 4
 			cel: 2
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -215,7 +219,7 @@
 			loop: 4
 			cel: 2
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -225,7 +229,7 @@
 			cel: 2
 			setPri: 7
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -235,7 +239,7 @@
 			cel: 2
 			setPri: 7
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -245,7 +249,7 @@
 			cel: 2
 			setPri: 9
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -254,7 +258,7 @@
 			loop: 2
 			cel: 0
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -264,17 +268,18 @@
 			cel: 1
 			setPri: 9
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
-		((View new:)
+	
+		((= myseat (View new:)) ;myseat
 			view: 266
 			posn: 215 110
 			loop: 1
 			cel: 0
 			ignoreActors:
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -283,7 +288,7 @@
 			loop: 3
 			cel: 0
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -292,7 +297,7 @@
 			loop: 4
 			cel: 0
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((View new:)
@@ -301,7 +306,7 @@
 			loop: 4
 			cel: 4
 			init:
-			stopUpd:
+;;;			stopUpd:
 			addToPic:
 		)
 		((= [newProp_8 0] (Prop new:))
@@ -311,7 +316,7 @@
 			cel: 5
 			setPri: 10
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 		((= [newProp_8 1] (Prop new:))
 			view: 266
@@ -320,7 +325,7 @@
 			cel: 6
 			setPri: 10
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 		((= [newProp_8 2] (Prop new:))
 			view: 266
@@ -329,7 +334,7 @@
 			cel: 7
 			setPri: 10
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 		((= [newProp_8 3] (Prop new:))
 			view: 266
@@ -338,7 +343,7 @@
 			cel: 8
 			setPri: 10
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 	)
 	
@@ -788,6 +793,262 @@
 				)
 			)
 		)
+		
+					(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)	
+
+
+				(if (or
+						(ClickedInRect 117 123 77 103 event) ;people1
+						(ClickedInRect 150 158 73 108 event) ;people2
+						(ClickedInRect 201 212 101 125 event) ;people3
+						(ClickedInRect 222 237 102 122 event) ;people4
+					)
+					(if (== theCursor 998) ;look
+						(event claimed: TRUE)				
+						(localproc_000c 30 16)
+					)
+				)
+
+
+
+				(if (and
+						(ClickedInRect 1 319 21 55 event) ;Up
+						(== (event claimed?) FALSE)
+					)
+					(if (== theCursor 998) ;look
+						(event claimed: TRUE)
+						(localproc_000c 30 3)
+					)
+				)
+
+
+				(if (and
+						(ClickedInRect 208 221 78 100 event) ;Sonny
+						(== (event claimed?) FALSE)
+						
+					)
+				(if (== theCursor 104) ;pay
+						(event claimed: TRUE)
+						(if local37
+							(if local24
+								(waiterScript changeState: 6)
+							else
+								(waiterScript changeState: 28)
+							)
+						else
+							(localproc_000c 30 80)
+						)
+				)
+					
+					
+					(if (== theCursor 996) ;clicked eat/talk on Sonny
+						(event claimed: TRUE)
+						(cond 
+							(
+							(and local31 local24 (not local36) (not local37)) (marieScript changeState: 1))
+							((and (not local24) (not local37)) (localproc_000c 30 92))
+							((not local24) (localproc_000c 30 89))
+							(local37 (localproc_000c 30 93))
+							(local36 (localproc_000c 30 94))
+							(else (localproc_000c 30 95))
+						)
+					
+					)
+				)
+
+				
+				(if (ClickedOnObj waiter (event x?) (event y?)) ;clicked on waiter
+						
+					(event claimed: TRUE)
+					(switch theCursor
+						(104 ;pay
+							(event claimed: TRUE)
+							(if local37
+								(if local24
+									(waiterScript changeState: 6)
+								else
+									(waiterScript changeState: 28)
+								)
+							else
+								(localproc_000c 30 80)
+							)
+						)
+							
+						(998 ;look the menu prices
+						(if (and local35 (not local28))
+							(localproc_000c 30 67)
+							(= local38 1)
+						else
+							(localproc_000c 30 68)
+						)
+							(if local35
+							(localproc_000c 30 67)
+						else
+							(localproc_000c 30 69)
+						)					
+						
+						)	
+						(996 ;talk
+							(if (== talkedToM 1)
+							(= Eat
+										(PrintSpecial
+											{Eat}
+											#button {chow} 1
+											#button {lobster} 2
+											#button {rib prime} 3
+											#button {meatloaf} 4
+
+										)
+								)
+;;;
+								(switch Eat
+										(1 ;chow
+											(if (not local28)
+												(= local41 3)
+												(= local40 (+ local42 local42))
+											)
+											(= talkedToM 0)
+											(waiterScript changeState: 11)
+										)
+										(2 ;lobster
+											(if (not local28)
+												(= local41 3)
+												(= local40 (+ local42 local42))
+											)
+											(= talkedToM 0)
+											(waiterScript changeState: 11)
+										)
+										(3 ; rib
+											(if (not local28)
+												(= local41 2)
+												(= local40 (+ local42 local43))
+											)
+											(= talkedToM 0)											
+											(waiterScript changeState: 11)
+										)
+										(4 ;meat
+											(if (not local28)
+												(= local41 1)
+												(= local40 (+ local42 local44))
+											)
+											(= talkedToM 0)											
+											(waiterScript changeState: 11)
+										)
+
+								)
+							)
+						)
+				
+				
+				(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)						
+						
+				
+				
+				
+				
+				
+				(if (ClickedOnObj myseat (event x?) (event y?)) ;clicked on silla
+					(event claimed: TRUE)
+					(switch theCursor		
+						(995 ;sentarse
+							(cond 
+								((ego inRect: 203 105 233 120) (sonnyScript changeState: 0))
+								((ego inRect: 170 111 203 120) (localproc_000c 30 100))
+								(local24 (localproc_000c 30 101))
+								(else (localproc_000c 30 102))
+							)
+						
+						)
+						
+						(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)						
+						
+						
+						
+						
+						
+				(if (ClickedOnObj marie (event x?) (event y?)) ;clicked on Marie
+					(event claimed: TRUE)
+					(switch theCursor
+						(111 ;flowers		
+								(cond 
+							((and local24 (not local26) (ego has: 11)) (sonnyScript changeState: 2))
+							((and local24 local27) (localproc_000c 30 96))
+							((not local24) (localproc_000c 30 97))
+							((and local26 (ego has: 11)) (localproc_000c 30 98))
+							(else (localproc_000c 30 99))
+						)
+						)
+						(996 ;kiss and talk
+							
+								(= kisstalk
+												(PrintSpecial
+													{Kiss or Talk}
+													#button {kiss} 1
+													#button {talk} 2										
+												)
+											)
+											(switch kisstalk
+												(1 ;kiss
+							
+							
+							
+													(cond 
+														((and (not local26) local24) (marieScript changeState: 4))
+														((ego inRect: 0 0 320 200) (localproc_000c 30 51))
+														(local35 (localproc_000c 30 59))
+														(else (localproc_000c 30 60))
+													)
+												)
+												(2 ;talk					
+																			
+														(cond 
+															((not local24) (localproc_000c 30 51))
+															((and local31 (not local37)) (localproc_000c 30 52))
+															(local35 (localproc_000c 30 53))
+															(else (localproc_000c 30 54) (localproc_000c 30 55))
+														)
+												)
+											)
+						
+												
+						)
+						(998 ;look
+							
+						)
+						(else
+						(event claimed: FALSE)
+					)
+					
+				)
+			)
+		
+		
+		
+				)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
 	)
 )
 
@@ -821,7 +1082,8 @@
 				(waiter setMotion: MoveTo 103 115 self)
 			)
 			(2
-				(waiter stopUpd: (Print 30 105 #at 68 150))
+;;;				(waiter stopUpd: (Print 30 105 #at 68 150))
+				(Print 30 105 #at 68 150)
 				(self cue:)
 				(User canControl: 1)
 			)
@@ -831,7 +1093,9 @@
 			(4
 				(waiter setMotion: MoveTo 127 104 self)
 			)
-			(5 (waiter stopUpd:))
+			(5 
+;;;				(waiter stopUpd:)
+				)
 			(6
 				(User canControl: 0 canInput: 0)
 				(waiter
@@ -854,7 +1118,7 @@
 				(waiter setMotion: MoveTo 194 112 self)
 			)
 			(10
-				(waiter stopUpd:)
+;;;				(waiter stopUpd:)
 				(User canInput: 1)
 				(if local37
 					(self changeState: 28)
@@ -898,7 +1162,7 @@
 				(waiter setPri: 6 setMotion: MoveTo 125 102 self)
 			)
 			(15
-				(waiter stopUpd:)
+;;;				(waiter stopUpd:)
 				(= local29 1)
 				(User canInput: 1)
 			)
@@ -927,7 +1191,7 @@
 				(waiter setLoop: 7 setMotion: MoveTo 190 112 self)
 			)
 			(20
-				(waiter stopUpd:)
+;;;				(waiter stopUpd:)
 				(= local31 1)
 				(localproc_000c 30 117 25 3)
 				(waiter
@@ -951,9 +1215,11 @@
 			(22
 				(waiter setLoop: 0 setMotion: MoveTo 125 102 self)
 			)
-			(23 (waiter stopUpd:))
+			(23 
+;;;				(waiter stopUpd:)
+				)
 			(24
-				(ego stopUpd:)
+;;;				(ego stopUpd:)
 				(HandsOff)
 				(= local39 1)
 				(localproc_000c 30 118)
@@ -1005,12 +1271,14 @@
 	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0 (newProp_6 stopUpd:))
+			(0 
+;;;				(marie stopUpd:)
+				)
 			(1
 				(HandsOff)
 				(= local36 1)
 				(SolvePuzzle 1)
-				(newProp_6
+				(marie
 					loop: 8
 					cel: 0
 					setCycle: Forward
@@ -1031,8 +1299,10 @@
 				(= seconds 6)
 			)
 			(3
-				(newProp_6 setCel: 0 stopUpd:)
-				(newProp setCel: 0 stopUpd:)
+;;;				(marie setCel: 0 stopUpd:)
+				(marie setCel: 0)
+;;;				(newProp setCel: 0 stopUpd:)
+				(newProp setCel: 0)
 				(HandsOn)
 				(= local37 1)
 				(= local36 0)
@@ -1040,7 +1310,7 @@
 			)
 			(4
 				(HandsOff)
-				(newProp_6 loop: 5 cel: 0 setCycle: EndLoop cycleSpeed: 0)
+				(marie loop: 5 cel: 0 setCycle: EndLoop cycleSpeed: 0)
 				(newProp posn: 209 111 loop: 6 cel: 0 setCycle: EndLoop)
 				(= local45 (+ local45 1))
 				(newProp_3
@@ -1076,11 +1346,19 @@
 				(= seconds 4)
 			)
 			(5
-				(newProp_6 setCycle: BegLoop)
+				(marie setCycle: BegLoop)
 				(newProp setCycle: BegLoop)
-				(newProp_3 posn: 0 0 stopUpd:)
-				(newProp_4 posn: 0 0 stopUpd:)
-				(newProp_5 posn: 0 0 stopUpd:)
+;;;				(newProp_3 posn: 0 0 stopUpd:)
+;;;				(newProp_4 posn: 0 0 stopUpd:)
+;;;				(newProp_5 posn: 0 0 stopUpd:)
+				
+				(newProp_3 posn: 0 0)
+				(newProp_4 posn: 0 0)
+				(newProp_5 posn: 0 0)				
+				
+				
+				
+				
 				(= seconds 4)
 				(cond 
 					((== local45 2) (SolvePuzzle 2) (localproc_000c 30 124))
@@ -1116,7 +1394,8 @@
 		(switch (= state newState)
 			(0
 				(User canControl: 0)
-				(ego posn: -100 0 stopUpd:)
+;;;				(ego posn: -100 0 stopUpd:)
+				(ego posn: -100 0)
 				(newProp
 					view: 266
 					posn: 209 111
@@ -1124,7 +1403,7 @@
 					cel: 0
 					ignoreActors:
 					init:
-					stopUpd:
+;;;					stopUpd:
 				)
 				(if (not local25)
 					(= local25 1)
@@ -1143,7 +1422,8 @@
 				(cond 
 					(local28
 						(ego loop: 1 cel: 3 posn: 214 112)
-						(newProp posn: -100 0 stopUpd:)
+;;;						(newProp posn: -100 0 stopUpd:)
+						(newProp posn: -100 0)
 						(self cue:)
 					)
 					(local35 (localproc_000c 30 132))
@@ -1165,7 +1445,7 @@
 						loop: 4
 						setPri: 7
 						init:
-						stopUpd:
+;;;						stopUpd:
 					)
 					(switch ((inventory at: 11) cel?)
 						(0 (newProp_2 cel: 6))
