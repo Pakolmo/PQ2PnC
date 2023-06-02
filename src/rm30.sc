@@ -62,6 +62,7 @@
 	myseat
 	Eat
 	talkedToM = 1
+	YesNo
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 125)
@@ -1416,7 +1417,28 @@
 				(= local23 1)
 				(localproc_000c 30 129 83)
 				(localproc_000c 30 130 83)
-				(localproc_000c 30 131 83)
+				(localproc_000c 30 131 83) 
+				(= YesNo
+										(PrintSpecial
+											{YES/NO}
+											#button {Yes} 1
+											#button {No} 2
+			
+										)
+								)
+;;;
+								(switch YesNo
+									(1 ;Yes
+										(localproc_000c 30 34 83) ; YES!
+									)
+									(2 ;No
+										(if local24
+											(localproc_000c 30 36)
+										else
+										(localproc_000c 30 37)
+										)	
+									)
+								)
 			)
 			(4
 				(cond 
