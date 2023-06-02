@@ -551,6 +551,7 @@
 									(if (== ((inventory at: iNewMugShot) owner?) 23)
 										(removeableMugShot dispose:)
 										(ego get: iNewMugShot)
+										(ego put: iOldMugShot)
 										(SolvePuzzle 2)
 										(= whichFile 1)
 										(SolvePuzzle 2 117)
@@ -620,6 +621,7 @@
 									(if (== ((inventory at: iNewMugShot) owner?) 23)
 										(removeableMugShot dispose:)
 										(ego get: iNewMugShot)
+										(ego put: iOldMugShot)
 										(SolvePuzzle 2)
 
 									else
