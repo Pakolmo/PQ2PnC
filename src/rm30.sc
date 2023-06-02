@@ -1475,6 +1475,8 @@
 						(2 (newProp_2 cel: 5))
 					)
 					(ego put: 11 30)
+					(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+					(= itemIcon 900)
 				)
 				(self cue:)
 			)
