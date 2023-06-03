@@ -16,28 +16,57 @@
 )
 
 (local
-	marshall
-	revolver
+	;marshall
+	;revolver
 	door1
 	door2
 	door3
 	[local5 4]
-	flood
+	;flood
 	local10
 	sonnyInStallNum
-	local12
-	local13
-	local14
+	dryerTimer
+	faucetOn
+	wetHands
 	local15
 	marshallBlocked
-	local17
-	tolietLid
-	tank
+	jailerGunDried
+	;tolietLid
+	;tank
 	local20
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 15)
 )
+
+(instance marshall of Actor
+	(properties)
+)
+
+(instance sink of Prop
+	(properties)
+)
+
+(instance revolver of Actor
+	(properties)
+)
+
+(instance tank of Prop
+	(properties)
+)
+
+(instance tolietLid of Prop
+	(properties)
+)
+
+(instance flood of Prop
+	(properties)
+)
+
+(instance flood2 of Prop
+	(properties)
+)
+
 
 (instance rm19 of Room
 	(properties
@@ -78,8 +107,8 @@
 	(properties)
 	
 	(method (doit)
-		(if (> local12 0)
-			(-- local12)
+		(if (> dryerTimer 0)
+			(-- dryerTimer)
 		)
 		(cond 
 			((> (ego x?) 270)
@@ -94,7 +123,7 @@
 		)
 		(if
 			(and
-				local13
+				faucetOn
 				local15
 				(not (ego inRect: 174 115 225 138))
 			)
@@ -103,7 +132,7 @@
 		)
 		(if
 			(and
-				local13
+				faucetOn
 				(ego inRect: 174 115 225 138)
 			)
 			(= local15 1)
@@ -123,7 +152,7 @@
 						(not local10)
 						(not (Btst fMarshallLeftBathroom))
 					)
-					((= marshall (Actor new:))
+					(marshall ;(= marshall (Actor new:))
 						view: 21
 						posn: (if (Btst fMarshallAtSink) 192 else 138) (if (Btst fMarshallAtSink) 119 else 120)
 						init:
@@ -132,7 +161,7 @@
 						setScript: marshallScript
 					)
 				)
-				((= flood (Prop new:))
+				(flood ;(= flood (Prop new:))
 					view: 80
 					loop: 3
 					cel: 0
@@ -152,7 +181,7 @@
 					cycleSpeed: 2
 					setPri: 10
 					init:
-					stopUpd:
+					;stopUpd:
 				)
 				((= door2 (Prop new:))
 					view: 80
@@ -162,7 +191,7 @@
 					posn: 109 133
 					setPri: 9
 					init:
-					stopUpd:
+					;stopUpd:
 				)
 				((= door3 (Prop new:))
 					view: 80
@@ -172,16 +201,16 @@
 					posn: 115 122
 					setPri: 8
 					init:
-					stopUpd:
+					;stopUpd:
 				)
-				((View new:)
+				(sink ;(View new:)
 					view: 80
 					loop: 5
 					cel: 0
 					posn: 210 114
 					setPri: 7
 					init:
-					addToPic:
+					;addToPic:
 				)
 				(if local10
 					(switch sonnyInStallNum
@@ -200,7 +229,7 @@
 			(1
 				(HandsOff)
 				(door1
-					startUpd:
+					;startUpd:
 					setCycle: EndLoop self
 				)
 				(= sonnyInStallNum 1)
@@ -221,7 +250,7 @@
 			)
 			(4
 				(HandsOn)
-				(door1 stopUpd:)
+				;(door1 stopUpd:)
 			)
 			(5
 				(HandsOff)
@@ -244,10 +273,13 @@
 			)
 			(8
 				(HandsOn)
-				(door2 stopUpd:)
+				;(door2 stopUpd:)
 			)
 			(9
-				(door3 startUpd: setCycle: EndLoop self)
+				(door3
+					;startUpd:
+					setCycle: EndLoop self
+				)
 				(HandsOff)
 				(= sonnyInStallNum 3)
 			)
@@ -262,18 +294,22 @@
 				)
 			)
 			(11
-				(ego ignoreActors: 0 illegalBits: cWHITE) ;-24576
+				(ego ignoreActors: 0 illegalBits: -24576)
 				(door3 ignoreActors: setCycle: BegLoop self)
 			)
 			(12
 				(HandsOn)
-				(door3 stopUpd:)
+				;(door3 stopUpd:)
 			)
 			(13
 				(switch sonnyInStallNum
 					(2
 						(if
-						(and (InRoom 31) (>= gamePhase 6) (< gamePhase 8))
+							(and
+								(InRoom 31)
+								(>= gamePhase 6)
+								(< gamePhase 8)
+							)
 							(LocPrint 19 1)
 							(floodScript changeState: 1)
 							(= global128 1)
@@ -281,8 +317,12 @@
 							(LocPrint 19 2)
 						)
 					)
-					(0 (LocPrint 19 3))
-					(else  (LocPrint 19 2))
+					(0
+						(LocPrint 19 3)
+					)
+					(else
+						(LocPrint 19 2)
+					)
 				)
 			)
 		)
@@ -306,55 +346,55 @@
 			)
 			(saidEvent
 				(cond 
-					(
-						(or
-							(Said 'open[/booth,stall,door]')
-							(and
-								(not sonnyInStallNum)
-								(Said 'enter[/booth,stall]')
-							)
-							(and
-								sonnyInStallNum
-								(or
-									(Said 'exit[/booth,stall]')
-									(Said 'get<out')
-								)
-							)
-						)
-						(cond 
-							(
-								(and
-									(not sonnyInStallNum)
-									gunDrawn
-								)
-								(Print 19 5)
-							)
-							((ego inRect: 117 116 140 126)
-								(self changeState: 9)
-							)
-							((ego inRect: 104 126 130 136)
-								(self changeState: 5)
-							)
-							((ego inRect: 86 136 118 149)
-								(self changeState: 1)
-							)
-							((== sonnyInStallNum 1)
-								(= local10 1)
-								(self changeState: 1)
-							)
-							((== sonnyInStallNum 2)
-								(= local10 1)
-								(self changeState: 5)
-							)
-							((== sonnyInStallNum 3)
-								(= local10 1)
-								(self changeState: 9)
-							)
-							(else
-								(LocPrint 19 6)
-							)
-						)
-					)
+;;;					(
+;;;						(or
+;;;							(Said 'open[/booth,stall,door]')
+;;;							(and
+;;;								(not sonnyInStallNum)
+;;;								(Said 'enter[/booth,stall]')
+;;;							)
+;;;							(and
+;;;								sonnyInStallNum
+;;;								(or
+;;;									(Said 'exit[/booth,stall]')
+;;;									(Said 'get<out')
+;;;								)
+;;;							)
+;;;						)
+;;;						(cond 
+;;;							(
+;;;								(and
+;;;									(not sonnyInStallNum)
+;;;									gunDrawn
+;;;								)
+;;;								(Print 19 5)
+;;;							)
+;;;							((ego inRect: 117 116 140 126)
+;;;								(self changeState: 9)
+;;;							)
+;;;							((ego inRect: 104 126 130 136)
+;;;								(self changeState: 5)
+;;;							)
+;;;							((ego inRect: 86 136 118 149)
+;;;								(self changeState: 1)
+;;;							)
+;;;							((== sonnyInStallNum 1)
+;;;								(= local10 1)
+;;;								(self changeState: 1)
+;;;							)
+;;;							((== sonnyInStallNum 2)
+;;;								(= local10 1)
+;;;								(self changeState: 5)
+;;;							)
+;;;							((== sonnyInStallNum 3)
+;;;								(= local10 1)
+;;;								(self changeState: 9)
+;;;							)
+;;;							(else
+;;;								(LocPrint 19 6)
+;;;							)
+;;;						)
+;;;					)
 					((Said 'look>')
 						(cond 
 							((Said '/dirt')
@@ -408,16 +448,16 @@
 							((Said '/outlet')
 								(LocPrint 19 22)
 							)
-							((Said '/door')
-								(LocPrint 19 23)
-							)
-							((Said '/basin')
-								(if sonnyInStallNum
-									(LocPrint 19 24)
-								else
-									(LocPrint 19 25)
-								)
-							)
+;;;							((Said '/door')
+;;;								(LocPrint 19 23)
+;;;							)
+;;;							((Said '/basin')
+;;;								(if sonnyInStallNum
+;;;									(LocPrint 19 24)
+;;;								else
+;;;									(LocPrint 19 25)
+;;;								)
+;;;							)
 							((Said '/bracket<soap')
 								(LocPrint 19 26)
 							)
@@ -464,23 +504,23 @@
 									(event claimed: 0)
 								)
 							)
-							((Said '/mirror')
-								(cond 
-									(sonnyInStallNum
-										(LocPrint 19 24)
-									)
-									((< (ego y?) 135)
-										(if (== (ego loop?) 0)
-											(LocPrint 19 33)
-										else
-											(LocPrint 19 34)
-										)
-									)
-									(else
-										(LocPrint 19 35)
-									)
-								)
-							)
+;;;							((Said '/mirror')
+;;;								(cond 
+;;;									(sonnyInStallNum
+;;;										(LocPrint 19 24)
+;;;									)
+;;;									((< (ego y?) 135)
+;;;										(if (== (ego loop?) 0)
+;;;											(LocPrint 19 33)
+;;;										else
+;;;											(LocPrint 19 34)
+;;;										)
+;;;									)
+;;;									(else
+;;;										(LocPrint 19 35)
+;;;									)
+;;;								)
+;;;							)
 							((Said '/booth,stall')
 								(if sonnyInStallNum
 									(LocPrint 19 10)
@@ -489,13 +529,13 @@
 									(LocPrint 19 36)
 								)
 							)
-							((Said '/crapper,crapper,tank')
-								(if sonnyInStallNum
-									(curRoom setScript: stallScript)
-								else
-									(LocPrint 19 37)
-								)
-							)
+;;;							((Said '/crapper,crapper,tank')
+;;;								(if sonnyInStallNum
+;;;									(curRoom setScript: stallScript)
+;;;								else
+;;;									(LocPrint 19 37)
+;;;								)
+;;;							)
 							((Said '[<at,around][/chamber,bathroom,bathroom]')
 								(if sonnyInStallNum
 									(LocPrint 19 10)
@@ -526,9 +566,9 @@
 							(LocPrint 19 35)
 						)
 					)
-					((Said 'taste,drink,drink[/water]')
-						(LocPrint 19 41)
-					)
+;;;					((Said 'taste,drink,drink[/water]')
+;;;						(LocPrint 19 41)
+;;;					)
 					(
 						(or
 							(Said 'read/graffiti,wall')
@@ -659,20 +699,20 @@
 							(LocPrint 19 68)
 						)
 					)
-					((Said 'get,use/towel,bracket')
-						(if (ego inRect: 133 116 178 122)
-							(LocPrint 19 69)
-						else
-							(LocPrint 19 70)
-						)
-					)
+;;;					((Said 'get,use/towel,bracket')
+;;;						(if (ego inRect: 133 116 178 122)
+;;;							(LocPrint 19 69) ;You grab a paper towel and use it.
+;;;						else
+;;;							(LocPrint 19 70) ;The paper towel dispenser is over on the far wall.
+;;;						)
+;;;					)
 					((Said 'press/button')
 						(if (ego inRect: 155 116 182 122)
-							(if (> local12 0)
-								(LocPrint 19 71)
+							(if (> dryerTimer 0)
+								(LocPrint 19 71) ;drier is already on
 							else
-								(LocPrint 19 72)
-								(= local12 80)
+								(LocPrint 19 72) ;you turn on the drier
+								(= dryerTimer 80)
 							)
 						else
 							(LocPrint 19 19)
@@ -706,28 +746,28 @@
 						(cond 
 							((Said '/dryer')
 								(if (ego inRect: 155 116 182 122)
-									(if (> local12 0)
+									(if (> dryerTimer 0)
 										(LocPrint 19 74)
 									else
 										(LocPrint 19 72)
-										(= local12 80)
+										(= dryerTimer 80)
 									)
 								else
 									(LocPrint 19 3)
 								)
 							)
-							((Said '/basin,faucet,water')
-								(if (ego inRect: 174 115 225 138)
-									(if local13
-										(LocPrint 19 74)
-									else
-										(LocPrint 19 75)
-										(= local13 1)
-									)
-								else
-									(LocPrint 19 3)
-								)
-							)
+;;;							((Said '/basin,faucet,water')
+;;;								(if (ego inRect: 174 115 225 138)
+;;;									(if faucetOn
+;;;										(LocPrint 19 74)
+;;;									else
+;;;										(LocPrint 19 75)
+;;;										(= faucetOn 1)
+;;;									)
+;;;								else
+;;;									(LocPrint 19 3)
+;;;								)
+;;;							)
 							((Said '/fan')
 								(switch (Random 0 2)
 									(0
@@ -751,9 +791,9 @@
 						(cond 
 							((Said '/dryer')
 								(if (ego inRect: 155 116 182 122)
-									(if (> local12 0)
+									(if (> dryerTimer 0)
 										(LocPrint 19 77)
-										(= local12 80)
+										(= dryerTimer 80)
 									else
 										(LocPrint 19 78)
 									)
@@ -761,18 +801,18 @@
 									(LocPrint 19 3)
 								)
 							)
-							((Said '/faucet,basin,water')
-								(if (ego inRect: 174 115 225 138)
-									(if local13
-										(LocPrint 19 79)
-										(= local13 0)
-									else
-										(LocPrint 19 78)
-									)
-								else
-									(LocPrint 19 3)
-								)
-							)
+;;;							((Said '/faucet,basin,water')
+;;;								(if (ego inRect: 174 115 225 138)
+;;;									(if faucetOn
+;;;										(LocPrint 19 79) ;You turn the water off.
+;;;										(= faucetOn 0)
+;;;									else
+;;;										(LocPrint 19 78)
+;;;									)
+;;;								else
+;;;									(LocPrint 19 3)
+;;;								)
+;;;							)
 							((Said '/fan')
 								(if (== (Random 0 2) 1)
 									(LocPrint 19 3)
@@ -782,80 +822,475 @@
 							)
 						)
 					)
-					((Said 'dry>')
-						(cond 
-							((Said '/9mm,revolver')
-								(if (ego inRect: 133 116 178 122)
-									(if (ego has: iJailerRevolver)
-										(cond 
-											((ego inRect: 155 116 182 122)
-												(if (> local12 0)
-													(if local17
-														(LocPrint 19 80)
-													else
-														(SolvePuzzle 2 107)
-														(= local17 1)
-														(LocPrint 19 81)
-													)
-												else
-													(LocPrint 19 82)
-												)
-											)
-											(local17 (LocPrint 19 80))
-											(else
-												(= local17 1)
-												(LocPrint 19 83)
-												(LocPrint 19 84)
-											)
-										)
-									else
-										(LocPrint 19 85)
-									)
-								else
-									(LocPrint 19 3)
-								)
-							)
-							((Said '/hand')
-								(cond 
-									((ego inRect: 133 116 178 122)
-										(if
-											(or
-												(ego has: iJailerRevolver)
-												local14
-											)
-											(= local14 0)
-											(if local12
-												(LocPrint 19 86)
-											else
-												(LocPrint 19 87)
-											)
-										else
-											(LocPrint 19 88)
-										)
-									)
-									(
-										(or
-											(ego has: 31) local14)
-											(LocPrint 19 87)
-										)
-									(else
-										(LocPrint 19 88)
-									)
-								)
-							)
-						)
-					)
+;;;					((Said 'dry>')
+;;;						(cond 
+;;;							((Said '/9mm,revolver')
+;;;								(if (ego inRect: 133 116 178 122)
+;;;									(if (ego has: iJailerRevolver)
+;;;										(cond 
+;;;											((ego inRect: 155 116 182 122)
+;;;												(if (> dryerTimer 0)
+;;;													(if jailerGunDried
+;;;														(LocPrint 19 80)
+;;;													else
+;;;														(SolvePuzzle 2 107)
+;;;														(= jailerGunDried 1)
+;;;														(LocPrint 19 81)
+;;;													)
+;;;												else
+;;;													(LocPrint 19 82)
+;;;												)
+;;;											)
+;;;											(jailerGunDried (LocPrint 19 80))
+;;;											(else
+;;;												(= jailerGunDried 1)
+;;;												(LocPrint 19 83)
+;;;												(LocPrint 19 84)
+;;;											)
+;;;										)
+;;;									else
+;;;										(LocPrint 19 85)
+;;;									)
+;;;								else
+;;;									(LocPrint 19 3)
+;;;								)
+;;;							)
+;;;							((Said '/hand')
+;;;								(cond 
+;;;									((ego inRect: 133 116 178 122)
+;;;										(if
+;;;											(or
+;;;												(ego has: iJailerRevolver)
+;;;												wetHands
+;;;											)
+;;;											(= wetHands FALSE)
+;;;											(if dryerTimer
+;;;												(LocPrint 19 86) ;The warm air feels good on your hands.
+;;;											else
+;;;												(LocPrint 19 87) ;In spite of your good upbringing, you wipe your hands on your pants. Shame on you.
+;;;											)
+;;;										else
+;;;											(LocPrint 19 88) ;Your hands are already dry.
+;;;										)
+;;;									)
+;;;									(
+;;;										(or
+;;;											(ego has: iJailerRevolver)
+;;;											wetHands
+;;;										)
+;;;										(LocPrint 19 87) ;In spite of your good upbringing, you wipe your hands on your pants. Shame on you.
+;;;									)
+;;;									(else
+;;;										(LocPrint 19 88) ;;Your hands are already dry.
+;;;									)
+;;;								)
+;;;							)
+;;;						)
+;;;					)
 					((Said 'bath>')
 						(cond 
 							((Said '/hand')
 								(if (ego inRect: 174 115 225 138)
-									(= local14 1)
-									(LocPrint 19 89)
+									(= wetHands 1)
+									(LocPrint 19 89) ;That's a GOOD boy! It's not worth any points, but at least you're clean.
 								else
-									(LocPrint 19 3)
+									(LocPrint 19 3) ;Your arms aren't nearly long enough.
 								)
 							)
 							((Said '/9mm,revolver') (LocPrint 19 90))
+						)
+					)
+				)
+			)
+			(mouseDown						
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+							
+					)
+					(if (ClickedOnObj marshall (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(LocPrint 19 18)
+							)
+							(996 ;mouth
+								(LocPrint 19 65)
+							)
+							(112 ;new mugshot
+								(LocPrint 19 67)
+							)
+							(123 ;old mugshot
+								(LocPrint 19 67)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if (ClickedOnObj sink (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;hand
+								(if (ego inRect: 174 115 225 138)
+									(cond
+										(
+											(and
+												(not wetHands)
+												faucetOn
+											)	
+											(= wetHands 1)
+											(LocPrint 19 89) ;That's a GOOD boy! It's not worth any points, but at least you're clean.
+										)
+										((not faucetOn)
+											(LocPrint 19 75) ;You turn on the sink water.
+											(= faucetOn 1)
+										)
+										(faucetOn
+											(LocPrint 19 79) ;You turn the water off.
+											(= faucetOn 0)
+										)
+									)
+								else
+									(LocPrint 19 3) ;Your arms aren't nearly long enough.
+								)
+							)
+							(998 ;look
+								(if sonnyInStallNum
+									(LocPrint 19 24)
+								else
+									(LocPrint 19 25)
+								)
+							)
+							(996 ;mouth
+								(if faucetOn
+									(LocPrint 19 41) ;lytton is not known for faublous tasting water
+								else
+									(Print {Turn on the water first.}) 
+								)
+							)
+							(131 ;jailers revolver
+								(LocPrint 19 90) ;really stupid idea
+							)
+							(else
+								(event claimed: FALSE)	
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 204 232 80 109 event) ;mirror
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(cond 
+									(sonnyInStallNum
+										(LocPrint 19 24)
+									)
+									((< (ego y?) 135)
+										(if (== (ego loop?) 0)
+											(LocPrint 19 33)
+										else
+											(LocPrint 19 34)
+										)
+									)
+									(else
+										(LocPrint 19 35)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if (ClickedInRect 141 158 83 106 event) ;paper towel holder
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if sonnyInStallNum
+									(LocPrint 19 24)
+								else
+									(LocPrint 19 27) ;It's shiny, and it DOES have paper towels in it.
+								)
+							)
+							(995
+								(if (ego inRect: 133 116 178 122)
+									(LocPrint 19 69) ;You grab a paper towel and use it.
+									(= wetHands FALSE)
+								else
+									(LocPrint 19 70) ;The paper towel dispenser is over on the far wall.
+								)
+							)
+							(131 ;jailer's gun
+								(if (ego inRect: 133 116 178 122)
+									(if jailerGunDried
+										(LocPrint 19 80)
+									else
+										(= jailerGunDried TRUE)
+										(LocPrint 19 83) ;destroyed and possible fingerprints
+										(LocPrint 19 84)
+									)
+								else
+									(NotClose)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)	
+					)
+					(if (ClickedInRect 163 173 83 91 event) ;air dryer
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if sonnyInStallNum
+									(LocPrint 19 24)
+								else
+									(LocPrint 19 28) ;It's shiny. You wonder who invented the concept.
+								)
+							)
+							(995
+								(cond 
+									((ego inRect: 133 116 178 122)
+										(if dryerTimer
+											(if wetHands
+												(= wetHands 0)
+												(LocPrint 19 86) ;The warm air feels good on your hands.
+											else
+												(LocPrint 19 88) ;Your hands are already dry.
+											)
+										else
+											(LocPrint 19 72) ;You turn on the electric hand dryer.
+											(= dryerTimer 80)
+										)
+									)
+									(else
+										(NotClose)
+										;(LocPrint 19 88) ;;Your hands are already dry.
+									)
+								)
+							)
+							(131 ;jailers revolver
+								(cond 
+									((ego inRect: 155 116 182 122)
+										(if (> dryerTimer 0)
+											(if jailerGunDried
+												(LocPrint 19 80) ;You've already dried the gun.
+											else
+												(SolvePuzzle 2 107)
+												(= jailerGunDried TRUE)
+												(LocPrint 19 81) ;You use the warm air from the electric hand dryer to dry off the gun.
+											)
+										else
+											(LocPrint 19 82) ;The hand dryer is not turned on.
+										)
+									)
+									(jailerGunDried
+										(LocPrint 19 80) ;You've already dried the gun.
+									)
+									(else
+										;(= jailerGunDried TRUE)
+										;(LocPrint 19 83)
+										;(LocPrint 19 84)
+										(NotClose)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)	
+					)
+					(if
+						(or
+							(ClickedOnObj door1 (event x?)(event y?))
+							(ClickedOnObj door2 (event x?)(event y?))
+							(ClickedInRect 119 127 87 115 event) ;(ClickedOnObj door3 (event x?)(event y?))
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(cond
+									(
+										(and
+											(== sonnyInStallNum 1)
+											(ClickedOnObj door1 (event x?)(event y?))
+										)
+										(switch (Random 0 1) ;graffiti
+											(0
+												(LocPrint 19 42)
+											)
+											(1
+												(LocPrint 19 43)
+											)
+										)
+									)
+									((and
+											(== sonnyInStallNum 2)
+											(ClickedOnObj door2 (event x?)(event y?))
+										)
+										(switch (Random 0 1) ;graffiti
+											(0
+												(LocPrint 19 44)
+											)
+											(1
+												(LocPrint 19 45)
+											)
+										)
+									)
+									((and
+											(== sonnyInStallNum 3)
+											(ClickedInRect 119 127 87 115 event) ;door3
+										)
+										(switch (Random 0 1) ;graffiti
+											(0
+												(LocPrint 19 46)
+											)
+											(1
+												(LocPrint 19 47)
+											)
+										)
+									)
+									(else
+										(if sonnyInStallNum
+											(event claimed: FALSE)
+										else
+											(LocPrint 19 23) ;unintersting
+										)
+									)
+								)
+							)
+							(995
+								(cond 
+									(
+										(and
+											(not sonnyInStallNum)
+											gunDrawn
+										)
+										(Print 19 5) ;put away gun
+									)
+									(
+										(and
+											(ClickedInRect 119 127 87 115 event) ;door3
+											(ego inRect: 117 116 140 126)
+										)
+										(self changeState: 9)
+									)
+									(
+										(and
+											(ClickedOnObj door2 (event x?)(event y?))
+											(ego inRect: 104 126 130 136)
+										)
+										(self changeState: 5)
+									)
+									(
+										(and
+											(ClickedOnObj door1 (event x?)(event y?))
+											(ego inRect: 86 136 118 149)
+										)
+										(self changeState: 1)
+									)
+									(
+										(and
+											(== sonnyInStallNum 1)
+											(ClickedOnObj door1 (event x?)(event y?))
+										)
+										(= local10 1)
+										(self changeState: 1)
+									)
+									(
+										(and
+											(== sonnyInStallNum 2)
+											(ClickedOnObj door2 (event x?)(event y?))
+										)
+										(= local10 1)
+										(self changeState: 5)
+									)
+									(
+										(and
+											(== sonnyInStallNum 3)
+											(ClickedInRect 119 127 87 115 event) ;door3
+										)
+										(= local10 1)
+										(self changeState: 9)
+									)
+									(else
+										(if sonnyInStallNum
+											(event claimed: FALSE)
+										else
+											(LocPrint 19 6) ;You aren't close enough.
+										)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if ;clicked in stalls
+						(and
+							(== (event claimed?) FALSE)
+							(or 
+								(and ;bottom stall
+									(< (event x?) 89)
+									(> (event y?) 92)
+								)
+								(ClickedInRect 66 106 92 137 event) ;middle stall
+								(ClickedInRect 83 119 92 127 event) ;top stall
+							)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;flush
+								(if
+									(or
+										(and
+											(ClickedInRect 83 119 92 127 event) ;top stall
+											(== sonnyInStallNum 3)
+										)
+										(and
+											(ClickedInRect 66 106 92 137 event) ;middle stall
+											(== sonnyInStallNum 2)
+										)
+										(and ;bottom stall
+											(< (event x?) 89)
+											(> (event y?) 92)
+											(== sonnyInStallNum 1)
+										)
+									)
+									(self changeState: 13) ;flush toilet
+								)
+							)
+							(998 ;look toilet
+								(if
+									(or
+										(and
+											(ClickedInRect 83 119 92 127 event) ;top stall
+											(== sonnyInStallNum 3)
+										)
+										(and
+											(ClickedInRect 66 106 92 137 event) ;middle stall
+											(== sonnyInStallNum 2)
+										)
+										(and ;bottom stall
+											(< (event x?) 89)
+											(> (event y?) 92)
+											(== sonnyInStallNum 1)
+										)
+									)
+									(curRoom setScript: stallScript)
+								else
+									(LocPrint 19 37) ;The toilets are in the stalls, and you're not.
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
 				)
@@ -872,7 +1307,13 @@
 			(0
 				(HandsOff)
 				(curRoom drawPic: 35)
-				(cast eachElementDo: #dispose)
+				;(cast eachElementDo: #dispose)
+				(ego dispose:)
+				(sink dispose:)
+				(door1 dispose:)
+				(door2 dispose:)
+				(door3 dispose:)
+				(flood hide:)
 				(if
 					(and
 						(InRoom iJailerRevolver)
@@ -880,7 +1321,7 @@
 						(>= gamePhase 6)
 						(< gamePhase 8)
 					)
-					((= revolver (Actor new:))
+					(revolver ;(= revolver (Actor new:))
 						view: 256
 						setLoop: 2
 						setCel: 0
@@ -892,7 +1333,7 @@
 						stopUpd:
 					)
 				)
-				((= tank (View new:))
+				(tank ;(= tank (View new:))
 					view: 256
 					loop: 0
 					cel: 0
@@ -901,7 +1342,7 @@
 					init:
 					stopUpd:
 				)
-				((= tolietLid (View new:))
+				(tolietLid ;(= tolietLid (View new:))
 					view: 256
 					loop: 1
 					cel: 0
@@ -913,13 +1354,14 @@
 				(if [local5 sonnyInStallNum]
 					(tolietLid posn: -100 0)
 				)
-				((= flood (Prop new:))
+				(flood2 ;(= flood (Prop new:))
 					view: 256
 					loop: 3
 					cel: 0
 					posn: 221 92
 					setPri: 14
 					init:
+					show:
 					ignoreActors:
 					setScript: floodScript
 				)
@@ -934,7 +1376,7 @@
 				(tank posn: 155 137)
 				(ego get: 31)
 				(revolver dispose:)
-				(flood dispose:)
+				(flood2 dispose:)
 				(LocPrint 19 91 83)
 				(HandsOn)
 				(self cue:)
@@ -958,6 +1400,157 @@
 					)
 					(CantDo)
 				)
+			)
+			(mouseDown						
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+							
+					)
+					(if (ClickedOnObj revolver (event x?)(event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(cond 
+									((ego has: 31)
+										(LocPrint 19 106)
+									)
+									(
+										;(and
+										;	(== (tank y?) 0)
+											(cast contains: iJailerRevolver)
+										;)
+										(LocPrint 19 101)
+									)
+								)
+							)
+							(995
+								(cond 
+									((ego has: iJailerRevolver)
+										(LocPrint 19 96)
+									)
+									(
+										(and
+											(== sonnyInStallNum 2)
+											(cast contains: revolver)
+											(== [local5 sonnyInStallNum] 1)
+										)
+										(if (== (tank y?) 0)
+											(LocPrint 19 97 25 3)
+											(Bset fGotToiletGun)
+											(= global128 0)
+											(stallScript changeState: 2)
+										else
+											(LocPrint 19 98)
+										)
+									)
+									(else
+										(LocPrint 19 99)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and 
+							(ClickedOnObj tolietLid (event x?)(event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print {It's the lid of the toliet tank.})
+							)
+							(995
+								(if (== [local5 sonnyInStallNum] 0)
+									(tolietLid posn: -100 0)
+									(= [local5 sonnyInStallNum] 1)
+								else
+									(LocPrint 19 92)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and 
+							(ClickedOnObj tank (event x?)(event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(996 ;mouth
+								(LocPrint 19 100)
+							)
+							(998
+								(if [local5 sonnyInStallNum]
+									(tank posn: -100 0)
+									(if
+										(and
+											(not (ego has: iJailerRevolver))
+											(cast contains: revolver)
+											(== sonnyInStallNum 2)
+										)
+										(LocPrint 19 101 83)
+									else
+										(LocPrint 19 102 83)
+									)
+								else
+									(LocPrint 19 103)
+								)
+							)
+							(995
+								(if (== [local5 sonnyInStallNum] 1)
+									(= [local5 sonnyInStallNum] 0)
+									(tolietLid posn: 154 75)
+									(tank posn: 155 137)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if (== (event claimed?) FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(999 ;walk to exit
+								(curRoom drawPic: (curRoom picture?))
+								;(cast eachElementDo: #dispose)
+								(flood2 hide:)
+								(revolver dispose:)
+								(tank dispose:)
+								(tolietLid dispose:)
+								(flood show:)
+								(ego init: loop: 0)
+								(= local10 1)
+								(HandsOn)
+								(curRoom setScript: rm19Script)
+								(cond 
+									((== sonnyInStallNum 1)
+										(= local10 1)
+										(rm19Script changeState: 1)
+									)
+									((== sonnyInStallNum 2)
+										(= local10 1)
+										(rm19Script changeState: 5)
+									)
+									((== sonnyInStallNum 3)
+										(= local10 1)
+										(rm19Script changeState: 9)
+									)
+								)
+							)
+						
+						)
+					)
+				)		
 			)
 			(saidEvent
 				(cond 
@@ -1235,6 +1828,7 @@
 			)
 			(2
 				(flood loop: 4 setCycle: Forward)
+				(flood2 loop: 4 setCycle: Forward)
 			)
 		)
 	)
