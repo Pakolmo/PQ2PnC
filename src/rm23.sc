@@ -552,6 +552,8 @@
 										(removeableMugShot dispose:)
 										(ego get: iNewMugShot)
 										(ego put: iOldMugShot)
+										(theGame setCursor: 112 (HaveMouse)) ;switch to newmugshot
+										(= itemIcon 112)
 										(SolvePuzzle 2)
 										(= whichFile 1)
 										(SolvePuzzle 2 117)
@@ -622,6 +624,8 @@
 										(removeableMugShot dispose:)
 										(ego get: iNewMugShot)
 										(ego put: iOldMugShot)
+										(theGame setCursor: 112 (HaveMouse)) ;switch to newmugshot
+										(= itemIcon 112)										
 										(SolvePuzzle 2)
 
 									else
