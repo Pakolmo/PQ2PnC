@@ -64,16 +64,16 @@
 		)
 	)
 )
-(instance Music of Sound
-	(properties
-		number 61  
-	)
-)
-(instance Music2 of Sound
-	(properties
-		number 152  
-	)
-)
+;;;(instance Music of Sound
+;;;	(properties
+;;;		number 61  
+;;;	)
+;;;)
+;;;(instance Music2 of Sound
+;;;	(properties
+;;;		number 152  
+;;;	)
+;;;)
 (instance carDoor of Prop)
 
 (instance unTrunk of Prop)
@@ -198,7 +198,7 @@
 				(if (or (== prevRoomNum 33) (== prevRoomNum 13))
 					(HandsOn)
 					(curRoom setRegions: 950)
-					(Music loop: -1 play:)
+;;;					(Music loop: -1 play:)
 				else
 					(== global160 0)
 				)
@@ -311,7 +311,7 @@
 				setMotion: MoveTo 131 400
 			)
 			(curRoom setRegions: 950)
-			(Music2 loop: -1 play:)
+;;;			(Music2 loop: -1 play:)
 		else
 		
 			(self setScript: driveUpScript)

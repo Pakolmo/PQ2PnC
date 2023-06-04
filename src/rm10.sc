@@ -51,11 +51,11 @@
 	mY
 	oldCur
 )
-(instance Music of Sound
-	(properties
-		number 81 
-	)
-)
+;;;(instance Music of Sound
+;;;	(properties
+;;;		number 81 
+;;;	)
+;;;)
 (procedure (CreateShooter param1)
 	(= shooterX (- 207 (* local4 28)))
 	((= [shooter param1] (Prop new:)) ;body
@@ -148,7 +148,7 @@
 	
 	(method (init)
 		(curRoom setRegions: 950)
-		(Music loop: -1 play:)
+;;;		(Music loop: -1 play:)
 		(super init:)
 		(= local77 1)
 		(NormalEgo)

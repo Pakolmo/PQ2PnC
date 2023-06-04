@@ -557,13 +557,15 @@
 									(Print 67 2)
 								)
 								((not (Btst fAskedWomanAboutCar))
-									(Print 67 6 #at -1 20 #width 280)
+									(Print 67 6 #at -1 20 #width 280) ;Le pides la descripci/n del coche y dice "_S|! Es un monovolumen Chevrolet del 1986. Negro y la matr|cula es... es... C035. _Oh! Es todo lo que recuerdo, agente."
+									(event claimed: 0)
 									(SolvePuzzle 3)
 									(Bset fAskedWomanAboutCar)
 									(script seconds: 3)
 								)
 								(else
-									(Print 67 7 #at -1 20)
+									(Print 67 7 #at -1 20) ;"Eso es todo lo que recuerdo, agente."
+									(event claimed: 0)
 								)
 							)
 
