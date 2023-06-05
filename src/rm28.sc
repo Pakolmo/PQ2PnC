@@ -19,6 +19,7 @@
 (local
 	local0
 	local1
+	newEvent
 )
 (procedure (localproc_000c)
 	(return
@@ -258,5 +259,156 @@
 				)
 			)
 		)
+		
+					(cond						
+				((and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+					
+				)				
+
+				(if (== theCursor 999) ;use walk to close.
+
+					(cond
+
+						((if (ego has: 6)
+
+						)(self changeState: 3))
+						
+						
+					)
+				)
+				
+				(if (ClickedOnObj Wnote (event x?) (event y?))	;Wnote
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use		get note	
+							(if (and local1 (InRoom 6))
+								(self changeState: 1)
+							else
+								(Print 28 37)
+							)
+							
+						)
+						(998
+							;remove corner
+						(if (and (not local1) (InRoom 24))
+							(ego get: 24)
+							(SolvePuzzle 2)
+							(Print 28 35)
+							(if (== global182 0) (= local0 25))
+						else
+							(Print 28 36)
+						)
+						
+							
+							
+							
+						)	
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+				(if (ClickedOnObj woodyBody (event x?) (event y?))	;woodyBody
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use
+							(if local1 (Print 28 14) else (Print 28 15)) ;check and remove body
+							(cond 
+							((and (> global182 0) (not local1)) (Bset 43) (curRoom newRoom: 27))
+							(local1 (Print 28 16))
+							(else (Print 28 17))
+						)
+						)
+						(998 ;look body
+													(if (not local1)
+							(if (== ((inventory at: 24) owner?) 28)
+								(Print 28 29)
+							else
+								(Print 28 30)
+								(Print 28 31)
+							)
+						else
+							(Print 28 32)
+						)
+						;remove corner
+						(if (and (not local1) (InRoom 24))
+							(ego get: 24)
+							(SolvePuzzle 2)
+							(Print 28 35)
+							(if (== global182 0) (= local0 25))
+						else
+							(Print 28 36)
+						)
+						
+
+						
+						)
+
+
+						
+						(110 ;field kit
+
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+
+								
+							
+						)
+						(996 ; drink blood
+							(Print 28 5)
+						)
+						(204 ;glass vial
+						(if (localproc_000c)
+							(if (Btst 143)
+								(Print 28 8)
+							else
+								(global119 startUpd: setPri: 0)
+								(global118 startUpd: setPri: 0)
+								(SolvePuzzle 1)
+								(Print 28 9 #draw)
+								(ego get: 28)
+								(Bset 143)
+								(global119 setPri: 13 stopUpd:)
+								(Print 28 10 #draw)
+							)
+						)
+						)
+						(203 ;casting plaster
+							(if (localproc_000c) (Print 28 11))
+						)
+						(202 ;use camera
+						(if (localproc_000c)
+							(global124 forceUpd: setPri: 0)
+							(SolvePuzzle 1 116)
+							(Print 28 7 #draw)
+							(global124 setPri: 14)
+						)
+						)
+						(201 ;use bag or take
+							(if (localproc_000c) (Print 28 12))
+							
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+					
+		
+		
+		
+		
+		
+	)
+)
 	)
 )

@@ -8,6 +8,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	rm27 0
@@ -33,6 +34,8 @@
 	local11
 	local12
 	local13
+	greenCar
+	newEvent
 )
 (procedure (localproc_000c)
 	(return
@@ -274,6 +277,7 @@
 		)
 		(if (== local9 1)
 			((View new:)
+
 				view: 54
 				loop: 0
 				cel: 3
@@ -286,7 +290,8 @@
 			(if (and (< 0 global182) (< global182 3))
 				(ego observeBlocks: quincyCarBlock)
 			)
-			((View new:)
+;;;			((View new:)
+			((= greenCar (Actor new:))
 				view: 86
 				loop: 0
 				cel: 0
@@ -721,7 +726,150 @@
 					
 				)				
 
-		
+
+
+				(if (ClickedOnObj mrG (event x?) (event y?))	;Gelepsi
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk
+							(if (== local9 1)
+								(if (Random 0 1) (Print 27 9) else (Print 27 10))
+							else
+								(event claimed: 0)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+
+
+				(if (ClickedOnObj greenCar (event x?) (event y?))	;greenCar
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;use
+							(if (ego inRect: 170 133 196 149)
+								(curRoom newRoom: 28)
+							else
+								(event claimed: 0)
+							)
+						)
+						(998 ;look -> field kit
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+
+								)
+							)
+						)						
+						(110 ;field kit
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+								(= newEvent (Event new:))
+								(newEvent
+								    type: evKEYBOARD
+								    message: {open briefcase}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+
+								)
+							)
+						)
+						(996 ; drink blood
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+									(cond
+										(
+										(Print 27 1)
+										)
+									)
+								)
+							)
+						)
+						(204 ;glass vial
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+									(cond 
+										(
+											(if (localproc_000c)
+												(if (Btst 143)
+													(Print 27 2)
+												else
+													(global119 startUpd: setPri: 0)
+													(global118 startUpd: setPri: 0)
+													(SolvePuzzle 1)
+													(Print 27 3 #draw)
+													(ego get: 28)
+													(Bset 143)
+													(global119 setPri: 13 stopUpd:)
+													(Print 27 4 #draw)
+												)
+											)
+										)
+								)
+							)
+						)
+						)
+						(203 ;casting plaster
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+									(cond 
+										(
+											(if (localproc_000c) (Print 27 5))
+										)
+									)
+								)
+							)
+						)
+						(202 ;use camera
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+									(cond 
+										(
+										(if (localproc_000c)
+										(global124 forceUpd: setPri: 0)
+										(SolvePuzzle 1 116)
+										(Print 27 6 #draw)
+										(global124 setPri: 14)
+										)
+										)
+									)
+								)
+							)
+						)
+						(201 ;use bag or take
+							(if (== local9 1)
+								(if (ego inRect: 169 133 200 151)
+									(cond 
+										(
+										(localproc_000c)
+										)
+								)
+								(Print 27 7)
+								)
+							)
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+					
+					
+					
 		
 						(if
 
@@ -772,7 +920,7 @@
 							
 							
 							(cond ;Open trunk
-							((ego inRect: 170 133 196 149) (Print 27 71))
+;;;							((ego inRect: 170 133 196 149) (Print 27 71);La puerta del coche verde ya est* abierta.)
 							((== currentCar 13)
 								(if (ego inRect: 207 156 258 178)
 									(cond 
@@ -807,14 +955,16 @@
 										(else (Print 27 73))
 									)
 								else
-									(NotClose)
+;;;									(NotClose)
 								)
 							)
 							(else (Print 27 74))
 						)
-							
+	
 			
 			
+						)(else
+							(event claimed: FALSE)
 						)
 					)
 						)
