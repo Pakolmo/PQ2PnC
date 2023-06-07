@@ -100,7 +100,9 @@
 		number 13
 	)
 )
-
+(instance newAct_4 of Actor
+	(properties)
+)
 (instance kAct of Actor
 	(properties)
 )
@@ -751,30 +753,30 @@
 					)
 				)
 				
-;;;				(if (and (ClickedOnObj newAct_4 (event x?) (event y?)) ;police with warrant
-;;;						(cast contains: newAct)
-;;;						(== local39 0)
-;;;					)
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(996 ;talk		
-;;;							(cond 
-;;;								((Btst 13) (Print 25 30))
-;;;								((> global170 1) (Print 25 31))
-;;;								((Btst 29)
-;;;									(if (> (ego distanceTo: newAct_4) 30)
-;;;										(NotClose)
-;;;									else
-;;;										(= local39 1) ;(= local39 1) the warrant.
-;;;									)
-;;;								)
-;;;								(else (Print 25 32))
-;;;							)	
-;;;						)(else
-;;;						(event claimed: FALSE)
-;;;						 )
-;;;					)
-;;;				)
+				(if (and (ClickedOnObj newAct_4 (event x?) (event y?)) ;police with warrant
+						(cast contains: newAct_4)
+						(== local39 0)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk		
+							(cond 
+								((Btst 13) (Print 25 30))
+								((> global170 1) (Print 25 31))
+								((Btst 29)
+									(if (> (ego distanceTo: newAct_4) 30)
+										(NotClose)
+									else
+										(= local39 1) ;(= local39 1) the warrant.
+									)
+								)
+								(else (Print 25 32))
+							)	
+						)(else
+						(event claimed: FALSE)
+						 )
+					)
+				)
 							
 							
 			(if	(ClickedInRect 252 270 102 147 event) ;clicked on door108
