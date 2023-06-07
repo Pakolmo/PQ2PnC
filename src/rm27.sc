@@ -746,7 +746,6 @@
 
 
 
-
 				(if (ClickedOnObj greenCar (event x?) (event y?))	;greenCar
 					(event claimed: TRUE)
 					(switch theCursor

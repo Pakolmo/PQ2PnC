@@ -20,7 +20,7 @@
 	local0
 	local1
 	local2
-	newAct
+	newAct ;ourcar work or personal
 	newProp_3
 	newProp
 	newAct_2
@@ -413,10 +413,10 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if
-		(or (event claimed?) (!= (event type?) saidEvent))
-			(return)
-		)
+;;;		(if
+;;;		(or (event claimed?) (!= (event type?) saidEvent))
+;;;			(return)
+;;;		)
 		(cond 
 			((Said 'read/number,door')
 				(cond 
@@ -730,6 +730,177 @@
 				)
 			)
 		)
+		(cond	
+			
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+
+				(if	(ClickedInRect 169 209 164 185 event) ;clicked on door car
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(EnterCar)
+						)
+					)
+				)
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+;;;					(if (ClickedOnObj newAct (event x?) (event y?))
+				(if	(ClickedInRect 129 153 165 187 event) ;clicked on trunk
+					(event claimed: TRUE)
+					(switch theCursor
+						(110
+							(if
+								(ego
+									inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+								)
+								(if workCarTrunkOpened
+									(if (ego has: 10)
+										(Print 25 62)
+										(PutInRoom 10 13)
+										(if (IsObject theFieldKit) (theFieldKit dispose:))
+										(= fieldKitOpen 0)
+										
+											(if (== currentCar 13)
+												(if
+													(ego
+														inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+													)
+													(if workCarTrunkOpened
+														(= workCarTrunkOpened 0)
+														(carScript changeState: 11)
+													else
+														(Print 25 47)
+													)
+												else
+													(NotClose)
+												)
+											else
+												(Print 25 19)
+											)
+										
+										
+										
+										
+									else
+										(Print 25 63)
+									)
+								else
+									(Print 25 64)
+										(if (== currentCar 13)
+											(if
+												(ego
+													inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+												)
+												(if workCarTrunkOpened
+													(= workCarTrunkOpened 0)
+													(carScript changeState: 11)
+													
+													
+													
+													
+													
+													
+												else
+													(Print 25 47)
+												)
+											else
+												(NotClose)
+											)
+										else
+											(Print 25 19)
+										)
+									
+									
+									
+									
+								)
+							else
+								(Print 25 65)
+							)
+						)
+						
+						
+						
+						(995 ;use
+							(if (== currentCar 13)
+								(if
+									(ego
+										inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+									)
+									(cond 
+										(workCarTrunkOpened (carScript changeState: 11))
+										
+									)
+									(cond
+										((ego has: 3) (= workCarTrunkOpened 1) (carScript changeState: 9)
+															(if
+																(ego
+																	inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+																)
+																(if workCarTrunkOpened
+																	(if (InRoom 10 13)
+																		(Print 25 66)
+																		(ego get: 10)
+																	else
+;;;																		(Print 25 67) ;El malet|n de trabajo no est* en el maletero.
+																	)
+																else
+																	(Print 25 64)
+																)
+															else
+																(Print 25 65)
+															)
+																						
+											
+											
+											
+											
+											
+											)
+										(else (Print 25 46))
+									)
+
+;;;										(if (== workCarTrunkOpened 1)
+;;;											(carScript changeState: 11)
+;;;										)
+
+								else
+									(NotClose)
+								)
+							else
+								(Print 25 19)
+							)	
+						)
+								)
+							 )			
+						
+			)
+			
+			
+			
+			
+			
+			
+		)
 	)
 )
 
@@ -889,7 +1060,9 @@
 					setCycle: EndLoop self
 				)
 			)
-			(10 (newProp stopUpd:))
+			(10 
+				;(newProp stopUpd:)
+			)
 			(11
 				(newProp startUpd: setCycle: BegLoop self)
 			)
@@ -1165,10 +1338,10 @@
 	)
 	
 	(method (handleEvent event)
-		(if
-		(or (event claimed?) (!= (event type?) saidEvent))
-			(return)
-		)
+;;;		(if
+;;;		(or (event claimed?) (!= (event type?) saidEvent))
+;;;			(return)
+;;;		)
 		(cond 
 			((Said 'look/pane,dude,boy') (if (< gamePhase 11) (Print 25 81) else (Print 25 82)))
 			((Said 'gave/cash') (if (< gamePhase 11) (Print 25 83) else (Print 25 84)))
@@ -1273,8 +1446,13 @@
 					(else (Print 25 109) (ego get: 27) (SolvePuzzle 3 162))
 				)
 			)
-			((Said 'arrest/dude,boy') (Print 25 110))
+			((Said 'arrest/dude,boy') (Print 25 110)
+			)
 		)
+;;;		(cond
+			
+			
+
 	)
 )
 
