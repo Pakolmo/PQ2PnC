@@ -50,6 +50,7 @@
 	local39
 	local40
 	local41
+	manWindow
 )
 (procedure (EnterCar)
 	(return
@@ -262,7 +263,8 @@
 			ignoreActors: 0
 			addToPic:
 		)
-		((View new:)
+		((= manWindow (View new:))
+;;;		((View new:)
 			view: 251
 			loop: 6
 			cel: 0
@@ -749,16 +751,128 @@
 					)
 				)
 				
+;;;				(if (and (ClickedOnObj newAct_4 (event x?) (event y?)) ;police with warrant
+;;;						(cast contains: newAct)
+;;;						(== local39 0)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(996 ;talk		
+;;;							(cond 
+;;;								((Btst 13) (Print 25 30))
+;;;								((> global170 1) (Print 25 31))
+;;;								((Btst 29)
+;;;									(if (> (ego distanceTo: newAct_4) 30)
+;;;										(NotClose)
+;;;									else
+;;;										(= local39 1) ;(= local39 1) the warrant.
+;;;									)
+;;;								)
+;;;								(else (Print 25 32))
+;;;							)	
+;;;						)(else
+;;;						(event claimed: FALSE)
+;;;						 )
+;;;					)
+;;;				)
+							
+							
+			(if	(ClickedInRect 252 270 102 147 event) ;clicked on door108
+					(event claimed: TRUE)
+					(switch theCursor
+						(127 ;motel key
+							(cond 
+								(
+									(ego
+										inRect: [local28 0] [local28 1] [local28 2] [local28 3]
+									)
+									(EnterCar)
+								)
+								((not local37) (NotClose))
+								((!= (ego onControl:) 256) (Print 25 27))
+								((== gamePhase 12) (Print 25 28))
+								((not (ego has: 27)) (Print 25 29))
+								((== local37 256) (self setScript: enterRoom) (SolvePuzzle 3))
+							)							
+						)
+						(998 ;look door
+							(cond 
+							((not local37) (Print 25 13))
+							((!= (ego onControl: 1) 256) (Print 25 14))
+							((== gamePhase 12) (Print 25 15))
+							(else (Print 25 6))
+							)
+						)
+						(else
+						(event claimed: FALSE)
+						 )
+					)
+				)				
+							
+							
+							
+									
 				
 				
+				(if (ClickedOnObj manWindow (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(138 ;warrant newinventory
+							(cond 
+							((< gamePhase 11) (Print 25 94))
+							((Btst 13) (Print 25 103) (= global174 1))
+							(else (Print 25 17))
+						)
+						)
+						(996 ;talk
+							(cond ;talk
+								((< gamePhase 11) (Print 25 85))
+								((== gamePhase 12) (Print 25 86))
+								(else (Print 25 87))
+							)	
+							(cond ;ask for key
+								((ego has: 27) (Print 25 30))
+								((< gamePhase 11) (Print 25 94))
+								((not showedBadgeToMotelManager) (Print 25 106))
+								((not global174) (Print 25 107))
+								((not global178) (Print 25 108))
+								(else (Print 25 109) (ego get: 27) (SolvePuzzle 3 162))
+							)										
 				
+						)				
+						(104 ;money
+							(if (< gamePhase 11) (Print 25 83) else (Print 25 84))
+						)
+						(107 ;wallet badge
+							(if (ego has: 7)
+								(Print 25 88)
+								(= showedBadgeToMotelManager 1)
+							else
+								(Print 25 89)
+							)
 				
-				
-				
-				
-				
-				
-				
+						)
+						(112 ;new mugshot
+							(cond 
+								((< gamePhase 11) (Print 25 94))
+								((ego has: 12)
+									(Print 25 95 #icon 112)
+									(if keith (Print 25 96))
+									(if (not (Btst 88))
+										(Bset 1)
+										(Bset 2)
+										(SolvePuzzle 3 88)
+									)
+								)
+								((ego has: 23) (Print 25 97 #icon 123))
+								(else (Print 25 17))
+							)
+						)	
+						(else
+						(event claimed: FALSE)
+						 )
+					)
+				)			
 				
 				
 				
@@ -889,7 +1003,9 @@
 							else
 								(Print 25 19)
 							)	
-						)
+						)(else
+						(event claimed: FALSE)
+						 )
 								)
 							 )			
 						
@@ -1217,10 +1333,41 @@
 			)
 			(1
 				(newAct_4 setMotion: 0)
-				(Print 25 76)
+				(Print 25 76) ;El oficial dice... "Aqu| est* la orden de registro, Sonny."
 				(ego setMotion: 0 startUpd:)
 				(HandsOn)
 				(client setScript: 0)
+				
+				;add to get warranty.
+				(cond 
+					((Btst 13) (Print 25 30))
+					((> global170 1) (Print 25 31))
+					((Btst 29)
+						(if (> (ego distanceTo: newAct_4) 30)
+							(ego
+								illegalBits: 0
+								setMotion: MoveTo (+ (newAct x?) 5) (ego y?) self
+							)
+							(= local39 1)
+							(ego get: 38) ;inventory new warrant
+							(theGame setCursor: 138 (HaveMouse)) ;switch to warrant
+							(= itemIcon 138)
+						else
+							(ego
+								illegalBits: 0
+								setMotion: MoveTo (+ (newAct x?) 5) (ego y?) self
+							)
+							(= local39 1)
+							(ego get: 38) ;inventory new warrant
+							(theGame setCursor: 138 (HaveMouse)) ;switch to warrant
+							(= itemIcon 138)
+						)
+					)
+					(else (Print 25 32))
+				)				
+				
+				
+				
 			)
 		)
 	)
@@ -1619,8 +1766,8 @@
 					setMotion: MoveTo 225 111 self
 					init:
 				)
-				(ego stopUpd:)
-				(keith stopUpd:)
+;;;				(ego stopUpd:)
+;;;				(keith stopUpd:)
 			)
 			(5
 				(gasBomb dispose:)
@@ -1631,7 +1778,7 @@
 					setLoop: 0
 					setCel: 0
 					cycleSpeed: 0
-					stopUpd:
+;;;					stopUpd:
 				)
 				((View new:)
 					view: 251
@@ -1640,7 +1787,7 @@
 					setPri: 9
 					posn: 229 121
 					init:
-					stopUpd:
+;;;					stopUpd:
 					addToPic:
 				)
 				((= newProp_6 (Prop new:))

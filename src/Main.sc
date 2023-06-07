@@ -922,6 +922,7 @@
 				Colby_s_business_card
 				note_from_Marie_s_door
 				your_LPD_business_card
+				warrant
 		)
 
 		(ego get: iMoneyClip)
@@ -1931,5 +1932,12 @@
 		owner 33
 		view 137
 		name "your LPD business card"
+	)
+)
+(instance warrant of Iitem
+	(properties
+		said '/warrant'
+		view 138
+		name "warrant"
 	)
 )
