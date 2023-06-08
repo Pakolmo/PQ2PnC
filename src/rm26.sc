@@ -20,6 +20,8 @@
 	local3
 	local4
 	television
+	drawer
+	blood
 )
 (instance keithAct of Actor
 	(properties)
@@ -50,7 +52,8 @@
 		(self setLocales: 153)
 		(= gunNotNeeded 0)
 		(= gunFireState 3)
-		((View new:)
+		((= blood (View new:))
+;;;		((View new:)
 			view: 252
 			posn: 132 121
 			loop: 1
@@ -80,7 +83,8 @@
 			stopUpd:
 			ignoreActors: 0
 		)
-		((View new:)
+		((= drawer (View new:))
+;;;		((View new:)
 			view: 252
 			posn: 60 119
 			loop: 0
@@ -559,10 +563,172 @@
 							(event claimed: FALSE)
 						 )
 					)
+				)	
+				
+				(if (ClickedOnObj blood (event x?) (event y?)) ;clicked on blood
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 26 46 #at -1 130)
+						)
+						(995 ;Get blood	glass vial		
+				
+						(cond 
+							((not (ego has: 10)) (Print 26 56 #at -1 20))
+							((Btst 113) (Print 26 57))
+							((not (ego inRect: 108 108 150 126)) (NotClose))
+							(else
+								(global119 setPri: 0)
+								(global118 setPri: 0)
+								(Print 26 58 #draw)
+								(SolvePuzzle 1)
+								(ego get: 28)
+								(global119 setPri: 13)
+								(Bset 113)
+							)
+						)	
+						)							
+						(204 ;Get blood	glass vial		
+				
+						(cond 
+							((not (ego has: 10)) (Print 26 56 #at -1 20))
+							((Btst 113) (Print 26 57))
+							((not (ego inRect: 108 108 150 126)) (NotClose))
+							(else
+								(global119 setPri: 0)
+								(global118 setPri: 0)
+								(Print 26 58 #draw)
+								(SolvePuzzle 1)
+								(ego get: 28)
+								(global119 setPri: 13)
+								(Bset 113)
+							)
+						)	
+						)	
+						(else
+							(event claimed: FALSE)
+						 )
+					)
 				)				
+							
+				(if (ClickedOnObj drawer (event x?) (event y?)) ;clicked on drawer
+					(event claimed: TRUE)
+					(switch theCursor
+						(995 ;open drawer
+							(if (ego inRect: 55 115 80 125)
+								(if (== local2 0)
+									(Print 26 59 #at -1 130)
+									(if (ego has: 25)
+										(Print 26 60 #at -1 130)
+									else
+										(= local2 1)
+										(Print 26 61 #icon 125 0 0)
+									)
+								else
+									(Print 26 62)
+								)
+							else
+								(Print 26 45 #at -1 20)
+							)
+							;get envelope
+							(if (== local2 1)
+							(if (ego inRect: 55 115 80 125)
+								(if (ego has: 25)
+									(Print 26 51)
+								else
+									(if (ego has: 24)
+										(Print 26 68 #at -1 130)
+										(Print 26 69 #at -1 130)
+									else
+										(Print 26 70)
+									)
+									(ego get: 25)
+								)
+							else
+								(Print 26 45 #at -1 20)
+							)
+						else
+							(Print 26 71 #at -1 20)
+						)	
+							;read direction
+								(if (not (ego has: 25))
+									(Print 26 36 #at -1 20)
+								else
+									(Print 26 37 #at -1 130)
+								)
+							
+							
+							
+							;read envelope
+						(if (ego has: 25)
+							(Print 26 9 #at -1 130)
+							(Print 26 10 #icon 125)
+							(SolvePuzzle 2 89)
+						else
+							(Print 26 11 #at -1 130)
+						)
+							
+							
+							
+						)
+						(998 ;look drawer	
+							(cond 
+								(local0 (Print 26 40 #at 60 20))
+								((ego inRect: 55 115 80 125)
+									(if (== local2 1)
+										(if (ego has: 25)
+											(Print 26 41)
+										else
+											(Print 26 42 #at -1 130)
+											(Print 26 43 #icon 125)
+										)
+									else
+										(Print 26 44 #at -1 130)
+									)
+								)
+								(else (Print 26 45 #at -1 20))
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)			
 				
-				
-				
+															
+				(if	(ClickedInRect 88 132 86 115 event) ;clicked on bed
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look bed		
+								(if local0
+									(Print 26 13 #at 60 20)
+								else
+									(Print 26 22 #at -1 20)
+								)		
+								;look under bed
+								(cond 
+									(local0 (Print 26 13 #at 60 20))
+									((not (ego inRect: 105 97 150 105)) (Print 26 19 #at 60 20))
+									((InRoom 29) (Print 26 20))
+									(else (Print 26 21))
+								)
+								
+								
+								
+						)
+						(995 ;use get lipstick
+							(cond 
+								((ego has: 29) (Print 26 51))
+								((not (InRoom 29)) (Print 26 52))
+								((not (ego inRect: 105 97 150 105)) (NotClose))
+								(else (ego get: 29) (Print 26 53) (SolvePuzzle 3))
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)			
 				
 				
 				(if	(ClickedInRect 159 181 47 95 event) ;clicked on wall

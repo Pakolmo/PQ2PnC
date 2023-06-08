@@ -375,7 +375,7 @@
 								((el value?) showSelf:) 
 							)
 
-							((== ((el value?) view?) 138) ;if Colby's buisnesss_card 
+							((== ((el value?) view?) 135) ;if Colby's buisnesss_card 
 								(Print 26 12)
 							)							
 ;;;						((== ((el value?) view?) 110) ;field kit
