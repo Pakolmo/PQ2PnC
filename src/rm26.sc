@@ -19,6 +19,7 @@
 	local2
 	local3
 	local4
+	television
 )
 (instance keithAct of Actor
 	(properties)
@@ -89,7 +90,8 @@
 			stopUpd:
 			ignoreActors: 0
 		)
-		((View new:)
+		((= television (View new:))
+;;;		((View new:)
 			view: 252
 			posn: 230 76
 			loop: 0
@@ -506,6 +508,107 @@
 				)
 			)
 		)
+				(cond	
+			
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj television (event x?) (event y?))
+				(event claimed: TRUE)
+					(switch theCursor
+						(995 ;turn on tv
+							(if local0
+								(Print 26 13 #at 60 20)
+							else
+								(Print 26 54 #at -1 20)
+							)	
+												
+						)
+						(998 ;look tv
+								(if local0
+									(Print 26 13 #at 60 20)
+								else
+									(Print 26 38 #at -1 130)
+								)
+						)
+				
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+		
+				
+				
+					(if (ClickedOnObj ego (event x?) (event y?))
+				(event claimed: TRUE)
+					(switch theCursor
+						(135 ;turn card
+							(if (not (ego has: 35))
+							(event claimed: 0)
+						else
+							(Print 26 12)
+						)	
+						)		
+				
+
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)				
+				
+				
+				
+				
+				
+				(if	(ClickedInRect 159 181 47 95 event) ;clicked on wall
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look lavabo
+							(if local0
+								(Print 26 49 #at -1 130)
+							else
+								(Print 26 50 #at -1 130)
+							) ;look sink
+							(if local0
+								(if (== local3 1)
+									(Print 26 15 #at -1 130)
+								else
+									(Print 26 16 #at -1 130)
+								)
+;;;							else
+;;;								(Print 26 1 #at -1 20) ;No est*s en el ba}o.
+							)
+						)
+						(995 ;get card from sink
+						(if local0
+							(if (not (InRoom 35))
+								(Print 26 6)
+							else
+								(= local3 1)
+								(Print 26 7 #at -1 20)
+								(ego get: 35)
+								(SolvePuzzle 3)
+							)
+						else
+							(Print 26 8 #at -1 20)
+						)
+
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+		
+		
+			)
+				)
+		
 	)
 )
 

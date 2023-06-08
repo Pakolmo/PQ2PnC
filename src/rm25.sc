@@ -40,7 +40,7 @@
 	newAct_3
 	local21
 	newProp_5
-	newAct_4
+;	newAct_4
 	[local24 2]
 	[local26 2]
 	[local28 4]
@@ -1308,7 +1308,8 @@
 			(0
 				(HandsOff)
 				(ego setMotion: 0 stopUpd:)
-				((= newAct_4 (Actor new:))
+;;;				((= newAct_4 (Actor new:))
+				(newAct_4
 					setAvoider: Avoider
 					view: 50
 					setCycle: Walk
