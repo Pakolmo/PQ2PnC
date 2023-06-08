@@ -22,18 +22,45 @@
 (local
 	talkedToSteve
 	talkedToLloyd
-	colbyFile
-	dickeyFile
-	jonesFile
-	simmsFile
-	sniderFile
-	snowFile
-	valanciaFile
-	drawerLabel
+	;colbyFile
+	;dickeyFile
+	;jonesFile
+	;simmsFile
+	;sniderFile
+	;snowFile
+	;valanciaFile
+	;drawerLabel
 	selectedFile
 	theFile
 	readingFile
+	kimChat
 )
+
+(instance drawerLabel of Actor
+	(properties)
+)
+(instance colbyFile of Actor
+	(properties)
+)
+(instance dickeyFile of Actor
+	(properties)
+)
+(instance jonesFile of Actor
+	(properties)
+)
+(instance simmsFile of Actor
+	(properties)
+)
+(instance sniderFile of Actor
+	(properties)
+)
+(instance snowFile of Actor
+	(properties)
+)
+(instance valanciaFile of Actor
+	(properties)
+)
+
 (procedure (localproc_1132)
 	(switch theFile
 		(0
@@ -154,7 +181,8 @@
 	)
 )
 
-(instance Kim of Feature
+;(instance Kim of Feature
+(instance Kim of Actor
 	(properties)
 	
 	(method (handleEvent event)
@@ -230,7 +258,7 @@
 	)
 )
 
-(instance Pratt of Feature
+(instance Pratt of Actor ;Feature
 	(properties)
 	
 	(method (handleEvent event)
@@ -310,7 +338,7 @@
 	)
 )
 
-(instance Poet of Feature
+(instance Poet of Actor ;Feature
 	(properties)
 	
 	(method (handleEvent event)
@@ -393,7 +421,7 @@
 	)
 )
 
-(instance Dooley of Feature
+(instance Dooley of Actor ;Feature
 	(properties)
 	
 	(method (handleEvent event)
@@ -450,44 +478,44 @@
 	)
 )
 
-(instance Computer of Feature
-	(properties)
-	
-	(method (handleEvent event)
-		(cond 
-			(
-				(or
-					(event claimed?)
-					(!= (event type?) saidEvent)
-					(!= (curRoom script?) rm3Script)
-				)
-				(return)
-			)
-			(
-				(not
-					(if (ego inRect: 75 120 120 130)
-					else
-						(& (ego onControl:) cYELLOW) ;$e000
-					)
-				)
-				(if (Said '/computer')
-					(NotClose)
-				else
-					(event claimed: 0)
-				)
-			)
-			((Said 'look/desk')
-				(Print 3 48)
-			)
-			((Said 'turn<on/computer')
-				(Print 3 49)
-			)
-			((Said 'look,use/computer')
-				(curRoom newRoom: 8)
-			)
-		)
-	)
-)
+;;;(instance Computer of Actor ;Feature
+;;;	(properties)
+;;;	
+;;;	(method (handleEvent event)
+;;;		(cond 
+;;;			(
+;;;				(or
+;;;					(event claimed?)
+;;;					(!= (event type?) saidEvent)
+;;;					(!= (curRoom script?) rm3Script)
+;;;				)
+;;;				(return)
+;;;			)
+;;;			(
+;;;				(not
+;;;					(if (ego inRect: 75 120 120 130)
+;;;					else
+;;;						(& (ego onControl:) cYELLOW) ;$e000
+;;;					)
+;;;				)
+;;;				(if (Said '/computer')
+;;;					(NotClose)
+;;;				else
+;;;					(event claimed: 0)
+;;;				)
+;;;			)
+;;;			((Said 'look/desk')
+;;;				(Print 3 48)
+;;;			)
+;;;			((Said 'turn<on/computer')
+;;;				(Print 3 49)
+;;;			)
+;;;			((Said 'look,use/computer')
+;;;				(curRoom newRoom: 8)
+;;;			)
+;;;		)
+;;;	)
+;;;)
 
 (instance rm3 of Room
 	(properties
@@ -510,7 +538,7 @@
 					(else 7)
 				)
 		)
-		(self setFeatures: Kim Pratt Poet Dooley Computer)
+		;(self setFeatures: Kim Pratt Poet Dooley Computer)
 		(self setLocales: 153 156)
 		(= gunFireState gunPROHIBITED)
 		(HandsOn)
@@ -550,7 +578,7 @@
 					init:
 					addToPic:
 				)
-				((Prop new:)
+				(Poet ;(Prop new:)
 					view: 61
 					posn: 194 122
 					loop: 1
@@ -559,31 +587,31 @@
 					setCycle: Forward
 					init:
 				)
-				((View new:)
+				(Kim ;(View new:)
 					view: 61
 					posn: 135 146
 					loop: 2
 					cel: (Random 0 1)
 					init:
-					addToPic:
+					;addToPic:
 				)
-				((View new:)
+				(Dooley ;(View new:)
 					view: 61
 					posn: 178 104
 					loop: 6
 					cel: 0
 					setPri: 9
 					init:
-					addToPic:
+					;addToPic:
 				)
 				(if (< gamePhase 8)
-					((View new:)
+					(Pratt ;(View new:)
 						view: 61
 						posn: 61 144
 						loop: 3
 						cel: (Random 0 1)
 						init:
-						addToPic:
+						;addToPic:
 					)
 				)
 				(if
@@ -605,8 +633,284 @@
 		)
 	)
 	
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if (ClickedOnObj Kim (event x?)(event y?))	
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 3 1)
+							)
+							(996 ;talk
+								(if (not (ego inRect: 100 134 141 156))
+									(NotClose)
+								else
+									(switch kimChat
+										(0
+											(Print 3 2)
+										)
+										(1
+											(Print 3 3)
+										)
+										(2
+											(Print 3 4)
+										)
+										(3
+											(Print 3 5)
+										)
+										(4
+											(Print 3 9)
+										)
+										(5
+											(Print 3 10)
+										)
+										(6
+											(Print 3 6)
+										)
+										(7
+											(Print 3 7)
+										)
+										(else
+											(Print 3 8)
+										)
+									)
+									(++ kimChat)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 98 132 120 145 event) ;kims desk
+							(== (event claimed?) FALSE)
+						)
+						(if (== theCursor 998)
+							(event claimed: TRUE)
+							(Print 3 0)
+						)
+					)
+					(if (ClickedOnObj Pratt (event x?)(event y?))	
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(Print 3 14)
+							)
+							(996 ;talk
+								(if (not (ego inRect: 38 130 100 156))
+									(NotClose)
+								else
+									(if (Btst fLearnedAboutAddiction)
+										(if lloydInRehab
+											(Print 3 23)
+										else
+											(Print 3 16)
+											(Print 3 17)
+											(Print 3 18)
+											(Print 3 19)
+											(Print 3 20)
+											(SolvePuzzle 5 85)
+											(= lloydInRehab 1)
+										)
+									else
+										(if (not talkedToLloyd)
+											(= talkedToLloyd 1)
+											(Print 3 24)
+											(switch (Random 0 2)
+												(0 (Print 3 25))
+												(1 (Print 3 26))
+												(2 (Print 3 27))
+											)
+										else
+											(Print 3 21)
+										)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 65 97 120 145 event) ;Pratt desk
+							(== (event claimed?) FALSE)
+						)
+						(if (== theCursor 998)
+							(event claimed: TRUE)
+							(Print 3 12)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 89 108 94 107 event) ;computer desk
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 3 48)
+							)
+							(995
+								(if (& (ego onControl:) cYELLOW) ;$e000
+									(curRoom newRoom: 8)
+								else
+									(NotClose)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if (ClickedOnObj Poet (event x?)(event y?))	
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 3 30)
+							)
+							(996
+								(if (not (ego inRect: 168 134 240 156))
+									(NotClose)
+								else
+									(if (not talkedToSteve)
+										(Print 3 31)
+										(++ talkedToSteve)
+										(= temp0
+											(PrintSpecial
+												{Say:}
+												;#at 10 125
+												#button {Yes} 1
+												#button {No} 2
+											)	
+										)
+										(switch temp0
+											(1
+												(switch (Random 0 3)
+													(0
+														(Print 3 34)
+													)
+													(1
+														(Print 3 35)
+													)
+													(2
+														(Print 3 36)
+													)
+													(3
+														(Print 3 37)
+													)
+												)
+											)
+											(2
+												(Print 3 39)
+											)
+										)
+									else
+										(Print 3 33)
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 177 228 121 145 event) ;poet desk
+							(== (event claimed?) FALSE)
+						)
+						(if (== theCursor 998)
+							(event claimed: TRUE)
+							(Print 3 29)
+						)
+					)
+					(if (ClickedOnObj Dooley (event x?)(event y?))	
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 3 41)
+							)
+							(996
+								(if (not (ego inRect: 158 120 220 134))
+									(NotClose)
+								else
+									(switch (Random 0 3)
+										(0
+											(Print 3 42)
+										)
+										(1
+											(Print 3 43)
+										)
+										(2
+											(Print 3 44)
+										)
+										(else
+											(Print 4 45)
+										)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)	
+					)
+					(if
+						(and
+							(ClickedInRect 164 207 104 123 event) ;Dooley desk
+							(== (event claimed?) FALSE)
+						)
+						(if (== theCursor 998)
+							(event claimed: TRUE)
+							(Print 3 40)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 211 235 82 129 event) ;File Cabinet
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if
+									(or
+										(== (ego onControl: 1) cLMAGENTA) ;8192
+										(== (ego onControl: 1) -24576)
+									)
+									(curRoom setScript: fileScript)
+								else
+									(NotClose)
+								)
+							)
+							(995
+								(if
+									(or
+										(== (ego onControl: 1) cLMAGENTA) ;8192
+										(== (ego onControl: 1) -24576)
+									)
+									(curRoom setScript: fileScript)
+								else
+									(NotClose)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					((Said '(look,frisk)/(coat,pocket)')
@@ -660,13 +964,24 @@
 (instance fileScript of Script
 	(properties)
 	
+	(method (doit)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)
+	)
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(Load VIEW 205)
-				(cast eachElementDo: #dispose)
+				;(cast eachElementDo: #dispose)
+				(ego dispose:)
+				(Kim dispose:)
+				(Pratt dispose:)
+				(Poet dispose:)
+				(Dooley dispose:)
 				(curRoom drawPic: 7 6)
-				((= drawerLabel (View new:))
+				(drawerLabel
 					view: 60
 					setPri: 15
 					posn: 155 113
@@ -675,7 +990,7 @@
 					stopUpd:
 					init:
 				)
-				((= colbyFile (Actor new:))
+				(colbyFile
 					view: 60
 					ignoreActors:
 					posn: 160 99
@@ -685,7 +1000,7 @@
 					stopUpd:
 					init:
 				)
-				((= dickeyFile (Actor new:))
+				(dickeyFile
 					view: 60
 					ignoreActors:
 					posn: 160 93
@@ -695,7 +1010,7 @@
 					stopUpd:
 					init:
 				)
-				((= jonesFile (Actor new:))
+				(jonesFile
 					view: 60
 					ignoreActors:
 					posn: 161 87
@@ -705,7 +1020,7 @@
 					stopUpd:
 					init:
 				)
-				((= simmsFile (Actor new:))
+				(simmsFile
 					view: 60
 					ignoreActors:
 					posn: 160 78
@@ -715,7 +1030,7 @@
 					stopUpd:
 					init:
 				)
-				((= sniderFile (Actor new:))
+				(sniderFile
 					view: 60
 					ignoreActors:
 					posn: 160 74
@@ -725,7 +1040,7 @@
 					stopUpd:
 					init:
 				)
-				((= snowFile (Actor new:))
+				(snowFile
 					view: 60
 					ignoreActors:
 					posn: 161 67
@@ -735,7 +1050,7 @@
 					stopUpd:
 					init:
 				)
-				((= valanciaFile (Actor new:))
+				(valanciaFile
 					view: 60
 					ignoreActors:
 					posn: 161 61
@@ -784,15 +1099,243 @@
 				(if readingFile (self changeState: 1))
 			)
 			(5
-				(cast eachElementDo: #dispose)
-				(curRoom drawPic: 3 IRISOUT)
+				;(cast eachElementDo: #dispose)
+				(drawerLabel dispose:)
+				(colbyFile dispose:)
+				(dickeyFile dispose:)
+				(jonesFile dispose:)
+				(simmsFile dispose:)
+				(sniderFile dispose:)
+				(snowFile dispose:)
+				(valanciaFile dispose:)
+				(curRoom drawPic: 3 IRISOUT)		
 				(curRoom setScript: rm3Script)
+				(if (== theCursor 991)
+					(theGame setCursor: 999 (HaveMouse))
+				)
 			)
 		)
 	)
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if 
+						(and
+							(ClickedOnObj colbyFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 0)
+								(= selectedFile colbyFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 0)
+								(= selectedFile colbyFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj dickeyFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 1)
+								(= selectedFile dickeyFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 1)
+								(= selectedFile dickeyFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj jonesFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 2)
+								(= selectedFile jonesFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 2)
+								(= selectedFile jonesFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj simmsFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 3)
+								(= selectedFile simmsFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 3)
+								(= selectedFile simmsFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj sniderFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 4)
+								(= selectedFile sniderFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 4)
+								(= selectedFile sniderFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj snowFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 5)
+								(= selectedFile snowFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 5)
+								(= selectedFile snowFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj valanciaFile (event x?) (event y?))
+							(== readingFile 0)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile 6)
+								(= selectedFile valanciaFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(995 ;hand
+								(= theFile 6)
+								(= selectedFile valanciaFile)
+								(fileScript changeState: 1)
+								(= readingFile 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+	        			(and
+	        				(== theCursor 991) ;exit
+	        				(ClickedInRect 0 320 20 190 event)
+	        				(== (event claimed?) FALSE)
+						) 
+						(event claimed: TRUE)
+						(if (== readingFile 1)	
+							(Print 3 65)
+							(= readingFile 0)
+							(self changeState: 3)
+						else
+							(self changeState: 5)
+						)
+					)		
+					(if ;change page
+						(and
+							(== theCursor 998) ;or look to change page
+							(== readingFile 1)
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(Print 3 60 #at -1 150)
+					)
+					(if ;change page
+						(and
+							(== theCursor 995) ;hand
+							(== (event claimed?) FALSE)
+						)
+						(if (== readingFile 1)
+							(event claimed: TRUE)
+							(Print 3 65)
+							(= readingFile 0)
+							(self changeState: 3)
+						else
+							(if (ClickedInRect 89 226 76 175 event) ;clicked on drawer
+								(event claimed: TRUE)
+								(self changeState: 5)
+							)
+						)
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					(
