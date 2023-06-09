@@ -20,6 +20,7 @@
 (local
 	local0
 	numPeopleInRoom
+	jamesTalk
 )
 
 (instance jamesProp of Prop
@@ -963,7 +964,45 @@ code_0710:
 										(ego inRect: 124 128 192 165) ;l r t b
 										(ego inRect: 193 145 240 154)
 									)
-									(Print 6 2) ;what can i do for you?
+									(if
+										(and
+											global172 ;recovered gun from motel
+											(< local0 2)
+										)
+										(switch local0
+											(0
+												(Print 6 8)
+												(Print 6 9)
+												(SolvePuzzle 2 92)
+											)
+											(1
+												(Print 6 10)
+												(Print 6 11)
+												(SolvePuzzle 2 93)
+											)
+										)
+										(++ local0)
+									else
+										(switch jamesTalk
+											(0
+												(Print 6 2) ;what can i do for you?
+											)
+											(1
+												(Print 6 3)
+											)
+											(2
+												(Print 6 4)
+											)
+											(3
+												(Print 6 5)
+												(Print 6 6)
+											)
+											(else
+												(Print 6 12)
+											)
+										)
+										(++ jamesTalk)
+									)
 								else
 									(NotClose)
 								)
