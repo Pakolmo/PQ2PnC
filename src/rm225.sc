@@ -1257,8 +1257,30 @@ code_08ad:
 				)
 			)
 		)
+		
+		(cond	
+			
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)		
+		
+					(if (ClickedOnObj carDoor (event x?) (event y?)) ;cardoor
+					(event claimed: TRUE)
+									(switch theCursor
+						(995
+							(EnterCar)
+						)
+					)
+				)
+						
+			)
+		)
 	)
 )
+
+
 
 (instance carScript of Script
 	(method (changeState newState)
@@ -1417,7 +1439,7 @@ code_08ad:
 			)
 			(10
 				(= workCarTrunkOpened TRUE)
-				(trunk stopUpd:)
+;;;				(trunk stopUpd:)
 			)
 			(11
 				(trunk startUpd: setCycle: BegLoop self)
