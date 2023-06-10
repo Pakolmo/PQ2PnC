@@ -698,7 +698,37 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-
+				(if	(ClickedInRect 177 302 53 111 event) ;garage door
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(localproc_000c 31 30)
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(localproc_000c 31 14)
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					
+					
+				
+					
+					
+					
 				(if
 
 							(ClickedOnObj ego (event x?) (event y?)) ;ego note
@@ -743,12 +773,19 @@
 
 		
 				(if
-						(and
+
 							(ClickedOnObj frontDoor (event x?) (event y?)) ;frontdoor
-							(== currentCar 13)
-						)					
 					(event claimed: TRUE)
 					(switch theCursor	
+						(996 ;talk OPEN POLICE!
+							(if (== (ego onControl: 1) 16384)
+								(localproc_000c 31 54)
+							else
+								(localproc_000c 31 55)
+							)
+								
+							
+						)
 						(995 ;get note
 							(if local22
 									(if (not (ego has: 36))
