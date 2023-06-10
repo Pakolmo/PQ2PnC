@@ -109,7 +109,7 @@
 				p_font 0)
 			(Display 3 72
 				p_at 20 65
-				p_width 30
+				p_width 300
 			)
 		)
 		(3
