@@ -129,7 +129,7 @@
 			posn: 145 105
 			locked: 1
 			init:
-			stopUpd:
+		;	stopUpd:
 		)
 		(= local7
 			(if (== roomCarParked curRoomNum)
@@ -690,6 +690,384 @@
 				)
 			)
 		)
+		
+		(cond	
+			
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+				(if
+
+							(ClickedOnObj ego (event x?) (event y?)) ;ego note
+					(event claimed: TRUE)
+					(switch theCursor
+						(136
+								(if local22
+									(cond 
+										((not (ego has: 36)) (localproc_000c 31 8))
+										(local23
+											(localproc_000c 31 9 25 3)
+											(Print 31 10 #at -1 15 #icon 136 0 0)
+										)
+										(else (Print 31 20 #at -1 15 #icon 136 0 1))
+									)
+								else
+									(localproc_000c 31 11)
+								)
+								
+								;Handwriting from main						
+								(if (ego has: 36)
+							(SolvePuzzle 3 90)
+							(Print 0 5
+								#at -1 15
+								#icon 136 0 0
+							)
+						else
+							(DontHave)
+								)
+						
+
+												
+						)
+
+
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+			
+
+		
+				(if
+						(and
+							(ClickedOnObj frontDoor (event x?) (event y?)) ;frontdoor
+							(== currentCar 13)
+						)					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995 ;get note
+							(if local22
+									(if (not (ego has: 36))
+										(Print 31 43 #at -1 15 #icon 136 0 1)
+										(ego get: 36)
+									else
+										;(localproc_000c 31 44) ;Ya tienes la nota.
+										;Entrar.
+										(cond 
+							((== (ego onControl: 1) 16384)
+								(if (not local21)
+									(localproc_000c 31 59)
+									(localproc_000c 31 60)
+									(= local21 1)
+								)
+								(frontDoor locked: 0)
+							)
+							((ego inRect: 173 112 305 127) (localproc_000c 31 61))
+							(local6 (= global132 1))
+							(else (localproc_1566))
+						)
+
+										
+										
+										
+										
+										
+										
+									)
+								else
+									(localproc_000c 31 11)
+								)
+						)	
+						(998 ;Look note
+								(if local22
+									(cond 
+										((not (ego has: 36)) (localproc_000c 31 8))
+										(local23
+											(localproc_000c 31 9 25 3)
+											(Print 31 10 #at -1 15 #icon 136 0 0)
+										)
+										(else (Print 31 20 #at -1 15 #icon 136 0 1))
+									)
+								else
+									(localproc_000c 31 11)
+								)
+						)
+			(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+							
+		
+		
+		
+		
+		
+				(if
+						(and
+							(ClickedOnObj car (event x?) (event y?)) ;personalcar
+							(== currentCar 33)
+						)					
+					(event claimed: TRUE)
+					(switch theCursor
+				
+						(995 
+						;entrar en coche.
+						(cond 
+							((== (ego onControl: 1) 16384)
+								(localproc_000c 31 59)
+								(localproc_000c 31 62)
+								(frontDoor locked: 0)
+							)
+							((ego inRect: 173 112 305 127) (localproc_000c 31 63))
+							(
+								(ego
+									inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]
+								)
+								(cond 
+									((and (== currentCar 33) (ego has: 3))
+										(if workCarLocked
+											(= workCarLocked 0)
+											(localproc_1566)
+;;;											(localproc_000c 31 64)
+										else
+											(localproc_1566) ;entercar
+										
+										
+										
+											
+										)
+									)
+;;;									((== currentCar 33) (localproc_000c 31 66))
+								
+						)	
+							
+							)
+						)
+							
+							
+							
+							
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+							
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+				(if
+						(and
+							(ClickedOnObj car (event x?) (event y?)) ;carwork
+							(== currentCar 13)
+						)					
+					(event claimed: TRUE)
+					(switch theCursor
+						(110
+						(if (ego inRect: 73 143 101 159)
+							(if workCarTrunkOpened
+								(if (ego has: 10)
+									(localproc_000c 31 45)
+									(PutInRoom 10 13)
+									(if (IsObject theFieldKit) (theFieldKit dispose:))
+									(= fieldKitOpen 0)
+									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+									(= itemIcon 900)
+									;close
+									(if (== currentCar 13)
+										(if (ego inRect: 73 143 101 159)
+											(if workCarTrunkOpened
+												(carScript changeState: 12)
+												(= workCarTrunkOpened 0)
+											else
+												(Print 31 72)
+											)
+										else
+											(NotClose)
+										)
+									else
+										(localproc_000c 31 13)
+									)
+												
+									
+									
+									
+									
+									
+									
+									
+								else
+									(localproc_000c 31 46)
+								)
+							else
+								(localproc_000c 31 47)
+							)
+						else
+							(localproc_000c 31 48)
+						)
+						)
+						
+						(995 ;use maletero/trunk
+						;entrar en coche.
+						(cond 
+							((== (ego onControl: 1) 16384)
+								(localproc_000c 31 59)
+								(localproc_000c 31 62)
+								(frontDoor locked: 0)
+							)
+							((ego inRect: 173 112 305 127) (localproc_000c 31 63))
+							(
+								(ego
+									inRect: [carRect 0] [carRect 1] [carRect 2] [carRect 3]
+								)
+								(cond 
+									((and (== currentCar 13) (ego has: 3))
+										(if workCarLocked
+											(= workCarLocked 0)
+											(localproc_000c 31 64)
+										else
+											(localproc_1566) ;entercar
+										
+										
+										
+											
+										)
+									)
+									((== currentCar 13) (localproc_000c 31 66))
+								)
+								(cond 
+									((and (== currentCar 33) (ego has: 2))
+										(if personalCarLocked
+											(= personalCarLocked 0)
+											(localproc_000c 31 64)
+										else
+											(localproc_000c 31 65)
+										)
+									)
+									((== currentCar 33) (localproc_000c 31 66))
+								)
+							)
+							;(else (localproc_000c 31 67))
+						)	
+							
+							
+							
+							
+							
+							
+							
+							;use maletero/trunk
+							(if (== currentCar 13)
+								(if (ego inRect: 73 143 101 159)
+									(cond 
+										(workCarTrunkOpened (Print 31 70) 
+											(if (ego inRect: 73 143 101 159)
+												(if workCarTrunkOpened
+													(if (InRoom 10 13)
+														(localproc_000c 31 49)
+														(ego get: 10)
+														
+														;cerrar maletero
+														(if (== currentCar 13)
+															(if (ego inRect: 73 143 101 159)
+																(if workCarTrunkOpened
+																	(carScript changeState: 12)
+																	(= workCarTrunkOpened 0)
+																else
+																	(Print 31 72)
+																)
+															else
+																(NotClose)
+															)
+														else
+															(localproc_000c 31 13)
+														)
+																						
+																						
+														
+													else
+														(localproc_000c 31 50)
+													)
+												else
+													(localproc_000c 31 47)
+												)
+											else
+												(localproc_000c 31 48)
+											)			
+															
+											
+											
+											
+											
+											);Ya está abierto.
+										((ego has: 3) (carScript changeState: 10))
+										(else (localproc_000c 31 71)
+											
+											;close trunk
+											(if (== currentCar 13)
+												(if (ego inRect: 73 143 101 159)
+													(if workCarTrunkOpened
+														(carScript changeState: 12)
+														(= workCarTrunkOpened 0)
+													else
+														(Print 31 72)
+													)
+												else
+													(NotClose)
+												)
+											else
+												(localproc_000c 31 13)
+											)				
+															
+											
+											
+											
+											)
+									)
+								else
+									;(NotClose)
+								)
+							else
+								(localproc_000c 31 13)
+							)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					
+				
+				
+				
+				
+				
+				
+				
+				
+					)
+	)
+		
+		
 	)
 )
 
@@ -845,7 +1223,9 @@
 					setCycle: EndLoop self
 				)
 			)
-			(11 (unTrunk stopUpd:))
+			(11 
+				;(unTrunk stopUpd:)
+				)
 			(12
 				(= workCarTrunkOpened 0)
 				(unTrunk
