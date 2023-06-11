@@ -629,6 +629,13 @@
 					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny
+							
+							(if
+								(and 
+									(!= curRoomNum 31) ;not marie house outside
+									(!= theCursor 136) ;not marienote
+								)
+							)
 							(event claimed: TRUE)
 							((Inventory at: (- theCursor 100)) showSelf:)
 						)	

@@ -377,6 +377,17 @@
 
 							((== ((el value?) view?) 135) ;if Colby's buisnesss_card 
 								(Print 26 12)
+							)
+							((== ((el value?) view?) 136) ;if Colby's buisnesss_card 
+								(if (ego has: iMarieDoorNote)
+									(SolvePuzzle 3 fCheckMarieHandwriting)
+									(Print 0 5
+										#at -1 15
+										#icon 136 0 0
+									)
+								else
+									(DontHave)
+								)
 							)							
 ;;;						((== ((el value?) view?) 110) ;field kit
 ;;;						(if

@@ -22,6 +22,10 @@
 	local4
 	local5
 	local6
+	telefono
+	ashtray
+	lamparacaida
+	cosacosa
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 130)
@@ -58,7 +62,7 @@
 		(= local3 0)
 		(= local6 0)
 		(if (< gamePhase 8)
-			((View new:)
+			((= cosacosa (View new:))
 				view: 271
 				posn: 252 106
 				loop: 1
@@ -89,7 +93,7 @@
 				addToPic:
 			)
 		else
-			((View new:)
+			((= lamparacaida (View new:))
 				view: 271
 				posn: 274 128
 				loop: 1
@@ -125,7 +129,8 @@
 				)
 				(= local6 0)
 			)
-			((View new:)
+			((= telefono (View new:))
+;;;			((View new:)
 				view: 271
 				posn: 113 116
 				loop: 0
@@ -914,6 +919,302 @@
 				)
 			)
 		)
+		
+		
+
+		(cond	
+			
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+			(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look up
+				
+				
+												(cond 
+									((ego inRect: 0 0 172 115)
+										(if (>= gamePhase 8)
+											(localproc_000c 32 4)
+										else
+											(localproc_000c 32 5)
+										)
+									)
+									((ego inRect: 215 95 275 111) (localproc_000c 32 6))
+									((>= gamePhase 8) (localproc_000c 32 7))
+									(else (localproc_000c 32 8))
+								)
+						)
+						(else
+									(event claimed: FALSE)
+								 )
+							)
+				)
+				
+				
+					(if	(ClickedOnObj newProp (event x?) (event y?))  ;newProp/door
+					
+				
+				(event claimed: TRUE)
+					(switch theCursor
+						(995 ;open door
+							(if (ego inRect: 190 95 222 110)
+								(localproc_000c 32 102)
+							else
+								(NotClose)
+							)
+						)
+					
+							(else
+									(event claimed: FALSE)
+								 )
+							)
+				)
+				
+				(if	(ClickedInRect 242 250 124 127 event) ;cenicero
+					
+				
+				(event claimed: TRUE)
+					(switch theCursor
+						(206 ;dust cenicero
+						(cond 
+							((not (ego has: 10)) (event claimed: 1) (localproc_000c 32 108))
+							(
+								(if (ego has: 10)
+									(global122 setPri: 0)
+									(global120 setPri: 0)
+									(localproc_000c 32 109 83)
+									(global122 setPri: 15)
+									(global120 setPri: 14)
+									(= local2 1)
+								else
+									(localproc_000c 32 108)
+								)
+							)
+
+						)	
+							
+						)	
+						
+					
+						(996 ;use
+							
+							
+								(if
+									(and
+										(not (ego inRect: 215 95 275 111))
+										(not (ego inRect: 0 0 172 115))
+									)
+									(if (ego inRect: 229 118 265 134)
+										(if (>= gamePhase 8)
+											(Print 32 34)
+										else
+											(localproc_000c 32 77)
+										)
+									else
+										(NotClose)
+									)
+								else
+									(localproc_000c 32 36)
+								)
+						)
+						(995 ;mirar cenicero
+							(if
+									(and
+										(not (ego inRect: 215 95 275 111))
+										(not (ego inRect: 0 0 172 115))
+									)
+									(if (ego inRect: 229 118 265 134)
+										(if (>= gamePhase 8)
+											(if (not local6)
+												(localproc_000c 32 33)
+											else
+												(localproc_000c 32 34)
+											)
+										else
+											(localproc_000c 32 35)
+										)
+									else
+										(NotClose)
+									)
+								else
+									(localproc_000c 32 36)
+								)
+								
+								
+								(cond 
+									((ego has: 13) (localproc_000c 32 89))
+									((not local6) (localproc_000c 32 90))
+									((not (ego inRect: 229 118 265 134)) (localproc_000c 32 91))
+									(else
+										((View new:)
+											view: 271
+											posn: 247 127
+											loop: 0
+											cel: 2
+											setPri: 8
+											init:
+											stopUpd:
+											addToPic:
+										)
+										(SolvePuzzle 3 91)
+										(localproc_000c 32 92 83)
+										(localproc_001c 32 62 83 82 113)
+										(if (not local5)
+											(= local5 1)
+											(localproc_000c 32 63 83)
+											(localproc_000c 32 64 83)
+										)
+										(ego get: 13)
+										(= local6 0)
+									)
+								)
+								
+								
+								
+								
+								
+						)
+						
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+
+
+				(if	(ClickedOnObj lamparacaida (event x?) (event y?)) ;broken lamp
+				(event claimed: TRUE)
+					(switch theCursor
+						(995 ;take lamp or move
+								(if (ego inRect: 214 110 290 138)
+									(localproc_000c 32 94)
+								else
+									(localproc_000c 32 91)
+								)
+								;move lamp
+						)
+						(998 ;look
+								(cond 
+									((ego inRect: 0 0 172 115) (localproc_000c 32 37))
+									((ego inRect: 215 95 275 111) (localproc_000c 32 38))
+									((and (> (ego x?) 160) (> (ego y?) 112))
+										(if (>= gamePhase 8)
+											(localproc_000c 32 39)
+										else
+											(localproc_000c 32 40)
+										)
+									)
+									(else (NotClose))
+								)
+								
+								;shade lamp
+								(if
+									(and
+										(not (ego inRect: 215 95 275 111))
+										(not (ego inRect: 0 0 172 115))
+									)
+									(if (>= gamePhase 8)
+										(localproc_000c 32 55)
+									else
+										(localproc_000c 32 56)
+									)
+								else
+									(NotClose)
+								)
+								
+								
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+
+
+
+			
+
+
+
+
+
+
+
+				(if	(ClickedOnObj telefono (event x?) (event y?)) ;telefono
+				(event claimed: TRUE)
+					(switch theCursor
+						(206 ;dust phone
+						(cond 
+							((not (ego has: 10)) (event claimed: 1) (localproc_000c 32 108))
+							(
+								(if (ego has: 10)
+									(global122 setPri: 0)
+									(global120 setPri: 0)
+									(localproc_000c 32 109 83)
+									(global122 setPri: 15)
+									(global120 setPri: 14)
+									(= local2 1)
+								else
+									(localproc_000c 32 108)
+								)
+							)
+
+						)	
+							
+							
+						)
+						(995 ;use phone
+							
+							
+							
+							
+							(if (< gamePhase 8)
+								(if (ego inRect: 150 117 178 135)
+									(curRoom newRoom: 12)
+								else
+									(NotClose)
+								)
+							else
+								(localproc_000c 32 114)
+							)
+						)
+						(998 ;look	
+								(if
+									(and
+										(not (ego inRect: 215 95 275 111))
+										(not (ego inRect: 0 0 172 115))
+									)
+									(if (>= gamePhase 8)
+										(localproc_000c 32 18)
+									else
+										(localproc_000c 32 31)
+									)
+								else
+									(localproc_000c 32 32)
+								)	
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+		
+		
+		
+			)
+		)
+		
+		
+		
+		
 	)
 )
 

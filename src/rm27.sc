@@ -1406,6 +1406,7 @@
 				(egoScript changeState: 0)
 			)
 			(10
+				(HandsOff)
 				((= newProp_2 (Prop new:))
 					view: 162
 					loop: 1
@@ -1419,18 +1420,23 @@
 				(mrG setMotion: MoveTo 178 145)
 				(newAct_2 ignoreActors: setMotion: MoveTo 180 152)
 				(= seconds 2)
+				(HandsOn)
 			)
 			(11
+				(HandsOff)
 				(mrG setMotion: MoveTo 181 150)
 				(newAct_2 setMotion: MoveTo 182 155)
 				(= seconds 2)
+				(HandsOn)
 			)
 			(12
+				(HandsOff)
 				(Print 27 100 #at -1 67 #width 118)
 				(= local10 1)
 				(mrG setMotion: MoveTo 88 150)
 				(newAct_2 setMotion: MoveTo 210 150 self)
 				(Bset 9)
+				(HandsOn)
 			)
 			(13
 				(newProp_2 setCel: 0)
