@@ -35,6 +35,7 @@
 	local16
 	local17
 	local18
+	SiNo
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 15)
@@ -827,6 +828,280 @@
 				)
 			)
 		)
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if
+
+						(ClickedOnObj larry (event x?) (event y?)) ;larry
+						
+					(event claimed: TRUE)
+					(switch theCursor
+						(996 ;talk
+							(= local16 0)
+							(switch local4
+								(0
+									(larrySound play:)
+									(LocPrint 20 4)
+								)
+								(1
+									(LocPrint 20 5)
+									(= local16 1)
+								)
+								(2
+									(LocPrint 20 6)
+								)
+								(3
+									(LocPrint 20 7)
+								)
+								(4
+									(LocPrint 20 8)
+									(= local16 2)
+								)
+								(5
+									(LocPrint 20 9)
+									(LocPrint 20 10)
+									(LocPrint 20 11)
+								)
+							)
+							(if (< local4 5)
+								(++ local4)
+							else
+								(= local4 0)
+							)
+						
+;;;						(= SiNo
+;;;										(PrintSpecial
+;;;											{Afirmative or not}
+;;;											#button {Yes} 1
+;;;											#button {No} 2
+;;;											
+;;;
+;;;										)
+;;;								)
+;;;							(switch SiNo
+;;;										(1 ;Yes
+;;;											(switch local16
+;;;												(1
+;;;													(LocPrint 20 12)
+;;;												)
+;;;												(2
+;;;													(LocPrint 20 13)
+;;;												)
+;;;												(else 
+;;;													(event claimed: 0)
+;;;												)
+;;;											)
+;;;											(= local16 0)
+;;;										)
+;;;										
+;;;										(2 ;No
+;;;											(switch local16
+;;;												(1
+;;;													(LocPrint 20 14)
+;;;												)
+;;;												(2
+;;;													(LocPrint 20 15)
+;;;												)
+;;;												(else
+;;;													(event claimed: 0)
+;;;												)
+;;;											)
+;;;											(= local16 0)
+;;;										)
+;;;										
+;;;							)									
+;;;						)			
+					)
+						(998 ;look...	
+								(cond 
+									((ego inRect: 160 124 200 135)
+										(LocPrint 20 41)
+									)
+									((ego inRect: 200 124 222 135)
+										(LocPrint 20 42)
+									)
+									(else
+										(LocPrint 20 44)
+									)
+								)
+						)			
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+
+				(if
+
+						(ClickedOnObj guard (event x?) (event y?)) ;guard
+						
+					(event claimed: TRUE)
+					(switch theCursor
+						(900 ;three ways to gun...
+						
+							(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							((not (ego inRect: 108 128 163 147))
+								(LocPrint 20 57)
+							)
+							(
+								(and
+									(>= (guardScript state?) 14)
+									(<= (guardScript state?) 17)
+								)
+								(LocPrint 20 58)
+							)
+							(else
+								(LocPrint 20 59 25 4)
+								(guardScript changeState: 21)
+							)
+						)
+						)
+						(994
+						
+							(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							((not (ego inRect: 108 128 163 147))
+								(LocPrint 20 57)
+							)
+							(
+								(and
+									(>= (guardScript state?) 14)
+									(<= (guardScript state?) 17)
+								)
+								(LocPrint 20 58)
+							)
+							(else
+								(LocPrint 20 59 25 4)
+								(guardScript changeState: 21)
+							)
+						)
+						)
+						
+						
+						(100
+						
+							(cond 
+							((not (ego has: iHandGun))
+								(DontHaveGun)
+							)
+							((not (ego inRect: 108 128 163 147))
+								(LocPrint 20 57)
+							)
+							(
+								(and
+									(>= (guardScript state?) 14)
+									(<= (guardScript state?) 17)
+								)
+								(LocPrint 20 58)
+							)
+							(else
+								(LocPrint 20 59 25 4)
+								(guardScript changeState: 21)
+							)
+						)
+						)
+						(112
+						
+							(if
+								(and
+									(not (ego has: iNewMugShot))
+									(not (ego has: iOldMugShot))
+								)
+								(LocPrint 20 55)
+							else
+								(LocPrint 20 56)
+							)
+						)
+						(107
+								(if (ego has: iWallet)
+									(LocPrint 20 2)
+								else
+									(LocPrint 20 3)
+								)
+											
+						)
+						
+						
+						(998 ;look
+								(LocPrint 20 35) ;El grueso guardia no parece que se est+ divirtiendo.
+						)
+						
+						(996
+								(if (ego inRect: 108 128 163 147)
+									(LocPrint 20 60)
+								else
+									(LocPrint 20 61)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+						
+						
+						
+
+				(if
+
+						(ClickedOnObj manStanding (event x?) (event y?)) ;blonde
+						
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(if (<= (ego y?) 137)
+									(LocPrint 20 38)
+								else
+									(LocPrint 20 39)
+								)
+						)
+						(112
+						
+							(if
+								(and
+									(not (ego has: iNewMugShot))
+									(not (ego has: iOldMugShot))
+								)
+								(LocPrint 20 55)
+							else
+								(LocPrint 20 56)
+							)
+						)
+						
+						
+						
+						(996 ;talk
+						(if (ego inRect: 60 140 120 165)
+									(if
+										(not local3)
+										(manScript changeState: 0)
+									)
+								else
+									(LocPrint 20 38)
+								)
+						)
+						(else
+							(event claimed: FALSE)
+						 )
+					)
+				)
+		
+		
+		
+		
+			)
+		)
+		
 	)
 )
 
