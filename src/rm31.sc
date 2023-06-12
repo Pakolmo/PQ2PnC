@@ -745,7 +745,7 @@
 										(else (Print 31 20 #at -1 15 #icon 136 0 1))
 									)
 								else
-									(localproc_000c 31 11)
+;;;									(localproc_000c 31 11) ;What note? Where?
 								)
 								
 								;Handwriting from main						
@@ -816,7 +816,7 @@
 										
 									)
 								else
-									(localproc_000c 31 11)
+;;;									(localproc_000c 31 11) ;What note? Where?
 								)
 						)	
 						(998 ;Look note
@@ -830,7 +830,7 @@
 										(else (Print 31 20 #at -1 15 #icon 136 0 1))
 									)
 								else
-									(localproc_000c 31 11)
+;;;									(localproc_000c 31 11) ;What note? Where?
 								)
 						)
 			(else

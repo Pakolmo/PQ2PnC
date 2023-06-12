@@ -1116,38 +1116,38 @@
 		)							
 							
 	
-				(if
-
-				(and
-							(ClickedOnObj keith (event x?) (event y?))
-							(cast contains: keith)
-				)
-
-
-					(event claimed: TRUE)
-					(switch theCursor				
-
-						(996 ;chat keith
-							(if (cast contains: keith)
-									(if (< (ego distanceTo: keith) 45)
-										(Print 61 66)
-									else
-										(Print 61 67)
-									)
-								else
-									(Print 61 68)
-								)
-						)
-						(else
-							(event claimed: TRUE)
-						 )
-					)
-				)
-						
-		
-	
-	
-	
+;;;				(if
+;;;
+;;;				(and
+;;;							(ClickedOnObj keith (event x?) (event y?))
+;;;							(cast contains: keith)
+;;;				)
+;;;
+;;;
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor				
+;;;
+;;;						(996 ;chat keith
+;;;							(if (cast contains: keith)
+;;;									(if (< (ego distanceTo: keith) 45)
+;;;										(Print 61 66)
+;;;									else
+;;;										(Print 61 67)
+;;;									)
+;;;								else
+;;;									(Print 61 68)
+;;;								)
+;;;						)
+;;;						(else
+;;;							(event claimed: TRUE)
+;;;						 )
+;;;					)
+;;;				)
+;;;						
+;;;		
+;;;	
+;;;	
+;;;	
 	
 	
 			(if
