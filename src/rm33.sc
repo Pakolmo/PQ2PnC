@@ -18,7 +18,7 @@
 
 (local
 	local0
-	thePrevRoomNum
+	;driveFix
 	local2
 	local3
 	local4
@@ -27,16 +27,144 @@
 	local7
 	newProp
 	glove = 0 ;cerrado
+	outsideRoom
 )
+
+(procedure (drive)
+	(if
+		(and
+			(== gamePhase 3)
+			(Btst fBeenAtMallCrimeScene)
+		)
+		(= gamePhase 4)
+	)
+	(switch driveDest
+		(14 ;Lytton Airport
+			(User canInput: 0)
+			(if (!= driveFix 14)
+				(= driveFix 14)
+				(= local4 0)
+				(= local5 100)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(25 ;753 Third Street -inn
+			(if
+				(and
+					(== gamePhase 12)
+					(not (Btst 165))
+				)
+				(Bset 165)
+			)
+			(User canInput: 0)
+			(if (!= driveFix 25)
+				(= driveFix 25)
+				(= local4 60)
+				(= local5 120)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(29 ;Arnie's cafe
+			(User canInput: 0)
+			(if (!= driveFix 29)
+				(= driveFix 29)
+				(= local4 120)
+				(= local5 120)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(67 ;oak tree mall
+			(User canInput: 0)
+			(if (!= driveFix 67)
+				(= driveFix 67)
+				(= local4 180)
+				(= local5 120)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(61 ;cotton cove
+			(User canInput: 0)	
+			(if (!= driveFix 61)
+				(= driveFix 61)
+				(= local4 220)
+				(= local5 0)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(22 ;Jail								
+			(if (!= driveFix 22)
+				(= driveFix 22)
+				(= local4 140)
+				(= local5 20)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(31 ;west peach
+			(User canInput: 0)
+			(if (!= driveFix 31)
+				(= driveFix 31)
+				(= local4 40)
+				(= local5 80)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(27 ;west rose
+			(User canInput: 0)																			
+			(if (!= driveFix 27)
+				(= driveFix 27)
+				(= local4 62)
+				(= local5 60)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)
+			)
+		)
+		(1  ;the office
+			(User canInput: 0)
+			(if (!= driveFix 1)
+				(= driveFix 1)
+				(= local4 122)
+				(= local5 60)
+				(localproc_000e)
+			else
+				(if local0 (Print 13 49) else (Print 13 50))
+				(User canInput: 1)			
+			)
+		)
+	)
+)
+
 (procedure (ExitPersonalCar)
 	(if (and (== local6 local4) (== local7 local5))
 		(Print 33 0)
 		(ego setPri: -1)
-		(if (and (Btst 165) (== thePrevRoomNum 25))
-			(= thePrevRoomNum 225)
+		(if (and (== outsideRoom 25) (Btst fDroveToMotel)) ;165
+			(= outsideRoom 225)
 		)
 		(ego setStep: 3 2)
-		(curRoom newRoom: thePrevRoomNum)
+		(curRoom newRoom: outsideRoom)
 		(if (== theCursor 991) ;reset cursor from exit to walk
 			(theGame setCursor: 999 (HaveMouse))
 		)
@@ -131,7 +259,6 @@
 	)
 	
 	(method (init)
-		(DrawRect 143 175 140 150 1)
 		(super init:)
 		(HandsOff)
 		(User canInput: 1)
@@ -151,9 +278,12 @@
 		(= currentCar 33)
 		(= local0 0)
 		(= gunDrawn 0)
-		(= thePrevRoomNum prevRoomNum)
+		(if (not (== prevRoomNum 166))
+			(= driveFix prevRoomNum)	
+		)
+		(= outsideRoom driveFix)
 		(= local6
-			(switch prevRoomNum
+			(switch driveFix
 				(14 0)
 				(25 60)
 				(225 60)
@@ -167,7 +297,7 @@
 			)
 		)
 		(= local7
-			(switch prevRoomNum
+			(switch driveFix
 				(14 100)
 				(25 120)
 				(29 120)
@@ -204,6 +334,9 @@
 			)
 		)
 		(self setScript: rm33Script)
+		(if (== prevRoomNum 166)
+			(drive)	
+		)
 	)
 	
 	(method (dispose)
@@ -241,11 +374,11 @@
 				((> local7 local5) (-- local7))
 				((< local7 local5) (++ local7))
 				((and local0 (not local3))
-					(if (and (Btst 165) (== thePrevRoomNum 25))
-						(= thePrevRoomNum 225)
+					(if (and (Btst 165) (== driveFix 25))
+						(= driveFix 225)
 					)
 					(ego setStep: 3 2)
-					(curRoom newRoom: thePrevRoomNum)
+					(curRoom newRoom: driveFix)
 				)
 			)
 		else
@@ -605,8 +738,8 @@
 									(Said '/office,homicide')
 								)
 								(cond 
-									((!= thePrevRoomNum 1)
-										(= thePrevRoomNum 1)
+									((!= driveFix 1)
+										(= driveFix 1)
 										(= local4 122)
 										(= local5 60)
 										(localproc_000e)
@@ -621,8 +754,8 @@
 							)
 							((Said '/jail[<lytton,to]')
 								(cond 
-									((!= thePrevRoomNum 22)
-										(= thePrevRoomNum 22)
+									((!= driveFix 22)
+										(= driveFix 22)
 										(= local4 140)
 										(= local5 20)
 										(localproc_000e)
@@ -637,8 +770,8 @@
 							)
 							((Said '/cove[<cotton,to]')
 								(cond 
-									((!= thePrevRoomNum 61)
-										(= thePrevRoomNum 61)
+									((!= driveFix 61)
+										(= driveFix 61)
 										(= local4 220)
 										(= local5 0)
 										(localproc_000e)
@@ -653,8 +786,8 @@
 							)
 							((Said '/airport[<lytton,to]')
 								(cond 
-									((!= thePrevRoomNum 14)
-										(= thePrevRoomNum 14)
+									((!= driveFix 14)
+										(= driveFix 14)
 										(= local4 0)
 										(= local5 100)
 										(localproc_000e)
@@ -669,8 +802,8 @@
 							)
 							((Said '/inn[<snuggler,to]')
 								(cond 
-									((!= thePrevRoomNum 25)
-										(= thePrevRoomNum 25)
+									((!= driveFix 25)
+										(= driveFix 25)
 										(= local4 60)
 										(= local5 120)
 										(localproc_000e)
@@ -691,8 +824,8 @@
 									(Said '/peach<lonny<222')
 								)
 								(cond 
-									((!= thePrevRoomNum 31)
-										(= thePrevRoomNum 31)
+									((!= driveFix 31)
+										(= driveFix 31)
 										(= local4 40)
 										(= local5 80)
 										(localproc_000e)
@@ -708,8 +841,8 @@
 							(
 							(or (Said '/cafe[<arnie,to]') (Said '/arnie,date,chow'))
 								(cond 
-									((!= thePrevRoomNum 29)
-										(= thePrevRoomNum 29)
+									((!= driveFix 29)
+										(= driveFix 29)
 										(= local4 120)
 										(= local5 120)
 										(localproc_000e)
@@ -739,8 +872,8 @@
 										)
 										(Print 33 57)
 									)
-									((!= thePrevRoomNum 27)
-										(= thePrevRoomNum 27)
+									((!= driveFix 27)
+										(= driveFix 27)
 										(= local4 62)
 										(= local5 60)
 										(localproc_000e)
@@ -760,8 +893,8 @@
 									(Said '/mall,center<shopping')
 								)
 								(cond 
-									((!= thePrevRoomNum 67)
-										(= thePrevRoomNum 67)
+									((!= driveFix 67)
+										(= driveFix 67)
 										(= local4 180)
 										(= local5 120)
 										(localproc_000e)
@@ -860,7 +993,10 @@
 					)
 					(102 ;keys drive
 						;temp messgae, copy code from rm13
-						(Print {Not implemented. Copy from rm13.})
+						(ego put: iKeyRing 0)
+						(cSound loop: 1 fade:) ;prevent sound bug
+						(theGame newRoom: 166)
+						(theGame setCursor: 995 (HaveMouse))
 					)	
 				)
 			)

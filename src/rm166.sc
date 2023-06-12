@@ -11,6 +11,10 @@
 (use System)
 (use PncMenu)
 
+(local
+	helpMessage
+)
+
 (public
 	rm166 0
 )
@@ -89,7 +93,7 @@
 	)
 	
 	(method (init)
-		(curRoom setRegions: 950)	
+		;(curRoom setRegions: 950)	
 		(Load VIEW 166)
 		(super init:)
 		(= gunFireState gunUSELESS)
@@ -161,143 +165,159 @@
 		(if (event claimed?)
 			(return)
 		)
-		(if
-			(and
-				(== (event type?) evMOUSEBUTTON)
-				(not (& (event modifiers?) emRIGHT_BUTTON))
-			)
-			(if (ClickedOnObj locWestRose (event x?) (event y?)) ;West Rose
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {West Rose})
+		(if (== (event type?) evMOUSEBUTTON)
+			(if (& (event modifiers?) emRIGHT_BUTTON)
+				(if (== theCursor 995)
+					(theGame setCursor: 998 (HaveMouse))
+				else
+					(theGame setCursor: 995 (HaveMouse))
+				)	
+			else
+				(if (ClickedOnObj locWestRose (event x?) (event y?)) ;West Rose
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {West Rose})
+						)
+						(995 ;hand
+							(= driveDest 27)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(995 ;hand
-						(= driveDest 27)
-						(theGame newRoom: 13)
+				)			
+				(if (ClickedOnObj locHome (event x?) (event y?)) ;Home
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {My home})
+						)
+						(995 ;hand
+							(= driveDest 31)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)			
-			(if (ClickedOnObj locHome (event x?) (event y?)) ;Home
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {My home})
-					)
-					(995 ;hand
-						(= driveDest 31)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)			
-			(if (ClickedOnObj locInn (event x?) (event y?)) ;Inn
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {The inn})
-					)
-					(995 ;hand
-						(= driveDest 25)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)
-			(if (ClickedOnObj locAirport (event x?) (event y?)) ;airport
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {The airport})
-					)
-					(995 ;hand
-						(= driveDest 14)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
+				)			
+				(if (ClickedOnObj locInn (event x?) (event y?)) ;Inn
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {The inn})
+						)
+						(995 ;hand
+							(= driveDest 25)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
 				)
-			)
-			(if (ClickedOnObj locJail (event x?) (event y?)) ;jail
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {The jail})
-					)
-					(995 ;hand
-						(= driveDest 22)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)
-			(if (ClickedOnObj locOffice (event x?) (event y?)) ;Office
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {the Office})
-					)
-					(995 ;hand
-						(= driveDest 1)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
+				(if (ClickedOnObj locAirport (event x?) (event y?)) ;airport
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {The airport})
+						)
+						(995 ;hand
+							(= driveDest 14)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
 				)
-			)
-			(if (ClickedOnObj locMall (event x?) (event y?)) ;cove
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {Oak Tree Mall})
-					)
-					(995 ;hand
-						(= driveDest 67)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
-					)
-				)
-			)
-			(if (ClickedOnObj locCove (event x?) (event y?)) ;cove
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {Cotton Cove})
-					)
-					(995 ;hand
-						(= driveDest 61)
-						(theGame newRoom: 13)
-					)
-					(else
-						(event claimed: FALSE)
+				(if (ClickedOnObj locJail (event x?) (event y?)) ;jail
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {The jail})
+						)
+						(995 ;hand
+							(= driveDest 22)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
 				)
-			)
-			(if (ClickedOnObj locArnie (event x?) (event y?)) ;cove
-				(event claimed: TRUE)
-				(switch theCursor
-					(998 ;look
-						(Print {Arnie's Resturant})
+				(if (ClickedOnObj locOffice (event x?) (event y?)) ;Office
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {the Office})
+						)
+						(995 ;hand
+							(= driveDest 1)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(995 ;hand
-						(= driveDest 29)
-						(theGame newRoom: 13)
+				)
+				(if (ClickedOnObj locMall (event x?) (event y?)) ;cove
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {Oak Tree Mall})
+						)
+						(995 ;hand
+							(= driveDest 67)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					(else
-						(event claimed: FALSE)
+				)
+				(if (ClickedOnObj locCove (event x?) (event y?)) ;cove
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {Cotton Cove})
+						)
+						(995 ;hand
+							(= driveDest 61)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj locArnie (event x?) (event y?)) ;cove
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+							(Print {Arnie's Resturant})
+						)
+						(995 ;hand
+							(= driveDest 29)
+							(theGame newRoom: prevRoomNum)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if
+					(and
+						(ClickedInRect 0 320 0 190 event)
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE) ;ignore all other clicks
+					(++ helpMessage)
+					(if (> helpMessage 3)
+						(Print {Use the hand or eye icon on one of the yellow location markers.})
+						(= helpMessage 0)
 					)
 				)
 			)
