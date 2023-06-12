@@ -975,7 +975,7 @@
 							)
 				)
 				
-				(if	(ClickedInRect 242 250 124 127 event) ;cenicero
+				(if	(ClickedInRect 240 250 123 127 event) ;cenicero
 					
 				
 				(event claimed: TRUE)
