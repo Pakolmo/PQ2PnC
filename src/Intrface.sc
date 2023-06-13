@@ -777,7 +777,8 @@
 
 		; if no active items we eat mouseDown for a one half second
 		(if (not theItem)
-			(= eatMice 60)
+			;(= eatMice 60)
+			(= eatMice 0)
 			(= lastTick (GetTime))
 		else
 			(= eatMice 0)

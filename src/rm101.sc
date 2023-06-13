@@ -9,6 +9,11 @@
 (use Actor)
 (use System)
 
+(use Avoider)
+
+
+
+
 (public
 	rm101 0
 )
@@ -340,7 +345,144 @@
 	)
 	
 	(method (handleEvent event)
-		(if (event claimed?) (return 1))
+;;;		(if (event claimed?) (return 1))
+		
+		(if (event claimed?)
+			(return)
+		)
+
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 ;look
+								(localproc_000c 101 18)
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+							
+
+				(if (ClickedOnObj willy (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+
+							(996 ;talk
+								(cond 
+									((< (ego x?) 137)
+										(if (not local4)
+											(localproc_000c 101 22)
+										else
+											(localproc_000c 101 26)
+										)
+									)
+									((not local9)
+										(cond 
+											((not local8) (localproc_000c 101 27) (= local8 1))
+											(local8 (localproc_000c 101 28) (= local9 1))
+										)
+									)
+									(else (localproc_000c 101 29))
+								)						
+							)
+						
+							(else
+										(event claimed: FALSE)
+									)
+								)
+							)
+				
+						
+
+				(if (ClickedOnObj keith (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+
+							(996 ;Talk
+								(cond 
+									((< (ego x?) 137)
+										(if (not local4)
+											(cond 
+												((== local6 0) (localproc_000c 101 24) (= local6 1))
+												((== local6 1) (localproc_000c 101 22) (= local6 2))
+												((== local6 2) (localproc_000c 101 23))
+											)
+										else
+											(localproc_000c 101 26)
+										)
+									)
+									((not local9)
+										(cond 
+											((not local8) (localproc_000c 101 27) (= local8 1))
+											(local8 (localproc_000c 101 30) (= local9 1))
+										)
+									)
+									(else (localproc_000c 101 29))
+								)
+							)
+							(else
+										(event claimed: FALSE)
+									)
+								)
+							)
+				
+
+
+				(if (or (ClickedOnObj radio1 (event x?) (event y?)) 
+						(ClickedOnObj radio2 (event x?) (event y?)) 
+					)
+						(event claimed: TRUE)
+						(switch theCursor
+
+							(995 ;Get
+								(cond 
+							(
+								(and
+									(ego inRect: 130 135 160 150)
+									(== (ego loop?) 2)
+									(not (ego has: 30))
+								)
+								(if (not gotRadios)
+									(SolvePuzzle 3)
+									(localproc_000c 101 38 83)
+									(willy loop: 1)
+									(localproc_000c 101 39 83)
+									(willy loop: 0)
+									(radio1 dispose:)
+									(radio2 dispose:)
+									(ego get: 30)
+								else
+									(SolvePuzzle 3)
+									(localproc_000c 101 40 83)
+									(radio1 dispose:)
+									(radio2 dispose:)
+									(ego get: 30)
+								)
+							)
+							((ego has: 30) (localproc_000c 101 41))
+							(else (localproc_000c 101 35))
+						)
+							)
+							(else
+										(event claimed: FALSE)
+									)
+								)
+							)
+			
+							
+			)
+		
+			
+		)	
+		
 		(return
 			(if (== (event type?) evSAID)
 				(cond 
@@ -507,10 +649,15 @@
 						)
 					)
 				)
-			else
-				0
+;;;			else
+;;;				0
+;;;			)
+;;;		)
+				)
 			)
-		)
+		
+		
+		
 	)
 )
 

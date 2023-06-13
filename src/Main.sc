@@ -1191,6 +1191,20 @@
 	(method (handleEvent event &tmp index [temp1 53])
 		(super handleEvent: event)
 		(if (event claimed?) (return))
+		
+		(if
+			(and
+				(not (super handleEvent: event))
+				modelessDialog
+				(== (event message?) ENTER)
+				(== (event type?) keyDown)
+			)
+			(event claimed: TRUE)
+			(cls)
+			(self cue:)
+		)
+
+		
 		(switch (event type?)
 			(saidEvent
 				(cond 
