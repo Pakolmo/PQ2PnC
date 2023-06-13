@@ -2817,7 +2817,7 @@ code_17b9:
 						(LocPrint 16 99)
 					)
 					((Btst fTriedToGoToHouston)
-						(= lista 2)	
+;;;						(= lista 2)	
 						(LocPrint 16 100)
 					)
 					((Btst fHoustonAuthorized)
@@ -2963,7 +2963,7 @@ code_17b9:
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(= lista 2)
+;;;				(= lista 2)
 				(LocPrint 16 121)
 				(= local15 1)
 				(keith setMotion: 0)

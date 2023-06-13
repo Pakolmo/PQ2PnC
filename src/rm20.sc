@@ -1022,15 +1022,64 @@
 								(LocPrint 20 56)
 							)
 						)
+;;;						(107
+;;;								(if (ego has: iWallet)
+;;;									(LocPrint 20 2)
+;;;								else
+;;;									(LocPrint 20 3)
+;;;								)
+;;;											
+;;;						)
+;;;
 						(107
-								(if (ego has: iWallet)
-									(LocPrint 20 2)
-								else
-									(LocPrint 20 3)
+													(if (ego has: iWallet)
+							(if local5
+								(cond 
+									((ego inRect: 222 124 265 135)
+										(LocPrint 20 2)
+									)
+									((ego inRect: 163 124 221 135)
+										(switch (Random 0 3)
+											(0
+												(LocPrint 20 48)
+											)
+											(1
+												(LocPrint 20 49)
+											)
+											(2
+												(LocPrint 20 50)
+											)
+											(3
+												(LocPrint 20 51)
+											)
+										)
+									)
+									((ego inRect: 83 128 115 136)
+										(LocPrint 20 52)
+									)
+									((cast contains: newProp)
+										(= guardShownBadge 1)
+										(SolvePuzzle 2 fGateGuardShownBadge)
+									)
+									((ego inRect: 108 128 163 147)
+										(if (not guardShownBadge)
+											(= guardShownBadge 1)
+											(SolvePuzzle 2 fGateGuardShownBadge)
+											(= local10 1)
+											(guardScript changeState: 0)
+										else
+											(LocPrint 20 53)
+										)
+									)
+									(else (LocPrint 20 54))
 								)
-											
+							else
+								(LocPrint 20 54)
+							)
+						else
+							(LocPrint 20 3)
 						)
-						
+						)
 						
 						(998 ;look
 								(LocPrint 20 35) ;El grueso guardia no parece que se est+ divirtiendo.
