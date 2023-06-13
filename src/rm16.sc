@@ -2817,7 +2817,7 @@ code_17b9:
 						(LocPrint 16 99)
 					)
 					((Btst fTriedToGoToHouston)
-;;;						(= lista 2)	
+						(= lista 3)	
 						(LocPrint 16 100)
 					)
 					((Btst fHoustonAuthorized)
