@@ -35,6 +35,8 @@
 	local13
 	local14
 	local15
+	chiquito
+	mujer
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 24)
@@ -125,7 +127,7 @@
 			ignoreActors:
 			addToPic:
 		)
-		((View new:)
+		((= chiquito (View new:)) ;chiquito
 			view: 272
 			posn: 51 131
 			setPri: 1
@@ -135,7 +137,7 @@
 			ignoreActors:
 			addToPic:
 		)
-		((View new:)
+		((= mujer (View new:)) ;mujer
 			view: 272
 			posn: 72 146
 			setPri: 15
@@ -370,11 +372,84 @@
 						)
 					)
 							
-
+				(if (ClickedOnObj chiquito (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+							(996
+								(cond 
+									((< (ego x?) 137)
+										(if (not local4)
+											(cond 
+												((== local6 0) (localproc_000c 101 24) (= local6 1))
+												((== local6 1) (localproc_000c 101 22) (= local6 2))
+												((== local6 2) (localproc_000c 101 23))
+											)
+										else
+											(localproc_000c 101 26)
+										)
+									)
+									((not local9)
+										(cond 
+											((not local8) (localproc_000c 101 27) (= local8 1))
+											(local8 (localproc_000c 101 30) (= local9 1))
+										)
+									)
+									(else (localproc_000c 101 29))
+								)	
+							)
+							(998
+								(if (< (ego x?) 137)
+									(localproc_000c 101 6)
+								else
+									(localproc_000c 101 7)
+								)
+							)
+							
+							(else
+										(event claimed: FALSE)
+									)
+								)
+							)
+				(if (ClickedOnObj mujer (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+							(996
+								(cond 
+									(
+									(and (not local4) (== local6 0) (< (ego x?) 137)) (localproc_000c 101 21) (= local6 1))
+									(
+									(and (not local4) (== local6 1) (< (ego x?) 137)) (localproc_000c 101 22) (= local6 2))
+									((and (== local6 2) (< (ego x?) 137)) (localproc_000c 101 23))
+									((and local4 (< (ego x?) 137)) (localproc_000c 101 24))
+									(else (localproc_000c 101 25))
+								)
+							)
+							
+							
+							(998
+								(if (< (ego x?) 137)
+									(localproc_000c 101 9)
+								else
+									(localproc_000c 101 10)
+								)
+							)
+							
+							(else
+										(event claimed: FALSE)
+									)
+								)
+							)				
+						
 				(if (ClickedOnObj willy (event x?) (event y?)) 
 						(event claimed: TRUE)
 						(switch theCursor
-
+							(998
+								(if (< (ego x?) 137)
+									(localproc_000c 101 8)
+								else
+									(localproc_000c 101 7)
+								)
+							)
 							(996 ;talk
 								(cond 
 									((< (ego x?) 137)
@@ -405,7 +480,14 @@
 				(if (ClickedOnObj keith (event x?) (event y?)) 
 						(event claimed: TRUE)
 						(switch theCursor
-
+							(998
+								(if (< (ego x?) 137)
+									(localproc_000c 101 9)
+								else
+									(localproc_000c 101 10)
+								)
+								
+							)
 							(996 ;Talk
 								(cond 
 									((< (ego x?) 137)
