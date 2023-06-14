@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 40)
-(include sci.sh)
+;(include sci.sh)
+(include game.sh)
 (use Main)
 (use jet)
 (use Intrface)
@@ -14,6 +15,7 @@
 
 (public
 	rm40 0
+	egoSit 1
 )
 
 (local
@@ -28,8 +30,8 @@
 	local8
 	askedForOrder
 	local10
-	guard
-	cockpitDoor
+	;guard
+	;cockpitDoor
 	[str 100]
 )
 (procedure (localproc_0036 param1 param2 &tmp temp0)
@@ -47,6 +49,14 @@
 	)
 )
 
+(instance guard of Actor
+	(properties)
+)
+(instance cockpitDoor of Prop
+	(properties)
+)
+
+
 (instance rm40 of Room
 	(properties
 		picture 40
@@ -55,12 +65,12 @@
 	
 	(method (init)
 		(= perspective 70)
-		(Load rsVIEW 0)
-		(Load rsVIEW 82)
-		(Load rsVIEW 26)
-		(Load rsVIEW 31)
-		(Load rsVIEW 20)
-		(Load rsSOUND 46)
+		(Load VIEW 0)
+		(Load VIEW 82)
+		(Load VIEW 26)
+		(Load VIEW 31)
+		(Load VIEW 20)
+		(Load SOUND 46)
 		(self setLocales: 154)
 		(super init:)
 		(ego
@@ -88,7 +98,7 @@
 			illegalBits: 0
 			init:
 		)
-		((= guard (Actor new:))
+		(guard ;(= guard (Actor new:))
 			view: 31
 			posn: 300 1063
 			loop: 1
@@ -98,7 +108,7 @@
 			ignoreActors:
 			init:
 		)
-		((= cockpitDoor (Prop new:))
+		(cockpitDoor ;(= cockpitDoor (Prop new:))
 			view: 82
 			posn: 271 55
 			loop: 8
@@ -109,7 +119,7 @@
 			cycleSpeed: 1
 			stopUpd:
 		)
-		((Prop new:)
+		((Prop new:) ;back of plane
 			view: 82
 			posn: 51 191
 			loop: 2
@@ -126,8 +136,14 @@
 	
 	(method (doit)
 		(if
-		(and (& (ego onControl:) $4000) (not isHandsOff))
-			(if (not triedToLeave) (= triedToLeave 1) (Print 40 0))
+			(and
+				(& (ego onControl:) $4000)
+				(not isHandsOff)
+			)
+			(if (not triedToLeave)
+				(= triedToLeave 1)
+				(Print 40 0)
+			)
 		else
 			(= triedToLeave 0)
 		)
@@ -151,6 +167,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(ego setMotion: MoveTo 285 70 self)
 				(keith setMotion: MoveTo 280 62)
 				(stewardess loop: 0)
@@ -162,6 +179,7 @@
 			(2
 				(stewardess loop: 2)
 				(HandsOn)
+				(= isHandsOff FALSE)
 				(ego illegalBits: -32768)
 				(keith setMotion: MoveTo 233 60 self)
 			)
@@ -206,6 +224,7 @@
 			)
 			(3
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(if (& (ego onControl:) $1800)
 					(self cue:)
 				else
@@ -231,6 +250,7 @@
 					smallFont
 				)
 				(HandsOn)
+				(= isHandsOff FALSE)
 				(if sittingInPlane (User canControl: 0))
 				(stewardess setMotion: MoveTo 232 72 self)
 			)
@@ -277,15 +297,150 @@
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if (ClickedOnObj keith (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(996 ;talk
+								(if sittingInPlane
+									(AirplanePrint 40 10)
+								else
+									(AirplanePrint 40 11)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj stewardess (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print {It's the door to the cockpit.})	
+							)
+							(995 ;hand
+								(cond 
+									((> (ego distanceTo: stewardess) 25)
+										(NotClose)
+									)
+									(else
+										(switch (Random 0 1)
+											(0
+												(AirplanePrint 154 22) ;The stewardess leans over, and quietly whispers in your ear...
+												(AirplanePrint 154 23) ;"You dirt bag!"
+											)
+											(else
+												(AirplanePrint 154 18) ;The stewardess screams out, "You low life!
+											)
+										)
+									)
+								)
+							)
+							(996 ;talk
+								(cond 
+									((> (ego distanceTo: stewardess) 25) (NotClose))
+									(local1 (AirplanePrint 40 14))
+									(sittingInPlane (AirplanePrint 40 15))
+									(else (AirplanePrint 40 16))
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj cockpitDoor (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print {It's the door to the cockpit.})	
+							)
+							(995
+								(if (& (ego onControl:) $1000) ;red
+									(AirplanePrint
+										(Format
+											@str
+											40
+											5
+											(if sittingInPlane {_} else { find your seat and_})
+										)
+										67
+										10
+										15
+										33
+										smallFont
+									)
+								else
+									(NotClose)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnPicView (ScriptID regJet 3) (event x?) (event y?)) ;sonny's seat
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;hand
+								(cond 
+									(sittingInPlane
+										(if (not wearingSeatbelt)
+											(= wearingSeatbelt 1)
+											(SolvePuzzle 1 163)
+											(Print {You fasten your seatbelt.})
+											(if (< state 2)
+												(self changeState: 1)
+											else
+												(self changeState: 20)
+											)
+										else
+											(Print 40 17) ;Wait until the plane has reached cruising altitude.
+										)
+									)
+									((not (ego inRect: 210 56 239 64)) (AirplanePrint 40 9))
+									(else
+										(if (and (== state 0) (> seconds 2)) (= seconds 2))
+										(ego setScript: egoSit)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(evSAID
 				(cond 
 					((Said 'look/pane') (AirplanePrint 40 8))
 					((Said 'sat')
 						(cond 
-							(sittingInPlane (event claimed: 0))
+							(sittingInPlane
+								(event claimed: 0)
+							)
 							((not (ego inRect: 210 56 239 64)) (AirplanePrint 40 9))
 							(else
-								(if (and (== state 0) (> seconds 2)) (= seconds 2))
+								(if(and (== state 0) (> seconds 2)) (= seconds 2))
 								(ego setScript: egoSit)
 							)
 						)
@@ -319,8 +474,7 @@
 							(else (AirplanePrint 40 16))
 						)
 					)
-					(
-					(Said 'unfasten,unbuckle,remove,(get<off)/belt,belt')
+					((Said 'unfasten,unbuckle,remove,(get<off)/belt,belt')
 						(if wearingSeatbelt
 							(Print 40 17)
 						else
@@ -402,6 +556,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(= sittingInPlane 1)
 				(ego
 					view: 82
@@ -431,6 +586,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(= local2 0)
 				(guard posn: 300 75)
 				(if (& (ego onControl:) $1800)
@@ -515,12 +671,14 @@
 			(4 (= state 2) (self cue:))
 			(10
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(= local0 0)
 				(AirplanePrint 40 23)
 				(= seconds 2)
 			)
 			(11
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(AirplanePrint 40 24)
 				(= seconds 2)
 			)
@@ -531,6 +689,7 @@
 			(13 (self changeState: 19))
 			(18
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(AirplanePrint 40 26)
 				(= seconds 2)
 			)
@@ -542,6 +701,7 @@
 			)
 			(20
 				(HandsOff)
+				(= isHandsOff TRUE)
 				(AirplanePrint 40 28)
 				(stewardess setLoop: 3)
 				(ego setCycle: BegLoop self)
@@ -582,6 +742,7 @@
 			)
 			(24
 				(HandsOn)
+				(= isHandsOff FALSE)
 				(= global168 1)
 				(curRoom newRoom: 20)
 			)

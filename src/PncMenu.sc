@@ -640,8 +640,21 @@
 							((Inventory at: (- theCursor 100)) showSelf:)
 						)	
 					)
+					;airplane override
+					(
+						(and 
+							(== (event claimed?) FALSE)
+							(or
+								(== curRoomNum 40)
+								(== curRoomNum 41)
+								(== curRoomNum 42)
+								(== curRoomNum 43)
+							)
+						)
+						;ignore so clicks pass to jet script 77
+					)
 					;Room defaults if nothing else is clicked on.
-					(else 
+					(else
 						(switch theCursor
 							(999 ;walk
 								(event type: 1 claimed: 0)
@@ -649,9 +662,9 @@
 							(998 ;look
 								(event type: 1 claimed: 1)
 								(switch (Random 42 44)
-								(42 (Print {It's just as it appears.}))
-								(43 (Print {It doesn't look interesting.}))
-								(44 (Print {You see nothing special.}))
+									(42 (Print {It's just as it appears.}))
+									(43 (Print {It doesn't look interesting.}))
+									(44 (Print {You see nothing special.}))
 								)
 							)
 							(996 ;talk 

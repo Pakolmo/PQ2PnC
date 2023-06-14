@@ -5,11 +5,13 @@
 (use Intrface)
 (use Game)
 (use Actor)
+(use Gun)
 
 (public
 	jet 0
 	AirplanePrint 1
 	GoToBathroom 2
+	seat1 3
 )
 (synonyms
 	(attendant attendant)
@@ -112,20 +114,136 @@
 					)
 				)
 			)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(cond
+						(;sonny's seat
+							(and
+								(ClickedOnPicView seat1 (event x?) (event y?))
+								(== (event claimed?) FALSE)
+							)
+							(event claimed: TRUE)
+							(switch theCursor
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(;other seats
+							(and
+								(or
+									(ClickedOnPicView seat2 (event x?) (event y?))
+									(ClickedOnPicView seat3 (event x?) (event y?))
+									(ClickedOnPicView seat4 (event x?) (event y?))
+									(ClickedOnPicView seat5 (event x?) (event y?))
+									(ClickedOnPicView seat6 (event x?) (event y?))
+									(ClickedOnPicView seat7 (event x?) (event y?))
+									(ClickedOnPicView seat8 (event x?) (event y?))
+									(ClickedOnPicView seat9 (event x?) (event y?))
+									(ClickedOnPicView seat10 (event x?) (event y?))
+									(ClickedOnPicView seat11 (event x?) (event y?))
+									(ClickedOnPicView seat12 (event x?) (event y?))
+									(ClickedOnPicView seat13 (event x?) (event y?))
+									(ClickedOnPicView seat14 (event x?) (event y?))
+									(ClickedOnPicView seat15 (event x?) (event y?))
+									(ClickedOnPicView seat16 (event x?) (event y?))
+								)
+								(== (event claimed?) FALSE)
+							)
+							(event claimed: TRUE)
+							(switch theCursor
+								(998
+									(AirplanePrint 154 37) ;There are all types of passengers on board:...
+								)
+								(996
+									(if (not sittingInPlane)
+										(switch (Random 81 85)
+											(81 (AirplanePrint 154 11))
+											(82 (AirplanePrint 154 12))
+											(83 (AirplanePrint 154 13))
+											(84 (AirplanePrint 154 14))
+											(85 (AirplanePrint 154 15))
+										)
+									else
+										(Print 154 16)
+									)	
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else ;override from pncMenu for room 40-43
+							(switch theCursor
+								(999 ;walk
+									(event type: 1 claimed: 0)
+								)
+								(998 ;look
+									(event type: 1 claimed: 1)
+									(switch (Random 42 44)
+										(42 (Print {It's just as it appears.}))
+										(43 (Print {It doesn't look interesting.}))
+										(44 (Print {You see nothing special.}))
+									)
+								)
+								(996 ;talk 
+									(event type: 1 claimed: 1)
+									(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+								)
+								(995 ;hand
+									(event type: 1 claimed: 1)
+									(Print {(What do you want to take?.)}) ;"What do you want to take?"
+								)
+								(997 ;wait sierra
+									(event type: 1 claimed: 1)
+								)
+								(990 ;clicked anywhere with gun
+									(if gunDrawAllowed
+										(event claimed: TRUE)
+										(draw)
+									else
+										(Print 0 34)
+									)
+								)
+								(100 ;or with gun inventory item 
+									(if gunDrawAllowed
+										(event claimed: TRUE)
+										(draw)
+									else
+										(Print 0 34)
+									)
+								)
+								(994 ;gun target
+									(event claimed: TRUE)
+									(fire)
+								)
+								(else ;inventory item
+									(event type: 1 claimed: 1)
+									(Print {no need to use that here.}) ;"no need to use that here"
+								)
+							)
+						)
+					)
+				)
+			)
 			(saidEvent
 				(cond 
 					((Said '/compartment')
-						(AirplanePrint 154 4)
+						(AirplanePrint 154 4) ;The compartments above the seats are for storing carry-on luggage, but since you have none, you do not need to bother with them.
 					)
 					((Said '/door>')
 						(cond 
 							((Said 'open,beat')
 								(cond 
 									((& (ego onControl:) cLMAGENTA)
-										(Print 154 5)
+										(Print 154 5) ;The rest room is occupied.
 									)
 									((& (ego onControl:) cLRED)
-										(Print 154 6)
+										(Print 154 6) ;The cockpit door is locked. Access is for crew members only.
 									)
 									(else
 										(NotClose)
@@ -135,10 +253,10 @@
 							((Said 'knock,beat')
 								(cond 
 									((& (ego onControl:) cLMAGENTA)
-										(Print 154 7)
+										(Print 154 7) ;It's empty. Just go in.
 									)
 									((& (ego onControl:) cLRED)
-										(Print 154 8)
+										(Print 154 8) ;You knock, but no one answers.
 									)
 									(else
 										(NotClose)
@@ -170,42 +288,42 @@
 					((Said 'pinch[/attendant]')
 						(cond 
 							((not (cast contains: stewardess))
-								(Print 154 17)
+								(Print 154 17) ;She's not here.
 							)
 							((> (ego distanceTo: stewardess) 25)
 								(NotClose)
 							)
 							(else
-								(AirplanePrint 154 18)
+								(AirplanePrint 154 18) ;The stewardess screams out, "You low life! Leave your hands to yourself!"
 							)
 						)
 					)
 					((Said 'chat,call/attendant')
 						(cond 
 							((not (cast contains: stewardess))
-								(Print 154 17)
+								(Print 154 17) ;She's not here.
 							)
 							((> (ego distanceTo: stewardess) 25)
 								(NotClose)
 							)
 							(else
-								(AirplanePrint 154 19)
+								(AirplanePrint 154 19) ;The stewardess does not seem interested in talking with you at this time.
 							)
 						)
 					)
 					((Said 'use,go/crapper,bathroom,(chamber<(bath,rest))')
-						(Print 154 20)
+						(Print 154 20) ;The bathroom is in the back of the plane.
 					)
 					((Said 'display/badge')
 						(cond 
 							((not (cast contains: stewardess))
-								(Print 154 17)
+								(Print 154 17) ;She's not here.
 							)
 							((> (ego distanceTo: stewardess) 25)
 								(NotClose)
 							)
 							(else
-								(AirplanePrint 154 21)
+								(AirplanePrint 154 21) ;She looks at your ID and then says..."Hello there, Officer Bonds."
 							)
 						)
 					)
@@ -218,21 +336,21 @@
 								(NotClose)
 							)
 							(else
-								(AirplanePrint 154 22)
-								(AirplanePrint 154 23)
+								(AirplanePrint 154 22) ;The stewardess leans over, and quietly whispers in your ear...
+								(AirplanePrint 154 23) ;"You dirt bag!"
 							)
 						)
 					)
 					((Said 'fasten,deposit,wear,buckle/belt,belt')
 						(cond 
 							((not sittingInPlane)
-								(Print 154 24)
+								(Print 154 24) ;You are not sitting down.
 							)
 							(wearingSeatbelt
-								(Print 154 25)
+								(Print 154 25) ;Your seat belt is already buckled.
 							)
 							(else
-								(Print 154 26)
+								(Print 154 26) ;ok
 								(= wearingSeatbelt TRUE)
 							)
 						)
@@ -241,39 +359,39 @@
 					(Said 'unfasten,unbuckle,remove,(get<off)/belt,belt')
 						(cond 
 							((not sittingInPlane)
-								(Print 154 24)
+								(Print 154 24) ;;You are not sitting down.
 							)
 							((not wearingSeatbelt)
-								(Print 154 27)
+								(Print 154 27) ;Your seat belt is already unbuckled.
 							)
 							(wearingSeatbelt
-								(Print 154 26)
+								(Print 154 26) ;ok
 								(= wearingSeatbelt FALSE)
 							)
 						)
 					)
 					((Said 'sat')
 						(if sittingInPlane
-							(Print 154 28)
+							(Print 154 28) ;you already are
 						else
-							(Print 154 29)
+							(Print 154 29) ;You are not near enough to your seat.
 						)
 					)
 					((Said 'stand,(get<up)')
 						(cond 
 							(wearingSeatbelt
-								(Print 154 30)
+								(Print 154 30) ;It's a little hard to do that while your seat belt is fastened.
 							)
 							((not sittingInPlane)
 								(Print 154 31)
 							)
 							(else
-								(Print 154 32)
+								(Print 154 32) ;You don't need to right now.
 							)
 						)
 					)
 					((Said 'buy,order')
-						(Print 154 33)
+						(Print 154 33) ;The stewardess is not serving drinks now.
 					)
 					((Said '/captain')
 						(AirplanePrint 154 34))
@@ -290,7 +408,7 @@
 								)
 							)
 							((Said '/passenger')
-								(AirplanePrint 154 37)
+								(AirplanePrint 154 37) ;There are all types of passengers on board: businessmen, families, singles, and old folks.
 							)
 							((Said '/dude,broad')
 								(AirplanePrint 154 38)
