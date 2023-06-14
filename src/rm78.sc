@@ -7,6 +7,10 @@
 (use Game)
 (use Actor)
 (use System)
+(use Sound)
+(use Wander)
+(use Avoider)
+(use User)
 
 (public
 	rm78 0
@@ -14,6 +18,26 @@
 
 (local
 	pitman
+	keithIsHere
+	muggerGone
+	mugger
+	local3
+	toldMuggerToHalt
+	calledKeith
+	muggerScared
+	local7
+	local8
+	local9
+	newProp
+	local11
+	local12
+	egoX
+	egoY
+	local15
+	readMuggerRights
+	local17
+	font
+	cartel
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 15)
@@ -39,7 +63,8 @@
 		(NormalEgo)
 		(HandsOn)
 		(if (Btst 140) (Bclr 140))
-		((Prop new:)
+;;;		((Prop new:) ;font
+			((= font (Actor new:))
 			view: 190
 			posn: 151 115
 			loop: 0
@@ -47,7 +72,8 @@
 			init:
 			startUpd:
 		)
-		((View new:)
+;;;		((View new:) ;cartel
+		((= cartel (Actor new:))
 			view: 190
 			posn: 48 188
 			loop: 1
@@ -80,7 +106,7 @@
 					loop: 0
 					posn: 110 200
 					init:
-					stopUpd:
+;;;					stopUpd:
 				)
 				(ego view: 0 loop: 0 posn: 144 200 init: stopUpd:)
 				(HandsOff)
@@ -203,6 +229,97 @@
 				)
 			)
 		)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			(if	(ClickedInRect 220 249 127 166 event) ;telefono
+						(event claimed: TRUE)
+						(switch theCursor	
+						(995
+							(if (& (ego onControl: 1) $0002)
+							(localproc_000c 78 31)
+						else
+							(NotClose)
+						)
+						)			
+						(998
+							(if (ego inRect: 185 170 240 189)
+								(localproc_000c 78 14)
+							else
+								(localproc_000c 78 13)
+							)
+						)				
+				(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+
+				(if (ClickedOnObj cartel (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor				
+						(998
+							(localproc_000c 78 18)
+						)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					
+
+				
+				(if (ClickedOnObj font (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor				
+						(998
+							(localproc_000c 78 15)
+						)
+						(996 ;wish
+							(localproc_000c 78 17)
+						)
+						(995 ;wash
+							(localproc_000c 78 16)
+						)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+			
+								
+														
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(localproc_000c 78 2)	
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
 	)
 )
 
@@ -249,3 +366,4 @@
 		)
 	)
 )
+;;;

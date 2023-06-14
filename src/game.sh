@@ -61,6 +61,7 @@
 	iColbyCard			;35
 	iMarieDoorNote		;36
 	iLPDBusinessCard	;37
+	iWarrant			;38
 )
 
 ;door states
@@ -235,6 +236,7 @@
 	fPnCVolumeFlag						;170
 	fPnCHideWestRose					;171
 	fPnCAdjustSights					;172
+	fPnCPreventRadio					;173
 )
 
 (define SaveSize 1200)

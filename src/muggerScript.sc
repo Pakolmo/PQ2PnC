@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 77)
-(include sci.sh)
+;;;(include sci.sh)
+(include game.sh)
 (use Main)
 (use Intrface)
 (use Wander)
@@ -34,6 +35,7 @@
 	local15
 	readMuggerRights
 	local17
+
 )
 (procedure (localproc_0036)
 	(Print &rest #at -1 15)
@@ -172,11 +174,12 @@
 				(ego setMotion: 0)
 				(localproc_0045 ego mugger)
 				(User canControl: 0)
-				(= cycles 70)
+				(= cycles 170) ;70
 			)
 			(3
 				(HandsOff)
-				(localproc_0036 77 34 25 4)
+				(Bset fPnCPreventRadio)
+				(localproc_0036 77 34 25 4) ;"_Vamos a divertirnos!" dice el ladr/n.
 				(self cue:)
 			)
 			(4
@@ -194,6 +197,7 @@
 			(5
 				(newProp loop: 2 setCycle: Forward)
 				(mugMusic play: self)
+				
 			)
 			(6
 				((View new:)
@@ -214,6 +218,7 @@
 			(8 (EgoDead 77 36))
 			(9
 				(User canControl: 1)
+				(HandsOff)
 				(mugger
 					view: 52
 					setStep: 6 4
@@ -246,8 +251,9 @@
 				else
 					(= muggerFleeing 1)
 					(mugger dispose:)
+					(HandsOn)
 				)
-				(= cycles 2)
+				(= cycles 2) ;2
 			)
 			(11
 				(localproc_0036 77 37 83)
@@ -383,11 +389,11 @@
 			(16
 				(User canInput: 1)
 				(localproc_0036 77 39 83)
-				(= cycles 100)
+				(= cycles 300) ;100
 			)
 			(17
 				(if (not local7)
-					(localproc_0036 77 40 25 8)
+					(localproc_0036 77 40 25 8) ;"Well," Keith says, "if you won't talk to him, I will!"
 					(localproc_0036 77 41)
 					(localproc_0036 77 42 25 8)
 					(self cue:)
@@ -457,6 +463,179 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+;;;
+			
+
+				(if (and (ClickedOnObj ego (event x?) (event y?)) 
+							(cast contains: mugger)
+					)
+
+						
+						
+					
+						(event claimed: TRUE)
+						(switch theCursor
+			
+						(130 ;walky	
+
+;;;						(if (and (== (mugger view?) 32)
+;;;								(== (ego view?) 88)
+;;;							)
+;;;							
+;;;							
+;;;						else
+						
+
+							
+							
+						                                                                                                       (if (ego has: 30)
+                                                                                                       (cond
+                                                                                                                      (keithIsHere (localproc_0036 77 9))
+                                                                                                                      ((and local3 (not muggerScared) (not (Bset 173)))
+                                                                                                                                     (if (not calledKeith) (SolvePuzzle 5) (cSound stop:))
+                                                                                                                                     (= calledKeith 1)
+                                                                                                                                     (localproc_0036 77 10)
+                                                                                                                                     (localproc_0036 77 11)
+                                                                                                                      )
+                                                                                                                      ((and local3 muggerScared (not muggerScared) (not (Bset 173))
+                                                                                                                                     (if (not calledKeith) (SolvePuzzle 5) (cSound stop:))
+                                                                                                                                     (= calledKeith 1)
+                                                                                                                                     (localproc_0036 77 10)
+                                                                                                                      )
+
+						
+																													  )
+																									   )
+																															   )
+						)
+
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+			
+
+		
+		
+		
+
+
+
+				(if (ClickedOnObj mugger (event x?) (event y?)) 
+
+						(event claimed: TRUE)
+						(switch theCursor
+						(107 ;wallet
+							(if
+							(and
+								(cast contains: mugger)
+								(<= (mugger distanceTo: ego) 50)
+							)
+							(= toldMuggerToHalt 1)
+							(localproc_0036 77 5)
+						else
+							(localproc_0036 77 8)
+						)
+							)
+						(104 ;money
+						(cond 
+							((or (not local3) (not muggerFleeing)) (localproc_0036 77 25))
+							((and local3 (not muggerScared)) (localproc_0036 77 26))
+							(else (localproc_0036 77 27))
+						)
+						)	
+						(996
+							;leer derechos
+						(if keithIsHere
+							(if (not readMuggerRights)
+								(SolvePuzzle 2)
+								(= readMuggerRights 1)
+							)
+							(localproc_0036 77 24)
+						else
+							(localproc_0036 77 25)
+						)
+						;interrogar
+							(cond 
+							((not local3) (localproc_0036 77 25))
+							(muggerGone (localproc_0036 77 28))
+							((and keithIsHere (not local7))
+								(if (not local17) (= local17 1) (SolvePuzzle 2))
+								(localproc_0036 77 29)
+								(= local7 1)
+							)
+							((and keithIsHere local7) (localproc_0036 77 30))
+							((and local3 (not keithIsHere)) (localproc_0036 77 31))
+						)
+						)			
+;;;						(130 ;walky	
+;;;							(if (ego has: 30)
+;;;							(cond 
+;;;								(keithIsHere (localproc_0036 77 9))
+;;;								((and local3 (not muggerScared))
+;;;									(if (not calledKeith) (SolvePuzzle 5) (cSound stop:))
+;;;									(= calledKeith 1)
+;;;									(localproc_0036 77 10)
+;;;									(localproc_0036 77 11)
+;;;								)
+;;;								((and local3 muggerScared (not muggerFleeing))
+;;;									(if (not calledKeith) (SolvePuzzle 5) (cSound stop:))
+;;;									(= calledKeith 1)
+;;;									(localproc_0036 77 10)
+;;;								)
+;;;								(muggerGone (localproc_0036 77 12))
+;;;								(muggerFleeing
+;;;									(switch (Random 1 4)
+;;;										(1
+;;;											(localproc_0036 77 13)
+;;;											(localproc_0036 77 14)
+;;;											(localproc_0036 77 15)
+;;;										)
+;;;										(2 (localproc_0036 77 16))
+;;;										(3 (localproc_0036 77 17))
+;;;										(4 (localproc_0036 77 18))
+;;;									)
+;;;								)
+;;;								((not muggerFleeing) (localproc_0036 77 19))
+;;;							)
+;;;						else
+;;;							(localproc_0036 77 20)
+;;;						)
+;;;						)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+
+			)
+					)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(switch (event type?)
 			(evSAID
 				(cond 

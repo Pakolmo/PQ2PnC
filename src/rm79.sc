@@ -10,6 +10,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Sound)
 
 (public
 	rm79 0
@@ -20,13 +21,29 @@
 	duck2
 	[local2 2]
 	dogIsHere
-	dog
+;;;	dog
 	dogIsGone
 	local7
 	local8
 	local9
 	[local10 3]
 	muggerTimer
+	keithIsHere
+	muggerGone
+	mugger
+	local3
+	toldMuggerToHalt
+	calledKeith
+	muggerScared
+
+	newProp
+	local11
+	local12
+	egoX
+	egoY
+	local15
+	readMuggerRights
+	local17
 )
 (procedure (localproc_000c)
 	(Print &rest #at -1 15)
@@ -226,7 +243,113 @@
 				)
 			)
 		)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+
+				(if	(or (ClickedInRect 155 185 137 147 event) ;rock1
+					(ClickedInRect 177 197 79 89 event) ;rock2
+				)
+					
+						(event claimed: TRUE)
+						(switch theCursor
+						(998
+							(localproc_000c 79 14)
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+	
+							
+							
+							
+				(if (or (ClickedOnObj duck1 (event x?) (event y?)) 
+						(ClickedOnObj duck2 (event x?) (event y?)) 
+					)
+					
+						(event claimed: TRUE)
+						(switch theCursor
+						(995 ;kill duck
+							(localproc_000c 79 31)
+						)
+						(998
+							(localproc_000c 79 18)
+						)
+						(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+
+				(if (ClickedOnObj dog (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+						(998 ;dog
+							(cond 
+								(dogIsHere (localproc_000c 79 0))
+								(dogIsGone (localproc_000c 79 1))
+								(else (localproc_000c 79 2))
+						)
+						)							
+						(995 ;dog
+							(cond 
+								(dogIsHere (localproc_000c 79 0))
+								(dogIsGone (localproc_000c 79 1))
+								(else (localproc_000c 79 2))
+						)	
+						)					
+						(996 ;dog
+							(cond 
+								(dogIsHere (localproc_000c 79 0))
+								(dogIsGone (localproc_000c 79 1))
+								(else (localproc_000c 79 2))
+						)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)	
+							
+							
+								
+														
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(localproc_000c 79 4)	
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
 	)
+)
+(instance dog of Actor
 )
 
 (instance doggieScript of Script
@@ -236,7 +359,8 @@
 		(switch (= state newState)
 			(0
 				(= dogIsHere 1)
-				((= dog (Actor new:))
+;;;				((= dog (Actor new:))
+				(dog
 					view: 191
 					loop: 0
 					setStep: 6 4

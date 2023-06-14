@@ -19,7 +19,7 @@
 	[local1 2]
 	local3
 	dogIsHere
-	dog
+;;;	dog
 	dogIsGone
 	dogTimer
 	[local8 4]
@@ -29,7 +29,8 @@
 (procedure (localproc_000c)
 	(Print &rest #at -1 15)
 )
-
+(instance dog of Actor
+)
 (instance rm82 of Room
 	(properties
 		picture 82
@@ -241,6 +242,86 @@
 				)
 			)
 		)
+		
+		
+		
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+
+							
+
+
+				(if (ClickedOnObj dog (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor
+						(998 ;dog
+					(cond 
+							(dogIsHere (localproc_000c 82 1))
+							(dogIsGone (localproc_000c 82 2))
+							(else (localproc_000c 82 3))
+						)
+						)							
+						(995 ;dog
+					(cond 
+							(dogIsHere (localproc_000c 82 1))
+							(dogIsGone (localproc_000c 82 2))
+							(else (localproc_000c 82 3))
+						)
+						)					
+						(996 ;dog
+					(cond 
+							(dogIsHere (localproc_000c 82 1))
+							(dogIsGone (localproc_000c 82 2))
+							(else (localproc_000c 82 3))
+						)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)	
+							
+						
+			
+								
+														
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(localproc_000c 82 4)	
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	)
 )
 
@@ -251,7 +332,8 @@
 		(switch (= state newState)
 			(0
 				(= dogIsHere 1)
-				((= dog (Actor new:))
+;;;				((= dog (Actor new:))
+				(dog
 					view: 191
 					loop: 0
 					setStep: 6 4
