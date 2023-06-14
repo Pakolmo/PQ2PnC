@@ -480,6 +480,7 @@
 				(if (ClickedOnObj keith (event x?) (event y?)) 
 						(event claimed: TRUE)
 						(switch theCursor
+
 							(998
 								(if (< (ego x?) 137)
 									(localproc_000c 101 9)
@@ -523,7 +524,13 @@
 					)
 						(event claimed: TRUE)
 						(switch theCursor
-
+							(998
+									(if (> (ego x?) 137)
+									(localproc_000c 101 11)
+								else
+									(localproc_000c 101 12)
+								)
+							)
 							(995 ;Get
 								(cond 
 							(
