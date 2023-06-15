@@ -1346,21 +1346,70 @@
 						)	
 					)
 				)	
-				(if (ClickedOnObj captain (event x?) (event y?))	;captain "hall".
+				(if (ClickedOnObj captain (event x?) (event y?)) ;captain "hall"
 					(event claimed: TRUE)
 					(switch theCursor
 						(988
 							(Print 4 64) ;"Captain Fletcher Hall is a very large man with an over-powering presence."
-						)				
+						)
+						(35 ;colby card	
+							(if
+								(and
+									(Btst fReportedMarieMissingToCaptain)
+									(== gamePhase 12) 
+								)
+								(captainScript changeState: 28)
+							else
+								(event claimed: FALSE)
+							)
+						)
+						(13 ;hitlist
+							(if
+								(and
+									(Btst fReportedMarieMissingToCaptain)
+									(== gamePhase 12) 
+								)
+								(captainScript changeState: 28)
+							else
+								(event claimed: FALSE)
+							)
+						)		
 						(996 ;talk captain
-							(if (!= isOnDuty 1)
-								(if (== (captain loop?) 3)
-									(Print 4 17)
-								else
-									(Print 4 18)
+							(if ;captain wants solid leads
+								(and
+									(Btst fReportedMarieMissingToCaptain)
+									(== gamePhase 12) 
+								)
+								(cond 
+									((not (ego inRect: 70 131 122 156))
+										(NotClose)
+									)
+									((not captainCanTalk)
+										(Print 4 3)
+									)
+									(
+										(or
+											(ego has: iHitList)
+											(ego has: iColbyCard)
+											(Btst fBookedColbyCard)
+											(Btst fBookedHitList)
+										)
+											(captainScript changeState: 28)
+									)
+									(else
+										(Print 4 4)
+									)
 								)
 							else
-								(captainScript changeState: 14)
+								(if (!= isOnDuty 1)
+									(if (== (captain loop?) 3)
+										(Print 4 17)
+									else
+										(Print 4 18)
+									)
+								else
+									(captainScript changeState: 14)
+								)
 							)
 						)
 						(else	

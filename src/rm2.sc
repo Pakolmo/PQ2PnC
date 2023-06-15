@@ -64,6 +64,21 @@
 				(Bset fGotPoints) ;125
 			)
 			(= bookedEvidence 1) ;is this seems wrong, test it
+;;;			(switch invItem
+;;;				(13
+;;;					(if (Btst fBookedColbyCard)
+;;;						(= gamePhase 13)
+;;;					)
+;;;				)
+;;;				(35
+;;;					(if (Btst fBookedHitList)
+;;;						(= gamePhase 13)
+;;;					)
+;;;				)
+;;;			)
+			(SolvePuzzle 1)
+			(Bset flag)
+			(ego put: invItem 2)
 			(switch invItem
 				(13
 					(if (Btst fBookedColbyCard)
@@ -76,9 +91,6 @@
 					)
 				)
 			)
-			(SolvePuzzle 1)
-			(Bset flag)
-			(ego put: invItem 2)
 			(LocPrint &rest)
 			(return 1)
 		else
@@ -671,12 +683,12 @@
 						(LocPrint 2 63)
 						(bigJonScript changeState: 9)
 					)
-					(31
-						(ProcessEvidence 31 127 2 44)
-					)
-					(35
-						(ProcessEvidence 35 136 2 54)
-					)
+;;;					(31
+;;;						(ProcessEvidence 31 127 2 44)
+;;;					)
+;;;					(35
+;;;						(ProcessEvidence 35 136 2 54)
+;;;					)
 					(131
 						(ProcessEvidence 31 127 2 44)
 					)
@@ -708,10 +720,10 @@
 						(ProcessEvidence 18 139 2 52)
 					)
 					(113
-						(ProcessEvidence 13 135 2 53)
+						(ProcessEvidence 13 135 2 53) ;hitlist
 					)
 					(135
-						(ProcessEvidence 35 136 2 54)
+						(ProcessEvidence 35 136 2 54) ;colbycard
 					)
 					(125
 						(ProcessEvidence 25 137 2 55)
