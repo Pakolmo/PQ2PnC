@@ -1352,7 +1352,7 @@
 						(988
 							(Print 4 64) ;"Captain Fletcher Hall is a very large man with an over-powering presence."
 						)
-						(35 ;colby card	
+						(135 ;colby card	
 							(if
 								(and
 									(Btst fReportedMarieMissingToCaptain)
@@ -1363,7 +1363,7 @@
 								(event claimed: FALSE)
 							)
 						)
-						(13 ;hitlist
+						(113 ;hitlist
 							(if
 								(and
 									(Btst fReportedMarieMissingToCaptain)
