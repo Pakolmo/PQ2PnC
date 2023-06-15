@@ -367,7 +367,7 @@ code_1ba3:
 								)
 							)
 							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
-								(if (or (< gamePhase 8) (Btst 95))
+								(if (or (> gamePhase 8) (< gamePhase 1) (Btst 95))
 									(localproc_1a28)
 								else
 									(= changeScript 3) ;talkingToColby
@@ -995,7 +995,7 @@ code_1ba3:
 				(PersonSpeak 12 56) ;Hello, Detective Bonds. Is there something I can do for you?
 				(= local5 1)
 				(= state 2)
-				(if (< gamePhase 1) ;bain still in jail
+				(if (> gamePhase 1) ;bain has escaped
 					(if (Btst 94)
 						(PersonSpeak 12 59) ;Yeah, Bonds, I got your message. We have put the phone tap on Colby's phone.
 						(PersonSpeak 12 60) ;Thanks and bye.
