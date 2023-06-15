@@ -271,7 +271,8 @@
 					(if (== (event message?) KEY_RETURN)
 						(switch enteringPassword
 							(1 ;homicide
-								(if (not (StrCmp @str {ICECREAM})) ;matched password
+								;(if (not (StrCmp @str {ICECREAM})) ;matched password
+								(if (not (StrCmp @str {HELADO}))
 									(ClearScreen)
 									(= curDir 4)
 									(= enteringPassword 0)
@@ -281,7 +282,8 @@
 								)
 							)
 							(2 ;personal
-								(if (not (StrCmp @str {PISTACHIO}))
+								;(if (not (StrCmp @str {PISTACHIO}))
+								(if (not (StrCmp @str {PISTACHO}))	
 									(ClearScreen)
 									(= curDir 2)
 									(= enteringPassword 0)
