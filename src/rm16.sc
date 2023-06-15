@@ -417,7 +417,7 @@
 													#button {coarsegold} 4
 													#button {america} 5												
 												)
-											)
+										)
 											(switch ticket
 												(1 ;houston
 													
@@ -491,11 +491,11 @@
 												)
 											)
 									)
-
 									
 									
 									
 								)
+							
 								(107 ;show id badge
 								(= newEvent (Event new:))
 								(newEvent
@@ -549,7 +549,7 @@
 				)
 					)
 		
-		
+	
 		
 		
 		
@@ -2817,7 +2817,7 @@ code_17b9:
 						(LocPrint 16 99)
 					)
 					((Btst fTriedToGoToHouston)
-						(= lista 2)	
+						(= lista 1)	
 						(LocPrint 16 100)
 					)
 					((Btst fHoustonAuthorized)
@@ -2963,7 +2963,7 @@ code_17b9:
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(= lista 2)
+				(= lista 1)
 				(LocPrint 16 121)
 				(= local15 1)
 				(keith setMotion: 0)
