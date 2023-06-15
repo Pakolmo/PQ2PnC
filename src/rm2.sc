@@ -92,6 +92,8 @@
 				)
 			)
 			(LocPrint &rest)
+			(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
+			(= itemIcon 900)
 			(return 1)
 		else
 			(return 0)
