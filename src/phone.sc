@@ -519,7 +519,7 @@ code_1ba3:
 						#at 10 125
 						#button {Steelton} 1
 						#button {Lytton} 2
-						#button {Hurston} 4
+						#button {Houston} 4
 						#button {Coarsegold} 3
 						#button {Cancel} 5
 					)				
@@ -541,7 +541,7 @@ code_1ba3:
 						(self changeState: 2)
 					)
 					(4
-						(BondsSpeak {Hurston.})
+						(BondsSpeak {Houston.})
 						(= infoLocation 4)
 						(self changeState: 2)
 					)
@@ -663,7 +663,7 @@ code_1ba3:
 							)
 						)
 					)
-					(4 ;hurston
+					(4 ;Houston
 					 	(= temp0
 							(PrintSpecial
 								{Name:}
