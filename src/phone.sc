@@ -367,7 +367,7 @@ code_1ba3:
 								)
 							)
 							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
-								(if (or (> gamePhase 8) (< gamePhase 1) (Btst 95))
+								(if (or (< gamePhase 1) (Btst 95))
 									(localproc_1a28)
 								else
 									(= changeScript 3) ;talkingToColby
