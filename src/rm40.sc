@@ -117,7 +117,7 @@
 			ignoreActors:
 			init:
 			cycleSpeed: 1
-			stopUpd:
+			;stopUpd:
 		)
 		((Prop new:) ;back of plane
 			view: 82
@@ -326,7 +326,7 @@
 						(event claimed: TRUE)
 						(switch theCursor
 							(998
-								(Print {It's the door to the cockpit.})	
+								(AirplanePrint 154 36)
 							)
 							(995 ;hand
 								(cond 
@@ -373,16 +373,11 @@
 								(if (& (ego onControl:) $1000) ;red
 									(AirplanePrint
 										(Format
-											@str
-											40
-											5
+											@str 40 5
 											(if sittingInPlane {_} else { find your seat and_})
 										)
-										67
-										10
-										15
-										33
-										smallFont
+										#at 10 15
+										#font smallFont
 									)
 								else
 									(NotClose)
@@ -511,25 +506,31 @@
 				(stewardess setMotion: MoveTo 268 60 self)
 			)
 			(2
-				(cockpitDoor startUpd: setCycle: EndLoop self)
+				(cockpitDoor
+					;startUpd:
+					setCycle: EndLoop self
+				)
 			)
 			(3
-				(cockpitDoor stopUpd:)
+				;(cockpitDoor stopUpd:)
 				(stewardess setPri: 0 setMotion: MoveTo 280 50 self)
 			)
 			(4
-				(cockpitDoor startUpd: setCycle: BegLoop self)
+				(cockpitDoor
+					;startUpd:
+					setCycle: BegLoop self
+				)
 				(stewardess hide:)
 			)
 			(5
-				(cockpitDoor stopUpd:)
+				;(cockpitDoor stopUpd:)
 				(client setScript: 0)
 			)
 			(6
 				(cockpitDoor setCycle: EndLoop self)
 			)
 			(7
-				(cockpitDoor stopUpd:)
+				;(cockpitDoor stopUpd:)
 				(stewardess
 					show:
 					startUpd:
@@ -542,7 +543,7 @@
 				(cockpitDoor setCycle: BegLoop self)
 			)
 			(9
-				(cockpitDoor stopUpd:)
+				;(cockpitDoor stopUpd:)
 				(client setScript: 0)
 			)
 		)
@@ -799,7 +800,7 @@
 		(super doit:)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp drinkOrder)
 		(switch (= state newState)
 			(0
 				(= local8 (localproc_0036 0 4))
@@ -840,16 +841,77 @@
 			)
 			(3 (self changeState: 0))
 			(4
-				(AirplanePrint 40 32)
+				(AirplanePrint 40 32) ;"We have beer, wine, bourbon, soda, water and coffee" she says. "Which would you prefer?"
 				(= askedForOrder 0)
-				(= cycles 120)
+				(= drinkOrder
+					(PrintSpecial
+						{Get:}
+						#at 10 125
+						#button {Beer} 1
+						#button {Wine} 2
+						#button {Bourbon} 3
+						#button {Soda} 4
+						#button {Water} 5
+						#button {Coffee} 6
+						#button {Number} 7
+						#button {Nothing} 0
+	
+					)
+				)
+				(switch drinkOrder
+					(4 ;soda
+						(if (>= dollars 2)
+							(= dollars (- dollars 2))
+							(AirplanePrint 40 45)
+							(AirplanePrint 40 46)
+							(self changeState: 6)
+						else
+							(Print 40 47)
+						)
+					)
+					(5 ;water
+						(AirplanePrint 40 49)
+						(AirplanePrint 40 51)
+						(self changeState: 6)
+					)
+					(6 ;coffe
+						(AirplanePrint 40 49)
+						(AirplanePrint 40 50)
+						(self changeState: 6)
+					)
+					(7 ;phone number
+						(AirplanePrint 40 42) ;She says, "Honey, I don't give out my phone number to guys like you."
+						(self changeState: 0)
+					)
+					(0
+						(AirplanePrint 40 43) ;"If you would like anything, just call me."
+						(self changeState: 5)
+					)
+					(else ;booze
+						(if (>= dollars 3)
+							(++ alcoholicDrinksConsumed)
+							(= dollars (- dollars 3))
+							(AirplanePrint 40 52)
+							(AirplanePrint 40 53)
+							(AirplanePrint 40 54)
+							(cond 
+								((== alcoholicDrinksConsumed 3) (Print 40 55))
+								((== alcoholicDrinksConsumed 2) (Print 40 56))
+							)
+							(self changeState: 6)
+						else
+							(Print 40 47)
+						)	
+					)
+				)
+				;(= cycles 120)
 			)
 			(5
-				(AirplanePrint 40 33 67 40 40)
+				(AirplanePrint 40 33 67 40 40) ;"Excuse me, sir." ;Call the stewardess if you would like to talk to her.?
 				(self changeState: 0)
 			)
 			(6
-				(AirplanePrint 40 34)
+				(AirplanePrint 40 34) ;She says, "If you would like anything else, just call me."
 				(self changeState: 0)
 			)
 			(7 (= cycles 20) (= seconds 0))
@@ -874,6 +936,80 @@
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if (ClickedOnObj keith (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor
+							(996 ;talk
+								(if sittingInPlane
+									(AirplanePrint 40 10)
+								else
+									(AirplanePrint 40 11)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnPicView (ScriptID regJet 3) (event x?) (event y?)) ;sonny's seat
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;hand
+								(cond 
+									(sittingInPlane
+										(if wearingSeatbelt
+											(= wearingSeatbelt 0)
+											(Print {You unfasten your seatbelt.})
+										else
+											(Print 40 36)
+										)
+									)
+									((not (ego inRect: 210 56 239 64)) (AirplanePrint 40 9))
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj stewardess (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 154 36)
+							)
+							(996 ;talk
+								(if sittingInPlane
+									(if (!= state 4)
+										(= local7 1)
+									else
+								
+									)
+								else		
+									(AirplanePrint 40 11)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(evSAID
 				(cond 
 					((Said 'affirmative')
@@ -902,7 +1038,7 @@
 					)
 					((Said 'call/attendant')
 						(if (== state 4)
-							(Print 40 37)
+							(Print 40 37) ;She's right here!
 						else
 							(Print 40 18 #at 40 30 #font smallFont)
 							(= local7 1)
@@ -920,12 +1056,12 @@
 						(if (!= state 4)
 							(Print 40 41)
 						else
-							(AirplanePrint 40 42)
+							(AirplanePrint 40 42) ;She says, "Honey, I don't give out my phone number to guys like you."
 						)
 					)
 					((Said '/none')
 						(if (== state 4)
-							(AirplanePrint 40 43)
+							(AirplanePrint 40 43) ;"If you would like anything, just call me."
 							(self changeState: 5)
 						else
 							(event claimed: 0)
