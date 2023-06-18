@@ -315,11 +315,18 @@
 		)
 		(cond 
 			(
+				
 			(and (< (ego x?) 20) local4 (not goingToThePark))
-				(= goingToThePark 1)
+				
 				(ego illegalBits: -32768)
 				(keith illegalBits: -32768)
-				(self setScript: toTheParkScript)
+						
+
+					 (if(ego has: 30)
+					 	(= goingToThePark 1)
+					(self setScript: toTheParkScript)
+						)
+				
 			)
 			(
 			(and (< (ego x?) 20) (not local4) (not local14)) (= local14 1) (localproc_000c 101 0))
@@ -913,11 +920,17 @@
 	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
 			(0
+
+
 				(cast eachElementDo: #dispose)
 				(curRoom drawPic: 104 7)
 				(= cycles 2)
+
+
 			)
 			(1
+
+
 				(Display
 					101
 					59
@@ -937,8 +950,15 @@
 				)
 				(temp0 dispose:)
 				(self cue:)
+
+
 			)
-			(2 (curRoom newRoom: 78))
-		)
+			(2 
+
+				
+				(curRoom newRoom: 78))
+			)
+
+
 	)
 )
