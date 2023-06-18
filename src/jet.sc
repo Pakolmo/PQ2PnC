@@ -10,7 +10,7 @@
 (public
 	jet 0
 	AirplanePrint 1
-	GoToBathroom 2
+	InitPassengers 2
 	seat1 3
 )
 (synonyms
@@ -24,7 +24,7 @@
 	)
 )
 
-(procedure (GoToBathroom)
+(procedure (InitPassengers)
 	(addToPics
 		add:
 			toilet
@@ -68,7 +68,7 @@
 		(switch (event type?)
 			(keyDown
 				(cond 
-					((== (= evt (event message?)) `#6)
+					((== (= evt (event message?)) `#6) ;load
 						(event claimed: TRUE)
 						(cond 
 							((not (ego has: iHandGun))
@@ -203,16 +203,14 @@
 								)
 								(990 ;clicked anywhere with gun
 									(if gunDrawAllowed
-										(event claimed: TRUE)
-										(draw)
+										(Print 41 1) ;dont need to use gun right now
 									else
 										(Print 0 34)
 									)
 								)
 								(100 ;or with gun inventory item 
 									(if gunDrawAllowed
-										(event claimed: TRUE)
-										(draw)
+										(Print 41 1) ;dont need to use gun right now
 									else
 										(Print 0 34)
 									)

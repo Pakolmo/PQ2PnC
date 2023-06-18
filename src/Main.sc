@@ -453,6 +453,7 @@
 	;disable ego control
 	(User canControl: FALSE canInput: FALSE)
 	(ego setMotion: 0)
+	(= isHandsOff TRUE)
 
 )
 
@@ -460,6 +461,7 @@
 	;enable ego control
 	(User canControl: TRUE canInput: TRUE)
 	(ego setMotion: 0)
+	(= isHandsOff FALSE)
 )
 (procedure (DontHaveGun)
 	(Print 0 36)

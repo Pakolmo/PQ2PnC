@@ -127,7 +127,7 @@
 			setPri: 15
 			addToPic:
 		)
-		(GoToBathroom)
+		(InitPassengers)
 		(= sittingInPlane 0)
 		(= wearingSeatbelt 0)
 		(= alcoholicDrinksConsumed 0)
@@ -167,7 +167,6 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(ego setMotion: MoveTo 285 70 self)
 				(keith setMotion: MoveTo 280 62)
 				(stewardess loop: 0)
@@ -179,7 +178,6 @@
 			(2
 				(stewardess loop: 2)
 				(HandsOn)
-				(= isHandsOff FALSE)
 				(ego illegalBits: -32768)
 				(keith setMotion: MoveTo 233 60 self)
 			)
@@ -224,7 +222,6 @@
 			)
 			(3
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(if (& (ego onControl:) $1800)
 					(self cue:)
 				else
@@ -250,7 +247,6 @@
 					smallFont
 				)
 				(HandsOn)
-				(= isHandsOff FALSE)
 				(if sittingInPlane (User canControl: 0))
 				(stewardess setMotion: MoveTo 232 72 self)
 			)
@@ -423,6 +419,25 @@
 							)
 						)
 					)
+					(if
+						(and
+							(ClickedInRect 0 320 20 190 event) ;clicked anywhare else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(999
+								(if sittingInPlane
+									(Print 40 58)
+								else
+									(event claimed: FALSE)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
 				)
 			)
 			(evSAID
@@ -557,7 +572,6 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(= sittingInPlane 1)
 				(ego
 					view: 82
@@ -587,7 +601,6 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(= local2 0)
 				(guard posn: 300 75)
 				(if (& (ego onControl:) $1800)
@@ -672,14 +685,12 @@
 			(4 (= state 2) (self cue:))
 			(10
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(= local0 0)
 				(AirplanePrint 40 23)
 				(= seconds 2)
 			)
 			(11
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(AirplanePrint 40 24)
 				(= seconds 2)
 			)
@@ -690,7 +701,6 @@
 			(13 (self changeState: 19))
 			(18
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(AirplanePrint 40 26)
 				(= seconds 2)
 			)
@@ -702,7 +712,6 @@
 			)
 			(20
 				(HandsOff)
-				(= isHandsOff TRUE)
 				(AirplanePrint 40 28)
 				(stewardess setLoop: 3)
 				(ego setCycle: BegLoop self)
@@ -743,7 +752,6 @@
 			)
 			(24
 				(HandsOn)
-				(= isHandsOff FALSE)
 				(= global168 1)
 				(curRoom newRoom: 20)
 			)
@@ -1001,6 +1009,25 @@
 									)
 								else		
 									(AirplanePrint 40 11)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 20 190 event) ;clicked anywhare else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(999
+								(if sittingInPlane
+									(Print 40 58)
+								else
+									(event claimed: FALSE)
 								)
 							)
 							(else

@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 41)
-(include sci.sh)
+;(include sci.sh)
+(include game.sh)
 (use Main)
 (use jet)
 (use Intrface)
@@ -10,6 +11,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Gun)
 
 (use Wander)
 
@@ -25,7 +27,7 @@
 	local102
 	local103
 	newProp
-	hijacker2
+	;hijacker2
 )
 (instance hijackMusic of Sound
 	(properties
@@ -61,25 +63,24 @@
 	)
 	
 	(method (init)
-		(Load rsVIEW 0)
-		(Load rsVIEW 4)
-		(Load rsVIEW 6)
-		(Load rsVIEW 26)
-		(Load rsVIEW 82)
-		(Load rsVIEW 83)
-		(Load rsVIEW 89)
-		(Load rsVIEW 84)
-		(Load rsVIEW 142)
-		(Load rsVIEW 23)
-		(Load rsVIEW 24)
-		(Load rsVIEW 20)
-		(Load rsVIEW 141)
-		(Load rsSOUND 36)
-		(Load rsSOUND 41)
-		(Load rsSOUND 41)
+		(Load VIEW 0)
+		(Load VIEW 4)
+		(Load VIEW 6)
+		(Load VIEW 26)
+		(Load VIEW 82)
+		(Load VIEW 83)
+		(Load VIEW 89)
+		(Load VIEW 84)
+		(Load VIEW 142)
+		(Load VIEW 23)
+		(Load VIEW 24)
+		(Load VIEW 20)
+		(Load VIEW 141)
+		(Load SOUND 36)
+		(Load SOUND 41)
+		(Load SOUND 41)
 		(super init:)
 		(self setLocales: 154)
-		(curRoom setRegions: 950)
 		(ego
 			view: 82
 			setLoop: 3
@@ -108,18 +109,18 @@
 			setCycle: Walk
 			init:
 		)
-		((= newProp (Prop new:))
+		((= newProp (Prop new:)) ;cockpit door? or bathroom
 			view: 82
 			posn: 271 55
 			loop: 8
 			cel: 0
 			setPri: 0
 			ignoreActors:
-			stopUpd:
+			;stopUpd:
 			cycleSpeed: 1
 			init:
 		)
-		((Prop new:)
+		((Prop new:)  ;rear of plane
 			view: 82
 			posn: 51 191
 			loop: 2
@@ -147,7 +148,7 @@
 			ignoreActors:
 			init:
 		)
-		(GoToBathroom)
+		(InitPassengers)
 		(= sittingInPlane 1)
 		(= local101 1)
 		(= gunNotNeeded 0)
@@ -170,7 +171,7 @@
 		(switch (event type?)
 			(evKEYBOARD
 				(cond 
-					((== (= temp0 (event message?)) 16896)
+					((== (= temp0 (event message?)) $4400) ;draw
 						(event claimed: 1)
 						(cond 
 							((not (ego has: 0)) (Print 41 0))
@@ -187,7 +188,7 @@
 							(else (event claimed: 0))
 						)
 					)
-					((== temp0 KEY_F10)
+					((== temp0 $4400) ;KEY_F10) ;fire
 						(event claimed: 1)
 						(cond 
 							((not (ego has: 0)) (DontHaveGun))
@@ -201,45 +202,53 @@
 				)
 			)
 		)
-(cond
-						(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-
-				(if (ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
-					(event claimed: TRUE)
-					(switch theCursor
-						(994 ;Kill
-
-						(if (not sittingInPlane)
-							(ego setScript: egoAction)
-							(egoAction changeState: 3)
-						else
-							(ego setScript: egoAction)
-							(egoAction changeState: 3)
-						)
-						)
-					
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				
-		
-				
-				
-				
-				
-			
-						)
-)
-		
-		
-
-
-)
+;;;		(cond
+;;;			(
+;;;				(and
+;;;					(== (event type?) evMOUSEBUTTON)
+;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;				)
+;;;				(if (ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(994 ;Kill
+;;;							(cond 
+;;;								((not (ego has: 0)) (DontHaveGun))
+;;;								((not gunDrawn) (Print 41 3))
+;;;								((== local101 1) (Print 41 1))
+;;;								((or (== local101 0) sittingInPlane) (event claimed: 1))
+;;;								((== [numAmmoClips bulletsInGun] 0) (Print 41 4 #time 3))
+;;;								(else 
+;;;									(if (not sittingInPlane)
+;;;										(ego setScript: egoAction)
+;;;										(egoAction changeState: 3)
+;;;									else
+;;;										(ego setScript: egoAction)
+;;;										(egoAction changeState: 3)
+;;;									)	
+;;;								)
+;;;							)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;				(if
+;;;					(and
+;;;						(ClickedInRect 0 320 20 190 event) ;clicked anywhare else
+;;;						(== (event claimed?) FALSE)
+;;;					)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(994 ;target
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;			)
+;;;		)	
 	)
 )
 
@@ -257,12 +266,13 @@
 			)
 			(2
 				(hijacker1 setMotion: MoveTo 262 72 self)
-				(= [numAmmoClips bulletsInGun] 7) ;add to test gun.
+				;(= [numAmmoClips bulletsInGun] 7) ;add to test gun.
 			)
 			(3
 				(hijacker1 loop: 2)
 				(hijacker1 setScript: hijacker1Actions)
 				(curRoom setScript: StageThree)
+				
 			)
 		)
 	)
@@ -270,6 +280,78 @@
 	(method (handleEvent event)
 		(super handleEvent: event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if
+						(and
+							(ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 41 6)
+							)
+							(996
+								(AirplanePrint 41 10)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and 
+							(or
+								(ClickedOnObj hijacker1 (event x?) (event y?)) ;hihacker1
+								(ClickedOnObj hijacker2 (event x?) (event y?)) ;hijacker2
+							)
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 41 7)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 20 190 event) ;clicked anywhare else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(999
+								(if wearingSeatbelt
+									(AirplanePrint 41 2)
+								else
+									(AirplanePrint 40 58)
+								)
+							)
+							(990 ;gun/arma
+								(Print 41 1)
+							)
+							(100 ;gun/arma
+								(Print 41 1)
+							)
+							(994 ;target
+								(Print 41 1)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(evSAID
 				(cond 
 					((Said 'look>')
@@ -328,13 +410,13 @@
 	(properties)
 	
 	(method (init)
-		(Load rsVIEW 24)
-		(Load rsVIEW 23)
-		(Load rsVIEW 26)
-		(Load rsVIEW 27)
-		(Load rsVIEW 141)
-		(Load rsVIEW 142)
-		(Load rsVIEW 143)
+		(Load VIEW 24)
+		(Load VIEW 23)
+		(Load VIEW 26)
+		(Load VIEW 27)
+		(Load VIEW 141)
+		(Load VIEW 142)
+		(Load VIEW 143)
 		
 	)
 	
@@ -372,14 +454,184 @@
 	(method (handleEvent event)
 		(super handleEvent: event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+										(if
+						(and
+							(ClickedOnPicView (ScriptID regJet 3) (event x?) (event y?)) ;sonny's seat
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;hand
+								(cond 
+									(sittingInPlane
+										(cond 
+											(wearingSeatbelt
+												(= wearingSeatbelt 0)
+												(Print {You unfasten your seatbelt.})
+											)
+											(else (ego setScript: egoAction) (egoAction changeState: 1))
+										)	
+									)
+									((not (ego inRect: 210 56 239 64)) (AirplanePrint 40 9))
+									(else
+										(if (and (== state 0) (> seconds 2)) (= seconds 2))
+										(ego setScript: egoSit)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and 
+							(or
+								(ClickedOnObj hijacker1 (event x?) (event y?)) ;hihacker1
+								(ClickedOnObj hijacker2 (event x?) (event y?)) ;hijacker2
+							)
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(994
+								(cond 
+									((not (ego has: 0)) (DontHaveGun))
+									((not gunDrawn) (Print 41 3))
+									((== local101 1) (Print 41 1))
+									((or (== local101 0) sittingInPlane) (event claimed: 1))
+									((== [numAmmoClips bulletsInGun] 0) (Print 41 4 #time 3))
+									(else
+										(event claimed: 0)
+										(fire)
+									)
+								)
+							)
+							(995
+								(AirplanePrint 41 13)
+							)
+							(996 ;talk
+								(AirplanePrint 41 23)
+							)
+							(998
+								(switch (Random 0 1)
+									(0 
+										(AirplanePrint 41 17)
+									)
+									(else
+										(AirplanePrint 41 19)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 41 18)
+							)
+							(996
+								(AirplanePrint 41 24)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 0 320 20 190 event) ;clicked anywhare else
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(990 ;clicked anywhere with gun
+								(if gunDrawAllowed
+									(cond 
+										((not (ego has: 0)) (Print 41 0))
+										((== local101 1) (Print 41 1))
+										((== local101 0) 0)
+										(wearingSeatbelt (AirplanePrint 41 2))
+										(sittingInPlane
+											(= local102 1)
+											(= gunDrawn 1)
+											(= global205 0)
+											(ego setScript: egoAction)
+											(egoAction changeState: 1)
+										)
+										(else (event claimed: 0))
+									)
+								else
+									(Print 0 34)
+								)
+							)
+							(100 ;clicked anywhere with gun
+								(if gunDrawAllowed
+									(cond 
+										((not (ego has: 0)) (Print 41 0))
+										((== local101 1) (Print 41 1))
+										((== local101 0) 0)
+										(wearingSeatbelt (AirplanePrint 41 2))
+										(sittingInPlane
+											(= local102 1)
+											(= gunDrawn 1)
+											(= global205 0)
+											(ego setScript: egoAction)
+											(egoAction changeState: 1)
+										)
+										(else (event claimed: 0))
+									)
+								else
+									(Print 0 34)
+								)
+							)
+							(994
+								;(event claimed: TRUE)
+								(fire)
+							)
+							(999
+								(if wearingSeatbelt
+									(AirplanePrint 41 2)
+								else 
+									(if sittingInPlane
+										(ego setScript: egoAction)
+										(egoAction changeState: 1)	
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(evSAID
 				(cond 
 					((Said 'kill,beat') (AirplanePrint 41 13))
 					((Said 'fire/hijacker,dude') (Print 41 14))
 					((Said 'stand,(get<up)')
 						(cond 
-							((not sittingInPlane) (AirplanePrint 41 15))
-							(wearingSeatbelt (AirplanePrint 41 2))
+							((not sittingInPlane)
+								(AirplanePrint 41 15)
+							)
+							(wearingSeatbelt
+								(AirplanePrint 41 2)
+							)
 							(else (ego setScript: egoAction) (egoAction changeState: 1))
 						)
 					)
@@ -435,6 +687,9 @@
 				)
 			)
 			(2
+				(if local102 
+					(theGame setCursor: 994 (HaveMouse))
+				)
 				(ego
 					view: (if (not local102) 0 else 6)
 					posn: 229 59
@@ -917,6 +1172,35 @@
 			(15
 				(HandsOn)
 				(curRoom newRoom: 42)
+			)
+		)
+	)
+)
+
+(instance egoSit of Script
+	(properties)
+	
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(HandsOff)
+				(= sittingInPlane 1)
+				(ego
+					view: 82
+					setLoop: 3
+					setCel: 0
+					ignoreActors:
+					illegalBits: 0
+					posn: 212 72
+					cycleSpeed: 1
+					setMotion: 0
+					setPri: 3
+					setCycle: EndLoop self
+				)
+			)
+			(1
+				(User canInput: 1)
+				(ego setScript: 0)
 			)
 		)
 	)
