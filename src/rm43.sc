@@ -97,7 +97,7 @@
 			setPri: 2
 			addToPic:
 		)
-		(GoToBathroom)
+		(InitPassengers)
 		(HandsOff)
 		(self setScript: StageFive)
 	)

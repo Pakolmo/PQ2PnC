@@ -101,7 +101,7 @@
 		(ego posn: 230 61)
 	)
 	(ego illegalBits: -32768 init:)
-	(GoToBathroom)
+	(InitPassengers)
 )
 
 (procedure (localproc_0e92 &tmp bombTimerSeconds temp1 temp2 temp3)
@@ -740,7 +740,7 @@
 				(localproc_02f6)
 				(curRoom picture: 40)
 				(curRoom drawPic: (curRoom picture?) style: 0)
-				(GoToBathroom)
+				(InitPassengers)
 				(newProp_2 posn: 50 1000)
 				(ego posn: 46 165)
 				(newProp_3 stopUpd:)
