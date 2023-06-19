@@ -1464,8 +1464,10 @@
 						&tmp theDialog textI iconI editI
 						ret i atX atY fixWidth keepIt default curPort
 						[buttons 16] buttonWide buttonsUsed butAtX
-						[buffer 1000] buttonHeight
+						[buffer 1000] buttonHeight oldCur
 				)
+		(= oldCur theCursor)
+		(theGame setCursor:993 (HaveMouse))
 
 ;	(define	MAXBUTTONS	5)
 
@@ -1722,6 +1724,9 @@
 
 		; dispose of the dialog and all its elements
 	(theDialog dispose:)
+	(= theCursor oldCur)
+	(theGame setCursor: oldCur (HaveMouse))
+
 	(return ret)
 )
 
@@ -1989,6 +1994,7 @@
 
 		; dispose of the dialog and all its elements
 	(theDialog dispose:)
+
 	(return ret)
 )
 
