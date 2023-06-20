@@ -19,8 +19,8 @@
 	[local4 4]
 	duck
 	lookedDown
-	manhole
-	manholeCloseup
+;;;	manhole
+;;;	manholeCloseup
 	dogIsHere
 ;;;	dog
 	dogIsGone
@@ -35,6 +35,10 @@
 	(Print &rest #at -1 15)
 )
 (instance dog of Actor
+)
+(instance manholeCloseup of View
+)
+(instance manhole of View
 )
 (instance rm81 of Room
 	(properties
@@ -64,7 +68,8 @@
 		(= gunNotNeeded 0)
 		(= gunFireState 1)
 		(= local20 100)
-		((= manhole (View new:))
+;;;		((= manhole (View new:))
+		(manhole
 			view: 261
 			loop: 2
 			cel: (if manholeIsOpen 1 else 0)
@@ -230,7 +235,8 @@
 								(if (ego inRect: 0 160 132 200)
 									(if (not manholeIsOpen)
 										(if (not foundManhole)
-											((= manholeCloseup (View new:))
+;;;											((= manholeCloseup (View new:))
+											(manholeCloseup												
 												view: 261
 												loop: 0
 												cel: 3
@@ -362,9 +368,86 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 
-
+				(if (and (ClickedOnObj manhole (event x?) (event y?))
+						(cast contains: manhole))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if (ego inRect: 0 160 132 200)
+									(if (not manholeIsOpen)
+										(SolvePuzzle 1 100)
+										(localproc_000c 81 18)
+										(localproc_000c 81 19)
+										(= lookedDown 1)
+									else
+										(localproc_000c 81 20)
+										(= lookedDown 1)
+									)
+								else
+									(localproc_000c 81 21)
+								)
+							)
+							(995
+								(if (ego inRect: 40 170 102 189)
+							(if (not manholeIsOpen)
+								(coverScript changeState: 0)
+							else
+								(localproc_000c 81 56)
+							)
+						else
+							(localproc_000c 81 31)
+						)
+							)
+						(999
+							(= climbingDown 1)
+						(cond 
+							(manholeIsOpen (exitScript changeState: 0))
+							(lookedDown (not manholeIsOpen) (localproc_000c 81 59))
+							(else (localproc_000c 81 60))
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							
-
+							
+							
+							
+						
+				(if (and (ClickedOnObj manholeCloseup (event x?) (event y?))
+						(cast contains: manholeCloseup))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if (ego inRect: 40 170 102 189)
+								(if (not manholeIsOpen)
+									(localproc_000c 81 57)
+								else
+									(localproc_000c 81 58)
+								)
+							else
+								(localproc_000c 81 31)
+							)					
+							)
+							(995
+								(= climbingDown 1)
+								(cond 
+									(manholeIsOpen (exitScript changeState: 0))
+									(lookedDown (not manholeIsOpen) (localproc_000c 81 59))
+									(else (localproc_000c 81 60))
+								)
+							)
+							(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+					
+					
+					
+					
 
 				(if (ClickedOnObj dog (event x?) (event y?)) 
 						(event claimed: TRUE)
@@ -522,7 +605,8 @@
 							(not foundManhole)
 							(not (cast contains: manholeCloseup))
 						)
-						((= manholeCloseup (View new:))
+;;;						((= manholeCloseup (View new:))
+						(manholeCloseup
 							view: 261
 							loop: 0
 							cel: 4

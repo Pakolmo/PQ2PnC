@@ -25,7 +25,7 @@
 		(Load rsVIEW 301)
 		(self setRegions: 205)
 		(if (== prevRoomNum 121)
-			(= methaneGasTimer 80)
+			(= methaneGasTimer 180) ;80
 		else
 			(= methaneGasTimer -1)
 		)
@@ -135,11 +135,11 @@
 	(method (doit)
 		(cond 
 			(sewerCutscene 0)
-			((< (ego y?) 170) (if (== methaneGasTimer -1) (= methaneGasTimer 80)))
+			((< (ego y?) 170) (if (== methaneGasTimer -1) (= methaneGasTimer 80))) ;80)))
 			((== methaneGasTimer -1) 0)
 			(else
 				(cond 
-					((>= methaneGasTimer 60) 0)
+					((>= methaneGasTimer 79) 0) ;60) 0)
 					((not wearingGasMask) (Print 122 0))
 					(else (Print 122 1))
 				)
@@ -152,7 +152,7 @@
 			((>= (ego y?) 190) (curRoom newRoom: 124))
 			((<= (ego x?) 3)
 				(cond 
-					((> methaneGasTimer 60) 0)
+					((> methaneGasTimer 79) 0) ;60) 0)
 					((not wearingGasMask) (Print 122 0))
 					(else (Print 122 1))
 				)
@@ -186,6 +186,83 @@
 				((Said 'get') (Print 122 4))
 			)
 		)
+		
+
+	
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: 30)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: 32))
+;;;									(Print 205 28)
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: 32))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+			)
+						)
+						
+
+	
+		
+		
+		
+		
+		
 	)
 	
 	(method (cue)

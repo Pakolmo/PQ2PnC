@@ -172,6 +172,115 @@
 				)
 			)
 		)
+		
+		
+		
+	
+
+	
+	
+	
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+				(if (ClickedOnObj door (event x?) (event y?)) ;clicked on door
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 131 2)
+							)
+							(995
+								(Print 131 3)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+							
+	
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: 30)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: 32))
+;;;									(Print 205 28)
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: 32))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+	
+
+
+			)
+						)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	)
 )
 

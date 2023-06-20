@@ -14,12 +14,16 @@
 
 (local
 	pipe
-	cabinet
+;;;	cabinet
 	local2
 	[sewage 4]
 	local7
 	cabinetIsOpen
 	[str 100]
+)
+(instance cabinet of Prop
+)
+(instance gasMask of View
 )
 (instance rm126 of Room
 	(properties
@@ -57,7 +61,8 @@
 			ignoreActors: 1
 			init:
 		)
-		((View new:)
+;;;		((View new:)
+		(gasMask
 			view: 92
 			loop: 4
 			cel: (if (ego has: 32) 0 else 1)
@@ -67,7 +72,8 @@
 			init:
 			addToPic:
 		)
-		((= cabinet (Prop new:))
+;;;		((= cabinet (Prop new:))
+		(cabinet
 			view: 92
 			loop: 3
 			cel: 0
@@ -231,6 +237,201 @@
 				)
 			)
 		)
+	
+		
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+
+				(if (and (ClickedOnObj gasMask (event x?) (event y?)) ;gasmask
+					(cast contains: gasMask))
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+														(cond 
+							((ego has: 32) (event claimed: 0))
+							((not cabinetIsOpen) (Print 126 1))
+							(else (Print 126 4))
+						)
+							)
+							(995
+								(cond 
+							((ego has: 32) (Print 126 0))
+							((not cabinetIsOpen) (Print 126 1))
+							(else
+								(Print 126 2)
+								(ego get: 32)
+								((View new:)
+									view: 92
+									loop: 4
+									cel: 0
+									ignoreActors:
+									posn: 166 85
+									setPri: 1
+									init:
+									addToPic:
+								)
+								(SolvePuzzle 4)
+							)
+						)
+							)
+							(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+					
+					
+														
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							
+
+						(Print 126 8)
+						(Print
+							(Format
+								@str
+								126
+								9
+								(cond 
+									((not cabinetIsOpen) { closed})
+									((InRoom 32) {open with a gas mask in it})
+									(else { open and empty})
+								)
+							)
+						)	
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: 30)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: 32))
+;;;									(Print 205 28)
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: 32))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+	
+
+
+
+
+
+
+				(if (ClickedOnObj cabinet (event x?) (event y?)) ;clicked on cabinet
+											(event claimed: TRUE)
+						(switch theCursor
+					
+					
+					(998
+						(cond 
+							((not cabinetIsOpen) (Print 126 5))
+							((InRoom 32) (Print 126 6))
+							(else (Print 126 7))
+						)
+					)
+					(995
+						(cond 
+							(cabinetIsOpen (Print 126 3))
+							((ego inRect: 145 90 196 105) 
+							(= cabinetIsOpen 1)	
+																(cond 
+							((ego has: 32) (Print 126 0))
+							((not cabinetIsOpen) (Print 126 1))
+							(else
+								(Print 126 2)
+								(ego get: 32)
+								((View new:)
+									view: 92
+									loop: 4
+									cel: 0
+									ignoreActors:
+									posn: 166 85
+									setPri: 1
+									init:
+									addToPic:
+								)
+								(SolvePuzzle 4)
+							)
+								
+								
+								)
+;;;							(else (NotClose)
+	)
+						)
+					)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				)
+					)
+		
 	)
 )
 
@@ -243,12 +444,16 @@
 				(cabinet setCycle: EndLoop self)
 				(= cabinetIsOpen 1)
 			)
-			(2 (cabinet stopUpd:))
+			(2 
+				(cabinet stopUpd:)
+				)
 			(3
 				(cabinet setCycle: BegLoop self)
 				(= cabinetIsOpen 0)
 			)
-			(4 (cabinet stopUpd:))
+			(4
+				 (cabinet stopUpd:)
+				 )
 		)
 	)
 )

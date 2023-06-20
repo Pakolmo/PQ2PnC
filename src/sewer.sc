@@ -319,9 +319,9 @@
 	)
 	
 	(method (handleEvent event)
-		(if (or (event claimed?) (!= (event type?) saidEvent))
-			(return)
-		)
+;;;		(if (or (event claimed?) (!= (event type?) saidEvent))
+;;;			(return)
+;;;		)
 		(cond 
 			((Said 'look>')
 				(cond 
@@ -498,6 +498,87 @@
 				)
 			)
 		)
+		
+							(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: iWalkieTalkie)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: iGasMask))
+;;;									(Print 205 28) ;¿Qué máscara?
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: iGasMask))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+		
+		
+		
+			)
+							)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	)
 )
 

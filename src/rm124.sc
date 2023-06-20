@@ -192,6 +192,121 @@
 				)
 			)
 		)
+		
+		
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+
+
+
+
+
+
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: 30)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: 32))
+;;;									(Print 205 28)
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: 32))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+
+	
+
+
+
+
+
+
+				(if	(ClickedInRect 160 171 46 106 event) ;ladder
+						
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(Print 124 0)
+							)
+							(995
+								(if (not climbedUpLadder)
+;;;									(Print 124 3)
+								else
+									(ego setScript: ladderScript)
+									(ladderScript changeState: 3)
+								)
+
+								(cond 
+									((!= climbedUpLadder 0) (Print 124 4))
+									((& (ego onControl: 1) $0080)
+										(ego setScript: ladderScript)
+										(ladderScript changeState: 1)
+									)
+									(else (NotClose))
+								)
+							)
+							(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+			)
+					)
+		
+		
 	)
 )
 

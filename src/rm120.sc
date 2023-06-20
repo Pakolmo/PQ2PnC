@@ -22,6 +22,8 @@
 (instance sewerEntranceMusic of Sound
 	(properties)
 )
+(instance ladder of View
+)
 
 (instance rm120 of Room
 	(properties
@@ -65,7 +67,8 @@
 				init:
 			)
 		)
-		((View new:)
+;;;		((View new:)
+		(ladder
 			view: 295
 			loop: 4
 			cel: 0
@@ -116,7 +119,7 @@
 			ignoreActors: 1
 			init:
 		)
-		((Prop new:)
+		((Prop new:) 
 			view: 99
 			loop: 1
 			cel: 2
@@ -218,6 +221,130 @@
 				)
 			)
 		)
+		
+		
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnObj ladder (event x?) (event y?)) ;clicked on ladder
+											(event claimed: TRUE)
+						(switch theCursor
+						
+							(998
+								(Print 120 1)
+							)
+							(995
+								(if (not climbedUpLadder)
+;;;									(Print 120 2)
+								else
+									(ego setScript: ladderScript)
+									(ladderScript changeState: 5)
+								)
+								
+								(cond 
+									((!= climbedUpLadder 0) (Print 120 3))
+									((& (ego onControl: 1) $0080)
+										(ego setScript: ladderScript)
+										(ladderScript changeState: 3)
+									)
+									(else (NotClose))
+								)
+							)
+							
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
+											(event claimed: TRUE)
+						(switch theCursor
+							(130
+								(if (ego has: 30)
+									(Print 205 26)
+								else
+									(DontHave)
+								)
+												
+							)
+							(995
+							(cond 
+								((not (ego has: 32))
+;;;									(Print 205 28)
+								)
+								((not wearingGasMask)
+									(Print 205 29)
+								)
+								(else
+									(= wearingGasMask FALSE)
+									(if (== (ego view?) 296)
+										(ego view: 0)
+									else
+										(ego view: 6)
+									)
+								)
+							)
+							)
+						
+							(132
+								(cond 
+							((not (ego has: 32))
+								(Print 205 30)
+							)
+							((== methaneGasTimer -1)
+								(Print 205 31)
+							)
+							(wearingGasMask
+								(Print 205 32)
+							)
+							(else
+								(= wearingGasMask TRUE)
+								(if (== (ego view?) 0)
+									(ego view: 296)
+								else
+									(ego view: 306)
+								)
+							)
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+
+														
+					(if	(ClickedInRect 1 319 21 54 event) ;up
+				(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 120 0)	
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+		
+		
+		
+		
+		
+			)
+					)
+		
+		
+		
+		
+		
 	)
 )
 
