@@ -460,7 +460,7 @@
 						(== (event type?) evMOUSEBUTTON)
 						(not (& (event modifiers?) emRIGHT_BUTTON))
 					)
-										(if
+					(if
 						(and
 							(ClickedOnPicView (ScriptID regJet 3) (event x?) (event y?)) ;sonny's seat
 							(== (event claimed?) FALSE)
@@ -499,6 +499,7 @@
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
+						(= gunSightsAligned 1)
 						(switch theCursor
 							(994
 								(cond 
@@ -567,11 +568,13 @@
 										((== local101 0) 0)
 										(wearingSeatbelt (AirplanePrint 41 2))
 										(sittingInPlane
-											(= local102 1)
-											(= gunDrawn 1)
-											(= global205 0)
-											(ego setScript: egoAction)
-											(egoAction changeState: 1)
+											(if (not gunDrawn)
+												(= local102 1)
+												(= gunDrawn 1)
+												(= global205 0)
+												(ego setScript: egoAction)
+												(egoAction changeState: 1)
+											)
 										)
 										(else (event claimed: 0))
 									)
@@ -587,11 +590,13 @@
 										((== local101 0) 0)
 										(wearingSeatbelt (AirplanePrint 41 2))
 										(sittingInPlane
-											(= local102 1)
-											(= gunDrawn 1)
-											(= global205 0)
-											(ego setScript: egoAction)
-											(egoAction changeState: 1)
+											(if (not gunDrawn)
+												(= local102 1)
+												(= gunDrawn 1)
+												(= global205 0)
+												(ego setScript: egoAction)
+												(egoAction changeState: 1)
+											)
 										)
 										(else (event claimed: 0))
 									)
@@ -756,7 +761,7 @@
 				(cond 
 					((== (stewardess loop?) 1)
 						(stewardess
-							view: 89 ;83
+							view: 83 ;89 ;83
 							loop: 4
 							cel: 0
 							posn: 251 76
@@ -765,7 +770,7 @@
 					)
 					((!= local0 0)
 						(stewardess
-							view: 89 ;83
+							view: 83 ;89 ;83
 							loop: 4
 							posn: 251 76
 							setCycle: EndLoop self
@@ -790,7 +795,7 @@
 		(switch (= state newState)
 			(0
 				(ego
-					view: 89 ;83
+					view: 83 ;89 ;83
 					loop: 6
 					cel: 0
 					illegalBits: 0
@@ -821,7 +826,7 @@
 				(willKillTimer dispose: delete:)
 				(ego cel: 7)
 				(hijacker1
-					view: 89 ;83
+					view: 83 ;89 ;83
 					loop: 5
 					cel: 0
 					posn: (- (hijacker1 x?) 14) (hijacker1 y?)
@@ -854,7 +859,7 @@
 			(0
 				(stewardess posn: (stewardess x?) 1000)
 				(hijacker1
-					view: 89 ;83
+					view: 83 ;89 ;83
 					loop: 0
 					cel: 0
 					posn: 256 76
@@ -864,7 +869,7 @@
 			)
 			(1
 				(hijacker1
-					view: 89 ;83
+					view: 83 ;89 ;83
 					loop: 7
 					cel: 0
 					posn: 273 75
@@ -872,7 +877,7 @@
 					cycleSpeed: 2
 				)
 				(stewardess
-					view: 89 ; 83
+					view: 83 ;89 ;83
 					loop: 1
 					cel: 0
 					posn: 253 76
@@ -938,7 +943,7 @@
 			(6
 				(= local0 0)
 				(stewardess
-					view: 89 ;83
+					view: 83 ;89 ;83
 					posn: 253 76
 					loop: 1
 					cel: 0
@@ -946,7 +951,7 @@
 					setCycle: Forward
 				)
 				(hijacker1
-					view: 89 ;83
+					view: 83 ;89 ;83
 					posn: 273 75
 					loop: 7
 					cel: 0
@@ -969,7 +974,7 @@
 				(hijacker1Timer dispose: delete:)
 				(willKillTimer dispose: delete:)
 				(hijacker1
-					view: 142 ;84
+					view: 84 ;142 ;84
 					illegalBits: 0
 					ignoreActors:
 					loop: 0
@@ -1002,7 +1007,7 @@
 				(= local101 5)
 				(newProp setCycle: BegLoop)
 				(hijacker2
-					view: 141 ;27
+					view: 27 ;141 ;27
 					loop: 2
 					illegalBits: 0
 					ignoreActors:
@@ -1030,7 +1035,7 @@
 				(Format @str 41 39)
 				(if sittingInPlane
 					(ego
-						view: 89 ;83
+						view: 83 ;89 ;83
 						loop: 6
 						setCel: 255
 						illegalBits: 0
@@ -1049,7 +1054,7 @@
 				(hijacker1Timer dispose: delete:)
 				(hijacker2Timer dispose: delete:)
 				(hijacker2
-					view: 142 ;84
+					view: 84 ;142 ;84
 					loop: 1
 					cel: 0
 					setPri: (+ (hijacker2 priority?) 1)
@@ -1089,6 +1094,7 @@
 						setCel: 255
 						setCycle: BegLoop self
 					)
+					(theGame setCursor: 990 (HaveMouse))
 				else
 					(self cue:)
 				)

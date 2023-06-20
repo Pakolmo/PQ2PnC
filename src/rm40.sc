@@ -664,7 +664,7 @@
 (instance WildGooseChase of Script
 	(properties)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
 			(0 (= seconds 4))
 			(1
@@ -678,9 +678,26 @@
 			(3
 				(stewardess loop: 1 cel: 0)
 				(RedrawCast)
-				(AirplanePrint 40 22)
-				(= local0 1)
-				(= seconds 8)
+;;;				(AirplanePrint 40 22)
+;;;				(= local0 1)
+;;;				(= seconds 8)
+				(= temp0
+					(PrintSpecial
+						40 22
+						#button {Yes} 1
+						#button {No} 2
+						#at 10 10
+						#font smallFont
+					)
+				)
+				(switch temp0
+					(1
+						(WildGooseChase changeState: 18)
+					)
+					(else
+						(WildGooseChase changeState: 10)
+					)
+				)	 
 			)
 			(4 (= state 2) (self cue:))
 			(10
