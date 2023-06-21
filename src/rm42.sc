@@ -1,6 +1,7 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 42)
-(include sci.sh)
+;(include sci.sh)
+(include game.sh)
 (use Main)
 (use jet)
 (use Intrface)
@@ -15,6 +16,66 @@
 	rm42 0
 )
 
+(instance deadHijacker1 of Prop
+	(properties)
+)
+
+(instance deadHijacker2 of Prop
+	(properties)
+)
+
+(instance bathroomDoor of Prop
+	(properties)
+)
+
+(instance bathroomDoorFrame of Prop
+	(properties)
+)
+
+(instance anotherBathroomDoor of Prop
+	(properties)
+)
+
+(instance blueWire of Prop
+	(properties)
+)
+
+(instance whiteWire of Prop
+	(properties)
+)
+
+(instance yellowWire of Prop
+	(properties)
+)
+
+(instance purpleWire of Prop
+	(properties)
+)
+
+(instance TNT of View
+	(properties)
+)
+
+(instance towelDoor of Prop
+	(properties)
+)
+
+(instance firstDigit of Prop
+	(properties)
+)
+
+(instance secondDigit of Prop
+	(properties)
+)
+
+(instance thirdDigit of Prop
+	(properties)
+)
+
+(instance LCD of View
+	(properties)
+)
+
 (local
 	[str 100]
 	bombArmed
@@ -24,22 +85,22 @@
 	local104
 	local105
 	local106
-	newProp_3
-	newProp_2
-	newProp
+	;newProp_3
+	;newProp_2
+	;newProp
 	local110
 	theBombTimerSeconds
-	newProp_8
-	newProp_4
-	newProp_5
-	newProp_6
-	newProp_7
-	newView_2
-	newProp_9
-	newProp_10
-	newProp_11
+	;newProp_8
+	;newProp_4
+	;newProp_5
+	;newProp_6
+	;newProp_7
+	;newView_2
+	;newProp_9
+	;newProp_10
+	;newProp_11
 	local121
-	newView
+	;newView
 	local123
 	blueWireCut
 	whiteWireCut
@@ -47,25 +108,27 @@
 	purpleWireCut
 )
 (procedure (localproc_02f6)
-	((View new:)
+	(deadHijacker1 ;(View new:)
 		view: 84
 		loop: 0
 		cel: 3
 		posn: 263 75
 		ignoreActors:
 		setPri: 1
-		addToPic:
+		;addToPic:
+		init:
 	)
-	((View new:)
+	(deadHijacker2 ;(View new:)
 		view: 84
 		loop: 1
 		setCel: 255
 		posn: 268 60
 		ignoreActors:
 		setPri: 2
-		addToPic:
+		;addToPic:
+		init:
 	)
-	((= newProp (Prop new:))
+	(bathroomDoor ;(= newProp (Prop new:))
 		view: 82
 		posn: 271 55
 		loop: 8
@@ -74,9 +137,9 @@
 		ignoreActors:
 		cycleSpeed: 2
 		init:
-		stopUpd:
+		;stopUpd:
 	)
-	((= newProp_2 (Prop new:))
+	(bathroomDoorFrame ;(= newProp_2 (Prop new:))
 		view: 82
 		posn: 51 191
 		loop: 2
@@ -84,9 +147,9 @@
 		ignoreActors:
 		setPri: 15
 		init:
-		stopUpd:
+		;stopUpd:
 	)
-	((= newProp_3 (Prop new:))
+	(anotherBathroomDoor ;(= newProp_3 (Prop new:))
 		view: 82
 		posn: 65 158
 		loop: 5
@@ -94,7 +157,7 @@
 		setPri: 10
 		ignoreActors:
 		init:
-		stopUpd:
+		;stopUpd:
 	)
 	(if
 	(and (== 0 (ego x?)) (== (ego x?) (ego y?)))
@@ -124,9 +187,9 @@
 			(= temp1 10)
 			(if (not temp2) (= temp2 10))
 		)
-		(newProp_9 posn: 244 36 cel: temp1)
-		(newProp_10 posn: 254 36 cel: temp2)
-		(newProp_11 posn: 264 36 cel: temp3)
+		(firstDigit posn: 244 36 cel: temp1)
+		(secondDigit posn: 254 36 cel: temp2)
+		(thirdDigit posn: 264 36 cel: temp3)
 	)
 )
 
@@ -150,8 +213,7 @@
 	
 	(method (handleEvent event)
 		(cond 
-			(
-			(or (event claimed?) (!= (event type?) evSAID)) (return))
+			((or (event claimed?) (!= (event type?) evSAID)) (return))
 			((not local101)
 				(if (Said '/bracket,basin,garbage,crapper')
 					(NotClose)
@@ -239,10 +301,10 @@
 	)
 	
 	(method (init)
-		(Load rsVIEW 0)
-		(Load rsVIEW 82)
-		(Load rsVIEW 84)
-		(Load rsPIC 300)
+		(Load VIEW 0)
+		(Load VIEW 82)
+		(Load VIEW 84)
+		(Load PICTURE 300) ;was rsPIC
 		(super init:)
 		(self setLocales: 154)
 		(self setFeatures: Bathroom)
@@ -263,13 +325,35 @@
 		(if (not (self script?))
 			(cond 
 				(
-				(and (& (ego onControl:) $2000) (not local101)) (curRoom setScript: brDoor) (brDoor changeState: 10))
-				((and (& (ego onControl:) $0400) local101) (curRoom setScript: brDoor) (brDoor changeState: 1))
-				((and bombArmed (not local101)) (curRoom newRoom: 43))
+					(and
+						(& (ego onControl:) $2000)
+						(not local101)
+					)
+					(curRoom setScript: brDoor)
+					(brDoor changeState: 10)
+				)
+				(
+					(and
+						(& (ego onControl:) $0400)
+						local101
+					)
+					(curRoom setScript: brDoor)
+					(brDoor changeState: 1)
+				)
+				(
+					(and
+						bombArmed
+						(not local101)
+					)
+					(curRoom newRoom: 43)
+				)
 			)
 		)
 		(if (& (ego onControl:) $4000)
-			(if (not local105) (= local105 1) (Print 42 19))
+			(if (not local105)
+				(= local105 1)
+				(Print 42 19) ;It would not be a good idea to try to exit the plane at 25,000 feet.
+			)
 		else
 			(= local105 0)
 		)
@@ -287,12 +371,124 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (!= (event type?) evSAID) (return))
+		;(if (!= (event type?) evSAID) (return))
 		(cond 
 			((ego inRect: 255 50 300 75) (= local102 1))
 			((& (ego onControl:) $1800) (= local102 2))
 			((and (>= (ego y?) 57) (<= (ego y?) 143)) (= local102 3))
 			(else (= local102 0))
+		)
+		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					;(Printf {x: %d, y: %d} (event x?) (event y?))
+					(if
+						(and
+							(or
+								(ClickedInRect 295 302 52 63 event)
+								(ClickedInRect 285 298 63 72 event)
+							)
+							;(ClickedOnObj deadHijacker1 (event x?) (event y?)) ;unmasked
+							(== (event claimed?) FALSE)
+							(not local101) ;not in bathroom
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 42 30)
+							)
+							(995
+								(cond 
+									((!= local102 1) (NotClose))
+									((ego has: 33)
+										(= local104 2)
+										(AssignObjectToScript ego egoSearch)
+										(AirplanePrint 42 46)
+									)
+									(else
+										(= local104 2)
+										(AssignObjectToScript ego egoSearch)
+										(AirplanePrint 42 47)
+										(ego get: 33)
+										(SolvePuzzle 3)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj deadHijacker2 (event x?) (event y?)) ;masked
+							(== (event claimed?) FALSE)
+							(not local101) ;not in bathroom
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(AirplanePrint 42 31)
+							)
+							(995
+								(cond
+									((ego has: 9)
+										(AssignObjectToScript ego egoSearch)
+										(AirplanePrint 42 39)
+									)
+									(else
+										(AssignObjectToScript ego egoSearch)
+										(AirplanePrint 42 40)
+										(ego get: 9)
+										(SolvePuzzle 3)
+									)
+								)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj stewardess (event x?) (event y?)) ;clicked on stewardess
+							(== (event claimed?) FALSE)
+							(not local101) ;not in bathroom
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedInRect 39 50 124 136 event)
+							(== (event claimed?) FALSE)
+							local101 ;in bathroom
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(= local103 local121)
+								(curRoom setScript: TowelDispenser)
+							)
+							(995
+								(= local103 local121)
+								(curRoom setScript: TowelDispenser)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 		)
 		(cond 
 			(
@@ -561,16 +757,16 @@
 			(1
 				(HandsOff)
 				(ego setMotion: 0)
-				(newProp_3 setCycle: EndLoop self)
+				(anotherBathroomDoor setCycle: EndLoop self)
 			)
 			(2
 				(ego setPri: -1 setMotion: MoveTo 69 155 self)
 			)
 			(3
-				(newProp_3 stopUpd:)
-				(newProp_2 posn: 51 191)
+				;(anotherBathroomDoor stopUpd:)
+				(bathroomDoorFrame posn: 51 191)
 				(RedrawCast)
-				(newProp_2 stopUpd:)
+				;(bathroomDoorFrame stopUpd:)
 				(ego setMotion: MoveTo 82 155 self)
 			)
 			(4
@@ -581,8 +777,8 @@
 			)
 			(10
 				(HandsOff)
-				(newProp_2 posn: 100 1000)
-				(newProp_3 startUpd:)
+				(bathroomDoorFrame posn: 100 1000)
+				;(anotherBathroomDoor startUpd:)
 				(ego
 					ignoreActors:
 					posn: 69 155
@@ -591,11 +787,11 @@
 				)
 			)
 			(11
-				(newProp_3 setCycle: BegLoop self)
+				(anotherBathroomDoor setCycle: BegLoop self)
 			)
 			(12
 				(HandsOn)
-				(newProp_3 stopUpd:)
+				;(anotherBathroomDoor stopUpd:)
 				(ego setPri: 13 ignoreActors: 0 illegalBits: -32768)
 				(= local101 1)
 				(curRoom setScript: 0)
@@ -618,9 +814,9 @@
 			(localproc_0f1f 42 53)
 			(bombTimer seconds: -1)
 			(cSound stop:)
-			(newProp_9 posn: 244 36 cel: 10)
-			(newProp_10 posn: 254 36 cel: 10)
-			(newProp_11 posn: 264 36 cel: 10)
+			(firstDigit posn: 244 36 cel: 10)
+			(secondDigit posn: 254 36 cel: 10)
+			(thirdDigit posn: 264 36 cel: 10)
 			(= local123 7)
 			(= bombArmed 1)
 		)
@@ -633,12 +829,12 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cast eachElementDo: #dispose)
+				;(cast eachElementDo: #dispose)
 				(curRoom picture: 24)
 				(curRoom drawPic: (curRoom picture?) style: 6)
 				(HandsOff)
 				(User canInput: 1)
-				((= newProp_4 (Prop new:))
+				(blueWire ;(= newProp_4 (Prop new:))
 					view: 250
 					loop: 3
 					cel: blueWireCut
@@ -646,7 +842,7 @@
 					setPri: 4
 					init:
 				)
-				((= newProp_5 (Prop new:))
+				(whiteWire ;(= newProp_5 (Prop new:))
 					view: 250
 					loop: 4
 					cel: whiteWireCut
@@ -654,7 +850,7 @@
 					setPri: 4
 					init:
 				)
-				((= newProp_6 (Prop new:))
+				(yellowWire ;(= newProp_6 (Prop new:))
 					view: 250
 					loop: 5
 					cel: yellowWireCut
@@ -662,7 +858,7 @@
 					setPri: 4
 					init:
 				)
-				((= newProp_7 (Prop new:))
+				(purpleWire ;(= newProp_7 (Prop new:))
 					view: 250
 					loop: 6
 					cel: purpleWireCut
@@ -670,25 +866,25 @@
 					setPri: 4
 					init:
 				)
-				((= newView (View new:))
+				(TNT ;(= newView (View new:))
 					view: 250
 					loop: 2
 					cel: 0
 					posn: 166 97
 					setPri: 2
 					init:
-					stopUpd:
+					;stopUpd:
 				)
-				((= newProp_8 (Prop new:))
+				(towelDoor ;(= newProp_8 (Prop new:))
 					view: 250
 					loop: 0
 					cel: 0
 					posn: 154 103
 					setPri: 15
 					init:
-					stopUpd:
+					;stopUpd:
 				)
-				((= newProp_9 (Prop new:))
+				(firstDigit ;(= newProp_9 (Prop new:))
 					view: 250
 					loop: 8
 					cel: 0
@@ -696,7 +892,7 @@
 					setPri: 15
 					init:
 				)
-				((= newProp_10 (Prop new:))
+				(secondDigit ;(= newProp_10 (Prop new:))
 					view: 250
 					loop: 8
 					cel: 0
@@ -704,7 +900,7 @@
 					setPri: 15
 					init:
 				)
-				((= newProp_11 (Prop new:))
+				(thirdDigit ;(= newProp_11 (Prop new:))
 					view: 250
 					loop: 8
 					cel: 0
@@ -712,7 +908,7 @@
 					setPri: 15
 					init:
 				)
-				((= newView_2 (View new:))
+				(LCD ;(= newView_2 (View new:))
 					view: 250
 					loop: 7
 					cel: 0
@@ -723,28 +919,28 @@
 				(if local103 (self cue:))
 			)
 			(1
-				(newProp_8 loop: 1 posn: 155 103)
-				(newView_2 posn: 235 40)
+				(towelDoor loop: 1 posn: 155 103)
+				(LCD posn: 235 40)
 				(localproc_0e92)
 				(SolvePuzzle 2 99)
 				(= local121 1)
 			)
 			(10
-				(newProp_8 setLoop: 0 posn: 154 103)
+				(towelDoor setLoop: 0 posn: 154 103)
 				(= seconds 2)
 			)
 			(11
 				(= local121 0)
-				(cast eachElementDo: #dispose)
+				;(cast eachElementDo: #dispose)
 				(= local106 0)
 				(localproc_02f6)
 				(curRoom picture: 40)
 				(curRoom drawPic: (curRoom picture?) style: 0)
 				(InitPassengers)
-				(newProp_2 posn: 50 1000)
+				;(bathroomDoorFrame posn: 50 1000)
 				(ego posn: 46 165)
-				(newProp_3 stopUpd:)
-				(newProp stopUpd:)
+				;(anotherBathroomDoor stopUpd:)
+				;(newProp stopUpd:)
 				(HandsOn)
 				(curRoom setScript: 0)
 			)
@@ -753,6 +949,230 @@
 	
 	(method (handleEvent event)
 		(switch (event type?)
+			(mouseDown
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if
+						(and
+							(ClickedOnObj towelDoor (event x?) (event y?)) ;clicked on stewardess
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(if (not local121)
+									(self changeState: 1)
+								else
+									(= local121 0)
+									(self changeState: 10)
+								)
+							)
+							(995
+								(if (not local121)
+									(self changeState: 1)
+								else
+									(= local121 0)
+									(self changeState: 10)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj blueWire (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(localproc_0f1f
+									(Format
+										@str 42 61
+										(if (== blueWireCut 1) {cut} else {connected})
+									)
+								)
+							)
+							(995
+								(if (== blueWireCut 0)
+									(localproc_0f1f 42 83)
+								else
+									(localproc_0f1f 42 84)
+									(blueWire cel: 0)
+									(= local110 1)
+								)
+							)
+							(109
+								(if (== blueWireCut 1)
+									(localproc_0f1f 42 81)
+								else
+									(localproc_0f1f 42 82)
+									(blueWire cel: 1)
+									(= blueWireCut 1)
+									(switch local123
+										(2
+											(SolvePuzzle 3)
+											(if (== purpleWireCut 1) (++ local123))
+										)
+										(else  (= local110 1))
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj whiteWire (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(localproc_0f1f
+									(Format
+										@str 42 62
+										(if (== whiteWireCut 1) {cut} else {connected})
+									)
+								)
+							)
+							(995
+								(if (== whiteWireCut 0)
+									(localproc_0f1f 42 83)
+								else
+									(localproc_0f1f 42 85)
+									(whiteWire cel: 0)
+									(= local110 1)
+								)
+							)
+							(109
+								(if (== whiteWireCut 1)
+									(localproc_0f1f 42 81)
+								else
+									(localproc_0f1f 42 82)
+									(whiteWire cel: 1)
+									(= whiteWireCut 1)
+									(if (!= local123 4)
+										(= local110 1)
+									else
+										(++ local123)
+										(SolvePuzzle 3)
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj yellowWire (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(localproc_0f1f
+									(Format
+										@str 42 63
+										(if (== yellowWireCut 1) {cut} else {connected})
+									)
+								)
+							)
+							(995
+								(if (== yellowWireCut 0)
+									(localproc_0f1f 42 83)
+								else
+									(localproc_0f1f 42 86)
+									(yellowWire cel: 0)
+									(if (!= local123 3)
+										(= local110 1)
+									else
+										(= yellowWireCut 0)
+										(++ local123)
+										(SolvePuzzle 3)
+									)
+								)
+							)
+							(109
+								(if (== yellowWireCut 1)
+									(localproc_0f1f 42 81)
+								else
+									(localproc_0f1f 42 82)
+									(yellowWire cel: 1)
+									(= yellowWireCut 1)
+									(switch local123
+										(1
+											(++ local123)
+											(SolvePuzzle 3)
+										)
+										(5
+											(++ local123)
+											(SolvePuzzle 3)
+										)
+										(else  (= local110 1))
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj purpleWire (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(localproc_0f1f
+									(Format
+										@str 42 64
+										(if (== purpleWireCut 1) {cut} else {connected})
+									)
+								)
+							)
+							(995
+								(if (== purpleWireCut 0)
+									(localproc_0f1f 42 83)
+								else
+									(localproc_0f1f 42 87)
+									(purpleWire cel: 0)
+									(= local110 1)
+								)
+							)
+							(109
+								(if (== purpleWireCut 1)
+									(localproc_0f1f 42 81)
+								else
+									(localproc_0f1f 42 82)
+									(purpleWire cel: 1)
+									(= purpleWireCut 1)
+									(if (!= local123 2)
+										(= local110 1)
+									else
+										(SolvePuzzle 3)
+										(if (== blueWireCut 1) (++ local123))
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)
+			)
 			(evSAID
 				(cond 
 					((Said '(get,move,remove)/bomb')
@@ -789,9 +1209,7 @@
 									((Said '/(cable<blue)')
 										(localproc_0f1f
 											(Format
-												@str
-												42
-												61
+												@str 42 61
 												(if (== blueWireCut 1) {cut} else {connected})
 											)
 										)
@@ -799,9 +1217,7 @@
 									((Said '/(cable<white)')
 										(localproc_0f1f
 											(Format
-												@str
-												42
-												62
+												@str 42 62
 												(if (== whiteWireCut 1) {cut} else {connected})
 											)
 										)
@@ -809,9 +1225,7 @@
 									((Said '/(cable<yellow)')
 										(localproc_0f1f
 											(Format
-												@str
-												42
-												63
+												@str 42 63
 												(if (== yellowWireCut 1) {cut} else {connected})
 											)
 										)
@@ -819,9 +1233,7 @@
 									((Said '/(cable<purple)')
 										(localproc_0f1f
 											(Format
-												@str
-												42
-												64
+												@str 42 64
 												(if (== purpleWireCut 1) {cut} else {connected})
 											)
 										)
@@ -882,7 +1294,7 @@
 									(localproc_0f1f 42 81)
 								else
 									(localproc_0f1f 42 82)
-									(newProp_4 cel: 1)
+									(blueWire cel: 1)
 									(= blueWireCut 1)
 									(switch local123
 										(2
@@ -898,7 +1310,7 @@
 									(localproc_0f1f 42 81)
 								else
 									(localproc_0f1f 42 82)
-									(newProp_5 cel: 1)
+									(whiteWire cel: 1)
 									(= whiteWireCut 1)
 									(if (!= local123 4)
 										(= local110 1)
@@ -913,7 +1325,7 @@
 									(localproc_0f1f 42 81)
 								else
 									(localproc_0f1f 42 82)
-									(newProp_6 cel: 1)
+									(yellowWire cel: 1)
 									(= yellowWireCut 1)
 									(switch local123
 										(1
@@ -933,7 +1345,7 @@
 									(localproc_0f1f 42 81)
 								else
 									(localproc_0f1f 42 82)
-									(newProp_7 cel: 1)
+									(purpleWire cel: 1)
 									(= purpleWireCut 1)
 									(if (!= local123 2)
 										(= local110 1)
@@ -955,7 +1367,7 @@
 									(localproc_0f1f 42 83)
 								else
 									(localproc_0f1f 42 84)
-									(newProp_4 cel: 0)
+									(blueWire cel: 0)
 									(= local110 1)
 								)
 							)
@@ -964,7 +1376,7 @@
 									(localproc_0f1f 42 83)
 								else
 									(localproc_0f1f 42 85)
-									(newProp_5 cel: 0)
+									(whiteWire cel: 0)
 									(= local110 1)
 								)
 							)
@@ -973,7 +1385,7 @@
 									(localproc_0f1f 42 83)
 								else
 									(localproc_0f1f 42 86)
-									(newProp_6 cel: 0)
+									(yellowWire cel: 0)
 									(if (!= local123 3)
 										(= local110 1)
 									else
@@ -988,7 +1400,7 @@
 									(localproc_0f1f 42 83)
 								else
 									(localproc_0f1f 42 87)
-									(newProp_7 cel: 0)
+									(purpleWire cel: 0)
 									(= local110 1)
 								)
 							)
