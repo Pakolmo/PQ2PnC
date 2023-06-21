@@ -1542,6 +1542,7 @@ code_1ba3:
 						(PersonHangUp)
 					)
 				)
+				(client setScript: phoneNumber)
 			)
 			(2
 				(switch local_8
