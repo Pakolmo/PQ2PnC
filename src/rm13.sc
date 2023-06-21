@@ -1480,7 +1480,7 @@
 				(LocPrint 1 13 65)
 				(if
 ;;;				(Print 13 66 67 -1 128 81 {You're ON!} 1 81 {No way.} 0)
-				(Print 13 66 67 -1 128 81 {^Hecho!} 1 81 {Ni hablar.} 0)
+				(Print 13 66 67 -1 128 81 {_Hecho!} 1 81 {Ni hablar.} 0)
 					(= local112 0)
 					(Bset 114)
 					(sequencer changeState: 9)
