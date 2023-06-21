@@ -1395,7 +1395,8 @@
 				else
 					(LocPrint 20 79)
 					(EgoDead
-						{As you have just discovered, you have to use your head if you're a cop. You didn't, and now this guy's going to arrest YOU!}
+;;;						{As you have just discovered, you have to use your head if you're a cop. You didn't, and now this guy's going to arrest YOU!}
+						{Tal como acabas de descubrir, cuando eres polic|a debes usar la cabeza. #No lo hiciste y ahora este tipo TE va a arrestar!}
 					)
 				)
 			)
@@ -1460,7 +1461,9 @@
 			)
 			(25
 				(EgoDead
-					{Nobody ever figured out why Sonny Bonds tried to draw down on an airport security guard, but the results were obviously disastrous.}
+;;;					{Nobody ever figured out why Sonny Bonds tried to draw down on an airport security guard, but the results were obviously disastrous.}
+					{Nadie supo nunca por qué Sonny Bonds intent/ cargarse a un guardia de seguridad de un aeropuerto, pero los resultados fueron desastrosos.}
+
 				)
 			)
 		)

@@ -410,7 +410,8 @@
 									(if (== lista 1)
 										(= ticket
 												(PrintSpecial
-													{Ticket}
+;;;													{Ticket}
+													{Billete}
 													#button {houston} 1
 													#button {steelton} 2
 													#button {beirut} 3

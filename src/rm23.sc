@@ -419,10 +419,12 @@
 							(if talkedToW
 								(= sino
 										(PrintSpecial
-											{Afirmative/Negative}
-											#button {Afirmative} 1
-											#button {Negative} 2
-
+;;;											{Afirmative-Negative}
+;;;											#button {Afirmative} 1
+;;;											#button {Negative} 2
+											{Afirmativo-Negativo}
+											#button {Afirmativo} 1
+											#button {Negativo} 2
 										)
 								)
 ;;;

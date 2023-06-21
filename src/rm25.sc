@@ -1846,7 +1846,8 @@
 			(2
 				(HandsOff)
 				(EgoDead
-					{Congratulations, you have been successful in taking yourself out of the game.}
+;;;					{Congratulations, you have been successful in taking yourself out of the game.}
+					{Enhorabuena, conseguiste sacarte del juego.}
 				)
 			)
 		)

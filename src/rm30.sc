@@ -934,12 +934,16 @@
 							(if (== talkedToM 1)
 							(= Eat
 										(PrintSpecial
-											{Eat}
-											#button {chow} 1
-											#button {lobster} 2
-											#button {rib prime} 3
-											#button {meatloaf} 4
-
+;;;											{Eat}
+;;;											#button {chow} 1
+;;;											#button {lobster} 2
+;;;											#button {rib prime} 3
+;;;											#button {meatloaf} 4
+											{Comer}
+											#button {perrito caliente} 1
+											#button {langosta} 2
+											#button {costillas de cochinillo} 3
+											#button {pastel de carne} 4
 										)
 								)
 ;;;
@@ -1034,9 +1038,12 @@
 							
 								(= kisstalk
 												(PrintSpecial
-													{Kiss or Talk}
-													#button {kiss} 1
-													#button {talk} 2										
+;;;													{Kiss or Talk}
+;;;													#button {kiss} 1
+;;;													#button {talk} 2		
+													{Besar o Hablar}
+													#button {Besar} 1
+													#button {Hablar} 2								
 												)
 											)
 											(switch kisstalk
@@ -1456,10 +1463,12 @@
 				(localproc_000c 30 131 83) 
 				(= YesNo
 										(PrintSpecial
-											{YES/NO}
-											#button {Yes} 1
-											#button {No} 2
-			
+;;;											{YES/NO}
+;;;											#button {Yes} 1
+;;;											#button {No} 2
+											{_S| NO_}
+											#button {S|} 1
+											#button {No} 2			
 										)
 								)
 ;;;

@@ -330,7 +330,8 @@
 				(ShakeScreen 5)
 				(cls)
 				(EgoDead
-					{In the days that followed, it was most folks' opinion that Sonny Bonds was overly distracted by continuous and lengthy sessions playing a recently released computer game called POLICE QUEST II. This must be why he didn't see the Mack truck driven by the little old lady who lived in the house next to Marie.}
+;;;					{In the days that followed, it was most folks' opinion that Sonny Bonds was overly distracted by continuous and lengthy sessions playing a recently released computer game called POLICE QUEST II. This must be why he didn't see the Mack truck driven by the little old lady who lived in the house next to Marie.}
+					{En los d|as posteriores, la opini/n de la gente era que Sonny Bonds estaba distra|do por continuas y largas sesiones jugando a un juego de ordenador recientemente lanzado llamado POLICE QUEST II Point and Click. Por eso no vi/ el enorme cami/n conducido por la viejecita que viv|a al lado de la casa de Marie.}
 				)
 			)
 		)

@@ -1800,9 +1800,16 @@
 					)
 					((Said 'look,frisk[/drawer]')
 						(inventory
-							carrying: {Your desk drawer contains:}
-							empty: {Your desk drawer is empty.}
+;;;							carrying: {Your desk drawer contains:}
+;;;							empty: {Your desk drawer is empty.}
+;;;							showSelf: 12
+
+							carrying: {En tu escritorio hay:}
+							empty: {Tu escritorio est* vac|o.}
 							showSelf: 12
+
+
+
 						)
 					)
 					(

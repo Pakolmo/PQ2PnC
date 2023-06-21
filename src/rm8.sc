@@ -133,7 +133,8 @@
 						(switch theCursor
 							(998 ;look
 								;(Print 8 2)
-								(Print {This button turns the computer on and off.})
+;;;								(Print {This button turns the computer on and off.})
+								(Print {Este bot/n enciende y apaga el ordenador.})
 							)
 							(995 ;hand
 								(theGame setCursor: 993 (HaveMouse))
@@ -171,7 +172,8 @@
 								(Print 8 5)
 							)
 							(995 ;hand
-								(Print {Press the power button to turn on the computer.})
+;;;								(Print {Press the power button to turn on the computer.})
+								(Print {Pulsa el bot/n de encendido para arrancar el ordenador.})
 							)
 							(991 ;exit
 								(curRoom newRoom: prevRoomNum)
@@ -340,7 +342,8 @@
 							(switch theCursor
 								(998 ;look
 									;(Print 8 1)
-									(Print {This button turns the computer on and off.})
+;;;									(Print {This button turns the computer on and off.})
+									(Print {Este bot/n enciende y apaga el ordenador.})
 								)
 								(995 ;hand
 									(curRoom newRoom: prevRoomNum)
@@ -786,7 +789,8 @@
 									(Print 8 5)
 								)
 								(995 ;hand
-									(Print {Press the power button to turn on the computer.})
+;;;									(Print {Press the power button to turn on the computer.})
+									(Print {Pulsa el bot/n de encendido para arrancar el ordenador.})
 								)
 								(999 ;walk exit
 									(curRoom newRoom: prevRoomNum)
@@ -953,25 +957,33 @@
 	(Display 
 		(switch curDir
 			(-1
-				{Session Complete.}
+;;;				{Session Complete.}
+				{Sesi/n Finalizada.}
 			)
 			(0
-				{ROOT [SHUTDOWN]}
+;;;				{ROOT [SHUTDOWN]}
+				{RAIZ [APAGAR]}				
 			)
 			(1
-				{SIERRA [BACK]}
+;;;				{SIERRA [BACK]}
+				{SIERRA [VOLVER]}				
 			)
 			(2
-				{PERSONAL [BACK]}
+;;;				{PERSONAL [BACK]}
+				{PERSONAL [VOLVER]}
 			)
 			(3
-				{CRIMINAL [BACK]}
+;;;				{CRIMINAL [BACK]}
+				{CRIMENES [VOLVER]}
 			)
 			(4
-				{HOMICIDE [BACK]}
+;;;				{HOMICIDE [BACK]}
+				{HOMICIDIOS [VOLVER]}
 			)
 			(7
-				{VICE [BACK]}
+
+;;;				{VICE [BACK]}
+				{CORRUPCION [VOLVER]}
 			)
 		)
 		p_at 73 14

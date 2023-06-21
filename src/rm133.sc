@@ -166,6 +166,9 @@
 				(rm133Script changeState: 21)
 			)
 		)
+		(if (ego inRect: 50 120 78 143)
+			(ego setMotion: MoveTo 80 138)
+		)
 		(super doit:)
 	)
 	
@@ -282,13 +285,12 @@
 						(switch theCursor						
 							(995 
 								(ego setMotion: MoveTo 66 133)
-								(event claimed: FALSE)
-								(ego loop: 0)
+
 							
 							)
 							(998 
 								(ego setMotion: MoveTo 66 133 self)
-								(ego loop: 0) 
+								 
 							)
 							(else
 								(event claimed: FALSE)

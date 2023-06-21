@@ -814,7 +814,8 @@
 									(bodyScript changeState: 2)
 								)
 								(else
-									 (Print {It appears a body is wedged into the rocks.})
+;;;									 (Print {It appears a body is wedged into the rocks.})
+									(Print {Parece que hay un cuerpo encajado en las rocas.})
 								)
 							)
 						else
@@ -885,7 +886,8 @@
 		(cond 
 			((and sweptAway (> (ego x?) 320))
 				(EgoDead
-					{You are carried away and battered into unconsciousness on the rocks.}
+;;;					{You are carried away and battered into unconsciousness on the rocks.}
+					{Eres arrastrado y golpeado hasta la inconsciencia en las rocas.}					
 				)
 			)
 			(
@@ -925,11 +927,13 @@
 				)
 				(if (Btst 7)
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+;;;						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+						{Mientras luchas por respirar, la negrura te invade. La pr/xima vez, s+ m*s consciente de la reserva de tu tanque de aire.}
 					)
 				else
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+;;;						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+						{Mientras luchas por respirar, la negrura te invade. La pr/xima vez, intenta usar el chaleco de control de flotabilidad para conservar el aire.}
 					)
 				)
 			)

@@ -340,6 +340,10 @@
 					)
 					(995 ;use
 						(cond
+							((== ((el value?) view?) 133) ;used bombinstructions
+									(Print 800 53 #font smallFont)
+									
+							)
 							((== ((el value?) view?) 100) ;used handgun
 						 		(if
 						 			(and
@@ -352,19 +356,23 @@
 										(theGame setCursor: oldCur (HaveMouse))
 										(break)
 									else
-										(Print {Wait until you're in the booth to adjust the gun sights.})
+;;;										(Print {Wait until you're in the booth to adjust the gun sights.})
+										(Print {Espera hasta que est+s en la cabina para ajustar la mira del arma.})
 									)
 								else
-									(Print {You can only adjust the gun sights at the shooting range.})
+;;;									(Print {You can only adjust the gun sights at the shooting range.})
+									(Print {S/lo puedes ajustar las miras del arma en el campo de tiro.})
 								)
 							)
 							((== ((el value?) view?) 101) ;used extra clips/reload alternate of using clips on gun to reload
 						 		(load)
 							)
 							((== ((el value?) view?) 137) ;if your_LPD_buisnesss_card 
-								(Print {You flip the buisness card over.})
+;;;								(Print {You flip the buisness card over.})
+								(Print {Giras tu tarjeta de negocios.})
 								(if (not (Btst fDiscoveredLockerCombo))
-									(Print {Your locker combination is on the back of the card.})
+;;;									(Print {Your locker combination is on the back of the card.})
+									(Print {La combinaci/n de tu taquilla est* detr*s de la tarjeta.})
 								)
 								(if (== ((Inventory at: 37) cel?) 0) ;flip each look
 									(Bset fDiscoveredLockerCombo)
@@ -435,7 +443,8 @@
 											)
 											(else
 												(= global210 0)
-												(Print {You put on the ear protectors.})
+;;;												(Print {You put on the ear protectors.})
+												(Print {Te pones los protectores de o|dos.})
 												(= wearingEarProtectors 1)
 											)
 										)
@@ -456,7 +465,8 @@
             					(break)								 
 							)
 							(else
-								(Print {You don't need to use that item.})
+;;;								(Print {You don't need to use that item.})
+								(Print {No es necesario utilizar ese objeto.})
 							)
 						)
 					)
@@ -481,7 +491,12 @@
 								((el value?) showSelf:)
 							)
 						else
-							((el value?) showSelf:) ;display the inventory item normally.
+;;;							((el value?) showSelf:) ;display the inventory item normally.
+							(if (== ((el value?) view?) 133) ;looked at bombInstructions
+								(Print 800 53 #font smallFont)
+							else
+								((el value?) showSelf:)
+							)
 						)
 					)
 					(101 ;extra ammo clips

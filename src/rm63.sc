@@ -354,11 +354,14 @@
 				)
 				(if (Btst 7)
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+;;;						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+					
+						{Mientras luchas por respirar, la negrura te invade. La pr/xima vez, estate m*s pendiente de la reserva de tu tanque de aire.}
 					)
 				else
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+;;;						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+						{Mientras luchas por respirar, la negrura te invade. La pr/xima vez, intenta usar el chaleco de control de flotabilidad para mantener el aire.}
 					)
 				)
 			)

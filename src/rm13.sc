@@ -633,7 +633,8 @@
 					(else
 						(if local101
 							(EgoDead
-								{As a police officer, you should not abandon any stolen property which you have recovered. Next time, think about what you're doing.}
+;;;								{As a police officer, you should not abandon any stolen property which you have recovered. Next time, think about what you're doing.}
+								{Como agente de polic|a, no debes abandonar ning{n objeto robado que hayas recuperado. La pr/xima vez, piensa en lo que haces.}
 							)
 						)
 						(if (< local110 local108)
@@ -1427,7 +1428,8 @@
 								(cSound loop: 1 fade:) ;prevent sound bug
 								(theGame newRoom: 166)
 							else
-								(Print {You don't have the keys for this car.})
+;;;								(Print {You don't have the keys for this car.})
+								(Print {No tienes las llaves de este coche.})
 							)
 						)	
 						(103 ;unmarked keys drive. 
@@ -1477,7 +1479,8 @@
 				(Bset 19)
 				(LocPrint 1 13 65)
 				(if
-				(Print 13 66 67 -1 128 81 {You're ON!} 1 81 {No way.} 0)
+;;;				(Print 13 66 67 -1 128 81 {You're ON!} 1 81 {No way.} 0)
+				(Print 13 66 67 -1 128 81 {^Hecho!} 1 81 {Ni hablar.} 0)
 					(= local112 0)
 					(Bset 114)
 					(sequencer changeState: 9)
@@ -1786,17 +1789,29 @@
 			(87
 				(Format
 					@str
-					{Keith grabs the mike and calls dispatch... "Dispatch...53mary2 is 10-8 from %s."}
+;;;					{Keith grabs the mike and calls dispatch... "Dispatch...53mary2 is 10-8 from %s."}
+					{Keith agarra el micr/fono y llama al despacho... "Despacho...53mary2 en 10-8 desde %s."}					
 					(switch windshieldOverlay
-						(0 {Lytton Airport})
-						(40 {753 Third Street})
-						(80 {Arnie's restaurant})
-						(100 {Oak Tree Mall})
+;;;						(0 {Lytton Airport})
+;;;						(40 {753 Third Street})
+;;;						(80 {Arnie's restaurant})
+;;;						(100 {Oak Tree Mall})
+;;;						(122 {Cotton Cove})
+;;;						(90 {Lytton City Jail})
+;;;						(30 {222 West Peach Street})
+;;;						(62 {160 West Rose})
+;;;						(110 {the office})
+
+
+						(0 {Aeropuerto de Lytton})
+						(40 {753 de la Tercera Calle})
+						(80 {Restaurante de Arnie})
+						(100 {Centro Comercial Oak Tree})
 						(122 {Cotton Cove})
-						(90 {Lytton City Jail})
-						(30 {222 West Peach Street})
-						(62 {160 West Rose})
-						(110 {the office})
+						(90 {Prisi/n de Lytton})
+						(30 {222 Oeste de la Calle Peach})
+						(62 {160 de West Rose})
+						(110 {la oficina})
 					)
 				)
 				(LocPrint 1 @str)
@@ -1807,15 +1822,27 @@
 					13
 					151
 					(switch windshieldOverlay
-						(0 {Lytton Airport})
-						(40 {753 Third Street})
-						(80 {Arnie's restaurant})
-						(100 {Oak Tree Mall})
+;;;						(0 {Lytton Airport})
+;;;						(40 {753 Third Street})
+;;;						(80 {Arnie's restaurant})
+;;;						(100 {Oak Tree Mall})
+;;;						(122 {Cotton Cove})
+;;;						(90 {Lytton City Jail})
+;;;						(30 {222 West Peach Street})
+;;;						(62 {160 West Rose})
+;;;						(110 {the office})
+
+
+
+						(0 {Aeropuerto de Lytton})
+						(40 {753 de la Tercera Calle})
+						(80 {Restaurante de Arnie})
+						(100 {Centro Comercial Oak Tree})
 						(122 {Cotton Cove})
-						(90 {Lytton City Jail})
-						(30 {222 West Peach Street})
-						(62 {160 West Rose})
-						(110 {the office})
+						(90 {Prisi/n de Lytton})
+						(30 {222 Oeste de la Calle Peach})
+						(62 {160 de West Rose})
+						(110 {la oficina})
 					)
 				)
 				(LocPrint 0 @str)
@@ -1832,15 +1859,25 @@
 					13
 					152
 					(switch outsideRoom
-						(14 {Lytton Airport})
-						(25 {753 Third Street})
-						(29 {Arnie's restaurant})
-						(67 {Oak Tree Mall})
+;;;						(14 {Lytton Airport})
+;;;						(25 {753 Third Street})
+;;;						(29 {Arnie's restaurant})
+;;;						(67 {Oak Tree Mall})
+;;;						(61 {Cotton Cove})
+;;;						(22 {Lytton City Jail})
+;;;						(31 {222 West Peach Street})
+;;;						(27 {160 West Rose})
+;;;						(1 {the office})
+
+						(14 {Aeropuerto de Lytton})
+						(25 {753 de la Tercera Calle})
+						(29 {Restaurante de Arnie})
+						(67 {Centro Comercial Oak Tree})
 						(61 {Cotton Cove})
-						(22 {Lytton City Jail})
-						(31 {222 West Peach Street})
-						(27 {160 West Rose})
-						(1 {the office})
+						(22 {Prisi/n de Lytton})
+						(31 {222 Oeste de la Calle Peach})
+						(27 {160 de West Rose})
+						(1 {la oficina})
 					)
 				)
 				(LocPrint 1 @str)
@@ -1851,15 +1888,26 @@
 					13
 					153
 					(switch local107
-						(0 {Lytton Airport})
-						(40 {753 Third Street})
-						(80 {Arnie's restaurant})
-						(100 {Oak Tree Mall})
+;;;						(0 {Lytton Airport})
+;;;						(40 {753 Third Street})
+;;;						(80 {Arnie's restaurant})
+;;;						(100 {Oak Tree Mall})
+;;;						(122 {Cotton Cove})
+;;;						(90 {Lytton City Jail})
+;;;						(30 {222 West Peach Street})
+;;;						(62 {160 West Rose})
+;;;						(110 {the office})
+						
+						
+						(0 {Aeropuerto de Lytton})
+						(40 {753 de la Tercera Calle})
+						(80 {Restaurante de Arnie})
+						(100 {Centro Comercial Oak Tree})
 						(122 {Cotton Cove})
-						(90 {Lytton City Jail})
-						(30 {222 West Peach Street})
-						(62 {160 West Rose})
-						(110 {the office})
+						(90 {Prisi/n de Lytton})
+						(30 {222 Oeste de la Calle Peach})
+						(62 {160 de West Rose})
+						(110 {la oficina})						
 					)
 				)
 				(LocPrint 0 @str)
@@ -1883,20 +1931,32 @@
 							(and (== outsideRoom 31) (< gamePhase 8))
 							(== outsideRoom 1)
 						)
-						{"Dispatch...53Mary2 10-7 at %s."}
+;;;						{"Dispatch...53Mary2 10-7 at %s."}
+						{"Despacho...53Mary2 10-7 en %s."}
 					else
-						{Keith contacts dispatch..."Dispatch...53mary2 10-97 %s."}
+;;;						{Keith contacts dispatch..."Dispatch...53mary2 10-97 %s."}
+						{Keith contactando con despacho..."Despacho...53mary2 10-97 desde %s."}
 					)
 					(switch outsideRoom
-						(14 {Lytton Airport})
-						(25 {753 Third Street})
-						(29 {Arnie's restaurant})
-						(67 {Oak Tree Mall})
+;;;						(14 {Lytton Airport})
+;;;						(25 {753 Third Street})
+;;;						(29 {Arnie's restaurant})
+;;;						(67 {Oak Tree Mall})
+;;;						(61 {Cotton Cove})
+;;;						(22 {Lytton City Jail})
+;;;						(31 {222 West Peach Street})
+;;;						(27 {160 West Rose})
+;;;						(1 {the office})
+						
+						(14 {Aeropuerto de Lytton})
+						(25 {753 de la Tercera Calle})
+						(29 {Restaurante de Arnie})
+						(67 {Centro Comercial Oak Tree})
 						(61 {Cotton Cove})
-						(22 {Lytton City Jail})
-						(31 {222 West Peach Street})
-						(27 {160 West Rose})
-						(1 {the office})
+						(22 {Prisi/n de Lytton})
+						(31 {222 Oeste de la Calle Peach})
+						(27 {160 de West Rose})
+						(1 {la oficina})						
 					)
 				)
 				(LocPrint 1 @str)
@@ -1907,15 +1967,25 @@
 					13
 					154
 					(switch outsideRoom
-						(14 {Lytton Airport})
-						(25 {753 Third Street})
-						(29 {Arnie's restaurant})
-						(67 {Oak Tree Mall})
+;;;						(14 {Lytton Airport})
+;;;						(25 {753 Third Street})
+;;;						(29 {Arnie's restaurant})
+;;;						(67 {Oak Tree Mall})
+;;;						(61 {Cotton Cove})
+;;;						(22 {Lytton City Jail})
+;;;						(31 {222 West Peach Street})
+;;;						(27 {160 West Rose})
+;;;						(1 {the office})
+						
+						(14 {Aeropuerto de Lytton})
+						(25 {753 de la Tercera Calle})
+						(29 {Restaurante de Arnie})
+						(67 {Centro Comercial Oak Tree})
 						(61 {Cotton Cove})
-						(22 {Lytton City Jail})
-						(31 {222 West Peach Street})
-						(27 {160 West Rose})
-						(1 {the office})
+						(22 {Prisi/n de Lytton})
+						(31 {222 Oeste de la Calle Peach})
+						(27 {160 de West Rose})
+						(1 {la oficina})						
 					)
 				)
 				(LocPrint 0 @str)

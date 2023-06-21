@@ -967,7 +967,8 @@
 								(if faucetOn
 									(LocPrint 19 41) ;lytton is not known for faublous tasting water
 								else
-									(Print {Turn on the water first.}) 
+;;;									(Print {Turn on the water first.}) 
+									(Print {Enciende el grifo primero.})
 								)
 							)
 							(131 ;jailers revolver
@@ -1463,7 +1464,8 @@
 						(event claimed: TRUE)
 						(switch theCursor
 							(998
-								(Print {It's the lid of the toliet tank.})
+;;;								(Print {It's the lid of the toliet tank.})
+								(Print {Es la tapa de la cisterna del v*ter.})
 							)
 							(995
 								(if (== [local5 sonnyInStallNum] 0)

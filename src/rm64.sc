@@ -679,11 +679,13 @@
 				(localproc_000c 64 35)
 				(if (Btst 7)
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+;;;						{As you fight for air, blackness overcomes you. Next time, be more aware of your air tank's reserve.}
+						{Aunque luchaste por conseguir aire, la oscuridad te gan/. La pr/xima vez vigila las reservas del tanque.}
 					)
 				else
 					(EgoDead
-						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+;;;						{As you fight for air, blackness overcomes you. Next time, try using the bouyancy control vest to conserve air.}
+						{Aunque luchaste por conseguir aire, la oscuridad te gan/. La pr/xima vez, intenta usar el chaleco de control de flotabilidad para conservar aire.}
 					)
 				)
 			)

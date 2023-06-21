@@ -982,7 +982,8 @@
 						(if (or (== (ego view?) 17)
 								(== (ego view?) 98)
 							)
-							(Print {Can't leave in weatsuit})
+;;;							(Print {Can't leave in weatsuit})
+							(Print {No puedes ir en as| vestido.})
 						else
 						(ego setMotion: MoveTo -5 87)
 						)
@@ -1004,7 +1005,8 @@
 						(if (or (== (ego view?) 17)
 								(== (ego view?) 98)
 							)
-							(Print {Can't leave in weatsuit})
+;;;							(Print {Can't leave in weatsuit})
+							(Print {No puedes ir en as| vestido.})
 						else
 						(ego setMotion: MoveTo -3 159)
 						)
@@ -1022,7 +1024,8 @@
 						(if (or (== (ego view?) 17)
 								(== (ego view?) 98)
 							)
-							(Print {Can't leave in weatsuit})
+;;;							(Print {Can't leave in weatsuit})
+							(Print {No puedes ir en as| vestido.})
 						else
 						(ego setMotion: MoveTo 321 87)
 						)
@@ -1042,7 +1045,8 @@
 						(if (or (== (ego view?) 17)
 								(== (ego view?) 98)
 							)
-							(Print {Can't leave in weatsuit})
+;;;							(Print {Can't leave in weatsuit})
+							(Print {No puedes ir en as| vestido.})
 						else
 						
 							(ego setMotion: MoveTo 321 156)

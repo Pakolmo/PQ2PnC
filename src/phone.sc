@@ -85,7 +85,8 @@
 	(= local9 4)
 	(Format @str 12 107) ;click
 	(AssignObjectToScript person doTalk 2)
-	(StrCpy @numStr {Dialed: })
+;;;	(StrCpy @numStr {Dialed: })
+	(StrCpy @numStr {Marcado: })
 	(= count 0)	
 )
 
@@ -293,7 +294,8 @@ code_1ba3:
 				(= count 0)
 				(= exit 0)
 				(= changeScript 0)
-				(StrCpy @numStr {Dialed: })
+;;;				(StrCpy @numStr {Dialed: })
+				(StrCpy @numStr {Marcado: })
 				(while (not changeScript)
 				(= pressed
 					(PrintSpecial
@@ -309,9 +311,15 @@ code_1ba3:
 						#button {8} 8
 						#button {9} 9 
 						#button {0} 10
-						#button {Dial} 11
+;;;						#button {Dial} 11
+;;;						#button {Info} 12
+;;;						#button {Exit} 13
+						#button {Marcar} 11
 						#button {Info} 12
-						#button {Exit} 13
+						#button {Salir} 13						
+						
+						
+						
 					)
 				)
 				(DTMF number: 43 priority: 10 play:)
@@ -321,37 +329,47 @@ code_1ba3:
 					)
 					(11
 						(cond
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: "))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: "))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: "))
 								(Print 12 14)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 411"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 411"))	
 								(= changeScript 1) ;information
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 0"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 0"))								
 								(= changeScript 1) ;information
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-8723"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-8723"))								
 								(PersonSpeak 12 6)
 								(PersonSpeak 12 7)
 								(PersonHangUp)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2222"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2222"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-2222"))								
 								(localproc_1a28)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-6844"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-6844"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 407-555-6844"))								
 								(localproc_1a28)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-1699"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-1699"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-1699"))								
 								(localproc_1a28)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2052"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-2052"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-2052"))								
 								(localproc_1a28)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4495"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4495"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-4495"))								
 								(PersonSpeak 12 8)
 								(PersonHangUp)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-4169"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-4169"))								
 								(= changeScript 2) ;talkingToMarie
 ;;;								(cond 
 ;;;									((== prevRoomNum 32) (localproc_1a28 40))
@@ -359,21 +377,24 @@ code_1ba3:
 ;;;									(else (curRoom setScript: talkingToMarie))
 ;;;								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-3344"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-3344"))								
 								(if (== prevRoomNum 61)
 									(localproc_1a28 40)
 								else
 									(localproc_1a28)
 								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-3323"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 407-555-3323"))								
 								(if (or (< gamePhase 1) (Btst 95))
 									(localproc_1a28)
 								else
 									(= changeScript 3) ;talkingToColby
 								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-5432"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-5432"))
 								(if (== prevRoomNum 4)
 									(if (not (Random 0 4)) ;only sometimes pick up if calling from station
 										(= changeScript 4) ;lyttonPD
@@ -384,17 +405,20 @@ code_1ba3:
 									(= changeScript 4) ;lyttonPD
 								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 407-555-2677"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 407-555-2677"))								
 								(if (<= gamePhase 8)
 									(localproc_1a28 40) ;phone is busy
 								else
 									(= changeScript 5) ;steeltonPD
 								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555-0001"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555-0001"))
 								(localproc_1a28 40)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-4463"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-4463"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 209-683-4463"))								
 								(if (== (Random 1 2) 1)
 									(PersonSpeak 12 9)
 									(PersonSpeak 12 10)
@@ -406,7 +430,8 @@ code_1ba3:
 									(PersonHangUp)
 								)
 							)
-							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
+;;;							((== STRINGS_EQUAL (StrCmp @numStr "Dialed: 209-683-6858"))
+							((== STRINGS_EQUAL (StrCmp @numStr "Marcado: 209-683-6858"))
 								(if (< (Random 1 10) 4)
 									(= changeScript 6) ;AlLowe
 								else
@@ -437,14 +462,16 @@ code_1ba3:
 						(if
 							(and
 								(== count 7)
-								(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
+;;;								(not (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))) ;local call
+								(not (== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555" 11))) ;local call								
 							)
 							(StrCat @numStr {-})
 						)
 						(if (== pressed 10) ;esc exit hack for zero
 							(= pressed 0)	
 						)
-						(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
+;;;						(if (== STRINGS_EQUAL (StrCmp @numStr "Dialed: 555" 11))
+						(if (== STRINGS_EQUAL (StrCmp @numStr "Marcado: 555" 11))
 							(if (< count 8)
 								(StrCat @numStr (Format @numStr2 {%d} pressed))
 							)
@@ -515,13 +542,26 @@ code_1ba3:
 				(PersonSpeak 12 15)
 				(= temp0
 					(PrintSpecial
-						{City:}
+;;;						{City:}
+;;;						#at 10 125
+;;;						#button {Steelton} 1
+;;;						#button {Lytton} 2
+;;;						#button {Houston} 4
+;;;						#button {Coarsegold} 3
+;;;						#button {Cancel} 5
+						
+						
+						{Ciudad:}
 						#at 10 125
 						#button {Steelton} 1
 						#button {Lytton} 2
 						#button {Houston} 4
 						#button {Coarsegold} 3
-						#button {Cancel} 5
+						#button {Cancelar} 5						
+						
+						
+						
+						
 					)				
 				)
 				(switch temp0 
@@ -560,24 +600,36 @@ code_1ba3:
 					(1 ;steelton
 						(= temp0
 							(PrintSpecial
-								{Name:}
+;;;								{Name:}
+;;;								#at 10 125
+;;;								#button {Police HQ} 1
+;;;								#button {Burt Park} 2
+;;;								#button {Cancel} 3
+								{Nombre:}
 								#at 10 125
-								#button {Police HQ} 1
-								#button {Burt Park} 2
-								#button {Cancel} 3
+								#button {Polic|a HQ} 1
+								#button {Parque Burt} 2
+								#button {Cancelar} 3								
+								
+								
+								
+								
 							)				
 						)
 						(switch temp0 
 							(1
-								(BondsSpeak {Police station.})
+;;;								(BondsSpeak {Police station.})
+								(BondsSpeak {Comisar|a.})
 								(PersonSpeak 12 28)
 							)
 							(2
-								(BondsSpeak {Burt Park.})
+;;;								(BondsSpeak {Burt Park.})
+								(BondsSpeak {Parque Burt.})
 								(PersonSpeak 12 29)
 							)
 							(3
-								(BondsSpeak {Nevermind.})
+;;;								(BondsSpeak {Nevermind.})
+								(BondsSpeak {Da igual.})								
 								(PersonHangUp)
 								(client setScript: phoneNumber)
 							)
@@ -588,45 +640,63 @@ code_1ba3:
 					(2 ;Lytton listings
 						(= temp0
 							(PrintSpecial
-								{Name:}
+;;;								{Name:}
+;;;								#at 10 125
+;;;								#button {Police} 1
+;;;								#button {Marie} 2
+;;;								#button {Cotton Cove} 3
+;;;								#button {Arnie's Cafe} 4
+;;;								#button {Jailhouse} 5
+;;;								#button {Airport} 6
+;;;								#button {Inn} 7
+;;;								#button {Cancel} 8
+
+								{Nombre:}
 								#at 10 125
-								#button {Police} 1
+								#button {Polic|a} 1
 								#button {Marie} 2
 								#button {Cotton Cove} 3
-								#button {Arnie's Cafe} 4
-								#button {Jailhouse} 5
-								#button {Airport} 6
-								#button {Inn} 7
-								#button {Cancel} 8
+								#button {Caf+ de Arnie} 4
+								#button {C*rcel} 5
+								#button {Aeropuerto} 6
+								#button {Motel} 7
+								#button {Cancelar} 8
 							)				
 						)
 						(switch temp0
 							(1
-								(BondsSpeak {Police station.})
+;;;								(BondsSpeak {Police station.})
+								(BondsSpeak {Comisar|a de Polic|a.})								
 								(PersonSpeak 12 21)
 							)
 							(2
-								(BondsSpeak {Marie Wilkins.})
+;;;								(BondsSpeak {Marie Wilkins.})
+								(BondsSpeak {Marie Wilkins.})								
 								(PersonSpeak 12 22)
 							)
 							(3
-								(BondsSpeak {Cotton Cove Payphone.})
+;;;								(BondsSpeak {Cotton Cove Payphone.})								
+								(BondsSpeak {Cabina de Cotton Cove.})
 								(PersonSpeak 12 23)
 							)
 							(4
-								(BondsSpeak {Arnie's Cafe.})
+;;;								(BondsSpeak {Arnie's Cafe.})
+								(BondsSpeak {Caf+ de Arnie.})								
 								(PersonSpeak 12 24)
 							)
 							(5
-								(BondsSpeak {Lytton Jailhouse.})
+;;;								(BondsSpeak {Lytton Jailhouse.})
+								(BondsSpeak {C*rcel de Lytton.})
 								(PersonSpeak 12 25)
 							)
 							(6
-								(BondsSpeak {Lytton Airport.})
+;;;								(BondsSpeak {Lytton Airport.})
+								(BondsSpeak {Aeropuerto de Lytton.})
 								(PersonSpeak 12 26)
 							)
 							(7
-								(BondsSpeak {Lytton Inn.})
+;;;								(BondsSpeak {Lytton Inn.})
+								(BondsSpeak {Posada de Lytton.})								
 								(PersonSpeak 12 27)
 							)
 							(8
@@ -640,10 +710,16 @@ code_1ba3:
 					(3 ;corsegold
 						(= temp0
 							(PrintSpecial
-								{Name:}
+;;;								{Name:}
+;;;								#at 10 125
+;;;								#button {Sierra Online} 1
+;;;								#button {Cancel} 2
+;;;								
+								{Nombre:}
 								#at 10 125
 								#button {Sierra Online} 1
-								#button {Cancel} 2
+								#button {Cancelar} 2								
+								
 							)				
 						)
 						(switch temp0
@@ -654,7 +730,8 @@ code_1ba3:
 								(self changeState: 999)
 							)
 							(2
-								(BondsSpeak {Nevermind.})
+;;;								(BondsSpeak {Nevermind.})
+								(BondsSpeak {Da igual.})
 								(PersonHangUp)
 								(client setScript: phoneNumber)
 							)
@@ -666,12 +743,19 @@ code_1ba3:
 					(4 ;Houston
 					 	(= temp0
 							(PrintSpecial
-								{Name:}
+;;;								{Name:}
+;;;								#at 10 125
+;;;								#button {Cancel} 1 ;;currently no info
+								{Nombre:}
 								#at 10 125
-								#button {Cancel} 1 ;;currently no info
+								#button {Cancelar} 1 ;;currently no info								
+								
+								
+								
 							)				
 						)
-						(BondsSpeak {Nevermind.})
+;;;						(BondsSpeak {Nevermind.})
+						(BondsSpeak {Da igual.})
 						(PersonHangUp)
 						(client setScript: phoneNumber)
 					)
@@ -902,15 +986,22 @@ code_1ba3:
 				(PersonSpeak 12 47) ;When you get off work, meet me at Arnie's, OK?
 				(= temp0
 					(PrintSpecial
-						{Say:}
+;;;						{Say:}
+;;;						#at 10 125
+;;;						#button {Yes} 1
+;;;						#button {No} 2
+;;;						
+;;;						
+						{Hablar:}
 						#at 10 125
-						#button {Yes} 1
-						#button {No} 2
+						#button {S|} 1
+						#button {No} 2						
 					)				
 				)
 				(switch temp0
 					(1
-						(BondsSpeak {Yes, I'll meet you there.})
+;;;						(BondsSpeak {Yes, I'll meet you there.})
+						(BondsSpeak {S|, nos vemos all|.})						
 						(= state 998) ;change to state 999
 						(= cycles 1)
 					)
@@ -923,7 +1014,8 @@ code_1ba3:
 				)
 			)
 			(777
-				(PersonSpeak {I'm right in the middle of something, Sonny. Call me later. Bye.})
+;;;				(PersonSpeak {I'm right in the middle of something, Sonny. Call me later. Bye.})
+				(PersonSpeak {Estoy en medio de algo, Sonny. Ll*mame m*s tarde. Adiós})
 				(PersonHangUp)
 				(client setScript: phoneNumber)
 			)
@@ -1131,25 +1223,34 @@ code_1ba3:
 				(PersonSpeak 12 70) ;Lytton Police Department. Which division, please?
 				(= temp0
 					(PrintSpecial
-						{Say:}
+;;;						{Say:}
+;;;						#at 10 125
+;;;						#button {Homicide} 1
+;;;						#button {Narcotics} 2
+;;;						#button {Burglary} 3
+;;;						#button {Nevermind} 4
+						{Hablar:}
 						#at 10 125
-						#button {Homicide} 1
-						#button {Narcotics} 2
-						#button {Burglary} 3
-						#button {Nevermind} 4
+						#button {Homic|dios} 1
+						#button {Narc/ticos} 2
+						#button {Robos} 3
+						#button {Da igual} 4
 					)				
 				)
 				(switch temp0
 					(1
-						(BondsSpeak {Homicide.})
+;;;						(BondsSpeak {Homicide.})
+						(BondsSpeak {Homic|dios.})
 						(self changeState: 3)
 					)
 					(2
-						(BondsSpeak {Narcotics.})
+;;;						(BondsSpeak {Narcotics.})
+						(BondsSpeak {Narc/ticos.})						
 						(self changeState: 3)
 					)
 					(3
-						(BondsSpeak {Burglary.})
+;;;						(BondsSpeak {Burglary.})
+						(BondsSpeak {Robos.})
 						(self changeState: 3)
 					)
 					(else
@@ -1178,19 +1279,27 @@ code_1ba3:
 				(PersonSpeak 12 76) ;Would you like to hold?
 				(= temp0
 					(PrintSpecial
-						{Say:}
+;;;						{Say:}
+;;;						#at 10 125
+;;;						#button {Yes} 1
+;;;						#button {No} 2
+						{Hablar:}
 						#at 10 125
-						#button {Yes} 1
+						#button {S|} 1
 						#button {No} 2
+
+
 					)				
 				)
 				(switch temp0
 					(1
-						(BondsSpeak {Yes, I'll hold.})
+;;;						(BondsSpeak {Yes, I'll hold.})
+						(BondsSpeak {S|, espero.})
 						(self changeState: 5)
 					)
 					(else
-						(BondsSpeak {No, thank you.})
+;;;						(BondsSpeak {No, thank you.})
+						(BondsSpeak {No, gracias.})
 						(self changeState: 999)
 					)
 				)
@@ -1278,7 +1387,8 @@ code_1ba3:
 			(1
 				(PersonSpeak 12 79) ;hello
 				(PersonSpeak 12 80) ;May I help you?
-				(BondsSpeak {Hello, I need help with PQ2 Point and Click. How do you...})
+;;;				(BondsSpeak {Hello, I need help with PQ2 Point and Click. How do you...})
+				(BondsSpeak {Hola, necesito ayuda con PQ2 Point and Click. Y si...})				
 				(PersonSpeak 12 81) ;You don't think this program is that sophisticated... to have a whole customer support within the game.
 				(PersonSpeak 12 82) ;If you want the real customer support use a real phone.
 				(self changeState: 999)
@@ -1333,19 +1443,27 @@ code_1ba3:
 				(PersonSpeak 12 88)
 				(= temp0
 					(PrintSpecial
-						{Say:}
+;;;						{Say:}
+;;;						#at 10 125
+;;;						#button {Amazing!} 1
+;;;						#button {Awful!} 2
+						{Hablar:}
 						#at 10 125
-						#button {Amazing!} 1
-						#button {Awful!} 2
+						#button {_Asombr/so!} 1
+						#button {Horrible} 2						
+						
+						
 					)				
 				)
 				(switch temp0
 					(1
-						(BondsSpeak {Great! I loved playing Liesuresuit Larry 1.})
+;;;						(BondsSpeak {Great! I loved playing Leisure suit Larry 1.})
+						(BondsSpeak {_Genial! Me ha encantado jugar a Leisure suit Larry 1.})
 						(self changeState: 3)
 					)
 					(else
-						(BondsSpeak {That's the dumbest thing I've ever heard.})
+;;;						(BondsSpeak {That's the dumbest thing I've ever heard.})
+						(BondsSpeak {Es lo m*s tonto que he o|do nunca.})
 						(self changeState: 4)
 					)
 				)

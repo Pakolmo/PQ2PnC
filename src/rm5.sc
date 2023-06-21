@@ -439,9 +439,13 @@
 								(rm5Script changeState: 1)
 								(SolvePuzzle 5 fOpenLocker)	
 							else
-								;(LocPrint 5 37) ;"Your loocker is round combination type"
-								(LocPrint "I can't remember the locker numbers.")
-								(LocPrint "I think I put it on my LPD business card.")
+								
+;;;								(LocPrint "I can't remember the locker numbers.")
+;;;								(LocPrint "I think I put it on my LPD business card.")
+								
+								(LocPrint "No recuerdo la combinaci/n de la taquilla.")
+								(LocPrint "Creo que lo puse en mi tarjeta de visita LPD.")
+								
 							)
 						else
 							(LocPrint 5 38)
@@ -453,8 +457,12 @@
 								(rm5Script changeState: 1)
 								(SolvePuzzle 5 fOpenLocker)
 							else
-								(LocPrint "I can't remember the locker numbers.")
-								(LocPrint "I think I put it on my LPD business card.")
+;;;								(LocPrint "I can't remember the locker numbers.")
+;;;								(LocPrint "I think I put it on my LPD business card.")
+								(LocPrint "No recuerdo la combinaci/n de la taquilla.")
+								(LocPrint "Creo que lo puse en mi tarjeta de visita LPD.")
+
+
 							)							
 						else	
 							(LocPrint 5 53)
@@ -894,13 +902,16 @@
 					(LocPrint 5 53)
 				else
 					(= [lockerCombination 0]
-						(GetNumber {First # of your combination?})
+;;;						(GetNumber {First # of your combination?})
+						(GetNumber {^Primer # de la combinaci/n?})						
 					)
 					(= [lockerCombination 1]
-						(GetNumber {Second # of your combination?})
+;;;						(GetNumber {Second # of your combination?})
+						(GetNumber {^Segundo # de la combinaci/n?})						
 					)
 					(= [lockerCombination 2]
-						(GetNumber {Third # of your combination?})
+;;;						(GetNumber {Third # of your combination?})
+						(GetNumber {^Tercer # de la combinaci/n?})						
 					)
 					(if
 						(and

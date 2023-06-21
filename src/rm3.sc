@@ -787,10 +787,17 @@
 										(++ talkedToSteve)
 										(= temp0
 											(PrintSpecial
-												{Say:}
+;;;												{Say:}
+;;;												;#at 10 125
+;;;												#button {Yes} 1
+;;;												#button {No} 2
+
+												{Hablar:}
 												;#at 10 125
-												#button {Yes} 1
+												#button {S|} 1
 												#button {No} 2
+
+
 											)	
 										)
 										(switch temp0

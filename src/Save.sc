@@ -59,17 +59,34 @@
 	numGames
 	selected
 	status
-	okIText = [{Restore} {__Save__} {Replace} {Replace}]
+;;;	okIText = [{Restore} {__Save__} {Replace} {Replace}]
+;;;	textIText = [
+;;;					{Select the game that you would like to restore.}
+;;;					{Type the description of this saved game.}
+;;;					{This directory/disk can hold no more saved games. 
+;;;	You must replace one of your saved games or use
+;;;	Change Directory to save on a different directory/disk.}
+;;;					{This directory/disk can hold no more saved games. 
+;;;	You must replace one of your saved games or use
+;;;	Change Directory to save on a different directory/disk.}
+;;;					]
+					
+					
+					
+					
+					
+					
+	okIText = [{Cargar} {__Salvar__} {Reemplazar} {Reemplazar}]
 	textIText = [
-					{Select the game that you would like to restore.}
-					{Type the description of this saved game.}
-					{This directory/disk can hold no more saved games. 
-	You must replace one of your saved games or use
-	Change Directory to save on a different directory/disk.}
-					{This directory/disk can hold no more saved games. 
-	You must replace one of your saved games or use
-	Change Directory to save on a different directory/disk.}
-					]
+					{Elige el juego que quieras restaurar.}
+					{Escribe la descripci/n de esta partida guardada.}
+					{Esta ruta no puede contener m*s partidas guardadas.
+	Debes sustituir una de tus partidas guardadas o utilizar
+	Cambiar Directorio para salvar en una ruta diferente.}
+					{Esta ruta no puede contener m*s partidas guardadas. 
+	Debes sustituir una de tus partidas guardadas o utilizar
+	Cambiar Directorio para salvar en una ruta diferente.}
+					]					
 )
 
 
@@ -493,8 +510,11 @@
 				SAVE 1
 				#font: SYSFONT
 				#edit: (StrCpy @newDir where) DIRECTORYSIZE
+;;;				#button: {OK} 1
+;;;				#button: {Cancel} 0
+				
 				#button: {OK} 1
-				#button: {Cancel} 0
+				#button: {Cancelar} 0				
 			)
 		)
 
@@ -555,7 +575,8 @@
 )
 (instance changeDirI of DButton
 	(properties
-		text {Change\nDirectory}
+;;;		text {Change\nDirectory}
+		text {Cambiar\nDirectorio}
 	)
 )
 (instance textI of DText

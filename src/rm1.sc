@@ -869,9 +869,13 @@
 							(if (ego inRect: 151 129 182 148) ;near trunk
 								(if (cast contains: unTrunk)
 									(inventory
-										carrying: {The car's trunk contains:}
-										empty: {The car's trunk is empty.}
-										showSelf: 13
+;;;										carrying: {The car's trunk contains:}
+;;;										empty: {The car's trunk is empty.}
+;;;										showSelf: 13
+										
+										carrying: {En el maletero del coche hay:}
+										empty: {El maletero del coche est* vac|o.}
+										showSelf: 13										
 									)
 								else
 									(Print 1 51) ;you have to open it first.
@@ -925,7 +929,9 @@
 									)
 								)
 								(else
-									(Print {You're not close enough to either the door or the trunk.})
+;;;									(Print {You're not close enough to either the door or the trunk.})
+									(Print {No est*s lo suficientemente cerca de la puerta ni del maletero.})
+
 								)
 							)
 						)

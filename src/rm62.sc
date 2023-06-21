@@ -901,7 +901,8 @@
 					(switch theCursor
 						(998 ;look
 ;;;							(if (localproc_025c)
-								(Print {You will need your field kit to take clues.})	
+;;;								(Print {You will need your field kit to take clues.})	
+								(Print {Necesitar*s tu malet|n de trabajo para conseguir pruebas.})	
 ;;;							)
 						)
 						(110 ;open field kit
@@ -1092,11 +1093,13 @@
 				(Print 62 74 #mode 1)
 				(if (== currentCar 13)
 					(EgoDead
-						{Don't worry, though; Keith will explain in his report how he heroically 'watched your back'._}
+;;;						{Don't worry, though; Keith will explain in his report how he heroically 'watched your back'._}
+						{Pero no te preocupes, Keith explicar* en su informe c/mo te 'cubri/ las espaldas' heroicamente._}
 					)
 				else
 					(EgoDead
-						{Too bad, soooo sad. There were no witnesses to your untimely demise. But don't worry. Just restore and try again._}
+;;;						{Too bad, soooo sad. There were no witnesses to your untimely demise. But don't worry. Just restore and try again._}
+						{Qu+ pena, qu+ tristeza. No hubo testigos de tu prematuro fallecimiento. Pero no te preocupes. S/lo restaura e int+ntalo de nuevo._}
 					)
 				)
 			)

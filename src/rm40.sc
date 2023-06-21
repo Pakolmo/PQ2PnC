@@ -238,7 +238,8 @@
 						@str
 						40
 						5
-						(if sittingInPlane {_} else { find your seat and_})
+;;;						(if sittingInPlane {_} else { find your seat and_})
+						(if sittingInPlane {_} else { encuentra tu asiento y_})
 					)
 					67
 					10
@@ -363,14 +364,16 @@
 						(event claimed: TRUE)
 						(switch theCursor
 							(998
-								(Print {It's the door to the cockpit.})	
+;;;								(Print {It's the door to the cockpit.})	
+								(Print {Es la puerta de la cabina del piloto.})
 							)
 							(995
 								(if (& (ego onControl:) $1000) ;red
 									(AirplanePrint
 										(Format
 											@str 40 5
-											(if sittingInPlane {_} else { find your seat and_})
+;;;											(if sittingInPlane {_} else { find your seat and_})
+											(if sittingInPlane {_} else { encuentra tu asiento y_})
 										)
 										#at 10 15
 										#font smallFont
@@ -397,7 +400,8 @@
 										(if (not wearingSeatbelt)
 											(= wearingSeatbelt 1)
 											(SolvePuzzle 1 163)
-											(Print {You fasten your seatbelt.})
+;;;											(Print {You fasten your seatbelt.})
+											(Print {Te abrochas el cintur/n.})
 											(if (< state 2)
 												(self changeState: 1)
 											else
@@ -654,7 +658,8 @@
 				(ego dispose:)
 				(guard dispose:)
 				(EgoDead
-					{Sonny, you really must learn not to be such a nuisance. It's not that hard to find your seat and fasten your seatbelt!}
+;;;					{Sonny, you really must learn not to be such a nuisance. It's not that hard to find your seat and fasten your seatbelt!}
+					{Sonny, no molestes. #No es tan dif|cil encontrar tu asiento y sujetarte el cintur/n de seguridad!}
 				)
 			)
 		)
@@ -684,7 +689,9 @@
 				(= temp0
 					(PrintSpecial
 						40 22
-						#button {Yes} 1
+;;;						#button {Yes} 1
+;;;						#button {No} 2
+						#button {S|} 1
 						#button {No} 2
 						#at 10 10
 						#font smallFont
@@ -870,16 +877,31 @@
 				(= askedForOrder 0)
 				(= drinkOrder
 					(PrintSpecial
-						{Get:}
+;;;						{Get:}
+;;;						#at 10 125
+;;;						#button {Beer} 1
+;;;						#button {Wine} 2
+;;;						#button {Bourbon} 3
+;;;						#button {Soda} 4
+;;;						#button {Water} 5
+;;;						#button {Coffee} 6
+;;;						#button {Number} 7
+;;;						#button {Nothing} 0
+
+
+						{Tomar:}
 						#at 10 125
-						#button {Beer} 1
-						#button {Wine} 2
+						#button {Cerveza} 1
+						#button {Vino} 2
 						#button {Bourbon} 3
-						#button {Soda} 4
-						#button {Water} 5
-						#button {Coffee} 6
-						#button {Number} 7
-						#button {Nothing} 0
+						#button {Gaseosa} 4
+						#button {Agua} 5
+						#button {Caf+} 6
+						#button {N{mero} 7
+						#button {Nada} 0
+
+
+
 	
 					)
 				)
@@ -994,7 +1016,8 @@
 									(sittingInPlane
 										(if wearingSeatbelt
 											(= wearingSeatbelt 0)
-											(Print {You unfasten your seatbelt.})
+;;;											(Print {You unfasten your seatbelt.})
+											(Print {Te desatas el cintur/n.})
 										else
 											(Print 40 36)
 										)

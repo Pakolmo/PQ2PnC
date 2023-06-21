@@ -336,7 +336,8 @@
 										(!= curRoomNum 127)
 										(!= curRoomNum 129)
 									)
-									{ Rats scurry about the sewer pipes.}
+;;;									{ Rats scurry about the sewer pipes.}
+									{ Ratas correteando por las tuberías del alcantarillado.}
 								else
 									{}
 								)
@@ -414,14 +415,18 @@
 						(Print
 							(Format @str 205 23
 								(if (== (sewerLight cel?) 3)
-									{has been shot out.}
+;;;									{has been shot out.}
+									{ha sido apagada.}
 								else
 									{is on.}
 								)
 								(cond 
 									((not (cast contains: sewerLight2)) {})
-									((== (sewerLight2 cel?) 3) {The other light has been shot out.})
-									(else {The other light is on.})
+;;;									((== (sewerLight2 cel?) 3) {The other light has been shot out.})
+;;;									(else {The other light is on.})
+									
+									((== (sewerLight2 cel?) 3) {La otra luz se ha apagado.})
+									(else {La otra luz est* encendida.})									
 								)
 							)
 						)
@@ -653,8 +658,12 @@
 			)
 			(7
 				(EgoDead
-					{ Falling into the trough of human waste,
-					 you lose consciousness as you slip beneath the surface.}
+;;;					{ Falling into the trough of human waste,
+;;;					 you lose consciousness as you slip beneath the surface.}
+					 
+					 
+					{ Al caer en las cloacas de desechos humanos, pierdes el conocimiento mientras te deslizas bajo la superficie.}					 
+					 
 				)
 			)
 		)
@@ -679,8 +688,10 @@
 				(Print 205 36)
 				(Print 205 37)
 				(EgoDead
-					{You die from asphyxiation in a pocket of
-					 methane gas. Next time, avoid this area or ...?}
+;;;					{You die from asphyxiation in a pocket of
+;;;					 methane gas. Next time, avoid this area or ...?}
+
+					{Mueres por asfixia en una bolsa de gas metano. La pr/xima vez, evita esta zona &o...?}
 				)
 			)
 		)
@@ -713,7 +724,9 @@
 				(RedrawCast)
 				(Wait 80)
 				(EgoDead
-					{You're fried! The spark from your gunfire in explosive gas is VERY fatal.}
+;;;					{You're fried! The spark from your gunfire in explosive gas is VERY fatal.}
+					{^Estás frito! La chispa de tus disparos en el gas explosivo es MUY fatal.}
+					
 				)
 			)
 		)

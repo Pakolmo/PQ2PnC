@@ -1304,8 +1304,12 @@
 									(Format
 										@temp1 10 54
 										(cond 
-											((> gunWindageScrew 6) { and to the right})
-											((< gunWindageScrew -6) { and to the left})
+;;;											((> gunWindageScrew 6) { and to the right})
+;;;											((< gunWindageScrew -6) { and to the left})
+											((> gunWindageScrew 6) { y a la derecha})
+											((< gunWindageScrew -6) { y a la izquierda})
+
+
 											(else {})
 										)
 									)
@@ -1316,8 +1320,12 @@
 									(Format
 										@temp1 10 55
 										(cond 
-											((> gunWindageScrew 6) { and to the right})
-											((< gunWindageScrew -6) { and to the left})
+;;;											((> gunWindageScrew 6) { and to the right})
+;;;											((< gunWindageScrew -6) { and to the left})
+
+											((> gunWindageScrew 6) { y a la derecha})
+											((< gunWindageScrew -6) { y a la izquierda})
+
 											(else {})
 										)
 									)
@@ -1328,8 +1336,12 @@
 									(Format
 										@temp1 10 56
 										(cond 
-											((> gunWindageScrew 6) {right})
-											((< gunWindageScrew 6) {left})
+;;;											((> gunWindageScrew 6) {right})
+;;;											((< gunWindageScrew 6) {left})
+											
+											((> gunWindageScrew 6) {derecha})
+											((< gunWindageScrew 6) {izquierda})											
+											
 										)
 									)
 								)
@@ -1512,8 +1524,14 @@
 									(Format
 										@temp1 10 54
 										(cond 
-											((> gunWindageScrew 6) { and to the right})
-											((< gunWindageScrew -6) { and to the left})
+;;;											((> gunWindageScrew 6) { and to the right})
+;;;											((< gunWindageScrew -6) { and to the left})
+											
+											((> gunWindageScrew 6) { y a la derecha})
+											((< gunWindageScrew -6) { y a la izquierda})											
+											
+											
+											
 											(else {})
 										)
 									)
@@ -1524,8 +1542,11 @@
 									(Format
 										@temp1 10 55
 										(cond 
-											((> gunWindageScrew 6) { and to the right})
-											((< gunWindageScrew -6) { and to the left})
+;;;											((> gunWindageScrew 6) { and to the right})
+;;;											((< gunWindageScrew -6) { and to the left})
+											
+											((> gunWindageScrew 6) { y hacia la derecha})
+											((< gunWindageScrew -6) { y hacia la izquierda})											
 											(else {})
 										)
 									)
@@ -1536,8 +1557,11 @@
 									(Format
 										@temp1 10 56
 										(cond 
-											((> gunWindageScrew 6) {right})
-											((< gunWindageScrew 6) {left})
+;;;											((> gunWindageScrew 6) {right})
+;;;											((< gunWindageScrew 6) {left})
+											
+											((> gunWindageScrew 6) {derecha})
+											((< gunWindageScrew 6) {izquierda})											
 										)
 									)
 								)
@@ -1569,7 +1593,8 @@
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
-						(Print {This button is labeled 'BACK'})
+;;;						(Print {This button is labeled 'BACK'})
+						(Print {Este bot/n est* etiquetado como 'VOLVER'})
 					)
 					(995 ;hand
 						(event claimed: TRUE)
@@ -1604,7 +1629,8 @@
 				(event claimed: TRUE)
 				(switch theCursor
 					(998 ;look
-						(Print {This button is labeled 'VIEW'})
+;;;						(Print {This button is labeled 'VIEW'})
+						(Print {Este bot/n est* etiquetado c/mo 'VER'})
 					)
 					(995
 						(cond 

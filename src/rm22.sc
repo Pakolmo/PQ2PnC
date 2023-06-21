@@ -74,6 +74,7 @@
 						(return 0)
 					)
 					((not (ego has: iHandGun))
+;;;						(LocPrint {You forget your gun.})
 						(LocPrint {No te olvides tu pistola.})
 						(return 0)
 					)
@@ -503,8 +504,12 @@
 												(cast contains: unTrunk)
 											)
 											(inventory
-												carrying: {The car's trunk contains:}
-												empty: {The car's trunk is empty.}
+;;;												carrying: {The car's trunk contains:}
+;;;												empty: {The car's trunk is empty.}
+												carrying: {En el maletero hay:}
+												empty: {El maletero est* vac|o.}
+
+
 												showSelf: 13
 											)
 										else
@@ -867,7 +872,8 @@
 							(gunStolenFromLocker
 								(LocPrint 22 64)
 								(EgoDead
-									{Yes, even in peaceful Lytton, crimes of opportunity still occur. Next time, keep track of your piece.}
+;;;									{Yes, even in peaceful Lytton, crimes of opportunity still occur. Next time, keep track of your piece.}
+									{S|, hasta en el pac|fico Lytton siguen habiendo cr|menes. La pr/xima vez, guarda mejor tus cosas.}
 								)
 							)
 							((== ((inventory at: iHandGun) owner?) 22)

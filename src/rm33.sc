@@ -981,10 +981,12 @@
 					(998
 						(cond 
 							((not (InRoom 2 0))
-								(Print {The car will not start without using the keys.})
+;;;								(Print {The car will not start without using the keys.})
+								(Print {El coche no arrancar* sin las llaves.})
 							)
 							((not local0)
-								(Print {The keys are in the ignition.})
+;;;								(Print {The keys are in the ignition.})
+								(Print {Las llaves est*n puestas.})
 							)
 							(else
 								(Print 33 1)
@@ -1008,7 +1010,8 @@
 				(event claimed: TRUE)
 				(switch theCursor				
 					(998 ; look box											
-						(Print {It's your LPD Buisness card.})
+;;;						(Print {It's your LPD Buisness card.})
+						(Print {Es tu tarjeta de negocios..})
 					)
 					(995 ; hand	
 						(if
@@ -1018,7 +1021,8 @@
 							)
 							(ego get: 37)
 							(businessCard dispose:)
-							(Print {You take the card.} #draw)
+;;;							(Print {You take the card.} #draw)
+							(Print {Coges la tarjeta.} #draw)
 							(SolvePuzzle 1 103)
 						)
 					)
@@ -1053,7 +1057,8 @@
 				(event claimed: TRUE)
 				(switch theCursor				
 					(998 ; look box
-						(Print {It's the glove box.})
+;;;						(Print {It's the glove box.})
+						(Print {Es la guantera.})
 					)
 					(995 ; hand close box
 						(= glove 0)

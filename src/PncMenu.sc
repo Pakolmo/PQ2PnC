@@ -625,7 +625,7 @@
 								)
 							)
 						)						
-						(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
+;;;						(Printf {x: %d, y: %d, fieldkitopen: %d} (event x?) (event y?) fieldKitOpen) ;for testing - to find rect	
 					)
 					((ClickedOnObj ego (event x?) (event y?)) ;clicked on sonny
 						(if (<= theCursor 137) ;inventory item clicked on sonny
@@ -662,18 +662,24 @@
 							(998 ;look
 								(event type: 1 claimed: 1)
 								(switch (Random 42 44)
-									(42 (Print {It's just as it appears.}))
-									(43 (Print {It doesn't look interesting.}))
-									(44 (Print {You see nothing special.}))
+;;;									(42 (Print {It's just as it appears.}))
+;;;									(43 (Print {It doesn't look interesting.}))
+;;;									(44 (Print {You see nothing special.}))
+
+									(42 (Print {Es lo que parece.}))
+									(43 (Print {No parece interesante.}))
+									(44 (Print {No tiene nada de especial.}))
 								)
 							)
 							(996 ;talk 
 								(event type: 1 claimed: 1)
-								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+;;;								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+								(Print {(No hay respuesta.)} #at -1 144) ;"(There is no response.)"
 							)
 							(995 ;hand
 								(event type: 1 claimed: 1)
-								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+								(Print {(^Qu+ quieres coger?.)}) ;"What do you want to take?"
 							)
 							(997 ;wait sierra
 								(event type: 1 claimed: 1)
@@ -718,7 +724,8 @@
 							)
 							(else ;inventory item
 								(event type: 1 claimed: 1)
-								(Print {no need to use that here.}) ;"no need to use that here"
+;;;								(Print {no need to use that here.}) ;"no need to use that here"
+								(Print {No hay ninguna necesidad de usar esto ah|.}) ;"no need to use that here"
 							)
 						)
 					)
@@ -741,7 +748,8 @@
 			(1
 				(if
 					(Print
-						950 26
+;;;						950 26
+						{^De verdad quieres salir?}
 ;;;						#title {Quit} ;English
 						#title {Salir} ;Spanish
 						#font 1
@@ -772,7 +780,8 @@
 			(1
 				(= loadOrSave 
 					(Print
-						950 30 
+;;;						950 30 
+						{Salvar o Cargar:}
 ;;;						#button {\n__SAVE__\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
 ;;;						#button {\n__LOAD__\n_} 2 ;(pickedLoad=0) ;ENGLISH
 						#button {\n__SALVAR__\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
@@ -850,7 +859,8 @@
 			(1
 				(= sGauge2
 					(PrintSpecialSimple
-						950 33 ;"configuration:" 
+;;;						950 33 ;"configuration:" 
+						{configuraci/n:}
 						;#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
 						;#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
 						#button {\n_VELOCIDAD_\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
@@ -896,7 +906,8 @@
 					(= pncSpeed
 						((Gauge new:)
 							description:
-								(Format @str 950 34)
+;;;								(Format @str 950 34)
+								(Format @str {Utiliza el rat/n y las teclas de flecha izquierda y derecha para ajustar la velocidad.})
 ;;;							text: {Animation Speed} ;ENGLISH
 							text: {Velocidad del Juego} ;SPANISH
 							normal: 10
@@ -918,7 +929,8 @@
 					(= pncVolume
 						((Gauge new:)
 							description:
-								(Format @str 950 35)
+;;;								(Format @str 950 35)
+								(Format @str {Utiliza el rat/n y las teclas de flecha izquierda y derecha para ajustar el volumen.})
 ;;;							text: {Sound Volume} ;ENGLISH
 							text: {Volumen} ;SPANISH
 							normal: 15
@@ -944,7 +956,8 @@
 				;credits
 				(Print
 					(Format @str 997 0 version)
-					#title {__Police Quest II Credits__}
+;;;					#title {__Police Quest II Credits__}
+					#title {__Cr+ditos de Police Quest II__}					
 					#mode teJustCenter
 					#width 160
 					#font smallFont
@@ -952,7 +965,8 @@
 				)
 				(Print
 					(Format @str 997 1)
-					#title {And last, but not least...}
+;;;					#title {And last, but not least...}
+					#title {Y por {ltimo, aunque no menos importante...}
 					#mode teJustCenter
 					#width 180
 					#font smallFont
@@ -960,7 +974,8 @@
 				)
 			)
 			(60 ;score
-				(Print (Format @str 0 0 score possibleScore))
+;;;				(Print (Format @str 0 0 score possibleScore))
+				(Print (Format @str {Puntuaci/n: %d de %d  \n\n  Police Quest II -Point and Click-} score possibleScore))
 			)
 			(100 (levelsIcon loop: 0))
 		)

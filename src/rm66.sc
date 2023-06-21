@@ -212,10 +212,16 @@
 										@temp1
 										66
 										4
-										(if (Btst 4) {} else {a wet suit,})
-										(if (Btst 6) {} else {a weight belt,})
-										(if (Btst 7) {} else {a bouyancy control vest,})
-										(if (Btst 8) {} else {a scuba mask,})
+;;;										(if (Btst 4) {} else {a wet suit,})
+;;;										(if (Btst 6) {} else {a weight belt,})
+;;;										(if (Btst 7) {} else {a bouyancy control vest,})
+;;;										(if (Btst 8) {} else {a scuba mask,})
+										(if (Btst 4) {} else {un traje de neopreno,})
+										(if (Btst 6) {} else {un cinturón de lastre,})
+										(if (Btst 7) {} else {un chaleco de control de flotabilidad,})
+										(if (Btst 8) {} else {una máscara de submarinismo,})
+
+
 									)
 									#at
 									-1
@@ -418,10 +424,19 @@
 										@temp1
 										66
 										4
-										(if (Btst 4) {} else {a wet suit,})
-										(if (Btst 6) {} else {a weight belt,})
-										(if (Btst 7) {} else {a bouyancy control vest,})
-										(if (Btst 8) {} else {a scuba mask,})
+;;;										(if (Btst 4) {} else {a wet suit,})
+;;;										(if (Btst 6) {} else {a weight belt,})
+;;;										(if (Btst 7) {} else {a bouyancy control vest,})
+;;;										(if (Btst 8) {} else {a scuba mask,})
+;;;										
+										(if (Btst 4) {} else {un traje de neopreno,})
+										(if (Btst 6) {} else {un cinturón de lastre,})
+										(if (Btst 7) {} else {un chaleco de control de flotabilidad,})
+										(if (Btst 8) {} else {una máscara de submarinismo,})
+
+										
+										
+										
 									)
 									#at
 									-1

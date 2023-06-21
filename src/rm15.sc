@@ -459,11 +459,13 @@
 				(Print 15 3 #width 50 #at 252 60 #time 4)
 				(if local7
 					(EgoDead
-						{You took too much time getting across the street. Too bad...so sad...you've been had!}
+;;;						{You took too much time getting across the street. Too bad...so sad...you've been had!}
+						{Tardaste demasiado en cruzar la calle. Muy mal... _Qu+ mal lo hiciste!}						
 					)
 				else
 					(EgoDead
-						{You forgot to look both ways and wait for the light. Didn't your mother tell you about that?}
+;;;						{You forgot to look both ways and wait for the light. Didn't your mother tell you about that?}
+						{Olvidaste mirar a ambos lados y esperar la luz correcta. _No te lo explic/ tu madre?}						
 					)
 				)
 			)
@@ -1110,9 +1112,12 @@
 								(if talkedToW
 								(= sino
 										(PrintSpecial
-											{Buy flowers}
-											#button {Afirmative} 1
-											#button {Negative} 2
+;;;											{Buy flowers}
+;;;											#button {Afirmative} 1
+;;;											#button {Negative} 2
+											{Comprar flores}
+											#button {Afirmativo} 1
+											#button {Negativo} 2
 
 										)
 								)
@@ -1124,10 +1129,14 @@
 											;3 tipos de flores
 											(= flores
 												(PrintSpecial
-													{Flowers}
-													#button {Rose} 1
-													#button {Bouquet} 2
-													#button {Plant} 3
+;;;													{Flowers}
+;;;													#button {Rose} 1
+;;;													#button {Bouquet} 2
+;;;													#button {Plant} 3
+													{Flores}
+													#button {Rosa} 1
+													#button {Ramo} 2
+													#button {Planta} 3													
 												)
 											)
 											(switch flores
