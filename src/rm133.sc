@@ -277,6 +277,62 @@
 				)
 
 
+					(if	(ClickedInRect 60 80 114 141 event) ;clicked on poster
+					(event claimed: TRUE)
+						(switch theCursor						
+							(995 
+								(ego setMotion: MoveTo 66 133)
+								(event claimed: FALSE)
+								(ego loop: 0)
+							
+							)
+							(998 
+								(ego setMotion: MoveTo 66 133 self)
+								(ego loop: 0) 
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+		
+
+
+
+
+					(if (ClickedOnObj marie (event x?) (event y?)) ;clicked on marie
+					(event claimed: TRUE)
+						(switch theCursor						
+							(996 ;calmarla
+							(cond 
+							(marieIsCalm (localproc_0060 133 14))
+							((not marieTiedUp) (Print 133 15))
+							((> (ego distanceTo: marie) 40) (Print 133 16))
+							(else
+								(localproc_0060 133 17)
+								(= marieIsCalm 1)
+								(marie setCycle: 0)
+								(Bset 125)
+								(SolvePuzzle 5 161)
+							)
+								)
+							)
+							(995 ;desatarla	
+							(cond 
+							((not marieTiedUp) (Print 133 12))
+							((ego inRect: 185 110 224 135)
+								(Bset 125)
+								(SolvePuzzle 5 160)
+								(rm133Script changeState: 1)
+							)
+							(else (localproc_0060 133 13))
+						)
+							)
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
 	
 	
 					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
@@ -372,7 +428,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(1
-				(HandsOff)
+;;;				(HandsOff)
 				(if gunDrawn (AssignObjectToScript ego holsterGun))
 				(localproc_0060 133 31)
 				(marie setLoop: 1 cel: 1 posn: 215 115 setCycle: 0)
@@ -475,15 +531,15 @@
 				(bains setMotion: MoveTo 160 130 self)
 				(= bainsSeesEgo 1)
 			)
-			(13 (= seconds 5))
+			(13 (= seconds 5)) ;5
 			(14
 				(bains setMotion: 0)
 				(bains loop: 2)
-				(= seconds 1)
+				(= seconds 1) ;1
 			)
 			(15
 				(bains loop: 1)
-				(= seconds 1)
+				(= seconds 1) ;1
 			)
 			(16 (self changeState: 18))
 			(17
@@ -592,7 +648,7 @@
 				(ego loop: 2)
 				(RedrawCast)
 				(themeMusic stop: number: 47 loop: 1 play:)
-				(= seconds 3)
+				(= seconds 3) ;3
 			)
 			(29
 				(= printObj (localproc_0060 133 50 88))
@@ -633,7 +689,7 @@
 			(34
 				(RedrawCast)
 				(localproc_0060 133 53 88)
-				(= seconds 5)
+				(= seconds 5) ;5
 			)
 			(35
 				(if (!= (themeMusic prevSignal?) -1)
