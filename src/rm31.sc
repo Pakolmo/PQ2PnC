@@ -754,7 +754,7 @@
 							(SolvePuzzle 3 90)
 							(Print 0 5
 								#at -1 15
-								#icon 136 0 0
+								#icon 136
 							)
 						else
 							(DontHave)
