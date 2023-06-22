@@ -36,6 +36,7 @@
 	local13
 	greenCar
 	newEvent
+	getBody
 )
 (procedure (localproc_000c)
 	(return
@@ -716,8 +717,7 @@
 						)
 					)
 				)
-			)
-			
+			)	
 		)
 			(cond						
 				((and
@@ -725,9 +725,6 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 					
 				)				
-
-
-
 				(if (ClickedOnObj mrG (event x?) (event y?))	;Gelepsi
 					(event claimed: TRUE)
 					(switch theCursor
@@ -743,15 +740,22 @@
 						)
 					)
 				)
-
-
-
 				(if (ClickedOnObj greenCar (event x?) (event y?))	;greenCar
 					(event claimed: TRUE)
 					(switch theCursor
 						(995 ;use
 							(if (ego inRect: 170 133 196 149)
-								(curRoom newRoom: 28)
+								(if getBody
+									(cond 
+										((!= local9 1) (Print 27 62))
+										((== global182 0) (Print 27 63))
+										((!= global182 2) (Print 27 64))
+										((not (ego inRect: 170 133 196 149)) (Print 27 65))
+										(else (quincyScript changeState: 9))
+									)
+								else
+									(curRoom newRoom: 28)
+								)
 							else
 								(event claimed: 0)
 							)
@@ -759,43 +763,37 @@
 						(998 ;look -> field kit
 							(if (== local9 1)
 								(if (ego inRect: 169 133 200 151)
-								(= newEvent (Event new:))
-								(newEvent
-								    type: evKEYBOARD
-								    message: {open briefcase}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)
-
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {open briefcase}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
 								)
 							)
 						)						
 						(110 ;field kit
 							(if (== local9 1)
 								(if (ego inRect: 169 133 200 151)
-								(= newEvent (Event new:))
-								(newEvent
-								    type: evKEYBOARD
-								    message: {open briefcase}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)
-
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {open briefcase}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
 								)
 							)
 						)
 						(996 ; drink blood
 							(if (== local9 1)
 								(if (ego inRect: 169 133 200 151)
-									(cond
-										(
-										(Print 27 1)
-										)
-									)
+									(Print 27 1)
 								)
 							)
 						)
@@ -803,22 +801,21 @@
 							(if (== local9 1)
 								(if (ego inRect: 169 133 200 151)
 									(cond 
-										(
-											(if (localproc_000c)
-												(if (Btst 143)
-													(Print 27 2)
-												else
-													(global119 startUpd: setPri: 0)
-													(global118 startUpd: setPri: 0)
-													(SolvePuzzle 1)
-													(Print 27 3 #draw)
-													(ego get: 28)
-													(Bset 143)
-													(global119 setPri: 13 stopUpd:)
-													(Print 27 4 #draw)
-												)
+										((if (localproc_000c)
+											(if (Btst 143)
+												(Print 27 2)
+											else
+												(global119 startUpd: setPri: 0)
+												(global118 startUpd: setPri: 0)
+												(SolvePuzzle 1)
+												(Print 27 3 #draw)
+												(ego get: 28)
+												(Bset 143)
+												(global119 setPri: 13 stopUpd:)
+												(Print 27 4 #draw)
 											)
 										)
+									)
 								)
 							)
 						)
@@ -866,17 +863,11 @@
 						)
 					)
 				)
-					
-					
-					
-		
-						(if
-
-						(and
-							(ClickedOnObj ourCar (event x?) (event y?))
-							(== currentCar 13)
-						)
-
+				(if
+					(and
+						(ClickedOnObj ourCar (event x?) (event y?))
+						(== currentCar 13)
+					)
 					(event claimed: TRUE)
 					(switch theCursor
 						(110 ;Deposit briefcase
@@ -895,12 +886,7 @@
 										(= workCarTrunkOpened 0)
 ;;;									else
 ;;;										(Print 27 76)
-									)									
-									
-									
-									
-									
-									
+									)										
 								else
 									(Print 27 55)
 								)
@@ -909,15 +895,11 @@
 							)
 						else
 							(Print 27 57)
-						)
-						
-						)
-						(995 ;hand		Open door	
-							(if local6 (= global132 1) else (localproc_2146))
-							
-							
-							
-							
+						)			
+					)
+					(995 ;hand		Open door	
+						(if local6 (= global132 1) else (localproc_2146))
+
 							(cond ;Open trunk
 ;;;							((ego inRect: 170 133 196 149) (Print 27 71);La puerta del coche verde ya est* abierta.)
 							((== currentCar 13)
@@ -931,12 +913,12 @@
 														(ego get: 10)
 													else
 ;;;														(Print 27 59); El malet|n de trabajo no est* en el maletero. Cerrar.
-															(if workCarTrunkOpened
-																(carScript changeState: 17)
-																(= workCarTrunkOpened 0)
-															else
-																(Print 27 76)
-															)
+														(if workCarTrunkOpened
+															(carScript changeState: 17)
+															(= workCarTrunkOpened 0)
+														else
+															(Print 27 76)
+														)
 													)
 												else
 													(Print 27 56)
@@ -944,37 +926,27 @@
 											else
 												(Print 27 57)
 											)
-																
-																
-																
-											
 ;;;											(Print 27 72) El maletero ya est* abierto.
-													) 
-										((ego has: 3) (carScript changeState: 15) (= workCarTrunkOpened 1))
+										) 
+										((ego has: 3)
+											(carScript changeState: 15)
+											(= workCarTrunkOpened 1)
+										)
 										(else (Print 27 73))
 									)
 								else
 ;;;									(NotClose)
 								)
 							)
-							(else (Print 27 74))
+								(else (Print 27 74))
+							)
 						)
-	
-			
-			
-						)(else
+						(else
 							(event claimed: FALSE)
 						)
 					)
-						)
 				)
-			
-			
-			
-
-			
-			
-			
+			)	
 		)
 	)
 )
@@ -1382,6 +1354,7 @@
 			)
 			(6
 				(Print 27 96 #at -1 50)
+				(= getBody 1)
 				(if (ego inRect: 190 147 223 153)
 					(ego setMotion: MoveTo 190 152)
 				)
@@ -1475,6 +1448,7 @@
 				(qDoor dispose:)
 				(newProp_2 dispose:)
 				(ego ignoreBlocks: quincyCarBlock)
+				(= getBody 0)
 			)
 		)
 	)
