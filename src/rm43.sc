@@ -60,7 +60,7 @@
 			ignoreActors:
 			cycleSpeed: 2
 			init:
-			stopUpd:
+			;stopUpd:
 		)
 		((= bathroom (Prop new:))
 			view: 82
@@ -79,7 +79,7 @@
 			setCycle: Walk
 			init:
 		)
-		((View new:)
+		((View new:) ;hijacker1
 			view: 84
 			loop: 0
 			cel: 3
@@ -88,7 +88,7 @@
 			setPri: 1
 			addToPic:
 		)
-		((View new:)
+		((View new:) ;hijacker2
 			view: 84
 			loop: 1
 			cel: 4
