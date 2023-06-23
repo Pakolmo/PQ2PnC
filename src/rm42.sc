@@ -833,6 +833,9 @@
 				(ego dispose:)
 				(deadHijacker1 dispose:)
 				(deadHijacker2 dispose:)
+				(bathroomDoor dispose:)
+				(anotherBathroomDoor dispose:)
+				(bathroomDoorFrame dispose:)
 				(curRoom picture: 24)
 				(curRoom drawPic: (curRoom picture?) style: 6)
 				(HandsOff)
@@ -970,7 +973,7 @@
 					)
 					(if
 						(and
-							(ClickedOnObj towelDoor (event x?) (event y?)) ;clicked on stewardess
+							(ClickedOnObj towelDoor (event x?) (event y?))
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
@@ -996,54 +999,14 @@
 							)
 						)
 					)
-					(if
+										(if
 						(and
-							(ClickedOnObj blueWire (event x?) (event y?))
-							(== (event claimed?) FALSE)
-						)
-						(event claimed: TRUE)
-						(switch theCursor
-							(998
-								(localproc_0f1f
-									(Format
-										@str 42 61
-										(if (== blueWireCut 1) {cut} else {connected})
-									)
-								)
+							;(ClickedOnObj whiteWire (event x?) (event y?))
+							(or
+								(ClickedInRect 122 131 82 84 event)
+								(ClickedInRect 120 123 84 94 event)
+								(ClickedInRect 119 144 91 94 event)
 							)
-							(995
-								(if (== blueWireCut 0)
-									(localproc_0f1f 42 83)
-								else
-									(localproc_0f1f 42 84)
-									(blueWire cel: 0)
-									(= local110 1)
-								)
-							)
-							(109
-								(if (== blueWireCut 1)
-									(localproc_0f1f 42 81)
-								else
-									(localproc_0f1f 42 82)
-									(blueWire cel: 1)
-									(= blueWireCut 1)
-									(switch local123
-										(2
-											(SolvePuzzle 3)
-											(if (== purpleWireCut 1) (++ local123))
-										)
-										(else  (= local110 1))
-									)
-								)
-							)
-							(else 
-								(event claimed: FALSE)
-							)
-						)
-					)
-					(if
-						(and
-							(ClickedOnObj whiteWire (event x?) (event y?))
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
@@ -1087,7 +1050,12 @@
 					)
 					(if
 						(and
-							(ClickedOnObj yellowWire (event x?) (event y?))
+							(or
+								(ClickedInRect 105 124 73 78 event)
+								(ClickedInRect 105 112 77 90 event)
+								(ClickedInRect 109 118 88 92 event)
+							)
+							;(ClickedOnObj yellowWire (event x?) (event y?))
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
@@ -1142,7 +1110,11 @@
 					)
 					(if
 						(and
-							(ClickedOnObj purpleWire (event x?) (event y?))
+							(or
+								(ClickedInRect 112 130 64 70 event)
+								(ClickedInRect 106 115 65 74 event)
+							)
+							;(ClickedOnObj purpleWire (event x?) (event y?))
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
@@ -1176,6 +1148,51 @@
 									else
 										(SolvePuzzle 3)
 										(if (== blueWireCut 1) (++ local123))
+									)
+								)
+							)
+							(else 
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if
+						(and
+							(ClickedOnObj blueWire (event x?) (event y?))
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998
+								(localproc_0f1f
+									(Format
+										@str 42 61
+										(if (== blueWireCut 1) {cut} else {connected})
+									)
+								)
+							)
+							(995
+								(if (== blueWireCut 0)
+									(localproc_0f1f 42 83)
+								else
+									(localproc_0f1f 42 84)
+									(blueWire cel: 0)
+									(= local110 1)
+								)
+							)
+							(109
+								(if (== blueWireCut 1)
+									(localproc_0f1f 42 81)
+								else
+									(localproc_0f1f 42 82)
+									(blueWire cel: 1)
+									(= blueWireCut 1)
+									(switch local123
+										(2
+											(SolvePuzzle 3)
+											(if (== purpleWireCut 1) (++ local123))
+										)
+										(else  (= local110 1))
 									)
 								)
 							)

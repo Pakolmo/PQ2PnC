@@ -129,7 +129,7 @@
 			addToPic:
 		)
 		((= hijacker1 (Actor new:))
-			view: 144 ;24
+			view: 24 ;144 ;24
 			posn: 60 1060
 			loop: 1
 			cel: 0
@@ -139,7 +139,7 @@
 			init:
 		)
 		((= hijacker2 (Actor new:))
-			view: 143 ;23
+			view: 23 ;143 ;23
 			posn: 70 1060
 			loop: 1
 			cel: 0
