@@ -395,17 +395,10 @@
 					(event claimed: TRUE)
 							(switch theCursor
 								(996 ;talk
-									(if (== lista 0)
-								(= newEvent (Event new:))								
-								(newEvent
-								    type: evKEYBOARD
-								    message: {ask for list}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)
-									)
+									
+									
+									
+
 									
 									(if (== lista 1)
 										(= ticket
@@ -493,7 +486,17 @@
 											)
 									)
 									
-									
+																		(if (== lista 0)
+								(= newEvent (Event new:))								
+								(newEvent
+								    type: evKEYBOARD
+								    message: {ask for list}
+								    modifiers: 999
+								    claimed: 0
+								)
+								(User handleEvent: newEvent)
+								(newEvent dispose:)
+									)
 									
 								)
 							
@@ -2769,9 +2772,11 @@ code_17b9:
 				(switch local4
 					(2
 						(LocPrint 16 92)
+						(= lista 1)
 					)
 					(3
 						(LocPrint 16 92)
+						(= lista 1)
 					)
 					(1
 						(if
@@ -2781,6 +2786,8 @@ code_17b9:
 								(Btst fTriedToGetTicketToHouston)
 							)
 							(LocPrint 16 92)
+							(= lista 1)
+							
 						else
 							(SolvePuzzle 3 fLookedAtPassengerList)
 							(LocPrint 16 93)
