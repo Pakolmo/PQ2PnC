@@ -317,7 +317,7 @@
 						(995 ;use
 							(if local1 (Print 28 14) else (Print 28 15)) ;check and remove body
 							(cond 
-							((and (> global182 0) (not local1)) (Bset 43) (curRoom newRoom: 27))
+							((and (> global182 0) (not local1)) (Bset 43)  (curRoom newRoom: 27))
 							(local1 (Print 28 16))
 							(else (Print 28 17))
 						)
@@ -338,6 +338,7 @@
 							(ego get: 24)
 							(SolvePuzzle 2)
 							(Print 28 35)
+							(= getBody 2)
 							(if (== global182 0) (= local0 25))
 						else
 							(Print 28 36)
