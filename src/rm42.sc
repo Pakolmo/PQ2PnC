@@ -435,7 +435,12 @@
 								(AirplanePrint 42 31)
 							)
 							(995
-								(cond
+								(cond 
+									((!= local102 1) (NotClose))
+									((== local104 2)
+										(AssignObjectToScript ego egoSearch)
+										(AirplanePrint 42 38)
+									)
 									((ego has: 9)
 										(AssignObjectToScript ego egoSearch)
 										(AirplanePrint 42 39)
@@ -952,7 +957,7 @@
 				(localproc_02f6)
 				(curRoom picture: 40)
 				(curRoom drawPic: (curRoom picture?) style: 0)
-				(InitPassengers)
+				;(InitPassengers)
 				;(bathroomDoorFrame posn: 50 1000)
 				(ego posn: 46 165)
 				;(anotherBathroomDoor stopUpd:)
@@ -1200,6 +1205,9 @@
 								(event claimed: FALSE)
 							)
 						)
+					)
+					(if (== (event claimed?) FALSE)
+						(event claimed: TRUE) ;dont pass events to jet script
 					)
 				)
 			)

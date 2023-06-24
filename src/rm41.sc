@@ -394,7 +394,7 @@
 				(newProp startUpd: setCycle: EndLoop self)
 			)
 			(4
-				(newProp stopUpd:)
+				;(newProp stopUpd:)
 				(hijacker2 setPri: 0 setMotion: MoveTo 280 50 self)
 			)
 			(5
@@ -921,7 +921,7 @@
 					(else
 						(= local0 2)
 						(stewardess
-							view: 142 ;84
+							view: 84 ;142 ;84
 							loop: 3
 							cel: 0
 							posn: 256 76
@@ -929,7 +929,7 @@
 							setCycle: EndLoop self
 						)
 						(hijacker1
-							view: 142 ;84
+							view: 84 ;142 ;84
 							loop: 2
 							cel: 0
 							posn: 256 76
@@ -1137,7 +1137,7 @@
 				(newProp setPri: 0 setCycle: EndLoop self)
 			)
 			(8
-				(newProp stopUpd:)
+				;(newProp stopUpd:)
 				(stewardess setPri: 0 setMotion: MoveTo 275 50 self)
 			)
 			(9
@@ -1168,7 +1168,7 @@
 				(newProp setCycle: EndLoop self)
 			)
 			(13
-				(newProp stopUpd:)
+				;(newProp stopUpd:)
 				(keith setPri: 0 setMotion: MoveTo 275 50 self)
 			)
 			(14
