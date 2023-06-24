@@ -473,7 +473,8 @@
 										(cond 
 											(wearingSeatbelt
 												(= wearingSeatbelt 0)
-												(Print {You unfasten your seatbelt.})
+;;;												(Print {You unfasten your seatbelt.})
+												(Print {Te desabrochas el cintur/n.})
 											)
 											(else (ego setScript: egoAction) (egoAction changeState: 1))
 										)	
@@ -965,7 +966,8 @@
 				(HandsOff)
 				(hijackMusic fade:)
 				(EgoDead
-					{ Because you failed to take action, the hijackers have succeeded with their sinister plot. You will live out the rest of your life in Bum Suk Egypt.}
+;;;					{ Because you failed to take action, the hijackers have succeeded with their sinister plot. You will live out the rest of your life in Bum Suk Egypt.}
+					{ Como no has actuado correctamente, los secuestradores han tenido +xito con su siniestro plan. Vivir*s el resto de tu vida en Bum Suk Egipto}
 				)
 			)
 			(8

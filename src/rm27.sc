@@ -36,7 +36,7 @@
 	local13
 	greenCar
 	newEvent
-	getBody
+;;;	getBody
 )
 (procedure (localproc_000c)
 	(return
@@ -745,7 +745,7 @@
 					(switch theCursor
 						(995 ;use
 							(if (ego inRect: 170 133 196 149)
-								(if getBody
+								(if (== getBody 1)
 									(cond 
 										((!= local9 1) (Print 27 62))
 										((== global182 0) (Print 27 63))
@@ -753,12 +753,14 @@
 										((not (ego inRect: 170 133 196 149)) (Print 27 65))
 										(else (quincyScript changeState: 9))
 									)
-								else
+								)
+								(if (== getBody 2)
+								;nothing
+								)
+								(if (== getBody 0)
 									(curRoom newRoom: 28)
 								)
-							else
-								(event claimed: 0)
-							)
+								)
 						)
 						(998 ;look -> field kit
 							(if (== local9 1)
@@ -1248,7 +1250,7 @@
 					(local8
 						(cond 
 							((Btst 9) (Print 27 85 #at 40 24) (= local13 1000))
-							((not (Btst 44)) (Print 27 86 #at 40 24) (Bset 44))
+							((not (Btst 44)) (Print 27 86 #at 40 24)(Bset 44))
 						)
 					)
 					((Btst 42) (Print 27 87))
@@ -1301,6 +1303,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				
 				(if (ego inRect: 168 151 206 250)
 					(Print 27 94)
 					(ego setMotion: MoveTo 158 155 self)
@@ -1354,7 +1357,7 @@
 			)
 			(6
 				(Print 27 96 #at -1 50)
-				(= getBody 1)
+
 				(if (ego inRect: 190 147 223 153)
 					(ego setMotion: MoveTo 190 152)
 				)
@@ -1366,11 +1369,14 @@
 				(newAct_2 setMotion: MoveTo 196 149 self)
 			)
 			(8
+				
 				(Print 27 97 #at -1 50)
 				(ego setMotion: 0 startUpd:)
 				(HandsOn)
+				(= getBody 1)
 			)
 			(9
+				(= getBody 2)
 				(HandsOff)
 				(SolvePuzzle 2)
 				(Print 27 98)
