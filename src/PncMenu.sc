@@ -225,7 +225,7 @@
 		)
 		(if (!= itemIcon 900)
 			(selectedItem
-				view: itemIcon ;inv views start at 100
+				view: (+ itemIcon 700) ;custom inv views start at 800
 				loop: 1
 				cel: 0
 			)
