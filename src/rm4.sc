@@ -47,8 +47,8 @@
 (instance captain of Prop
 	(properties)
 )
-(instance keith of Prop
-)
+;;;(instance keith of Prop
+;;;)
  
 (instance blab of Prop
 	(properties)
@@ -1736,7 +1736,7 @@
 	)
 	
 	(method (handleEvent event)
-		(if (event claimed?) (return)) ;ADD
+		(if (event claimed?) (return))
 		(switch (event type?)
 			(saidEvent
 				(cond 
@@ -1807,9 +1807,6 @@
 							carrying: {En tu escritorio hay:}
 							empty: {Tu escritorio est* vac|o.}
 							showSelf: 12
-
-
-
 						)
 					)
 					(
@@ -1854,30 +1851,28 @@
 						(== theCursor 999) ;or walk just in case.
 					)
 					(curRoom drawPic: (curRoom picture?))
-					(cast eachElementDo: #dispose)
-					(ego dispose:)
-					(captain dispose:)
-					(keith dispose:)
-					(blab dispose:)
-					(smoke dispose:)
-					(rambo dispose:)
-					(phone dispose:)
-					(carKey dispose:)
-					(wallet dispose:)
-					(marieLetter dispose:)
-					(cast eachElementDo: #delete)
-					(ego delete:)
-					(captain delete:)
-					(keith delete:)
-					(blab delete:)
-					(smoke delete:)
-					(rambo delete:)
-					(phone delete:)
-					(carKey delete:)
-					(marieLetter delete:)
-					(wallet delete:)
-
-					(ego init:)
+					;(cast eachElementDo: #dispose)
+					(if (cast contains: wallet)
+						(wallet dispose:)
+					)
+					(if (cast contains: marieLetter)
+						(marieLetter dispose:)
+					)
+					;(cast eachElementDo: #delete)
+					(if (cast contains: wallet)
+						(wallet delete:)
+					)
+					(if (cast contains: marieLetter)
+						(marieLetter delete:)
+					)
+					(captain show:)
+					(keith show:)
+					(ego show:)
+					(blab show:)
+					(carKey show:)
+					(smoke show:)
+					(rambo show:)
+					(phone show:)	
 					(= gunDrawAllowed 0)
 					(= closedDrawer 1)
 					(rm4 setScript: rm4Script)
@@ -1885,46 +1880,50 @@
 					(= theCursor 999)
 					(theGame setCursor: 999 (HaveMouse))
 				)
-				(if (ClickedOnObj marieLetter (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor				
-						(998 ; look box
-							(if (InRoom iThankYouLetter 12)
-								(Print 4 100)
-							else
+				(if (InRoom iThankYouLetter 12)
+					(if (ClickedOnObj marieLetter (event x?) (event y?))
+						(event claimed: TRUE)
+						(switch theCursor				
+							(998 ; look box
+								(if (InRoom iThankYouLetter 12)
+									(Print 4 100)
+								else
+									(event claimed: FALSE)
+								)
+							)
+							(995 ;hand
+								(if (InRoom iThankYouLetter 12)
+									(marieLetter dispose:)
+									(Print 4 83 #draw)
+									(ego get: iThankYouLetter)
+									(SolvePuzzle 1 106)
+								else
+									(Print 4 97)
+								)
+							)
+							(else
 								(event claimed: FALSE)
 							)
 						)
-						(995 ;hand
-							(if (InRoom iThankYouLetter 12)
-								(marieLetter dispose:)
-								(Print 4 83 #draw)
-								(ego get: iThankYouLetter)
-								(SolvePuzzle 1 106)
-							else
-								(Print 4 97)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-						)
 					)
 				)
-				(if	(ClickedOnObj wallet (event x?) (event y?))		
-					(event claimed: TRUE)
-					(switch theCursor				
-						(995	
-							(if (InRoom iWallet 12)
-								(wallet dispose:)
-								(Print 4 83 #draw)
-								(ego get: iWallet)
-								(SolvePuzzle 1 105)
-							else
-								(Print 4 97)
+				(if (InRoom iWallet 12)
+					(if	(ClickedOnObj wallet (event x?) (event y?))		
+						(event claimed: TRUE)
+						(switch theCursor				
+							(995	
+								(if (InRoom iWallet 12)
+									(wallet dispose:)
+									(Print 4 83 #draw)
+									(ego get: iWallet)
+									(SolvePuzzle 1 105)
+								else
+									(Print 4 97)
+								)
 							)
-						)
-						(else
-							(event claimed: FALSE)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
 				)

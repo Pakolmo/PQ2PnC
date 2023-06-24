@@ -500,7 +500,6 @@
 							(== (event claimed?) FALSE)
 						)
 						(event claimed: TRUE)
-						(= gunSightsAligned 1)
 						(switch theCursor
 							(994
 								(cond 
