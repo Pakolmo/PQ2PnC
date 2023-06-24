@@ -18,7 +18,7 @@
 
 (local
 	[txtstring 50]
-	yIconStep =  4
+	yIconStep =  2 ;4
 	howLong =  50
 	gShowMenu
 	doMenuTimer
@@ -36,48 +36,48 @@
 		(self setScript: PnCMenuScript)
 		(switch gLayout
 			(0
-				(= yPosition 22)
-				(= yPositionInventory 18)
-				(walkIcon setPri: 15 y: yPosition init:)
-				(lookIcon setPri: 15 y: yPosition init:)
-				(handIcon setPri: 15 y: yPosition init:)
-				(talkIcon setPri: 15 y: yPosition init:)
-				(gunIcon setPri: 15 y: yPosition init:)
-				;(background setPri: 15 y: yPosition init:)
-				(invIcon setPri: 15 y: yPosition init:)
-				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
-				(levelsIcon setPri: 15 y: yPosition init:)
-				;(restartIcon setPri: 15 y: yPosition init:)
-				;(loadIcon setPri: 15 y: yPosition init:)
-				(saveIcon setPri: 15 y: yPosition init:)
-				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 900) ;nothing
-					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
-				else
-					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
-				)
+;;;				(= yPosition 22)
+;;;				(= yPositionInventory 18)
+;;;				(walkIcon setPri: 15 y: yPosition init:)
+;;;				(lookIcon setPri: 15 y: yPosition init:)
+;;;				(handIcon setPri: 15 y: yPosition init:)
+;;;				(talkIcon setPri: 15 y: yPosition init:)
+;;;				(gunIcon setPri: 15 y: yPosition init:)
+;;;				;(background setPri: 15 y: yPosition init:)
+;;;				;;(invIcon setPri: 15 y: yPosition init:)
+;;;				;;(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
+;;;				(levelsIcon setPri: 15 y: yPosition init:)
+;;;				;(restartIcon setPri: 15 y: yPosition init:)
+;;;				;(loadIcon setPri: 15 y: yPosition init:)
+;;;				(saveIcon setPri: 15 y: yPosition init:)
+;;;				(quitIcon setPri: 15 y: yPosition init:)
+;;;				(if (!= itemIcon 900) ;nothing
+;;;					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
+;;;				else
+;;;					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
+;;;				)
 			)
 			(2
-				(= yPosition 189)
-				(= yPositionInventory 18)
-				(walkIcon setPri: 15 y: yPosition init:)
-				(lookIcon setPri: 15 y: yPosition init:)
-				(handIcon setPri: 15 y: yPosition init:)
-				(talkIcon setPri: 15 y: yPosition init:)				
-				(gunIcon setPri: 15 y: yPosition init:)
-				;(background setPri: 15 y: yPosition init:)
-				(invIcon setPri: 15 y: yPosition init:)
-				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
-				(levelsIcon setPri: 15 y: yPosition init:)
-				;(restartIcon setPri: 15 y: yPosition init:)
-				;(loadIcon setPri: 15 y: yPosition init:)
-				(saveIcon setPri: 15 y: yPosition init:)
-				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 900) ;nothing
-					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
-				else
-					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
-				)
+;;;				(= yPosition 189)
+;;;				(= yPositionInventory 18)
+;;;				(walkIcon setPri: 15 y: yPosition init:)
+;;;				(lookIcon setPri: 15 y: yPosition init:)
+;;;				(handIcon setPri: 15 y: yPosition init:)
+;;;				(talkIcon setPri: 15 y: yPosition init:)				
+;;;				(gunIcon setPri: 15 y: yPosition init:)
+;;;				;(background setPri: 15 y: yPosition init:)
+;;;				(invIcon setPri: 15 y: yPosition init:)
+;;;				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
+;;;				(levelsIcon setPri: 15 y: yPosition init:)
+;;;				;(restartIcon setPri: 15 y: yPosition init:)
+;;;				;(loadIcon setPri: 15 y: yPosition init:)
+;;;				(saveIcon setPri: 15 y: yPosition init:)
+;;;				(quitIcon setPri: 15 y: yPosition init:)
+;;;				(if (!= itemIcon 900) ;nothing
+;;;					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
+;;;				else
+;;;					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
+;;;				)
 			)
 			(else 
 				(walkIcon setPri: 15 y: yPosition init:)
@@ -94,13 +94,13 @@
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
 				(if (!= itemIcon 900) ;nothing
-					(blockIcon
-						setPri: 14
-						y: yPosition
-						cel: itemIcon
-						init:
-						setScript: showButtons
-					)
+;;;					(blockIcon
+;;;						setPri: 14
+;;;						y: yPosition
+;;;						cel: itemIcon
+;;;						init:
+;;;						setScript: showButtons
+;;;					)
 					(selectedItem
 						setPri: 15
 						y: yPositionInventory
@@ -159,7 +159,7 @@
 					)
 				)
 				(1
-					(if (>= yPosition 20) (= movingButtons 0))
+					(if (>= yPosition 25) (= movingButtons 0))
 				)
 			)
 		)
@@ -204,10 +204,19 @@
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
 				(gunIcon loop: 1)
+				(invIcon loop: 0)
+			)
+			(100
+				(walkIcon loop: 0)
+				(lookIcon loop: 0)
+				(handIcon loop: 0)
+				(talkIcon loop: 0)
+				(gunIcon loop: 1)
+				(invIcon loop: 0)
 			)
 			(itemIcon
 				(walkIcon loop: 0)
-				(lookIcon loop: 0 init:)
+				(lookIcon loop: 0) ;init:)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
 				(gunIcon loop: 0)
@@ -1010,7 +1019,7 @@
 (instance walkIcon of Prop
 	(properties
 		y 6
-		x 14
+		x 15 ;14
 		view 950
 		loop 0
 		cel 0
@@ -1020,7 +1029,7 @@
 (instance lookIcon of Prop
 	(properties
 		y 6
-		x 45
+		x 46
 		view 950
 		cel 1
 		loop 0
@@ -1030,7 +1039,7 @@
 (instance handIcon of Prop
 		(properties
 		y 6
-		x 76	
+		x 77	
 		view 950
 		cel 2
 		loop 0
@@ -1040,7 +1049,7 @@
 (instance talkIcon of Prop
 	(properties
 		y 6
-		x 107
+		x 108
 		view 950
 		cel 3
 		loop 0
@@ -1049,8 +1058,8 @@
 
 (instance gunIcon of Prop
 	(properties
-		y 189
-		x 138 ;move the rest of the icons down (x + 30)
+		y 6 ;189
+		x 139 ;move the rest of the icons down (x + 30)
 		view 950
 		cel 4
 		loop 0
@@ -1071,18 +1080,17 @@
 (instance invIcon of Prop
 	(properties
 		y 6
-		x 204 ;248 ;138 ;127 ;move the rest of the icons down (x + 28)
+		x 211 ;248 ;138 ;127 ;move the rest of the icons down (x + 28)
 		view 950
 		cel 5
 		loop 0
-
 	)
 )
 
 (instance blockIcon of Prop
 	(properties
 		y 6
-		x 169 ;171 ;;as selectedicon
+		x 176 ;171 ;;as selectedicon
 		view 950
 		loop 2
 		cel 0
@@ -1092,7 +1100,7 @@
 (instance levelsIcon of Prop
 	(properties
 		y 6
-		x 248 ;220
+		x 242 ;220
 		view 950
 		cel 6
 		loop 0
@@ -1123,7 +1131,7 @@
 (instance saveIcon of Prop
 	(properties
 		y 6
-		x 276
+		x 273
 		view 950
 		cel 8
 		loop 0
@@ -1143,7 +1151,7 @@
 (instance selectedItem of Prop
 	(properties
 		y 6
-		x 171 ;as bloxk icon;
+		x 176 ;as bloxk icon;
 		view 950 ;950
 		loop 3; ;3
 		cel 0
@@ -1158,8 +1166,9 @@
 		(switch movingButtons
 			(0)
 			(1
-				(if (< yPosition 20)
-					(= yPosition (+ yPosition yIconStep))
+				(if (< yPosition 25)
+					;(= yPosition (+ yPosition yIconStep))
+					(= yPosition 25)
 					(= menuTime 0)
 				else
 					(= movingButtons 0)
