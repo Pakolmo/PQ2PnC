@@ -637,7 +637,8 @@
 									@str
 									42
 									41
-									(if (== local104 1) {masked} else {unmasked})
+;;;									(if (== local104 1) {masked} else {unmasked})
+									(if (== local104 1) {enmascarado} else {desenmascarado})
 								)
 							)
 						)
@@ -1015,7 +1016,8 @@
 								(localproc_0f1f
 									(Format
 										@str 42 62
-										(if (== whiteWireCut 1) {cut} else {connected})
+;;;										(if (== whiteWireCut 1) {cut} else {connected})
+										(if (== whiteWireCut 1) {cortado} else {conectado})
 									)
 								)
 							)
@@ -1064,7 +1066,8 @@
 								(localproc_0f1f
 									(Format
 										@str 42 63
-										(if (== yellowWireCut 1) {cut} else {connected})
+;;;										(if (== yellowWireCut 1) {cut} else {connected})
+										(if (== yellowWireCut 1) {cortado} else {conectado})										
 									)
 								)
 							)
@@ -1123,7 +1126,8 @@
 								(localproc_0f1f
 									(Format
 										@str 42 64
-										(if (== purpleWireCut 1) {cut} else {connected})
+;;;										(if (== purpleWireCut 1) {cut} else {connected})
+										(if (== purpleWireCut 1) {cortado} else {conectado})										
 									)
 								)
 							)
@@ -1167,7 +1171,8 @@
 								(localproc_0f1f
 									(Format
 										@str 42 61
-										(if (== blueWireCut 1) {cut} else {connected})
+;;;										(if (== blueWireCut 1) {cut} else {connected})
+										(if (== blueWireCut 1) {cortado} else {conectado})										
 									)
 								)
 							)
@@ -1240,7 +1245,8 @@
 										(localproc_0f1f
 											(Format
 												@str 42 61
-												(if (== blueWireCut 1) {cut} else {connected})
+;;;												(if (== blueWireCut 1) {cut} else {connected})
+												(if (== blueWireCut 1) {cortado} else {conectado})												
 											)
 										)
 									)
@@ -1248,7 +1254,8 @@
 										(localproc_0f1f
 											(Format
 												@str 42 62
-												(if (== whiteWireCut 1) {cut} else {connected})
+;;;												(if (== whiteWireCut 1) {cut} else {connected})
+												(if (== whiteWireCut 1) {cortado} else {conectado})
 											)
 										)
 									)
@@ -1256,7 +1263,8 @@
 										(localproc_0f1f
 											(Format
 												@str 42 63
-												(if (== yellowWireCut 1) {cut} else {connected})
+;;;												(if (== yellowWireCut 1) {cut} else {connected})
+												(if (== yellowWireCut 1) {cortado} else {conectado})
 											)
 										)
 									)
@@ -1264,7 +1272,8 @@
 										(localproc_0f1f
 											(Format
 												@str 42 64
-												(if (== purpleWireCut 1) {cut} else {connected})
+;;;												(if (== purpleWireCut 1) {cut} else {connected})
+												(if (== purpleWireCut 1) {cortado} else {conectado})
 											)
 										)
 									)
@@ -1461,7 +1470,7 @@
 			)
 			(1
 				(EgoDead
-					{You and 49 other people are now dead...because YOU screwed up!}
+					{T{ y otras 49 personas est*is muertas... _porque la FASTIDIASTE!}
 				)
 			)
 		)
