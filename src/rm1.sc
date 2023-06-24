@@ -138,6 +138,7 @@
 	)
 	
 	(method (init)
+
 				
 		(Load VIEW 0)
 		(Load VIEW 8)

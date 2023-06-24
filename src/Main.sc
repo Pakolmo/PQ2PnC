@@ -354,7 +354,7 @@
 		fieldKitToggle
 		gunDrawAllowed
 		lista  ;from room16
-		getBody	=1 ;room27 and room28		
+		getBody ;room27 and room28		
 )
 
 (procedure (EgoDead)

@@ -180,6 +180,7 @@
 							(Print {West Rose})
 						)
 						(995 ;hand
+							(= getBody 0)
 							(= driveDest 27)
 							(theGame newRoom: prevRoomNum)
 						)

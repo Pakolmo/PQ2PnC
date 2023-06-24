@@ -123,6 +123,7 @@
 	
 	(method (init)
 		(super init:)
+		
 		(Load rsVIEW 0)
 		(Load rsVIEW 20)
 		(Load rsVIEW 253)
