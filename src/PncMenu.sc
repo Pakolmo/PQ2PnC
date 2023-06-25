@@ -18,15 +18,14 @@
 
 (local
 	[txtstring 50]
-	yIconStep =  2 ;4
+	yIconStep =  4
 	howLong =  50
 	gShowMenu
 	doMenuTimer
 	menuTime
 	pickedLoad ;added for load save merge
 	newEvent
-
-
+	tempCur
 )
 (instance PnCMenu of Region
 	(properties)
@@ -412,10 +411,12 @@
 							(< (event y?) (invIcon nsBottom?))
 						)
 						(event claimed: 1)
-						(if (and (== gLayout 1) (!= movingButtons 2))
-							(= movingButtons 2)
-							(= gShowMenu 0)
-						)
+;;;						(if (and (== gLayout 1) (!= movingButtons 2))
+;;;							(= movingButtons 2)
+;;;							(= gShowMenu 0)
+;;;						)
+;;;						(= menuTime 0)
+						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
 						(= menuTime 0)
 						(invIcon setScript: dotheinv)
 					)
@@ -747,15 +748,17 @@
 (instance dothequit of Script
 	(properties)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp temp0)
 		(= state newState)
 		(switch state
 			(0
 				(quitIcon loop: 1)
 				(= cycles 3)
+				(= tempCur theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;pointer
 			)
 			(1
-				(if
+				(= temp0
 					(Print
 ;;;						950 26
 						{^De verdad quieres salir?}
@@ -767,9 +770,12 @@
 						#button { Salir_} 1 ;Spanish
 						#button { Ups } 0 ;Spanish
 					)
+				)
+				(if (== temp0 1)
 					(= quit 1)
 				else
 					(quitIcon loop: 0)
+					(theGame setCursor: tempCur (HaveMouse))
 				)
 			)
 		)
@@ -785,6 +791,8 @@
 			(0
 				(saveIcon loop: 1) ;change to icon "clicked"
 				(= cycles 3) ;wait 3 cycles, then goto next state.
+				(= tempCur theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;pointer
 			)
 			(1
 				(= loadOrSave 
@@ -818,6 +826,7 @@
 			)
 			(2
 				(saveIcon loop: 0)
+				(theGame setCursor: tempCur (HaveMouse))
 			)
 		)
 	)
@@ -864,6 +873,8 @@
 			(0
 				(levelsIcon loop: 1)
 				(= cycles 3)
+				(= tempCur theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;pointer
 			)
 			(1
 				(= sGauge2
@@ -905,6 +916,9 @@
 					)
 					(6
 						(= state 59)
+					)
+					(else
+						(= state 99)
 					)
 
 				)
@@ -956,11 +970,6 @@
 					(= cycles 1)
 				)	
 			)
-			(30 ;insult
-			)
-			(40
-				
-			)
 			(50
 				;credits
 				(Print
@@ -981,12 +990,19 @@
 					#font smallFont
 					#icon 999 2 0
 				)
+				(= state 99)
+				(= cycles 1)
 			)
 			(60 ;score
 ;;;				(Print (Format @str 0 0 score possibleScore))
 				(Print (Format @str {Puntuaci/n: %d de %d  \n\n  Police Quest II -Point and Click-} score possibleScore))
+				(= state 99)
+				(= cycles 1)
 			)
-			(100 (levelsIcon loop: 0))
+			(100
+				(levelsIcon loop: 0)
+				(theGame setCursor: tempCur (HaveMouse))
+			)
 		)
 	)
 )

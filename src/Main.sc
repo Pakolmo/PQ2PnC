@@ -365,6 +365,7 @@
 	(Wait 150)
 	(sounds eachElementDo: #dispose)
 	(music number: 2 play:)
+	(theGame setCursor: 993 (HaveMouse))
 	(repeat
 		(switch
 			(Print &rest
