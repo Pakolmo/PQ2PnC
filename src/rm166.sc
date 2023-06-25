@@ -167,6 +167,7 @@
 		)
 		(if (== (event type?) evMOUSEBUTTON)
 			(if (& (event modifiers?) emRIGHT_BUTTON)
+				(event claimed: TRUE)
 				(if (== theCursor 995)
 					(theGame setCursor: 998 (HaveMouse))
 				else
