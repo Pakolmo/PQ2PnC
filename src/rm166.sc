@@ -194,7 +194,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {My home})
+;;;							(Print {Marie's Home})
+							(Print {Casa de Marie})
 						)
 						(995 ;hand
 							(= driveDest 31)
@@ -209,7 +210,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {The inn})
+;;;							(Print {The inn})
+							(Print {La posada})
 						)
 						(995 ;hand
 							(= driveDest 25)
@@ -224,7 +226,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {The airport})
+;;;							(Print {The airport})
+							(Print {El aeropuerto})
 						)
 						(995 ;hand
 							(= driveDest 14)
@@ -239,7 +242,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {The jail})
+;;;							(Print {The jail})
+							(Print {La c*rcel})
 						)
 						(995 ;hand
 							(= driveDest 22)
@@ -254,7 +258,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {the Office})
+;;;							(Print {the Office})
+							(Print {la Oficina})
 						)
 						(995 ;hand
 							(= driveDest 1)
@@ -299,7 +304,8 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-							(Print {Arnie's Resturant})
+;;;							(Print {Arnie's Resturant})
+							(Print {Restaurante Arnie})
 						)
 						(995 ;hand
 							(= driveDest 29)
@@ -318,7 +324,8 @@
 					(event claimed: TRUE) ;ignore all other clicks
 					(++ helpMessage)
 					(if (> helpMessage 3)
-						(Print {Use the hand or eye icon on one of the yellow location markers.})
+;;;						(Print {Use the hand or eye icon on one of the yellow location markers.})
+						(Print {Usa el icono de la mano o del ojo en una de las marcas amarillas de direcci/n.})
 						(= helpMessage 0)
 					)
 				)
