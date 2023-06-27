@@ -34,7 +34,7 @@
 	local14
 	opened = 1
 )
-(procedure (PrevioustPage)
+(procedure (PreviousPage)
 	(= local12 1)
 	(curRoom drawPic: 90 WIPERIGHT)
 	(switch theFile
@@ -404,7 +404,7 @@
 				(= local12 1)
 				(= local13 0)
 				(= local14 1)
-				(PrevioustPage)
+				(PreviousPage)
 			)
 			(5
 				(User canInput: 0)
@@ -439,6 +439,7 @@
 			)
 			(7
 				(User canInput: 1)
+				(= opened 1)
 			)
 		)
 	)
@@ -501,7 +502,7 @@
 									(Said '/back')
 								)
 								(if local13
-									(PrevioustPage)
+									(PreviousPage)
 								else
 									(Print 7 26 #at -1 140)
 								)
@@ -608,226 +609,251 @@
 					)
 				)
 			)
-			(;mouse events
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-				(if ;mugshot photo
+			(mouseDown
+				(if ;RIGHT CLICK
 					(and
-						(ClickedOnObj bainsOldMugShot (event x?) (event y?))
-						(== 1 1) ;opened 1)
-				
+						(== (event type?) evMOUSEBUTTON)
+						(& (event modifiers?) emRIGHT_BUTTON)
 					)
 					(event claimed: TRUE)
 					(switch theCursor
-						(995 ;hand
-							(if (== theFile bainsFile)
-								(if (InRoom iOldMugShot)
-									(bainsOldMugShot dispose:)
-									(ego get: 23)
-									(SolvePuzzle 1)
+						(991
+							(theGame setCursor: 998 (HaveMouse)) 
+						)
+						(998 ;hand
+							(theGame setCursor: 995 (HaveMouse)) 
+						)
+						(995
+							(theGame setCursor: 991 (HaveMouse))
+						)	
+						(else
+							(theGame setCursor: 991 (HaveMouse)) ;default next r-click to exit
+						)
+					)
+				)
+				(if
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(not (& (event modifiers?) emRIGHT_BUTTON))
+					)
+					(if ;mugshot photo
+						(and
+							(ClickedOnObj bainsOldMugShot (event x?) (event y?))
+							(== 1 1) ;opened 1)
+					
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(995 ;hand
+								(if (== theFile bainsFile)
+									(if (InRoom iOldMugShot)
+										(bainsOldMugShot dispose:)
+										(ego get: 23)
+										(SolvePuzzle 1)
+									else
+										(Print 7 21)
+									)
 								else
-									(Print 7 21)
-								)
-							else
-								(Print 7 22)
-							)	
-						)
-						(998 ;look
-							(Print 7 32)
+									(Print 7 22)
+								)	
+							)
+							(998 ;look
+								(Print 7 32)
+							)
 						)
 					)
-				)
-				(if 
-					(and
-						(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile bainsFile)
-							(fileScript changeState: 1)
-							(= opened 0)
+					(if 
+						(and
+							(ClickedOnObj bainsFile (event x?) (event y?)) ;clicked on bains
+							(== opened 1)
 						)
-						(995 ;hand
-							(= theFile bainsFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if ;Botts
-					(and
-						(ClickedOnObj bottsFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile bottsFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(995 ;hand
-							(= theFile bottsFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile bainsFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile bainsFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
-				)
-				(if ;Loofin
-					(and
-						(ClickedOnObj loofinFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile loofinFile)
-							(fileScript changeState: 1)
-							(= opened 0)
+					(if ;Botts
+						(and
+							(ClickedOnObj bottsFile (event x?) (event y?))
+							(== opened 1)
 						)
-						(995 ;hand
-							(= theFile loofinFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if ;Martinez
-					(and
-						(ClickedOnObj martinezFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile martinezFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(995 ;hand
-							(= theFile martinezFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(999 ;walk close file		
-							
-						)
-						(else
-							(event claimed: FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile bottsFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile bottsFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
-				)
-				(if ;South
-					(and
-						(ClickedOnObj southFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile southFile)
-							(fileScript changeState: 1)
-							(= opened 0)
+					(if ;Loofin
+						(and
+							(ClickedOnObj loofinFile (event x?) (event y?))
+							(== opened 1)
 						)
-						(995 ;hand
-							(= theFile southFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if ;Taselli
-					(and
-						(ClickedOnObj taselliFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile taselliFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(995 ;hand
-							(= theFile taselliFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile loofinFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile loofinFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
-				)
-				(if ;West
-					(and
-						(ClickedOnObj westFile (event x?) (event y?))
-						(== opened 1)
-					)
-					(event claimed: TRUE)
-					(switch theCursor
-						(998 ;look
-							(= theFile westFile)
-							(fileScript changeState: 1)
-							(= opened 0)
+					(if ;Martinez
+						(and
+							(ClickedOnObj martinezFile (event x?) (event y?))
+							(== opened 1)
 						)
-						(995 ;hand
-							(= theFile westFile)
-							(fileScript changeState: 1)
-							(= opened 0)
-						)
-						(else
-							(event claimed: FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile martinezFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile martinezFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(999 ;walk close file		
+								
+							)
+							(else
+								(event claimed: FALSE)
+							)
 						)
 					)
-				)		
-        		(if (== theCursor 999) ;walk to exit 
-					(if (== opened 0)	
-						(Print 7 30)
-						(fileScript changeState: 5)
-						(= opened 1)
-					else
-						(cast eachElementDo: #dispose)
-						(curRoom newRoom: 4)
-					)
-				)
-				(if ;change page
-					(and
-						(or
-							(== theCursor 995) ;hand
-							(== theCursor 998) ;or look to change page
+					(if ;South
+						(and
+							(ClickedOnObj southFile (event x?) (event y?))
+							(== opened 1)
 						)
-						(== opened 0)
-						(== (event claimed?) FALSE)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile southFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile southFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
 					)
-					(event claimed: TRUE)
-					(if local12
-						(NextPage)
-					else
-						(Print 7 25 #at -1 140)
+					(if ;Taselli
+						(and
+							(ClickedOnObj taselliFile (event x?) (event y?))
+							(== opened 1)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile taselliFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile taselliFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if ;West
+						(and
+							(ClickedOnObj westFile (event x?) (event y?))
+							(== opened 1)
+						)
+						(event claimed: TRUE)
+						(switch theCursor
+							(998 ;look
+								(= theFile westFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(995 ;hand
+								(= theFile westFile)
+								(fileScript changeState: 1)
+								(= opened 0)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+	        		(if
+	        			(or
+	        				(== theCursor 999) ;walk to exit
+	        				(== theCursor 991) ;exit cursor
+						) 
+	        			(event claimed: TRUE)
+						(if (== opened 0)	
+							(Print 7 30)
+							(fileScript changeState: 5)
+							;(= opened 1)
+						else
+							(cast eachElementDo: #dispose)
+							(curRoom newRoom: 4)
+							(theGame setCursor: 995 (HaveMouse))
+						)
+					)
+					(if ;change page
+						(and
+							(or
+								(== theCursor 995) ;hand
+								(== theCursor 998) ;or look to change page
+							)
+							(== opened 0)
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE)
+						(if local12
+							(NextPage)
+						else
+							(Print 7 25 #at -1 140)
+							(PreviousPage)
+						)
 					)
 				)
 			)
 		)
 	)
 )
-
-;;;(instance bainsFile of Actor
-;;;
-;;;	
-;;;)

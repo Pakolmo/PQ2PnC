@@ -1127,6 +1127,27 @@
 	(method (handleEvent event)
 		(switch (event type?)
 			(mouseDown
+				(if ;RIGHT CLICK
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(& (event modifiers?) emRIGHT_BUTTON)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(991
+							(theGame setCursor: 998 (HaveMouse)) 
+						)
+						(998 ;hand
+							(theGame setCursor: 995 (HaveMouse)) 
+						)
+						(995
+							(theGame setCursor: 991 (HaveMouse))
+						)	
+						(else
+							(theGame setCursor: 991 (HaveMouse)) ;default next r-click to exit
+						)
+					)
+				)
 				(if
 					(and
 						(== (event type?) evMOUSEBUTTON)
