@@ -712,10 +712,15 @@
 										(ego inRect: 151 129 182 148)
 										(cast contains: unTrunk)
 									)
-									(inventory
-										carrying: {The car's trunk contains:}
-										empty: {The car's trunk is empty.}
-										showSelf: 13
+;;;									(inventory
+;;;										carrying: {The car's trunk contains:}
+;;;										empty: {The car's trunk is empty.}
+;;;										showSelf: 13
+;;;									)
+									(if (== ((inventory at: iFieldKit) owner?) 13) ;fieldkit in trunk
+										(LocPrint {El maletín está en el maletero.})
+									else
+										(LocPrint {El maletero está vacío})
 									)
 								else
 									(Print 1 51)

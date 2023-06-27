@@ -82,7 +82,7 @@
 
 
 (local
-
+ 	tempCur = 995
 )
 
 
@@ -154,10 +154,18 @@
 				cel: 0
 				init:
 			)
-		)		
+		)	
+	)
+	
+	(method (doit)
+		(if (== theCursor 103)
+			(= tempCur 103)
+			(theGame setCursor: 995 (HaveMouse))
+		)
 	)
 	
 	(method (dispose)
+		(theGame setCursor: tempCur (HaveMouse))
 		(super dispose:)
 	)
 	
