@@ -25,12 +25,11 @@
 	wallet
 	whereIsKeith
 	egoSitting
-	local4 ;which captain/keith comment to print based on gamePhase?
+	local4 ;which captain/keithActor comment to print based on gamePhase?
 	onPhone
 	closedDrawer
 	captainCanTalk
-	keith
-	
+	;keith
 )
 (procedure (LocPrint)
 	(Print &rest #at -1 124)
@@ -47,8 +46,10 @@
 (instance captain of Prop
 	(properties)
 )
-;;;(instance keith of Prop
-;;;)
+
+(instance keithActor of Prop
+	(properties)
+)
  
 (instance blab of Prop
 	(properties)
@@ -280,7 +281,7 @@
 				(and
 					(== local4 1)
 					(not talkedToKeith)
-					(< (ego distanceTo: keith) 27)
+					(< (ego distanceTo: keithActor) 27)
 				)
 				(keithScript changeState: 0)
 			)
@@ -376,7 +377,7 @@
 						cycleSpeed: 7
 					)
 				)
-				((= keith (View new:))
+				(keithActor ;(= keith (View new:))
 					view: 65
 					init:
 					x: 213
@@ -384,7 +385,7 @@
 				)
 				(switch whereIsKeith
 					(1
-						(keith
+						(keithActor
 							view: 62
 							posn: 213 134
 							loop: 0
@@ -394,7 +395,7 @@
 						)
 					)
 					(2
-						(keith
+						(keithActor
 							posn: 210 136
 							loop: 6
 							cel: 0
@@ -403,7 +404,7 @@
 						)
 					)
 					(3
-						(keith
+						(keithActor
 							posn: 133 130
 							loop: 6
 							cel: 0
@@ -413,7 +414,7 @@
 						
 					)
 					(4
-						(keith
+						(keithActor
 							posn: 163 148
 							loop: 6
 							cel: 0
@@ -422,7 +423,7 @@
 						)
 					)
 					(5
-						(keith
+						(keithActor
 							posn: 120 140
 							loop: 7
 							cel: 0
@@ -431,7 +432,7 @@
 						)
 					)
 					(6
-						(keith
+						(keithActor
 							posn: 214 148
 							loop: 7
 							cel: 0
@@ -440,18 +441,18 @@
 						)
 					)
 				)
-				(keith stopUpd:)
+				(keithActor stopUpd:)
 				(if (!= whereIsKeith 1)
 					(smoke
 						view: 65
 						loop: 2
 						posn:
 							(if (> whereIsKeith 4)
-								(+ (keith x?) 5)
+								(+ (keithActor x?) 5)
 							else
-								(- (keith x?) 5)
+								(- (keithActor x?) 5)
 							)
-							(- (keith y?) 31)
+							(- (keithActor y?) 31)
 						setPri: 9
 						cycleSpeed: 3
 						setCycle: Forward
@@ -647,7 +648,7 @@
 							((ego inRect: 90 117 137 132)
 								(Print 4 13)
 							)
-							((< (ego distanceTo: keith) 46)
+							((< (ego distanceTo: keithActor) 46)
 								(Print 4 14)
 							)
 							(else
@@ -685,7 +686,7 @@
 							(Said 'chat,get,ask/friend,friend')
 							(Said 'let/go')
 						)
-						(if (< (ego distanceTo: keith) 40)
+						(if (< (ego distanceTo: keithActor) 40)
 							(switch isOnDuty
 								(2
 									(Print 4 20)
@@ -892,7 +893,7 @@
 							((ego inRect: 90 117 142 132)
 								(Print 4 65)
 							)
-							((< (ego distanceTo: keith) 30)
+							((< (ego distanceTo: keithActor) 30)
 								(Print 4 66)
 							)
 							(else
@@ -1635,7 +1636,7 @@
 				)	
 				(if
 					(and 
-						(ClickedOnObj keith (event x?) (event y?)) ;clicked on keith
+						(ClickedOnObj keithActor (event x?) (event y?)) ;clicked on keithActor
 						(== (event claimed?) FALSE)
 					)
 					(event claimed: TRUE)
@@ -1643,8 +1644,8 @@
 						(998
 							(Print 4 66)	
 						)
-						(996 ;talk keith	
-							(if (< (ego distanceTo: keith) 40)
+						(996 ;talk keithActor	
+							(if (< (ego distanceTo: keithActor) 40)
 								(switch isOnDuty
 									(2
 										(Print 4 20)
@@ -1667,7 +1668,7 @@
 								)
 								(1 						
 									(cond 
-										((< (ego distanceTo: keith) 46)
+										((< (ego distanceTo: keithActor) 46)
 											(Print 4 14)
 										)
 										(else
@@ -1700,7 +1701,7 @@
 		(switch (= state newState)
 			(0
 				(captain hide:)
-				(keith hide:)
+				(keithActor hide:)
 				(ego hide:)
 				(blab hide:)
 				(carKey hide:)
@@ -1866,7 +1867,7 @@
 						(marieLetter delete:)
 					)
 					(captain show:)
-					(keith show:)
+					(keithActor show:)
 					(ego show:)
 					(blab show:)
 					(carKey show:)
