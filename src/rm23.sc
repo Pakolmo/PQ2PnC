@@ -495,13 +495,23 @@
 												)
 												(= temp0 
 													(PrintSpecial
-														{Ask about:}
-														#button {Bains' file} 1
-														#button {Pate's file} 2
-														#button {Pate's car} 3
-														#button {Witness} 4
-														#button {Gun} 5
-														#button {FieldKit} 6
+;;;														{Ask about:}
+;;;														#button {Bains' file} 1
+;;;														#button {Pate's file} 2
+;;;														#button {Pate's car} 3
+;;;														#button {Witness} 4
+;;;														#button {Gun} 5
+;;;														#button {FieldKit} 6
+
+														{Preguntar acerca de:}
+														#button {Archivo de Bains} 1
+														#button {Archivo de Pate} 2
+														#button {Coche de Pate} 3
+														#button {Testigo} 4
+														#button {Arma} 5
+														#button {Malet|n de trabajo} 6
+
+
 													)
 												)
 											)
@@ -509,35 +519,59 @@
 
 												(= temp0 
 													(PrintSpecial
-														{Ask about:}
-														#button {Bains' file} 1
-														#button {Pate's file} 2
-														#button {Pate's car} 3
-														#button {Witness} 4
-														#button {Gun} 5
+;;;														{Ask about:}
+;;;														#button {Bains' file} 1
+;;;														#button {Pate's file} 2
+;;;														#button {Pate's car} 3
+;;;														#button {Witness} 4
+;;;														#button {Gun} 5
+
+														{Preguntar acerca de:}
+														#button {Archivo de Bains} 1
+														#button {Archivo de Pate} 2
+														#button {Coche de Pate} 3
+														#button {Testigo} 4
+														#button {Arma} 5
+
+
 													)
 												)
 											)
 											((== ((inventory at: iFieldKit) owner?) 23)
 												(= temp0 
 													(PrintSpecial
-														{Ask about:}
-														#button {Bains' file} 1
-														#button {Pate's file} 2
-														#button {Pate's car} 3
-														#button {Witness} 4
-														#button {FieldKit} 6
+;;;														{Ask about:}
+;;;														#button {Bains' file} 1
+;;;														#button {Pate's file} 2
+;;;														#button {Pate's car} 3
+;;;														#button {Witness} 4
+;;;														#button {FieldKit} 6
+
+														{Preguntar acerca de:}
+														#button {Archivo de Bains} 1
+														#button {Archivo de Pate} 2
+														#button {Coche de Pate} 3
+														#button {Testigo} 4
+														#button {Malet|n de trabajo} 6
+
 													)
 												)
 											)
 											(else
 												(= temp0 
 													(PrintSpecial
-														{Ask about:}
-														#button {Bains' file} 1
-														#button {Pate's file} 2
-														#button {Pate's car} 3
-														#button {Witness} 4
+;;;														{Ask about:}
+;;;														#button {Bains' file} 1
+;;;														#button {Pate's file} 2
+;;;														#button {Pate's car} 3
+;;;														#button {Witness} 4
+
+
+												{Preguntar acerca de:}
+														#button {Archivo de Bains} 1
+														#button {Archivo de Pate} 2
+														#button {Coche de Pate} 3
+														#button {Testigo} 4
 													)
 												)
 											)

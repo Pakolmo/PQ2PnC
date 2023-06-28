@@ -429,9 +429,9 @@
 									(cast contains: unTrunk)
 								)
 								(if (== ((inventory at: iFieldKit) owner?) 13) ;fieldkit in trunk
-									(LocPrint {El maletín está en el maletero.})
+									(LocPrint {El malet|n est* en el maletero.})
 								else
-									(LocPrint {El maletero está vacío})
+									(LocPrint {El maletero est* vac|o})
 								)
 							else
 								(LocPrint 22 17)
