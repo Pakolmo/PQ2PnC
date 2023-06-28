@@ -1191,7 +1191,7 @@
 				(== curRoomNum 225)				
 			)
 			(curRoom setRegions: 950)
-			(User canInput: FALSE canControl: TRUE)
+;;;			(User canInput: FALSE canControl: TRUE)
 		)
 		(if ;prevent drawing gun from PnCMenu
 			(or
