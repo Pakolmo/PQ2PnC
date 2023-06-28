@@ -247,7 +247,7 @@
 				(if calledKeith
 					(mugger hide:)
 					(HandsOff)
-					(User canInput: 1)
+					(User canInput: FALSE)
 				else
 					(= muggerFleeing 1)
 					(mugger dispose:)
@@ -387,7 +387,7 @@
 				(= cycles 30)
 			)
 			(16
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(localproc_0036 77 39 83)
 				(= cycles 300) ;100
 			)

@@ -42,7 +42,7 @@
 	(method (init)
 		(super init:)
 		(= perspective 70)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(= gunFireState gunPROHIBITED)
 		(= gunNotNeeded 1)
 		(Load VIEW 1)

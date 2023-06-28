@@ -44,7 +44,7 @@
 		(= gunFireState 3)
 		(= gunNotNeeded 1)
 		(HandsOff)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(self setLocales: 153) ;FIELD KIT
 		(Load rsVIEW 257)
 		(Load rsVIEW 75)

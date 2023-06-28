@@ -47,7 +47,7 @@
 	
 	(method (init)
 		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(self setLocales: 153)
 		(Load rsVIEW 257)
 		(Load rsVIEW 74)

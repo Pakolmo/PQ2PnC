@@ -294,7 +294,7 @@
 			stopUpd:
 			setScript: mooreScript
 		)
-		(User canInput: 1) ;add 
+		(User canInput: FALSE) ;add 
 		(User canControl: 1) ;add
 		(ego init:)
 ;;;		(airScript changeState: 0)

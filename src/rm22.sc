@@ -111,7 +111,7 @@
 	
 	(method (init)
 		(super init:)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(if
 			(= local6
 				(if (== prevRoomNum 33) else (== prevRoomNum 13))

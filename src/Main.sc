@@ -471,7 +471,8 @@
 
 (procedure (HandsOn)
 	;enable ego control
-	(User canControl: TRUE canInput: TRUE)
+;;;	(User canControl: TRUE canInput: TRUE)
+	(User canControl: TRUE canInput: FALSE)
 	(ego setMotion: 0)
 	(= isHandsOff FALSE)
 )
@@ -1186,9 +1187,11 @@
 				(== curRoomNum 131)
 				(== curRoomNum 132)								
 				(== curRoomNum 133)
+				(== curRoomNum 154)				
 				(== curRoomNum 225)				
 			)
 			(curRoom setRegions: 950)
+			(User canInput: FALSE canControl: TRUE)
 		)
 		(if ;prevent drawing gun from PnCMenu
 			(or

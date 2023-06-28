@@ -183,7 +183,7 @@
 			)
 			(3
 				(HandsOff)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				
 				(= diverState 7)
 				(Print 60 2 #at -1 70 #draw)

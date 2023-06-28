@@ -186,7 +186,7 @@
 					init:
 					setCycle: BegLoop
 				)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(phone
 					cel: 255
 					loop: 1
@@ -531,7 +531,7 @@
 			)
 			(4
 				(ego loop: 0)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(5
 				(ego
@@ -1018,7 +1018,7 @@
 							)
 							((ego inRect: 170 122 196 141)
 								(HandsOff)
-								(User canInput: 1)
+								(User canInput: FALSE)
 								(= egoSitting 1)
 								(= gunDrawn 0)
 								(ego
@@ -1175,7 +1175,7 @@
 									)
 									((ego inRect: 170 122 196 141)
 										(HandsOff)
-										(User canInput: 1)
+										(User canInput: FALSE)
 										(= egoSitting 1)
 										(= gunDrawn 0)
 										(ego
@@ -1571,7 +1571,7 @@
 								)
 								((ego inRect: 170 122 196 141)
 									(HandsOff)
-									(User canInput: 1)
+									(User canInput: FALSE)
 									(= egoSitting 1)
 									(= gunDrawn 0)
 									(ego
@@ -1941,7 +1941,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(ego stopUpd:)
 				(= talkedToCaptain 1)
 				(captain setCycle: EndLoop)
@@ -1961,7 +1961,7 @@
 			)
 			(4
 				(LocPrint 4 104)
-				(if egoSitting (User canInput: 1) else (HandsOn))
+				(if egoSitting (User canInput: FALSE) else (HandsOn))
 				(ego startUpd:)
 				(captain setCycle: BegLoop)
 			)
@@ -1971,7 +1971,7 @@
 					(ego loop: 1)
 				)
 				(HandsOff)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(= gamePhase 1)
 				(= captainWarningTimer 300)
 				(= isOnDuty 2)
@@ -1999,7 +1999,7 @@
 			(11
 				(LocPrint 4 109)
 				(if egoSitting
-					(User canInput: 1)
+					(User canInput: FALSE)
 				else
 					(HandsOn)
 				)
@@ -2008,7 +2008,7 @@
 			)
 			(12
 				(HandsOff)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(if (not egoSitting)
 					(ego loop: 1)
 				)
@@ -2029,7 +2029,7 @@
 					)
 				)
 				(if egoSitting
-					(User canInput: 1)
+					(User canInput: FALSE)
 				else
 					(HandsOn)
 				)
@@ -2038,7 +2038,7 @@
 			)
 			(14
 				(HandsOff)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(if (not egoSitting)
 					(ego loop: 1)
 				)
@@ -2057,7 +2057,7 @@
 					)
 				)
 				(if egoSitting
-					(User canInput: 1)
+					(User canInput: FALSE)
 				else
 					(HandsOn)
 				)
@@ -2065,7 +2065,7 @@
 			)
 			(16
 				(HandsOff)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(ego setMotion: MoveTo 60 134)
 				(= talkedToCaptain 1)
 				(= isOnDuty 2)
@@ -2086,7 +2086,7 @@
 				(Bset fPnCHideWestRose)
 				(captain setCycle: BegLoop)
 				(if egoSitting
-					(User canInput: 1)
+					(User canInput: FALSE)
 				else
 					(HandsOn)
 				)
@@ -2213,13 +2213,13 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(User canInput: 0 canControl: 0)
+				(User canInput: FALSE canControl: 0)
 				(= talkedToKeith 1)
 				(Print 4 139 #at 110 40 #draw)
 				(Print 4 140 #at 110 40)
 				(Print 4 141 #at 110 40)
 				(Print 4 142 #at 110 40)
-				(User canInput: 1 canControl: 1)
+				(User canInput: FALSE canControl: 1)
 			)
 		)
 	)

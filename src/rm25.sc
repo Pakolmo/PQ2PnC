@@ -1028,7 +1028,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(User canInput: 1 canControl: 1)
+				(User canInput: FALSE canControl: 1)
 				(if (== currentCar 13)
 					((= newProp_3 (Prop new:))
 						view: 51
@@ -1068,7 +1068,7 @@
 					(= personalCarLocked 0)
 				)
 				(if (== currentCar 13) (newProp_3 dispose:))
-				(User canInput: 1 canControl: 1)
+				(User canInput: FALSE canControl: 1)
 				(self cue:)
 			)
 			(2

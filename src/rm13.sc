@@ -67,7 +67,7 @@
 					(= local108 62)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)
 				(= local101
 					(if (== driveFix 14) (>= global169 2) else 0)
@@ -93,7 +93,7 @@
 					(= local108 100)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)												
 				(= local101
 					(if (== driveFix 14)
@@ -116,7 +116,7 @@
 					(= local108 100)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)
 				(= local101
 					(if (== driveFix 14)
@@ -139,7 +139,7 @@
 					(= local108 100)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)
 				(= local101
 					(if (== driveFix 14)
@@ -162,7 +162,7 @@
 					(= local108 12)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)
 				(= local101
 					(if (== driveFix 14)
@@ -184,7 +184,7 @@
 					(= local108 10)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)
 				(= local101
 					(if (== driveFix 14) (>= global169 2) else 0)
@@ -203,7 +203,7 @@
 					(= local108 60)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)
+					(User canInput: FALSE)
 				)											
 				(= local101
 					(if (== driveFix 14) (>= global169 2) else 0)
@@ -218,7 +218,7 @@
 				(cond 
 					((!= gamePhase 10)
 						(LocPrint 1 13 51)
-						(User canInput: 1)
+						(User canInput: FALSE)
 					)
 					((!= outsideRoom 27)
 						(= outsideRoom 27)
@@ -228,7 +228,7 @@
 					)
 					(else
 						(if onTheRoad (Print 13 49) else (Print 13 50))
-						(User canInput: 1)
+						(User canInput: FALSE)
 					)
 				)						
 				(= local101
@@ -248,7 +248,7 @@
 					(= local108 40)
 				else
 					(if onTheRoad (Print 13 49) else (Print 13 50))
-					(User canInput: 1)			
+					(User canInput: FALSE)			
 				)											
 				(= local101
 					(if (== driveFix 14) (>= global169 2) else 0)
@@ -426,7 +426,7 @@
 	
 	(method (init)
 ;		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(Load VIEW 71)
 		(Load VIEW 200)
 		(Load VIEW 180)
@@ -1060,7 +1060,7 @@
 										(= local108 60)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								(
@@ -1076,7 +1076,7 @@
 										(= local108 40)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 										
 									)
 								)
@@ -1092,7 +1092,7 @@
 										(= local108 10)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								((Said '/cove[<cotton,to]')
@@ -1103,7 +1103,7 @@
 										(= local108 12)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								((Said '/airport[<lytton,to]')
@@ -1114,7 +1114,7 @@
 										(= local108 62)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								(
@@ -1126,7 +1126,7 @@
 										(= local108 100)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								(
@@ -1138,7 +1138,7 @@
 										(= local108 100)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
 								(
@@ -1157,7 +1157,7 @@
 												(!= gamePhase 10)
 											)
 											(LocPrint 1 13 51)
-											(User canInput: 1)
+											(User canInput: FALSE)
 										)
 										((!= outsideRoom 27)
 											(event claimed: 1)
@@ -1169,7 +1169,7 @@
 										(else
 											(if onTheRoad (Print 13 49) else (Print 13 50))
 											(event claimed: 1)
-											(User canInput: 1)
+											(User canInput: FALSE)
 										)
 									)
 								)
@@ -1186,10 +1186,10 @@
 										(= local108 100)
 									else
 										(if onTheRoad (Print 13 49) else (Print 13 50))
-										(User canInput: 1)
+										(User canInput: FALSE)
 									)
 								)
-								((Said '/ave<fig<5556') (Print 13 52) (User canInput: 1))
+								((Said '/ave<fig<5556') (Print 13 52) (User canInput: FALSE))
 								(
 									(or
 										(Said '/castle<caffeine[<carol,to]')
@@ -1197,12 +1197,12 @@
 										(Said '/chamber<blue')
 										(Said '/delphoria[<hotel,to]')
 									)
-									(User canInput: 1)
+									(User canInput: FALSE)
 									(Print 13 53)
 								)
-								((Said '/steelton,houston,coarsegold') (User canInput: 1) (Print 13 54))
-								((Said '/[*]') (User canInput: 1) (Print 13 55))
-								(else (User canInput: 1) (event claimed: 1) (Print 13 56))
+								((Said '/steelton,houston,coarsegold') (User canInput: FALSE) (Print 13 54))
+								((Said '/[*]') (User canInput: FALSE) (Print 13 55))
+								(else (User canInput: FALSE) (event claimed: 1) (Print 13 56))
 							)
 						)
 						(= local101
@@ -1545,7 +1545,7 @@
 			(32 (LocPrint 1 13 90))
 			(33
 				(LocPrint 1 13 91)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= local113 1)
 			)
 			(34
@@ -1659,7 +1659,7 @@
 			(62
 				(LocPrint 1 13 120)
 				(= local113 1)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(63
 				(User canInput: 0)
@@ -1679,7 +1679,7 @@
 			(67
 				(LocPrint 1 13 125)
 				(= local113 1)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(68
 				(= local113 0)
@@ -1911,7 +1911,7 @@
 					)
 				)
 				(LocPrint 0 @str)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= local113 1)
 			)
 			(91

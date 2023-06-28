@@ -41,7 +41,7 @@
 			(= gamePhase 12)
 			(ego get: 0 1 2 3 10)
 		)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(= local3 0)
 		(Load rsVIEW 252)
 		(Load rsVIEW 1)

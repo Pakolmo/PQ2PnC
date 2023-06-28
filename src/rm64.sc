@@ -78,7 +78,7 @@
 	)
 	
 	(method (init)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(Load rsVIEW 12)
 		(Load rsVIEW 91)
 		(Load rsVIEW 161)

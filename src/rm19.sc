@@ -1366,7 +1366,7 @@
 					ignoreActors:
 					setScript: floodScript
 				)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(2
 				(HandsOff)

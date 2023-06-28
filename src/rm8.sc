@@ -70,7 +70,7 @@
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(Load VIEW 9)
 		(lite1
 			view: 9

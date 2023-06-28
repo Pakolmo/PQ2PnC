@@ -1868,7 +1868,7 @@
 				(ego loop: 1)
 				(haines startUpd: loop: 0)
 				(Print 67 78 #at -1 20 #draw)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= seconds 60)
 			)
 			(5

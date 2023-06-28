@@ -97,7 +97,7 @@
 		(Load VIEW 166)
 		(super init:)
 		(= gunFireState gunUSELESS)
-		(User canInput: TRUE canControl: TRUE)
+		(User canInput: FALSE canControl: TRUE)
 		(locCove
 			view: 166
 			loop: 0

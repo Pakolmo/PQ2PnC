@@ -617,7 +617,7 @@
 				(ego setMotion: MoveTo 221 123 self)
 			)
 			(7
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(stallDoor setCycle: BegLoop)
 			)
 			(8
@@ -1075,7 +1075,7 @@
 				(Load VIEW 69)
 				(Load VIEW 64)
 				(Load PICTURE 9)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(curRoom drawPic: 9)
 ;;;				(cast eachElementDo: #dispose) fixing point and click menu bar
 				(ego dispose:) 

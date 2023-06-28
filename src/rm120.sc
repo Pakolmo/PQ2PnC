@@ -358,7 +358,7 @@
 			(3
 				(HandsOff)
 				(= gunDrawn 1)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= climbedUpLadder 1)
 				(ego ignoreActors: 1)
 				(ego

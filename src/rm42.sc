@@ -845,7 +845,7 @@
 				(curRoom picture: 24)
 				(curRoom drawPic: (curRoom picture?) style: 6)
 				(HandsOff)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(blueWire ;(= newProp_4 (Prop new:))
 					view: 250
 					loop: 3

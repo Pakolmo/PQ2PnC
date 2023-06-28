@@ -247,7 +247,7 @@
 		(curRoom setRegions: 950)
 		(super init:)
 		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(User canControl: 1)
 		(bainsOldMugShot
 			view: 204
@@ -396,7 +396,7 @@
 				(westFile hide:)
 				(drawerPlaque hide:)
 				(SetMenu saveI 112 0) ;112=smMENU_ENABLE // aBool, no SYSTEM.SH equivalent?
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(HandsOn)
 				(self cue:)
 			)
@@ -438,7 +438,7 @@
 				)
 			)
 			(7
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= opened 1)
 			)
 		)

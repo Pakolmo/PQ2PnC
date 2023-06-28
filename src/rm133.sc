@@ -458,7 +458,7 @@
 					(bains show: setMotion: MoveTo 145 150 self)
 					(themeMusic stop: number: 33 play:)
 				else
-					(User canInput: 1)
+					(User canInput: FALSE)
 					(localproc_0060 133 36)
 					(localproc_0060 133 37)
 					(self changeState: 8)

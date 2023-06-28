@@ -50,7 +50,7 @@
 	
 	(method (init)
 		(HandsOn)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(= gunFireState 3)
 		(= gunNotNeeded 1)
 		(Load rsVIEW 272)

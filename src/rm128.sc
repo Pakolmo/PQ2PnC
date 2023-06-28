@@ -352,11 +352,11 @@
 			)
 			(2
 				(Print 128 5)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(3
 				(ego loop: 2 cel: 0 setCycle: CycleTo 7 1 self)
-				(User canInput: 0)
+				(User canInput: FALSE)
 			)
 			(4
 				(HandsOn)

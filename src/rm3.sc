@@ -1081,7 +1081,7 @@
 			)
 			(2
 				(SetMenu 513 112 0)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(cast eachElementDo: #hide)
 				(curRoom drawPic: 90 DISSOLVE)
 				(localproc_1132)
@@ -1102,7 +1102,7 @@
 			)
 			(4
 				(selectedFile stopUpd:)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(if readingFile (self changeState: 1))
 			)
 			(5

@@ -43,7 +43,7 @@
 			(= local12 (Random 30 60))
 		)
 		(= dogTimer (Random 100 400))
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(Load rsVIEW 0)
 		(Load rsVIEW 4)
 		(Load rsVIEW 6)

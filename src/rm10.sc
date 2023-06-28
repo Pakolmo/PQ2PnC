@@ -1162,7 +1162,7 @@
 			)
 			(11
 				;(target stopUpd:)
-				(User canControl: 1 canInput: 1)
+				(User canControl: 1 canInput: FALSE)
 				(= inBooth 0)
 			)
 			(20 ;move to mouse loc and fire

@@ -77,7 +77,7 @@
 		)		
 	)
 	(= local10 0)
-	(User canInput: 1)
+	(User canInput: FALSE)
 )
 
 (procedure (NextPage)
@@ -145,7 +145,7 @@
 	(method (init)
 		(super init:)
 		(if (>= gamePhase 2) (= local0 1))
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(Load VIEW 1)
 		(Load VIEW 87)
 		(Load VIEW 50)
@@ -1300,7 +1300,7 @@
 	(properties)
 	
 	(method (init)
-		(User canInput: 1)
+		(User canInput: FALSE)
 	)
 
 	(method (changeState newState)
@@ -1433,7 +1433,7 @@
 				)
 			)
 			(2
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(if (ego has: iHandGun)
 					(LocPrint 23 85 83)
 					(LocPrint 23 86 83)

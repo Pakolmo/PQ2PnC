@@ -55,7 +55,7 @@
 	
 	(method (init)
 		(super init:)
-		(User canInput: 1 canControl: 1)
+		(User canInput: FALSE canControl: 1)
 		(self setLocales: 153)
 		(Load rsVIEW 271)
 		(= local2 0)

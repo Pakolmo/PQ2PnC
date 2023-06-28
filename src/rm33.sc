@@ -48,7 +48,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(25 ;753 Third Street -inn
@@ -67,7 +67,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(29 ;Arnie's cafe
@@ -79,7 +79,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(67 ;oak tree mall
@@ -91,7 +91,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(61 ;cotton cove
@@ -103,7 +103,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(22 ;Jail								
@@ -114,7 +114,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(31 ;west peach
@@ -126,7 +126,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(27 ;west rose
@@ -138,7 +138,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 		)
 		(1  ;the office
@@ -150,7 +150,7 @@
 				(localproc_000e)
 			else
 				(if local0 (Print 13 49) else (Print 13 50))
-				(User canInput: 1)			
+				(User canInput: FALSE)			
 			)
 		)
 	)
@@ -261,7 +261,7 @@
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(curRoom setLocales: 153)
 		(Load VIEW 71)
 		(Load VIEW 200)
@@ -908,7 +908,7 @@
 								)
 							)
 							((Said '/ave<fig<5556')
-								(Print 33 58) (User canInput: 1)
+								(Print 33 58) (User canInput: FALSE)
 							)
 							(
 								(or
@@ -920,10 +920,10 @@
 								(Print 33 59)
 							)
 							((Said '/steelton,houston,coarsegold')
-								(User canInput: 1) (Print 33 60)
+								(User canInput: FALSE) (Print 33 60)
 							)
 							((Said '/[*]')
-								(User canInput: 1)
+								(User canInput: FALSE)
 								(Print 33 61)
 							)
 							(else

@@ -73,7 +73,7 @@
 		(if (and (not muggerFleeing) (not global236))
 			(= muggerTimer (Random 90 120))
 		)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(= gunNotNeeded 0)
 		(= gunFireState 1)
 		(ego

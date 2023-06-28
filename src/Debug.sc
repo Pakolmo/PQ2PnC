@@ -190,7 +190,7 @@
 ;;;						)
 ;;;					)
 					(`@i
-						(User canInput: TRUE)
+						(User canInput: FALSE)
 					)
 					(`@m
 						(theGame showMem:) ;fix barra retroceso

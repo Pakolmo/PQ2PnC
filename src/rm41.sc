@@ -1214,7 +1214,7 @@
 				)
 			)
 			(1
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(ego setScript: 0)
 			)
 		)

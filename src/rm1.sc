@@ -150,7 +150,7 @@
 		(super init:)
 		(self setLocales: regFieldKit)
 		(= gunFireState gunUSELESS)
-		(User canInput: TRUE canControl: TRUE)
+;;;		(User canInput: TRUE canControl: TRUE)
 		(ego view: (if (not gunDrawn) 0 else 6) init:)
 		(if (== gamePhase 7)
 			(= workCarLocked TRUE)
@@ -1291,7 +1291,7 @@
 			(2
 				(officeDoor setCycle: BegLoop self)
 				(keith posn: 1000 0 stopUpd:)
-				(User canInput: TRUE canControl: TRUE)
+;;;				(User canInput: TRUE canControl: TRUE)
 			)
 			(3
 				(HandsOn)

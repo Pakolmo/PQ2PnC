@@ -1108,7 +1108,7 @@
 			)
 			(3
 				(HandsOff)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(= removedBodyFromRiver 1)
 				(SolvePuzzle 5)
 				(airScript changeState: 2)

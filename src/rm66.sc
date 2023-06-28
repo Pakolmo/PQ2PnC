@@ -47,7 +47,7 @@
 		(super init:)
 		(self setLocales: 153)
 		(HandsOff)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		((= tank3 (View new:))
 			view: 96
 			loop: 2

@@ -223,7 +223,7 @@
 		(= perspective 70)
 		(= gunFireState gunPROHIBITED)
 		(= gunNotNeeded 1)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(if
 			(or
 				(not (Btst fKeithFollows))
@@ -1384,7 +1384,7 @@
 					cycleSpeed: 3
 					setCycle: EndLoop self
 				)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(17
 				(LocPrint 20 77 25 4 83)

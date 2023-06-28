@@ -1163,7 +1163,7 @@
 			)
 			(10
 ;;;				(waiter stopUpd:)
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(if local37
 					(self changeState: 28)
 				else
@@ -1208,7 +1208,7 @@
 			(15
 ;;;				(waiter stopUpd:)
 				(= local29 1)
-				(User canInput: 1)
+				(User canInput: FALSE)
 			)
 			(16
 				(localproc_000c 30 116 25 3)
@@ -1289,7 +1289,7 @@
 				(self cue:)
 			)
 			(28
-				(User canInput: 1)
+				(User canInput: FALSE)
 				(if (or local31 local37)
 					(if (> dollars local40)
 						(localproc_000c 30 120)

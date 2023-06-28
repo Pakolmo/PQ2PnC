@@ -37,7 +37,7 @@
 		(= perspective 70)
 		(= gunFireState gunPROHIBITED)
 		(= gunNotNeeded 1)
-		(User canInput: 1)
+		(User canInput: FALSE)
 		(Load VIEW 1)
 		(Load VIEW 79)
 		((= propAgent (Prop new:))
