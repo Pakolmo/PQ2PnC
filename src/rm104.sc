@@ -271,7 +271,7 @@
 						
 					(if (== theCursor 998) ;look vin
 						(if (== FirstTime 1)
-							(localproc_000c 104 0) (SolvePuzzle 1 77)
+							(localproc_000c 104 0) (event claimed: 1)(SolvePuzzle 1 77)
 							(= FirstTime 0)
 						)
 					)

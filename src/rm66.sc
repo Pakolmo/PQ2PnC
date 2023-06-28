@@ -173,6 +173,7 @@
 				else
 					(= scubaTankOxygen (+ 243 (* 13 gotTank)))
 				)
+
 				(curRoom newRoom: 60)
 			)
 		)
@@ -415,6 +416,7 @@
 				(if (== theCursor 999) ;use walk to close.
 					(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
 					(= itemIcon 900)
+					(event claimed: 1)
 					(rm66Script changeState: 1)
 				)
 				(if (== theCursor 998) ;use look arround.

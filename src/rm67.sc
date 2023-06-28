@@ -1005,6 +1005,7 @@
 					)
 					((not (Btst fAskedWomanAboutCar))
 						(Print 67 6 #at -1 20 #width 280)
+						(event claimed: 1)
 						(SolvePuzzle 3)
 						(Bset fAskedWomanAboutCar)
 						(script seconds: 3)
