@@ -718,9 +718,9 @@
 ;;;										showSelf: 13
 ;;;									)
 									(if (== ((inventory at: iFieldKit) owner?) 13) ;fieldkit in trunk
-										(LocPrint {El maletín está en el maletero.})
+										(Print {El maletín está en el maletero.})
 									else
-										(LocPrint {El maletero está vacío})
+										(Print {El maletero está vacío})
 									)
 								else
 									(Print 1 51)
