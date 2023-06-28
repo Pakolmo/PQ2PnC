@@ -394,7 +394,7 @@
 				(newProp startUpd: setCycle: EndLoop self)
 			)
 			(4
-				;(newProp stopUpd:)
+				(newProp stopUpd:)
 				(hijacker2 setPri: 0 setMotion: MoveTo 280 50 self)
 			)
 			(5
@@ -1138,15 +1138,19 @@
 				(newProp setPri: 0 setCycle: EndLoop self)
 			)
 			(8
-				;(newProp stopUpd:)
+				(newProp stopUpd:)
 				(stewardess setPri: 0 setMotion: MoveTo 275 50 self)
+				(keith hide:)
 			)
 			(9
+				(keith hide:)
 				(stewardess hide:)
-				(newProp setCycle: BegLoop)
+				(newProp setCycle: BegLoop self)
+				(keith show:)
 				(keith setCycle: BegLoop self)
 			)
 			(10
+				(keith hide:)
 				(keith
 					view: 20
 					loop: 0
@@ -1157,19 +1161,23 @@
 					illegalBits: 0
 					setCycle: Walk
 				)
+				(keith show:)
 				(RedrawCast)
+				(Animate (cast elements?) TRUE)
+				(RedrawCast)				
 				(AirplanePrint 41 45)
 				(AirplanePrint 41 46)
 				(= seconds 1)
 			)
 			(11
+
 				(keith setMotion: MoveTo 265 58 self)
 			)
 			(12
 				(newProp setCycle: EndLoop self)
 			)
 			(13
-				;(newProp stopUpd:)
+				(newProp stopUpd:)
 				(keith setPri: 0 setMotion: MoveTo 275 50 self)
 			)
 			(14
