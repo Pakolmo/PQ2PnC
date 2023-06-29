@@ -56,7 +56,13 @@
 					(else 158)
 				)
 			y: (if (== prevRoomNum 125) 87 else 185)
-			view: (if (not gunDrawn) 0 else 6)
+			;view: (if (not gunDrawn) 0 else 6)
+			view:
+				(cond 
+					(wearingGasMask (if gunDrawn 306 else 296))
+					(gunDrawn 6)
+					(else 0)
+				)
 			init:
 		)
 		(HandsOn)

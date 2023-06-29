@@ -27,7 +27,13 @@
 		(super init:)
 		(self setRegions: 205)
 		(ego
-			view: (if (not gunDrawn) 0 else 6)
+			;view: (if (not gunDrawn) 0 else 6)
+			view:
+				(cond 
+					(wearingGasMask (if gunDrawn 306 else 296))
+					(gunDrawn 6)
+					(else 0)
+				)
 			x: (if (== prevRoomNum 120) 12 else 310)
 			y: (if (<= (ego y?) 115) 100 else 140)
 			init:

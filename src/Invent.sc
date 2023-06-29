@@ -341,8 +341,23 @@
 					(995 ;use
 						(cond
 							((== ((el value?) view?) 133) ;used bombinstructions
-									(Print 800 53 #font smallFont)
-									
+									(Print 800 53 #font smallFont)		
+							)
+							((== ((el value?) view?) 132) ;used gas mask
+								(if (== methaneGasTimer -1)
+									(Print 205 31) ;You don't need to wear the mask now.
+								else
+									(if wearingGasMask
+										(Print 205 32)
+									else
+										(= wearingGasMask TRUE)
+										(if (== (ego view?) 0)
+											(ego view: 296)
+										else
+											(ego view: 306)
+										)
+									)
+								)
 							)
 							((== ((el value?) view?) 100) ;used handgun
 						 		(if
@@ -397,37 +412,15 @@
 									(DontHave)
 								)
 							)							
-;;;						((== ((el value?) view?) 110) ;field kit
-;;;						(if
-;;;							(and
-;;;								(if (== 0 (StrCmp ((curRoom script?) name?) {kitRegion}))
-;;;								(== curRoomNum 1)
-;;;								)
-;;;
-;;;												((el value?) showSelf:) 
-;;;												(= fieldKitOpen TRUE)
-;;;
-;;;										(Print 153 1
-;;;											#at 174 1
-;;;											#draw
-;;;											#mode teJustCenter
-;;;											#width 120
-;;;										)
-;;;								
-;;;							
-;;;							)))
-						((== ((el value?) view?) 107) 
-						(if (not (ego has: iWallet))
-							(DontHave)
-						else
-							(Print 800 50)
-							(SolvePuzzle 2 fFirstFindDivingCard)
-							(Bset fFoundDiverCard)
-						)
-						)
-
-
-
+							((== ((el value?) view?) 107) 
+								(if (not (ego has: iWallet))
+									(DontHave)
+								else
+									(Print 800 50)
+									(SolvePuzzle 2 fFirstFindDivingCard)
+									(Bset fFoundDiverCard)
+								)
+							)
 							((== ((el value?) view?) 115) ;ear protectors
 								(if (curRoom script?)
 									(if (== 0 (StrCmp ((curRoom script?) name?) {boothScript}))
