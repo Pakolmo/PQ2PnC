@@ -1402,7 +1402,28 @@
 					(CantDo)
 				)
 			)
-			(mouseDown						
+			(mouseDown
+				(if ;RIGHT CLICK
+					(and
+						(== (event type?) evMOUSEBUTTON)
+						(& (event modifiers?) emRIGHT_BUTTON)
+					)
+					(event claimed: TRUE)
+					(switch theCursor
+						(991
+							(theGame setCursor: 998 (HaveMouse)) 
+						)
+						(998 ;hand
+							(theGame setCursor: 995 (HaveMouse)) 
+						)
+						(995
+							(theGame setCursor: 991 (HaveMouse))
+						)	
+						(else
+							(theGame setCursor: 991 (HaveMouse)) ;default next r-click to exit
+						)
+					)
+				)						
 				(if
 					(and
 						(== (event type?) evMOUSEBUTTON)
@@ -1519,38 +1540,46 @@
 							)
 						)
 					)
-					(if (== (event claimed?) FALSE)
+					(if 
+						(and 
+							(ClickedInRect 0 320 26 190 event) ;clicked anywhere else
+							(== (event claimed?) FALSE)
+						)
 						(event claimed: TRUE)
-						(switch theCursor
-							(999 ;walk to exit
-								(curRoom drawPic: (curRoom picture?))
-								;(cast eachElementDo: #dispose)
-								(flood2 hide:)
-								(revolver dispose:)
-								(tank dispose:)
-								(tolietLid dispose:)
-								(flood show:)
-								(ego init: loop: 0)
-								(= local10 1)
-								(HandsOn)
-								(curRoom setScript: rm19Script)
-								(cond 
-									((== sonnyInStallNum 1)
-										(= local10 1)
-										(rm19Script changeState: 1)
-									)
-									((== sonnyInStallNum 2)
-										(= local10 1)
-										(rm19Script changeState: 5)
-									)
-									((== sonnyInStallNum 3)
-										(= local10 1)
-										(rm19Script changeState: 9)
-									)
+						(if ;exit
+							(or
+								(== theCursor 999)
+								(== theCursor 991)
+							)
+							(curRoom drawPic: (curRoom picture?))
+							;(cast eachElementDo: #dispose)
+							(flood2 hide:)
+							(revolver dispose:)
+							(tank dispose:)
+							(tolietLid dispose:)
+							(flood show:)
+							(ego init: loop: 0)
+							(= local10 1)
+							(HandsOn)
+							(theGame setCursor: 999 (HaveMouse))
+							(curRoom setScript: rm19Script)
+							(cond 
+								((== sonnyInStallNum 1)
+									(= local10 1)
+									(rm19Script changeState: 1)
+								)
+								((== sonnyInStallNum 2)
+									(= local10 1)
+									(rm19Script changeState: 5)
+								)
+								((== sonnyInStallNum 3)
+									(= local10 1)
+									(rm19Script changeState: 9)
 								)
 							)
-						
 						)
+					else
+						(event claimed: FALSE)
 					)
 				)		
 			)
