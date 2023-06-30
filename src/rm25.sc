@@ -818,64 +818,83 @@
 				
 				(if (ClickedOnObj manWindow (event x?) (event y?))
 					(event claimed: TRUE)
-					(switch theCursor
-						(138 ;warrant newinventory
-							(cond 
-							((< gamePhase 11) (Print 25 94))
-							((Btst 13) (Print 25 103) (= global174 1))
-							(else (Print 25 17))
-						)
-						)
-						(996 ;talk
-							(cond ;talk
-								((< gamePhase 11) (Print 25 85))
-								((== gamePhase 12) (Print 25 86))
-								(else (Print 25 87))
-							)	
-							(cond ;ask for key
-								((ego has: 27) (Print 25 30))
-								((< gamePhase 11) (Print 25 94))
-								((not showedBadgeToMotelManager) (Print 25 106))
-								((not global174) (Print 25 107))
-								((not global178) (Print 25 108))
-								(else (Print 25 109) (ego get: 27) (SolvePuzzle 3 162))
-							)										
-				
-						)				
-						(104 ;money
-							(if (< gamePhase 11) (Print 25 83) else (Print 25 84))
-						)
-						(107 ;wallet badge
-							(if (ego has: 7)
-								(Print 25 88)
-								(= showedBadgeToMotelManager 1)
-							else
-								(Print 25 89)
+					(if (ego inRect: 96 117 129 135)
+						(switch theCursor
+							(999 ;walk
+								(ego setMotion: MoveTo 99 132 self)
 							)
-				
-						)
-						(112 ;new mugshot
-							(cond 
+							(138 ;warrant newinventory
+								(cond 
 								((< gamePhase 11) (Print 25 94))
-								((ego has: 12)
-									(Print 25 95 #icon 112)
-									(if keith (Print 25 96))
-									(if (not (Btst 88))
-										(Bset 1)
-										(Bset 2)
-										(SolvePuzzle 3 88)
-									)
-								)
-								((ego has: 23) (Print 25 97 #icon 123))
+								((Btst 13) (Print 25 103) (= global174 1))
 								(else (Print 25 17))
 							)
-						)	
+							)
+							(996 ;talk
+								(cond ;talk
+									((< gamePhase 11) (Print 25 85))
+									((== gamePhase 12) (Print 25 86))
+									(else (Print 25 87))
+								)	
+								(cond ;ask for key
+									((ego has: 27) (Print 25 30))
+									((< gamePhase 11) (Print 25 94))
+									((not showedBadgeToMotelManager) (Print 25 106))
+									((not global174) (Print 25 107))
+									((not global178) (Print 25 108))
+									(else (Print 25 109) (ego get: 27) (SolvePuzzle 3 162))
+								)										
+					
+							)				
+							(104 ;money
+								(if (< gamePhase 11) (Print 25 83) else (Print 25 84))
+							)
+							(107 ;wallet badge
+		
+								(if (ego has: 7)
+									(Print 25 88)
+									(= showedBadgeToMotelManager 1)
+								else
+									(Print 25 89)
+								)
+								
+							)
+							(112 ;new mugshot
+								(cond 
+	
+									((< gamePhase 11) (Print 25 94))
+									((ego has: 12)
+										(Print 25 95 #icon 112)
+										(if keith (Print 25 96))
+										(if (not (Btst 88))
+											(Bset 1)
+											(Bset 2)
+											(SolvePuzzle 3 88)
+										)
+									)
+									((ego has: 23) (Print 25 97 #icon 123))
+									(else (Print 25 17))
+								)
+							)	
 						(else
-						(event claimed: FALSE)
-						 )
+							(event claimed: FALSE)
+						)
+						)
+						else
+					(NotClose)	
+					(event claimed: TRUE)	
+					(switch theCursor
+							(999 ;walk
+								(ego setMotion: MoveTo 99 132 self)
+							)	
 					)
-				)			
 				
+					 )
+						)
+					
+				
+				
+			
 				
 				
 				
