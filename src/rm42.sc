@@ -1211,8 +1211,12 @@
 							)
 						)
 					)
-					(if (== (event claimed?) FALSE)
-						(event claimed: TRUE) ;dont pass events to jet script
+					(if
+						(and
+							(ClickedInRect 1 320 25 190 event)
+							(== (event claimed?) FALSE)
+						)
+						(event claimed: TRUE) ;dont pass events to jet script, but allow menu
 					)
 				)
 			)
