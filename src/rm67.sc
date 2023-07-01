@@ -224,10 +224,16 @@
 			init:
 		)
 		(jBlock
+;;;			top: 178
+;;;			bottom: 193
+;;;			left: 194
+;;;			right: 285
+		
 			top: 178
-			bottom: 193
+			bottom: 183
 			left: 194
-			right: 285
+			right: 285			
+			
 		)
 		((View new:)
 			view: 76
@@ -292,7 +298,7 @@
 			setMotion: 0
 			observeBlocks: carBlock
 			observeBlocks: jBlock
-			posn: 340 300
+			posn: 340 300 ;340 300
 			init:
 		)
 		(if (== currentCar 13)
@@ -333,7 +339,7 @@
 				loop: 6
 				setCel: 0
 				yStep: 8
-				posn: 240 193
+				posn: 240 186 ;240 193
 				setPri: 14
 				ignoreActors: 0
 				addToPic:
@@ -342,7 +348,7 @@
 				view: 75
 				setLoop: 5
 				cel: 0
-				posn: 240 193
+				posn: 240 186 ;240 193
 				setPri: 14
 				ignoreActors:
 				stopUpd:
@@ -562,6 +568,7 @@
 									(SolvePuzzle 3)
 									(Bset fAskedWomanAboutCar)
 									(script seconds: 3)
+									(event claimed: 0)
 								)
 								(else
 									(Print 67 7 #at -1 20) ;"Eso es todo lo que recuerdo, agente."
@@ -580,7 +587,7 @@
 					(switch theCursor
 						(995 ;open door
 							(cond 
-								((ego inRect: 220 195 242 214)
+								((ego inRect: 220 185 242 214) ;220 195 242 214
 									(self newRoom: 68)
 								)
 								((ego inRect: [carDoorRect 0] [carDoorRect 1] [carDoorRect 2] [carDoorRect 3])
@@ -589,18 +596,18 @@
 								(
 									(and
 										(== (ego loop?) 2)
-										(ego inRect: 220 170 240 180)
+										(ego inRect: 220 170 240 193) ;220 170 240 180
 									)
 									(Print 67 52)
 								)
 								(
 									(and
 										(== (ego loop?) 3)
-										(ego inRect: 220 170 240 180)
+										(ego inRect: 220 170 240 193) ;220 170 240 180
 									)
 									(Print 67 53)
 								)
-								((ego inRect: 220 170 240 180)
+								((ego inRect: 220 170 240 193) ;220 170 240 180
 									(Print 67 54)
 								)
 								(else
@@ -811,18 +818,18 @@
 								(
 									(and
 										(== (ego loop?) 2)
-										(ego inRect: 220 170 240 180)
+										(ego inRect: 220 170 240 185) ;220 170 240 180
 									)
 									(Print 67 52)
 								)
 								(
 									(and
 										(== (ego loop?) 3)
-										(ego inRect: 220 170 240 180)
+										(ego inRect: 220 170 240 185) ;220 170 240 180
 									)
 									(Print 67 53)
 								)
-								((ego inRect: 220 170 240 180)
+								((ego inRect: 220 170 240 185) ;220 170 240 180
 									(Print 67 54)
 								)
 								(else
@@ -1012,6 +1019,7 @@
 					)
 					(else
 						(Print 67 7 #at -1 20)
+						(event claimed: 0)
 					)
 				)
 			)
@@ -1364,18 +1372,18 @@
 					(
 						(and
 							(== (ego loop?) 2)
-							(ego inRect: 220 170 240 180)
+							(ego inRect: 220 170 240 185) ;220 170 240 180
 						)
 						(Print 67 52)
 					)
 					(
 						(and
 							(== (ego loop?) 3)
-							(ego inRect: 220 170 240 180)
+							(ego inRect: 220 170 240 185) ;220 170 240 180
 						)
 						(Print 67 53)
 					)
-					((ego inRect: 220 170 240 180)
+					((ego inRect: 220 170 240 185) ;220 170 240 180
 						(Print 67 54)
 					)
 					(else

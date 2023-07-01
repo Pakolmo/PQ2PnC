@@ -218,9 +218,9 @@
 ;;;										(if (Btst 7) {} else {a bouyancy control vest,})
 ;;;										(if (Btst 8) {} else {a scuba mask,})
 										(if (Btst 4) {} else {un traje de neopreno,})
-										(if (Btst 6) {} else {un cinturón de lastre,})
+										(if (Btst 6) {} else {un cintur/n de lastre,})
 										(if (Btst 7) {} else {un chaleco de control de flotabilidad,})
-										(if (Btst 8) {} else {una máscara de submarinismo,})
+										(if (Btst 8) {} else {una m*scara de submarinismo,})
 
 
 									)
@@ -432,9 +432,9 @@
 ;;;										(if (Btst 8) {} else {a scuba mask,})
 ;;;										
 										(if (Btst 4) {} else {un traje de neopreno,})
-										(if (Btst 6) {} else {un cinturón de lastre,})
+										(if (Btst 6) {} else {un cintur/n de lastre,})
 										(if (Btst 7) {} else {un chaleco de control de flotabilidad,})
-										(if (Btst 8) {} else {una máscara de submarinismo,})
+										(if (Btst 8) {} else {una m*scara de submarinismo,})
 
 										
 										

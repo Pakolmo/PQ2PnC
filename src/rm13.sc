@@ -1559,15 +1559,29 @@
 					13
 					93
 					(switch outsideRoom
-						(14 {Lytton Airport})
-						(25 {753 Third Street})
-						(29 {Arnie's restaurant})
-						(67 {Oak Tree Mall})
+;;;						(14 {Lytton Airport})
+;;;						(25 {753 Third Street})
+;;;						(29 {Arnie's restaurant})
+;;;						(67 {Oak Tree Mall})
+;;;						(61 {Cotton Cove})
+;;;						(22 {Lytton City Jail})
+;;;						(31 {222 West Peach Street})
+;;;						(27 {160 West Rose})
+;;;						(1 {the office})
+						
+						
+						(14 {Aeropuerto de Lytton})
+						(25 {753 de la Tercera Calle})
+						(29 {Restaurante de Arnie})
+						(67 {Centro Comercial Oak Tree})
 						(61 {Cotton Cove})
-						(22 {Lytton City Jail})
-						(31 {222 West Peach Street})
-						(27 {160 West Rose})
-						(1 {the office})
+						(22 {Prisi/n de Lytton})
+						(31 {222 Oeste de la Calle Peach})
+						(27 {160 de West Rose})
+						(1 {la oficina})
+						
+						
+											
 					)
 				)
 				(LocPrint 1 @str)
@@ -1581,15 +1595,28 @@
 					13
 					94
 					(switch outsideRoom
-						(14 {Lytton Airport})
-						(25 {753 Third Street})
-						(29 {Arnie's restaurant})
-						(67 {Oak Tree Mall})
+;;;						(14 {Lytton Airport})
+;;;						(25 {753 Third Street})
+;;;						(29 {Arnie's restaurant})
+;;;						(67 {Oak Tree Mall})
+;;;						(61 {Cotton Cove})
+;;;						(22 {Lytton City Jail})
+;;;						(31 {222 West Peach Street})
+;;;						(27 {160 West Rose})
+;;;						(1 {the office})
+						
+						(14 {Aeropuerto de Lytton})
+						(25 {753 de la Tercera Calle})
+						(29 {Restaurante de Arnie})
+						(67 {Centro Comercial Oak Tree})
 						(61 {Cotton Cove})
-						(22 {Lytton City Jail})
-						(31 {222 West Peach Street})
-						(27 {160 West Rose})
-						(1 {the office})
+						(22 {Prisi/n de Lytton})
+						(31 {222 Oeste de la Calle Peach})
+						(27 {160 de West Rose})
+						(1 {la oficina})						
+						
+					
+						
 					)
 				)
 				(LocPrint 0 @str)

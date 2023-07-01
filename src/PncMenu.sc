@@ -689,7 +689,7 @@
 							(995 ;hand
 								(event type: 1 claimed: 1)
 ;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
-								(Print {(^Qu+ quieres coger?.)}) ;"What do you want to take?"
+								(Print {(^Qu+ quieres coger?)}) ;"What do you want to take?"
 							)
 							(997 ;wait sierra
 								(event type: 1 claimed: 1)

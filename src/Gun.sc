@@ -89,7 +89,7 @@
 
 (procedure (load)					
 	(cond
-		(isHandsOff 0)
+;;;		(isHandsOff 0)
 		((not (ego has: iHandGun))
 			(DontHaveGun)
 		)

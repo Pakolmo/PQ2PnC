@@ -181,16 +181,21 @@
 							)
 							(998 ;look
 								(switch (Random 42 44)
-									(42 (Print {It's just as it appears.}))
-									(43 (Print {It doesn't look interesting.}))
-									(44 (Print {You see nothing special.}))
+;;;									(42 (Print {It's just as it appears.}))
+;;;									(43 (Print {It doesn't look interesting.}))
+;;;									(44 (Print {You see nothing special.}))
+									(42 (Print {Es lo que parece.}))
+									(43 (Print {No parece interesante.}))
+									(44 (Print {No tiene nada de especial.}))
 								)
 							)
 							(996 ;talk 
-								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+;;;								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+								(Print {(No hay respuesta.)} #at -1 144) ;"(There is no response.)"								
 							)
 							(995 ;hand
-								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+								(Print {(^Qu+ quieres coger?)}) ;"What do you want to take?"								
 							)
 							(997 ;wait sierra
 							)
@@ -212,7 +217,8 @@
 								(fire)
 							)
 							(else ;inventory item
-								(Print {no need to use that here.}) ;"no need to use that here"
+;;;								(Print {no need to use that here.}) ;"no need to use that here"
+								(Print {No hay ninguna necesidad de usar esto ah|.}) ;"no need to use that here"
 							)
 						)
 					)
