@@ -65,7 +65,8 @@
 			)
 			(33
 				(cond 
-					((not (ego inRect: 144 188 166 197)) (Print 61 115))
+;;;					((not (ego inRect: 144 188 166 197)) (Print 61 115))
+					((not (ego inRect: 134 178 166 197)) (Print 61 115))
 					((== personalCarLocked 1) (Print 61 117))
 					(else (carScript changeState: 7))
 				)
@@ -1328,7 +1329,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998 ;look
-								(if (ego inRect: 72 142 360 240)
+								(if (ego inRect: 72 132 360 240) ;72 142 360 240)
 									(switch (Random 0 2)
 										(0
 											(Print 61 14)
@@ -1345,7 +1346,7 @@
 								)
 						)
 						(995 ;hand
-						(if (ego inRect: 144 188 166 197)
+						(if (ego inRect: 144 178 166 197) ;144 188 166 197)
 							(cond 
 								(
 									(and
