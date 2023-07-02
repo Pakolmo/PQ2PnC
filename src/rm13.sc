@@ -2121,7 +2121,8 @@
 					(2 (LocPrint 1 13 178))
 					(3 (LocPrint 1 13 179))
 				)
-				(if (Print 13 66 81 {YES!!} 0 81 {no} 1 67 -1 128)
+;;;				(if (Print 13 66 81 {YES!!} 0 81 {no} 1 67 -1 128)
+				(if (Print 13 66 81 {  S|!!} 0 81 {no} 1 67 -1 128)					
 					(LocPrint 1 13 180)
 					(= local113 1)
 				else

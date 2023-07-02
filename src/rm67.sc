@@ -339,7 +339,7 @@
 				loop: 6
 				setCel: 0
 				yStep: 8
-				posn: 240 186 ;240 193
+				posn: 240 183 ;240 193
 				setPri: 14
 				ignoreActors: 0
 				addToPic:
@@ -348,7 +348,7 @@
 				view: 75
 				setLoop: 5
 				cel: 0
-				posn: 240 186 ;240 193
+				posn: 240 183 ;240 193
 				setPri: 14
 				ignoreActors:
 				stopUpd:
@@ -588,6 +588,7 @@
 						(995 ;open door
 							(cond 
 								((ego inRect: 220 185 242 214) ;220 195 242 214
+									(event claimed: FALSE)
 									(self newRoom: 68)
 								)
 								((ego inRect: [carDoorRect 0] [carDoorRect 1] [carDoorRect 2] [carDoorRect 3])
@@ -880,7 +881,7 @@
 										(995 ;hand
 											(cond 
 												((ego has: iFieldKit)
-													(Print 67 25) ;You already have it.
+;;;													(Print 67 25) ;You already have it.
 													(cond 
 														((not workCarTrunkOpened)
 															(Print 67 20)

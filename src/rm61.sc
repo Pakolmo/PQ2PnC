@@ -46,11 +46,13 @@
 	(return
 		(switch currentCar
 			(13
-				(if (not (ego inRect: 140 184 170 200))   ;144 188 166 197
+;;;				(if (not (ego inRect: 140 184 170 200))   ;144 188 166 197
+				(if (not (ego inRect: 130 174 160 190))   ;144 188 166 197
 					(Print 61 115)
 				else
 					(if (and (== gamePhase 5) (not shotAtBainsInCove))
-						(ego setMotion: MoveTo 125 188)
+;;;						(ego setMotion: MoveTo 125 188)
+						(ego setMotion: MoveTo 115 178)
 						(return (Print 61 116))
 					)
 					(cond 
@@ -110,9 +112,16 @@
 )
 
 (instance ourCarBlock of Block
+;;;	(properties
+;;;		top 194
+;;;		left 107
+;;;		bottom 207
+;;;		right 207
+;;;	)
+;;;	
 	(properties
-		top 194
-		left 107
+		top 184
+		left 97
 		bottom 207
 		right 207
 	)
@@ -278,7 +287,7 @@
 				view: 54
 				loop: 1
 				cel: 3
-				posn: 159 175
+				posn: 159 175				
 				init:
 				addToPic:
 			)
@@ -326,7 +335,8 @@
 			setCel: (if (== currentCar 13) 1 else 5)
 			setCycle: 0
 			setMotion: 0
-			posn: (if (and (not local3) (not local1)) 150 else 164) 205
+;;;			posn: (if (and (not local3) (not local1)) 150 else 164) 205
+			posn: (if (and (not local3) (not local1)) 140 else 154) 195			
 			init:
 			setPri: 15
 			ignoreActors:
@@ -419,7 +429,8 @@
 						(Print 61 2)
 					)
 				)
-				(ego setMotion: MoveTo (ego x?) 176)
+;;;				(ego setMotion: MoveTo (ego x?) 176)
+				(ego setMotion: MoveTo (ego x?) 166)
 			)
 			(
 				(and
@@ -445,8 +456,11 @@
 				(= local11 50)
 			)
 		)
-		(if (< (ego y?) 72)
-			(ego y: 72)
+;;;		(if (< (ego y?) 72)
+;;;			(ego y: 72)
+;;;		)
+		(if (< (ego y?) 62)
+			(ego y: 62)
 		)
 		(if
 			(and
@@ -473,7 +487,8 @@
 			(0
 				(ego
 					view: 0
-					posn: 28 (ego y?)
+;;;					posn: 28 (ego y?)
+					posn: 18 (ego y?)					
 					illegalBits: cWHITE;-32768
 					ignoreActors: 0
 					setPri: -1
@@ -482,9 +497,11 @@
 					setMotion: 0
 				)
 				(if local3
-					(ego setMotion: MoveTo 50 (ego y?))
+;;;					(ego setMotion: MoveTo 50 (ego y?))
+					(ego setMotion: MoveTo 40 (ego y?))					
 				else
-					(ego posn: 200 240)
+;;;					(ego posn: 200 240)
+					(ego posn: 190 230)
 				)
 				(if (== currentCar carWork)
 					((= keith (Actor new:))
@@ -511,7 +528,8 @@
 							view: 51
 							loop: 5
 							cel: 2
-							posn: 126 209
+;;;							posn: 126 209
+							posn: 116 199
 							setPri: 15
 							init:
 						)
@@ -541,7 +559,8 @@
 				)
 				(if (not local3)
 					(stopScript init:)
-					(ourCar setMotion: MoveTo 164 205 stopScript)
+;;;					(ourCar setMotion: MoveTo 164 205 stopScript)
+					(ourCar setMotion: MoveTo 154 195 stopScript)					
 				else
 					(ourCar addToPic:)
 				)
@@ -1251,7 +1270,7 @@
 											(LocPrint 61 78)
 										)
 										(if (> (ego distanceTo: barbie) 28)
-									(Print 61 74)
+;;;									(Print 61 74)
 								else
 									(barbieScript changeState: 6)
 								)				
@@ -1407,7 +1426,7 @@
 					(switch theCursor				
 
 						(998 ;look
-								(if (ego inRect: 72 142 360 240)
+								(if (ego inRect: 62 132 360 240)  ;72 142 360 240)
 									(switch (Random 0 2)
 										(0
 											(Print 61 14)
@@ -1424,7 +1443,7 @@
 								)
 						)
 						(110
-						(if (ego inRect: 93 193 129 208)
+						(if (ego inRect: 80 180 129 208) ;93 193 129 208)
 							(if workCarTrunkOpened
 								(if (ego has: iFieldKit)
 									(Print 61 36)
@@ -1459,7 +1478,7 @@
 						)	
 						)
 (995 ;Use
-						(if (ego inRect: 93 193 129 208)
+						(if (ego inRect: 80 180 129 208) ;93 193 129 208)
 							(cond 
 								(workCarTrunkOpened
 									(if
@@ -1723,13 +1742,15 @@
 				(HandsOff)
 				(ego
 					setStep: 1 2
-					posn: 157 202
+;;;					posn: 157 202
+					posn: 153 197
 					setPri: 14
 					setLoop: 0
 					setCycle: 0
 					ignoreActors: 1
 					illegalBits: 0
-					setMotion: MoveTo 155 185 self
+;;;					setMotion: MoveTo 155 185 self
+					setMotion: MoveTo 150 180 self					
 				)
 				(if (== currentCar 13)
 					(keith posn: 167 206 loop: 0 cel: 0 setPri: 15 startUpd:)
@@ -1737,7 +1758,8 @@
 						view: 51
 						loop: 3
 						cel: 0
-						posn: 182 197
+;;;						posn: 182 197
+						posn: 172 187						
 						setPri: 15
 						init:
 						setCycle: EndLoop
@@ -1772,17 +1794,20 @@
 			)
 			(2
 				(carDoor dispose:)
-				(keith setMotion: MoveTo 98 198 self)
+;;;				(keith setMotion: MoveTo 98 198 self)
+				(keith setMotion: MoveTo 88 188 self)
 			)
 			(3
-				(keith setPri: -1 setMotion: MoveTo 92 185 self)
+;;;				(keith setPri: -1 setMotion: MoveTo 92 185 self)
+				(keith setPri: -1 setMotion: MoveTo 82 175 self)
 				(HandsOn)
 			)
 			(4
 				(keith
 					loop: 2
 					cel: 0
-					setMotion: MoveTo 88 154 self
+;;;					setMotion: MoveTo 88 154 self
+					setMotion: MoveTo 78 144 self
 				)
 				(switch local4
 					(1
@@ -1859,7 +1884,8 @@
 					view: 51
 					loop: 3
 					cel: 0
-					posn: 182 197
+;;;					posn: 182 197
+					posn: 172 187
 					setPri: 15
 					init:
 					setCycle: EndLoop self
@@ -1873,7 +1899,8 @@
 					setLoop: 0
 					setCycle: 0
 					setStep: 1 2
-					setMotion: MoveTo 157 202 self
+;;;					setMotion: MoveTo 157 202 self
+					setMotion: MoveTo 147 192 self
 				)
 			)
 			(12
@@ -1885,7 +1912,8 @@
 					view: 51
 					loop: 5
 					cel: 0
-					posn: 126 209
+;;;					posn: 126 209
+					posn: 116 199					
 					setPri: 15
 					init:
 					setCycle: EndLoop self
@@ -1899,7 +1927,8 @@
 					view: 51
 					loop: 5
 					cel: 2
-					posn: 126 209
+;;;					posn: 126 209
+					posn: 116 199
 					setPri: 10
 ;;;					startUpd:
 					setCycle: CycleTo 0 -1 self ;CycleTo 0 -1 self
