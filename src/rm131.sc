@@ -193,6 +193,65 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 
+
+
+					(if	(ClickedInRect 1 6 91 103 event) ;left up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo -4 97 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 1 3 130 138 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo -5 134 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					(if	(ClickedInRect 310 319 91 103 event) ;up down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 323 96 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+					(if	(ClickedInRect 314 319 131 139 event) ;down right
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 326 136 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+		
+
+
+
+
+
 				(if (ClickedOnObj door (event x?) (event y?)) ;clicked on door
 						(event claimed: TRUE)
 						(switch theCursor

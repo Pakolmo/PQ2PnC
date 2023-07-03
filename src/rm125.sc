@@ -146,6 +146,77 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+
+
+					(if	(ClickedInRect 3 35 185 189 event) ;left up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 12 190 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 113 144 185 189 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 126 193 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					(if	(ClickedInRect 316 319 91 104 event) ;up down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 325 98 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+					(if	(ClickedInRect 315 319 131 139 event) ;down right
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 322 135 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
 											(event claimed: TRUE)

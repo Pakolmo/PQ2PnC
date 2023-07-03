@@ -990,6 +990,15 @@
 					#font smallFont
 					#icon 999 2 0
 				)
+				(Print
+					(Format @str 997 7)
+;;;					#title {Version Point and Click}
+					#title {Versi/n Point and Click}
+					#mode teJustCenter
+					#width 180
+					#font smallFont
+					#icon 905 0 0
+				)				
 				(= state 99)
 				(= cycles 1)
 			)

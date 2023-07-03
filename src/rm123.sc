@@ -122,6 +122,36 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 		
+						(if	(ClickedInRect 2 40 183 189 event) ;left up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 15 192 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 142 160 183 189 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 146 194 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+
+			
+		
+		
+		
 					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
 											(event claimed: TRUE)
 						(switch theCursor

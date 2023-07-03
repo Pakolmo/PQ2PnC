@@ -208,6 +208,31 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 
+					(if	(ClickedInRect 155 195 183 189 event) ;left up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 175 194 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 276 319 183 189 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 301 192 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
 
 
 

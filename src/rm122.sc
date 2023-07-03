@@ -196,6 +196,70 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 		
+							(if	(ClickedInRect 1 4 90 103 event) ;left up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo -4 98 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 1 3 131 138 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo -5 134 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					(if	(ClickedInRect 283 319 91 189 event) ;up right
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 306 208 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+					(if	(ClickedInRect 172 207 186 189 event) ;down left
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 190 196 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 					(if (ClickedOnObj ego (event x?) (event y?)) ;clicked on ego mask
 											(event claimed: TRUE)
 						(switch theCursor

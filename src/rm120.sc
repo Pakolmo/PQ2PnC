@@ -326,7 +326,7 @@
 				
 
 														
-					(if	(ClickedInRect 1 319 21 54 event) ;up
+					(if	(ClickedInRect 0 319 21 54 event) ;up
 				(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -339,7 +339,57 @@
 						)
 					)
 		
-		
+					(if	(ClickedInRect 313 319 90 103 event) ;right up
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 325 97 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+					(if	(ClickedInRect 311 319 131 138 event) ;right down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 325 135 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+				
+					(if	(ClickedInRect 7 35 184 189 event) ;left down
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 12 202 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
+					(if	(ClickedInRect 113 145 186 189 event) ;down right
+				(event claimed: TRUE)
+					(switch theCursor
+						(999 ;walk
+									(ego setMotion: MoveTo 128 200 self)
+						)
+						
+							(else
+								(event claimed: FALSE)
+							 )
+						)
+					)
+						
 		
 		
 		
