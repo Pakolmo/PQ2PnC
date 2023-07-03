@@ -87,7 +87,9 @@
 (instance gelepsi of Actor
 	(properties)
 )
-
+(instance bwCar of Actor
+	(properties)
+)
 (instance barbie of Actor
 	(properties)
 )
@@ -284,7 +286,8 @@
 		)
 		(if (>= local4 3)
 			(ego observeBlocks: bwCarBlock)
-			((View new:)
+;;;			((View new:)
+			(bwCar
 				view: 54
 				loop: 1
 				cel: 3
@@ -1168,6 +1171,30 @@
 ;;;	
 ;;;	
 ;;;	
+
+			(if
+
+				(and
+							(ClickedOnObj bwCar (event x?) (event y?))
+							(cast contains: gelepsi)
+				)
+					(event claimed: TRUE)
+					(switch theCursor				
+						(999 ;walk
+							(ego
+								illegalBits: 0
+								setMotion: MoveTo (- (carDoor x?) 18) (ego y?) self
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+
+
+
+
 	
 	
 			(if

@@ -644,9 +644,8 @@
 											(ego get: iHandGun)
 											(= jailLockerOpen 0)
 											(= lockerUnlocked 0)
-
 										else
-;;;											(LocPrint 22 74) ;You close and lock the locker.
+											(LocPrint 22 74) ;You close and lock the locker.
 											(if
 												(and 
 													(not (Btst fLockedUpGunAtJail))
@@ -689,10 +688,6 @@
 									(ego put: iHandGun 22)
 									(= lockerUnlocked 1)
 									(= lockerToggle 1)
-									(LocPrint 22 74) ;prevent deadend.
-										(if (== ((inventory at: iHandGun) owner?) 22)
-											(SolvePuzzle 3 fLockedUpGunAtJail)
-									)									
 									(theGame setCursor: 995 (HaveMouse)) ;switch to empty hand
 									(= itemIcon 900)
 								)

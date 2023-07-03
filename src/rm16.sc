@@ -384,11 +384,27 @@
 	(method (handleEvent event)
 		
 					(cond						
-				((and
+			(
+				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
-					
 				)
+				(if	(ClickedInRect 117 184 160 189 event) ;down
+					(event claimed: TRUE)
+							(switch theCursor
+								(999 ;walk
+									(ego setMotion: MoveTo 149 210 self)
+								)
+								(else
+									(event claimed: FALSE)
+										
+								)
+							)
+						)
+											
+														
+				
+				
 				(if	(or (ClickedOnObj agent (event x?) (event y?))
 						(ClickedOnPicView agent2 (event x?) (event y?))
 					)
