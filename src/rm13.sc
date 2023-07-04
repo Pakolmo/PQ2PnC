@@ -753,6 +753,9 @@
 			)
 		)
 		(super doit:)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)
 	)
 	
 	(method (changeState newState)
@@ -1394,7 +1397,11 @@
 						)
 					)
 				)
-				(if (== theCursor 999) ;walk anywhere to exit 
+				(if
+					(or
+						(== theCursor 999) ;walk anywhere to exit
+						(== theCursor 991) ;salir
+					)
 					(ExitWorkCar)
 				)
 				(if 
