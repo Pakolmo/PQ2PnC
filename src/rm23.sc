@@ -298,6 +298,11 @@
 			)
 		)
 		(super doit:)
+		(if (== opened 1)
+			(if (== theCursor 999)
+				(theGame setCursor: 991 (HaveMouse))
+			)
+		)
 	)
 	
 	(method (changeState newState)

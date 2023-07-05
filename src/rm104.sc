@@ -90,6 +90,9 @@
 		(if (> local5 1) (-- local5))
 		(if (== local5 1) (= local5 0) (planeScript cue:))
 		(super doit:)
+		(if (== theCursor 999)
+			(theGame setCursor: 991 (HaveMouse))
+		)
 	)
 	
 	(method (changeState newState)
@@ -250,7 +253,10 @@
 					
 				)		
 				
-					(if (== theCursor 999) ;use walk to close.
+					(if (or
+							(== theCursor 999) ;use walk to close.
+							(== theCursor 991) ;salir
+						)
 						(HandsOn)
 						(curRoom newRoom: 14)
 					)
