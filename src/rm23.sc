@@ -437,7 +437,10 @@
 ;;;					)
 	        		(if
 	        			(and
-	        				(== theCursor 999) ;walk to exit
+	        				(or
+	        					(== theCursor 991) 
+	        					(== theCursor 999) ;walk to exit
+							)
 	        				(== opened 1)
 						)
 						(event claimed: TRUE)
@@ -451,6 +454,7 @@
 							(mugShot2 posn: 0 0)
 						)
 						(= opened 0)
+						(theGame setCursor: 996 (HaveMouse)) ;switch back to talk
 						(folderScript changeState: 2)
 					)
 					(if ;change page
