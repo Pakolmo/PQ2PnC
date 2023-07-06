@@ -1183,7 +1183,8 @@
 						(999 ;walk
 							(ego
 								illegalBits: 0
-								setMotion: MoveTo (- (carDoor x?) 18) (ego y?) self
+
+								setMotion: MoveTo 150 180  self
 							)
 						)
 						(else

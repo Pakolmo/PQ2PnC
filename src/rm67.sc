@@ -414,7 +414,7 @@
 			(self setScript: stopScript)
 		else
 			(HandsOn)
-			(ourCar stopUpd:)
+;;;			(ourCar stopUpd:)
 			(if (== currentCar 13)
 				(unTrunk
 					view: 51
@@ -514,10 +514,10 @@
 					(event claimed: TRUE)
 					(switch theCursor				
 						(999 ;walk
-							(Print {test})
+							
 							(ego
 								illegalBits: 0
-								setMotion: MoveTo (+ (carDoor x?) 12) (ego y?)  self
+								setMotion: MoveTo (+ (carDoor x?) 15) (ego y?)  self
 							)
 						)
 						(else
