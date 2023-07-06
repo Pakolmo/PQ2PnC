@@ -151,6 +151,9 @@
 (instance ourCar of Actor
 	(properties)
 )
+(instance carYelow of Actor
+	(properties)
+)
 
 (instance rm67 of Room
 	(properties
@@ -255,7 +258,8 @@
 			ignoreActors: 0
 			addToPic:
 		)
-		((View new:)
+;;;		((View new:)	
+		(carYelow
 			view: 75
 			loop: 1
 			setCel: 2
@@ -505,6 +509,27 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				(if (ClickedOnObj carYelow (event x?) (event y?)) ;police
+					
+					(event claimed: TRUE)
+					(switch theCursor				
+						(999 ;walk
+							(Print {test})
+							(ego
+								illegalBits: 0
+								setMotion: MoveTo (+ (carDoor x?) 12) (ego y?)  self
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)	
+						
+					)
+			)
+		
+				
+				
+				
 				(if (ClickedOnObj haines (event x?) (event y?)) ;police
 					(event claimed: TRUE)
 					(switch theCursor
