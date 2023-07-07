@@ -178,7 +178,7 @@
 			cel: 0
 			posn: 198 105
 			init:
-			stopUpd:
+;;;			stopUpd:
 		)
 		(lampBlock
 			top: 119

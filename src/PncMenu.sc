@@ -760,16 +760,26 @@
 			(1
 				(= temp0
 					(Print
-;;;						950 26
-						{^De verdad quieres salir?}
+						997 5
+;;;						{^De verdad quieres salir?}
 ;;;						#title {Quit} ;English
 						#title {Salir} ;Spanish
+						#icon 999 0 0
 						#font 1
 ;;;						#button { Quit_} 1 ;English
 ;;;						#button { Oops } 0 ;English
 						#button { Salir_} 1 ;Spanish
 						#button { Ups } 0 ;Spanish
 					)
+					;;;				(= quit
+;;;					(Print 997 5
+;;;						#button {Quit} 1
+;;;						#button {Continue} 0
+;;;						#icon 999 0 0
+;;;					)
+;;;				)
+					
+					
 				)
 				(if (== temp0 1)
 					(= quit 1)

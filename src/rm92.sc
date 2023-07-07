@@ -173,7 +173,7 @@
 			(1
 				(EgoDead
 ;;;					{I'll write to you at\nHappy Meadows!\nThanks for playing\nPolice Quest II.\nNext time, CALM DOWN!}
-					{_Ya te escribir+ al Psiqui*trico!\nGracias por jugar a Police Quest II.\n_La pr/xima vez, C*LMATE!}
+					{=Ya te escribir+ al Psiqui*trico!\nGracias por jugar a Police Quest II.\n_La pr/xima vez, =C*LMATE!}
 					
 				)
 			)

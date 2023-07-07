@@ -1482,7 +1482,7 @@
 			)
 			(1
 				(EgoDead
-					{T{ y otras 49 personas est*is muertas... _porque la FASTIDIASTE!}
+					{T{ y otras 49 personas est*is muertas... =porque la FASTIDIASTE!}
 				)
 			)
 		)

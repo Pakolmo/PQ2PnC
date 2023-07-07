@@ -1458,7 +1458,7 @@ code_1ba3:
 				(switch temp0
 					(1
 ;;;						(BondsSpeak {Great! I loved playing Leisure suit Larry 1.})
-						(BondsSpeak {_Genial! Me ha encantado jugar a Leisure suit Larry 1.})
+						(BondsSpeak {\Genial! Me ha encantado jugar a Leisure suit Larry 1.})
 						(self changeState: 3)
 					)
 					(else

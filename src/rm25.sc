@@ -234,7 +234,7 @@
 				(if (== gamePhase 12) 156 else 155)
 			init:
 			ignoreActors:
-			stopUpd:
+;;;			stopUpd:
 		)
 		((View new:)
 			view: 251

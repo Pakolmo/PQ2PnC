@@ -460,12 +460,12 @@
 				(if local7
 					(EgoDead
 ;;;						{You took too much time getting across the street. Too bad...so sad...you've been had!}
-						{Tardaste demasiado en cruzar la calle. Muy mal... _Qu+ mal lo hiciste!}						
+						{Tardaste demasiado en cruzar la calle. Muy mal... =Qu+ mal lo hiciste!}						
 					)
 				else
 					(EgoDead
 ;;;						{You forgot to look both ways and wait for the light. Didn't your mother tell you about that?}
-						{Olvidaste mirar a ambos lados y esperar la luz correcta. _No te lo explic/ tu madre?}						
+						{Olvidaste mirar a ambos lados y esperar la luz correcta. =No te lo explic/ tu madre?}						
 					)
 				)
 			)
