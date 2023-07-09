@@ -21,7 +21,7 @@
 	local1
 	local2
 	newAct ;ourcar work or personal
-	newProp_3
+	newProp_3 ;keiths passenger door
 	newProp
 	newAct_2
 	local7
@@ -32,14 +32,14 @@
 	local12
 	local13
 	local14
-	newProp_2
+	;newProp_2 door108
 	local16
 	local17
-	newProp_6
-	newProp_4
+	newProp_6 ;tear gas window smoke
+	newProp_4 ;swat guy with rifle
 	newAct_3
 	local21
-	newProp_5
+	newProp_5 ;swat car door
 ;	newAct_4
 	[local24 2]
 	[local26 2]
@@ -100,6 +100,11 @@
 		number 13
 	)
 )
+
+(instance door108 of Prop
+	(properties)
+)
+
 (instance newAct_4 of Actor
 	(properties)
 )
@@ -223,18 +228,19 @@
 			init:
 			illegalBits: 0
 		)
-		((= newProp_2 (Prop new:))
+		(door108 ;(= newProp_2 (Prop new:))
 			view: 251
 			setLoop: (if (== gamePhase 12) 7 else 1)
 			setCel: (if (== gamePhase 12) 255 else 0)
 			setCycle: 0
 			setPri: 9
+			startUpd:
 			posn:
 				(if (== gamePhase 12) 252 else 261)
 				(if (== gamePhase 12) 156 else 155)
 			init:
 			ignoreActors:
-;;;			stopUpd:
+			;stopUpd:
 		)
 		((View new:)
 			view: 251
@@ -276,7 +282,7 @@
 			init:
 			addToPic:
 		)
-		(if (and (Btst 14) (== gamePhase 12))
+		(if (and (Btst fSWATAtHotel) (== gamePhase 12))
 			((View new:)
 				view: 251
 				setLoop: 0
@@ -735,15 +741,11 @@
 			)
 		)
 		(cond	
-			
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
-				
-
 				(if	(ClickedInRect 169 209 164 185 event) ;clicked on door car
 					(event claimed: TRUE)
 					(switch theCursor
@@ -752,8 +754,8 @@
 						)
 					)
 				)
-				
-				(if (and (ClickedOnObj newAct_4 (event x?) (event y?)) ;police with warrant
+				(if
+					(and (ClickedOnObj newAct_4 (event x?) (event y?)) ;police with warrant
 						(cast contains: newAct_4)
 						(== local39 0)
 					)
@@ -772,174 +774,149 @@
 								)
 								(else (Print 25 32))
 							)	
-						)(else
-						(event claimed: FALSE)
-						 )
+						)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-				)
-							
-							
-			(if	(ClickedInRect 252 270 102 147 event) ;clicked on door108
+				)				
+				(if	;(ClickedInRect 252 270 102 147 event) ;clicked on door108
+					(ClickedOnObj door108 (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor
 						(127 ;motel key
 							(cond 
-								(
-									(ego
-										inRect: [local28 0] [local28 1] [local28 2] [local28 3]
-									)
-									(EnterCar)
+								((not local37)
+									(NotClose)
 								)
-								((not local37) (NotClose))
-								((!= (ego onControl:) 256) (Print 25 27))
-								((== gamePhase 12) (Print 25 28))
-								((not (ego has: 27)) (Print 25 29))
-								((== local37 256) (self setScript: enterRoom) (SolvePuzzle 3))
+								((!= (ego onControl:) 256)
+									(Print 25 27)
+								)
+								((== gamePhase 12)
+									(Print 25 28)
+								)
+								((not (ego has: iMoteKey))
+									(Print 25 29)
+								)
+								((== local37 256)
+									(self setScript: enterRoom)
+									(SolvePuzzle 3)
+								)
 							)							
 						)
 						(998 ;look door
 							(cond 
-							((not local37) (Print 25 13))
-							((!= (ego onControl: 1) 256) (Print 25 14))
-							((== gamePhase 12) (Print 25 15))
-							(else (Print 25 6))
+								((not local37) (Print 25 13))
+								((!= (ego onControl: 1) 256) (Print 25 14))
+								((== gamePhase 12) (Print 25 15))
+								(else (Print 25 6))
 							)
 						)
 						(else
-						(event claimed: FALSE)
-						 )
+							(event claimed: FALSE)
+						)
 					)
 				)				
-							
-							
-							
-									
-				
-				
 				(if (ClickedOnObj manWindow (event x?) (event y?))
 					(event claimed: TRUE)
-					(if (ego inRect: 96 117 129 135)
+					(if (ego inRect: 96 117 129 138)
 						(switch theCursor
 							(999 ;walk
 								(ego setMotion: MoveTo 99 132 self)
 							)
 							(138 ;warrant newinventory
 								(cond 
-								((< gamePhase 11) (Print 25 94))
-								((Btst 13) (Print 25 103) (= global174 1))
-								(else (Print 25 17))
-							)
+									((< gamePhase 11) (Print 25 94))
+									((Btst fGotMotelWarrant) (Print 25 103) (= global174 1))
+									(else (Print 25 17))
+								)
 							)
 							(996 ;talk
-								(cond ;talk
-									((< gamePhase 11) (Print 25 85))
-									((== gamePhase 12) (Print 25 86))
-									(else (Print 25 87))
-								)	
-								(cond ;ask for key
-									((ego has: 27) (Print 25 30))
-									((< gamePhase 11) (Print 25 94))
-									((not showedBadgeToMotelManager) (Print 25 106))
-									((not global174) (Print 25 107))
-									((not global178) (Print 25 108))
-									(else (Print 25 109) (ego get: 27) (SolvePuzzle 3 162))
+								(if (Btst fLeanredBainsWasAtMotel)
+									(cond ;ask for key
+										((ego has: iMoteKey) (Print 25 30))
+										((< gamePhase 11) (Print 25 94))
+										((not showedBadgeToMotelManager) (Print 25 106))
+										((not global174) (Print 25 107))
+										((not global178) (Print 25 108))
+										(else
+											(Print 25 109)
+											(ego get: iMoteKey)
+											(SolvePuzzle 3 162) ;got motel key
+										)
+									)
+								else
+									(cond ;talk
+										((< gamePhase 11) (Print 25 85))
+										((== gamePhase 12) (Print 25 86))
+										(else (Print 25 87))
+									)
 								)										
-					
 							)				
 							(104 ;money
 								(if (< gamePhase 11) (Print 25 83) else (Print 25 84))
 							)
 							(107 ;wallet badge
-		
 								(if (ego has: 7)
 									(Print 25 88)
 									(= showedBadgeToMotelManager 1)
 								else
 									(Print 25 89)
 								)
-								
 							)
 							(112 ;new mugshot
 								(cond 
-	
-									((< gamePhase 11) (Print 25 94))
-									((ego has: 12)
+									((< gamePhase 11)
+										(Print 25 94)
+									)
+									((not showedBadgeToMotelManager)
+										(Print 25 98)
+									)
+									((ego has: iNewMugShot)
 										(Print 25 95 #icon 112)
 										(if keith (Print 25 96))
-										(if (not (Btst 88))
-											(Bset 1)
-											(Bset 2)
-											(SolvePuzzle 3 88)
+										(if (not (Btst fLeanredBainsWasAtMotel))
+											(Bset fCanGetWarrant)
+											(Bset fCanCallForBackup)
+											(SolvePuzzle 3 fLeanredBainsWasAtMotel)
 										)
 									)
-									((ego has: 23) (Print 25 97 #icon 123))
 									(else (Print 25 17))
 								)
+							)
+							(123
+								(Print 25 97 #icon 123)
 							)	
-						(else
-							(event claimed: FALSE)
+							(else
+								(event claimed: FALSE)
+							)
 						)
-						)
-						else
-					(NotClose)	
-					(event claimed: TRUE)	
-					(switch theCursor
+					else	
+						(switch theCursor
 							(999 ;walk
-								(ego setMotion: MoveTo 99 132 self)
+								;(ego setMotion: MoveTo 99 132 self)
+								 (event claimed: FALSE)
+							)
+							(else
+								(event claimed: TRUE)
+								(NotClose)
 							)	
+						)				
 					)
-				
-					 )
-						)
-					
-				
-				
-			
-				
-				
-				
-;;;					(if (ClickedOnObj newAct (event x?) (event y?))
+				)
+;;;				(if (ClickedOnObj newAct (event x?) (event y?))
 				(if	(ClickedInRect 129 153 165 187 event) ;clicked on trunk
 					(event claimed: TRUE)
 					(switch theCursor
 						(110
-							(if
-								(ego
-									inRect: [local32 0] [local32 1] [local32 2] [local32 3]
-								)
+							(if (ego inRect: [local32 0] [local32 1] [local32 2] [local32 3])
 								(if workCarTrunkOpened
 									(if (ego has: 10)
 										(Print 25 62)
 										(PutInRoom 10 13)
 										(if (IsObject theFieldKit) (theFieldKit dispose:))
 										(= fieldKitOpen 0)
-										
-											(if (== currentCar 13)
-												(if
-													(ego
-														inRect: [local32 0] [local32 1] [local32 2] [local32 3]
-													)
-													(if workCarTrunkOpened
-														(= workCarTrunkOpened 0)
-														(carScript changeState: 11)
-													else
-														(Print 25 47)
-													)
-												else
-													(NotClose)
-												)
-											else
-												(Print 25 19)
-											)
-										
-										
-										
-										
-									else
-										(Print 25 63)
-									)
-								else
-									(Print 25 64)
+					
 										(if (== currentCar 13)
 											(if
 												(ego
@@ -948,12 +925,6 @@
 												(if workCarTrunkOpened
 													(= workCarTrunkOpened 0)
 													(carScript changeState: 11)
-													
-													
-													
-													
-													
-													
 												else
 													(Print 25 47)
 												)
@@ -963,18 +934,33 @@
 										else
 											(Print 25 19)
 										)
-									
-									
-									
-									
+									else
+										(Print 25 63)
+									)
+								else
+									(Print 25 64)
+									(if (== currentCar 13)
+										(if
+											(ego
+												inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+											)
+											(if workCarTrunkOpened
+												(= workCarTrunkOpened 0)
+												(carScript changeState: 11)
+											else
+												(Print 25 47)
+											)
+										else
+											(NotClose)
+										)
+									else
+										(Print 25 19)
+									)
 								)
 							else
 								(Print 25 65)
 							)
 						)
-						
-						
-						
 						(995 ;use
 							(if (== currentCar 13)
 								(if
@@ -986,57 +972,44 @@
 										
 									)
 									(cond
-										((ego has: 3) (= workCarTrunkOpened 1) (carScript changeState: 9)
-															(if
-																(ego
-																	inRect: [local32 0] [local32 1] [local32 2] [local32 3]
-																)
-																(if workCarTrunkOpened
-																	(if (InRoom 10 13)
-																		(Print 25 66)
-																		(ego get: 10)
-																	else
-;;;																		(Print 25 67) ;El malet|n de trabajo no est* en el maletero.
-																	)
-																else
-																	(Print 25 64)
-																)
-															else
-																(Print 25 65)
-															)
-																						
-											
-											
-											
-											
-											
+										((ego has: 3)
+											(= workCarTrunkOpened 1)
+											(carScript changeState: 9)
+											(if
+												(ego
+													inRect: [local32 0] [local32 1] [local32 2] [local32 3]
+												)
+												(if workCarTrunkOpened
+													(if (InRoom 10 13)
+														(Print 25 66)
+														(ego get: 10)
+													else
+														;(Print 25 67) ;El malet|n de trabajo no est* en el maletero.
+													)
+												else
+													(Print 25 64)
+												)
+											else
+												(Print 25 65)
 											)
-										(else (Print 25 46))
+										)
+										(else
+											(Print 25 46)
+										)
 									)
-
-;;;										(if (== workCarTrunkOpened 1)
-;;;											(carScript changeState: 11)
-;;;										)
-
 								else
 									(NotClose)
 								)
 							else
 								(Print 25 19)
 							)	
-						)(else
-						(event claimed: FALSE)
-						 )
-								)
-							 )			
-						
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 			)
-			
-			
-			
-			
-			
-			
 		)
 	)
 )
@@ -1271,7 +1244,7 @@
 					init:
 					hide:
 				)
-				(if (Btst 14)
+				(if (Btst fSWATAtHotel)
 					(newAct_2 stopUpd:)
 					(newProp_5 stopUpd: show:)
 					(newProp_4 stopUpd: show:)
@@ -1643,7 +1616,7 @@
 				)
 			)
 			(1
-				(newProp_2
+				(door108 ;newProp_2
 					setLoop: 7
 					posn: 252 158
 					setCel: 0
@@ -1691,7 +1664,11 @@
 						setMotion: MoveTo 252 (keith y?) keithScript
 					)
 				)
-				(if (or gunDrawn (not (ego has: 0)))
+				(if
+					(or
+						gunDrawn
+						(not (ego has: 0))
+					)
 					(= cycles 4)
 				else
 					(= gunDrawn 1)
@@ -1701,7 +1678,7 @@
 			(1
 				(Print 25 115)
 				(swatSound number: 41 play:)
-				(newProp_2
+				(door108 ;newProp_2
 					setLoop: 7
 					setCel: 0
 					posn: 252 156

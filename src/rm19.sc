@@ -89,7 +89,7 @@
 			setStep: 3 2
 			init:
 			illegalBits: -24576
-			setMotion: MoveTo 0 140
+			setMotion: MoveTo 240 140
 		)
 		(self setScript: rm19Script)
 		(self setLocales: 153)
@@ -225,6 +225,7 @@
 						)
 					)
 				)
+				(ego setMotion: MoveTo 245 140)
 			)
 			(1
 				(HandsOff)
@@ -1430,22 +1431,15 @@
 						(not (& (event modifiers?) emRIGHT_BUTTON))
 							
 					)
-					(if (ClickedOnObj revolver (event x?)(event y?))
+					(if
+						(and
+							(ClickedOnObj revolver (event x?)(event y?))
+							(== [local5 sonnyInStallNum] 1)
+						)
 						(event claimed: TRUE)
 						(switch theCursor
 							(998
-								(cond 
-									((ego has: 31)
-										(LocPrint 19 106)
-									)
-									(
-										;(and
-										;	(== (tank y?) 0)
-											(cast contains: iJailerRevolver)
-										;)
-										(LocPrint 19 101)
-									)
-								)
+								(LocPrint 19 101)
 							)
 							(995
 								(cond 
@@ -1577,9 +1571,9 @@
 									(rm19Script changeState: 9)
 								)
 							)
+						else
+							(event claimed: FALSE)
 						)
-					else
-						(event claimed: FALSE)
 					)
 				)		
 			)

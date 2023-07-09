@@ -382,8 +382,7 @@
 	)
 	
 	(method (handleEvent event)
-		
-					(cond						
+		(cond						
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
@@ -391,118 +390,95 @@
 				)
 				(if	(ClickedInRect 117 184 160 189 event) ;down
 					(event claimed: TRUE)
-							(switch theCursor
-								(999 ;walk
-									(ego setMotion: MoveTo 149 210 self)
-								)
-								(else
-									(event claimed: FALSE)
-										
-								)
-							)
+					(switch theCursor
+						(999 ;walk
+							(ego setMotion: MoveTo 149 210 self)
 						)
-											
-														
-				
-				
-				(if	(or (ClickedOnObj agent (event x?) (event y?))
+						(else
+							(event claimed: FALSE)
+								
+						)
+					)
+				)
+				(if
+					(or
+						(ClickedOnObj agent (event x?) (event y?))
 						(ClickedOnPicView agent2 (event x?) (event y?))
 					)
 					(event claimed: TRUE)
-							(switch theCursor
-								(996 ;talk
-									
-									
-									
-
-									
-									(if (== lista 1)
-										(= ticket
-												(PrintSpecial
-;;;													{Ticket}
-													{Billete}
-													#button {houston} 1
-													#button {steelton} 2
-													#button {beirut} 3
-													#button {coarsegold} 4
-													#button {america} 5												
-												)
-										)
-											(switch ticket
-												(1 ;houston
-													
-													(= newEvent (Event new:))								
-													(newEvent
-												    type: evKEYBOARD
-												    message: {ticket to houston}
-												    modifiers: 999
-												    claimed: 0
-												)
-												(User handleEvent: newEvent)
-												(newEvent dispose:)
-													
-
-												
-												
-												
-												
-												
-												)
-												(2 ;steelton
-													
-													(= newEvent (Event new:))								
-													(newEvent
-												    type: evKEYBOARD
-												    message: {ticket to steelton}
-												    modifiers: 999
-												    claimed: 0
-												)
-												(User handleEvent: newEvent)
-												(newEvent dispose:)		
-
-													
-												)
-												(3 ;beirut
-													
-													(= newEvent (Event new:))								
-													(newEvent
-												    type: evKEYBOARD
-												    message: {ticket to beirut}
-												    modifiers: 999
-												    claimed: 0
-												)
-												(User handleEvent: newEvent)
-												(newEvent dispose:)		
-												)																									
-												(4 ;coarsegold
-													
-													(= newEvent (Event new:))								
-													(newEvent
-												    type: evKEYBOARD
-												    message: {ticket to coarsegold}
-												    modifiers: 999
-												    claimed: 0
-												)
-												(User handleEvent: newEvent)
-												(newEvent dispose:)		
-												)										
-
-												(5 ;america
-													
-													(= newEvent (Event new:))								
-													(newEvent
-												    type: evKEYBOARD
-												    message: {ticket to america}
-												    modifiers: 999
-												    claimed: 0
-												)
-												(User handleEvent: newEvent)
-												(newEvent dispose:)		
-												)
-											)
+					(switch theCursor
+						(996 ;talk		
+							(if (== lista 1)
+								(= ticket
+									(PrintSpecial
+										;{Ticket}
+										{Billete}
+										#button {houston} 1
+										#button {steelton} 2
+										#button {beirut} 3
+										#button {coarsegold} 4
+										#button {america} 5												
 									)
-									
-																		(if (== lista 0)
+								)
+								(switch ticket
+									(1 ;houston
+										(= newEvent (Event new:))								
+										(newEvent
+										    type: evKEYBOARD
+										    message: {ticket to houston}
+										    modifiers: 999
+										    claimed: 0
+										)
+										(User handleEvent: newEvent)
+										(newEvent dispose:)
+									)
+									(2 ;steelton
+										(= newEvent (Event new:))								
+										(newEvent
+										    type: evKEYBOARD
+										    message: {ticket to steelton}
+										    modifiers: 999
+										    claimed: 0
+										)
+										(User handleEvent: newEvent)
+										(newEvent dispose:)	
+									)
+									(3 ;beirut
+										(= newEvent (Event new:))								
+										(newEvent
+										    type: evKEYBOARD
+										    message: {ticket to beirut}
+										    modifiers: 999
+										    claimed: 0
+										)
+										(User handleEvent: newEvent)
+										(newEvent dispose:)		
+									)																									
+									(4 ;coarsegold
+										(= newEvent (Event new:))								
+										(newEvent
+										    type: evKEYBOARD
+										    message: {ticket to coarsegold}
+										    modifiers: 999
+										    claimed: 0
+										)
+										(User handleEvent: newEvent)
+										(newEvent dispose:)		
+										)										
+									(5 ;america
+										(= newEvent (Event new:))								
+										(newEvent
+										    type: evKEYBOARD
+										    message: {ticket to america}
+										    modifiers: 999
+										    claimed: 0
+										)
+										(User handleEvent: newEvent)
+										(newEvent dispose:)		
+									)
+								)
+							)			
+							(if (== lista 0)
 								(= newEvent (Event new:))								
 								(newEvent
 								    type: evKEYBOARD
@@ -512,66 +488,48 @@
 								)
 								(User handleEvent: newEvent)
 								(newEvent dispose:)
-									)
-									
-								)
-							
-								(107 ;show id badge
-								(= newEvent (Event new:))
-								(newEvent
-								    type: evKEYBOARD
-								    message: {show id}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)
-								)
-								(112 ;newmugshot
-								(= newEvent (Event new:))									
-								(newEvent
-								    type: evKEYBOARD
-								    message: {show mugshot}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)											
-
-									
-							)		
-								(123 ;oldmugshot
-								(= newEvent (Event new:))										
-								(newEvent
-								    type: evKEYBOARD
-								    message: {show mugshot}
-								    modifiers: 999
-								    claimed: 0
-								)
-								(User handleEvent: newEvent)
-								(newEvent dispose:)
-								
-								
-
-						)								(else
-						(event claimed: FALSE)
+							)			
+						)	
+						(107 ;show id badge
+							(= newEvent (Event new:))
+							(newEvent
+							    type: evKEYBOARD
+							    message: {show id}
+							    modifiers: 999
+							    claimed: 0
+							)
+							(User handleEvent: newEvent)
+							(newEvent dispose:)
+						)
+						(112 ;newmugshot
+							(= newEvent (Event new:))									
+							(newEvent
+							    type: evKEYBOARD
+							    message: {show mugshot}
+							    modifiers: 999
+							    claimed: 0
+							)
+							(User handleEvent: newEvent)
+							(newEvent dispose:)
+						)		
+						(123 ;oldmugshot
+							(= newEvent (Event new:))										
+							(newEvent
+							 	type: evKEYBOARD
+								message: {show mugshot}
+								modifiers: 999
+								claimed: 0
+							)
+							(User handleEvent: newEvent)
+							(newEvent dispose:)
+						)								
+						(else
+							(event claimed: FALSE)
+						)		
 					)
-					
 				)
 			)
-		
-
-
-
-
-
-
-				)
-					)
-		
-	
-		
-		
+		)
 		
 		(asm
 			pushi    #type
@@ -2725,12 +2683,12 @@ code_17b9:
 				(agent
 					startUpd:
 					setLoop: 2
-					setCel: -1
+					;setCel: -1
 					setMotion: MoveTo 230 110 self
 				)
 			)
 			(3
-;;;				(agent stopUpd:)
+				;(agent stopUpd:)
 				(= local2 (Random 80 150))
 			)
 			(4
