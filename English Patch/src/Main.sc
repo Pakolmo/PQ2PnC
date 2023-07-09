@@ -369,20 +369,20 @@
 	(repeat
 		(switch
 			(Print &rest
-				#title {Jim shakes his head and says...}
-				#width 184
-				#icon 555 0 0
-				#button {Restore} 1
-				#button { Restart_} 2
-				#button { Quit_} 3
-				
-				
-;;;				#title {Jim agita la cabeza y dice...}
+;;;				#title {Jim shakes his head and says...}
 ;;;				#width 184
 ;;;				#icon 555 0 0
-;;;				#button { Cargar_} 1
-;;;				#button { Reiniciar_} 2
-;;;				#button { Salir_} 3				
+;;;				#button {Restore} 1
+;;;				#button { Restart_} 2
+;;;				#button { Quit_} 3
+;;;				
+				
+				#title {Jim agita la cabeza y dice...}
+				#width 184
+				#icon 555 0 0
+				#button { Cargar_} 1
+				#button { Reiniciar_} 2
+				#button { Salir_} 3				
 				
 				
 			)
@@ -1038,11 +1038,11 @@
 		(TheMenuBar draw:)
 		(StatusLine enable:)
 		(if (DoSound SoundOn)
-			(SetMenu soundI p_value FALSE p_text {Turn Off})
-;;;			(SetMenu soundI p_value FALSE p_text {Apagar})
+;;;			(SetMenu soundI p_value FALSE p_text {Turn Off})
+			(SetMenu soundI p_value FALSE p_text {Apagar})
 		else
-			(SetMenu p_value TRUE p_text {Turn On})
-;;;			(SetMenu p_value TRUE p_text {Encender})
+;;;			(SetMenu p_value TRUE p_text {Turn On})
+			(SetMenu p_value TRUE p_text {Encender})
 		)
 		(super replay:)
 	)
@@ -1539,8 +1539,8 @@
 		said '/9mm[<hand]'
 		owner 5
 		view 100
-		name "hand gun"
-;;;		name "pistola"
+;;;		name "hand gun"
+		name "pistola"
 	)
 )
 
@@ -1549,8 +1549,8 @@
 		said '/ammo,(clip[<ammo])'
 		owner 5
 		view 101
-		name "extra ammo clips"
-;;;		name "munici/n extra"
+;;;		name "extra ammo clips"
+		name "munici/n extra"
 	)
 	
 	(method (ownedBy param1)
@@ -1575,8 +1575,8 @@
 	(properties
 		said '/ring<key'
 		view 102
-		name "key ring"
-;;;		name "llavero"
+;;;		name "key ring"
+		name "llavero"
 	)
 	
 	(method (saidMe event)
@@ -1596,8 +1596,8 @@
 		said '/key[<auto]'
 		owner 4
 		view 103
-		name "unmarked car keys"
-;;;		name "llaves de coche de inc/gnito"
+;;;		name "unmarked car keys"
+		name "llaves de coche de inc/gnito"
 	)
 )
 
@@ -1605,8 +1605,8 @@
 	(properties
 		said '/coat,(pocket<coat),cash,(clip[<cash])'
 		view 104
-		name "money clip"
-;;;		name "billetera"
+;;;		name "money clip"
+		name "billetera"
 	)
 	
 	(method (showSelf &tmp [str 40])
@@ -1623,8 +1623,8 @@
 		said '/letter[<ya<thank]'
 		owner 12
 		view 105
-		name "thank you letter"
-;;;		name "carta de agradecimiento"
+;;;		name "thank you letter"
+		name "carta de agradecimiento"
 	)
 )
 
@@ -1633,8 +1633,8 @@
 		said '/threat,note<death'
 		owner 28
 		view 106
-		name "death threat"
-;;;		name "amenaza de muerte"
+;;;		name "death threat"
+		name "amenaza de muerte"
 	)
 )
 
@@ -1643,7 +1643,7 @@
 		said '/billfold,badge,(card<badge)'
 		owner 12
 		view 107
-;;;		name "cartera"		
+		name "cartera"		
 	)
 	
 	(method (saidMe event)
@@ -1663,7 +1663,7 @@
 		said '/arrest'
 		owner 5
 		view 108
-;;;		name "esposas"		
+		name "esposas"		
 	)
 )
 
@@ -1671,8 +1671,8 @@
 	(properties
 		said '/clipper,clipper'
 		view 109
-		name "wire clippers"
-;;;		name "alicates"
+;;;		name "wire clippers"
+		name "alicates"
 	)
 )
 
@@ -1681,8 +1681,8 @@
 		said '/briefcase[<field]'
 		owner 2
 		view 110
-		name "field kit"
-;;;		name "malet|n de trabajo"
+;;;		name "field kit"
+		name "malet|n de trabajo"
 	)
 )
 
@@ -1691,22 +1691,22 @@
 		said '/flower,rose,plant,bouquet'
 		owner 15
 		view 111
-		name "potted plant"
-;;;		name "maceta"
+;;;		name "potted plant"
+		name "maceta"
 	)
 	
 	(method (showSelf &tmp [str 40])
 		(Print
 			(Format @str 0 38
 				(switch cel
-					(0 {potted plant})
-					(1 {single long-stemmed rose})
-					(2 {bouquet})
+;;;					(0 {potted plant})
+;;;					(1 {single long-stemmed rose})
+;;;					(2 {bouquet})
 					
 					
-;;;					(0 {maceta})
-;;;					(1 {rosa})
-;;;					(2 {ramo})					
+					(0 {maceta})
+					(1 {rosa})
+					(2 {ramo})					
 					
 					
 					
@@ -1719,13 +1719,13 @@
 	
 	(method (ownedBy whom)
 		(switch cel
-			(0 (= name {potted plant}))
-			(1 (= name {rose}))
-			(2 (= name {bouquet}))
+;;;			(0 (= name {potted plant}))
+;;;			(1 (= name {rose}))
+;;;			(2 (= name {bouquet}))
 			
-;;;			(0 (= name {maceta}))
-;;;			(1 (= name {rosa}))
-;;;			(2 (= name {ramo}))			
+			(0 (= name {maceta}))
+			(1 (= name {rosa}))
+			(2 (= name {ramo}))			
 			
 			
 			
@@ -1739,8 +1739,8 @@
 		said '/mugshot,(shot<mug)'
 		owner 23
 		view 112
-		name "new mug shot"
-;;;		name "nueva foto policial"
+;;;		name "new mug shot"
+		name "nueva foto policial"
 		
 	)
 	
@@ -1767,8 +1767,8 @@
 		said '/list[<body,beat]'
 		owner 32
 		view 113
-		name "hit list"
-;;;		name "lista negra"
+;;;		name "hit list"
+		name "lista negra"
 	)
 )
 
@@ -1777,8 +1777,8 @@
 		said '/knife'
 		owner 64
 		view 114
-		name "makeshift knife"
-;;;		name "cuchillo improvisado"
+;;;		name "makeshift knife"
+		name "cuchillo improvisado"
 	)
 )
 
@@ -1787,8 +1787,8 @@
 		said '/ep[<ear]'
 		owner 10
 		view 115
-		name "ear protectors"
-;;;		name "cascos protectores"
+;;;		name "ear protectors"
+		name "cascos protectores"
 	)
 )
 
@@ -1796,8 +1796,8 @@
 	(properties
 		said '/ticket[<airplane]'
 		view 116
-		name "plane ticket"
-;;;		name "billete de avi/n"
+;;;		name "plane ticket"
+		name "billete de avi/n"
 	)
 	
 	(method (showSelf &tmp [str 40])
@@ -1815,8 +1815,8 @@
 	(properties
 		said '/cast,(print<feet)'
 		view 117
-		name "plaster cast"
-;;;		name "yeso"
+;;;		name "plaster cast"
+		name "yeso"
 	)
 )
 
@@ -1825,8 +1825,8 @@
 		said '/badge'
 		owner 63
 		view 118
-		name "lost badge"
-;;;		name "placa perdida"
+;;;		name "lost badge"
+		name "placa perdida"
 	)
 )
 
@@ -1834,7 +1834,7 @@
 	(properties
 		said '/thumb,(print<thumb)'
 		view 119
-;;;		name "huella dactilar "		
+		name "huella dactilar "		
 	)
 )
 
@@ -1843,7 +1843,7 @@
 		said '/bullet'
 		owner 68
 		view 120
-;;;		name "balas"		
+		name "balas"		
 	)
 )
 
@@ -1852,8 +1852,8 @@
 		said '/gunbelt'
 		owner 68
 		view 121
-		name "empty holster"
-;;;		name "cartuchera vac|a"
+;;;		name "empty holster"
+		name "cartuchera vac|a"
 	)
 )
 
@@ -1861,8 +1861,8 @@
 	(properties
 		said '/(print<finger),fingerprint'
 		view 122
-		name "fingerprint"		
-;;;		name "huella dactilar"		
+;;;		name "fingerprint"		
+		name "huella dactilar"		
 	)
 )
 
@@ -1871,8 +1871,8 @@
 		said '/mugshot,(shot<mug)'
 		owner 7
 		view 123
-		name "old mug shot"
-;;;		name "antigua foto policial"
+;;;		name "old mug shot"
+		name "antigua foto policial"
 	)
 )
 
@@ -1881,8 +1881,8 @@
 		said '/corner[<envelope]'
 		owner 28
 		view 124
-		name "envelope corner"
-;;;		name "esquina de sobre"
+;;;		name "envelope corner"
+		name "esquina de sobre"
 	)
 )
 
@@ -1891,7 +1891,7 @@
 		said '/envelope'
 		owner 26
 		view 125
-;;;		name "sobre"		
+		name "sobre"		
 	)
 )
 
@@ -1900,8 +1900,8 @@
 		said '/cloth'
 		owner 62
 		view 126
-		name "jail clothes"
-;;;		name "ropa de prisi/n"
+;;;		name "jail clothes"
+		name "ropa de prisi/n"
 	)
 )
 
@@ -1910,8 +1910,8 @@
 		said '/key<inn'
 		owner 25
 		view 127
-		name "motel key"
-;;;		name "llave de motel"		
+;;;		name "motel key"
+		name "llave de motel"		
 	)
 )
 
@@ -1920,8 +1920,8 @@
 		said '/vial,blood,sample[<blood]'
 		owner 26
 		view 128
-		name "vial of blood"
-;;;		name "muestra de sangre"
+;;;		name "vial of blood"
+		name "muestra de sangre"
 	)
 )
 
@@ -1930,7 +1930,7 @@
 		said '/television,(baton<lip),lipstick'
 		owner 26
 		view 129
-;;;		name "pintalabios"		
+		name "pintalabios"		
 	)
 )
 
@@ -1948,8 +1948,8 @@
 		said '/revolver,(9mm<jailer)'
 		owner 19
 		view 131
-		name "jailer's revolver"
-;;;		name "rev/lver de carcelero"
+;;;		name "jailer's revolver"
+		name "rev/lver de carcelero"
 	)
 )
 
@@ -1958,8 +1958,8 @@
 		said '/mask[<gas]'
 		owner 126
 		view 132
-		name "gas mask"
-;;;		name "m*scara de gas"
+;;;		name "gas mask"
+		name "m*scara de gas"
 	)
 )
 
@@ -1967,8 +1967,8 @@
 	(properties
 		said '/instruction[<bomb]'
 		view 133
-		name "bomb instructions"
-;;;		name "instrucciones"
+;;;		name "bomb instructions"
+		name "instrucciones"
 	)
 )
 
@@ -1976,8 +1976,8 @@
 	(properties
 		said '/registration'
 		view 134
-		name "car registration"
-;;;		name "papeles de coche"
+;;;		name "car registration"
+		name "papeles de coche"
 	)
 )
 
@@ -1986,8 +1986,8 @@
 		said '/(card<business<colby),(card<colby)'
 		owner 26
 		view 135
-		name "Colby's business card"
-;;;		name "tarjeta de negocios de Colby"
+;;;		name "Colby's business card"
+		name "tarjeta de negocios de Colby"
 	)
 	
 	(method (saidMe event)
@@ -2007,8 +2007,8 @@
 		said '/note[<door]'
 		owner 31
 		view 136
-		name "note from Marie's door"
-;;;		name "nota de la puerta de Marie"		
+;;;		name "note from Marie's door"
+		name "nota de la puerta de Marie"		
 	)
 )
 
@@ -2017,15 +2017,15 @@
 		said '/card[<business]'
 		owner 33
 		view 137
-		name "your LPD business card"
-;;;		name "tu tarjeta de negocios"
+;;;		name "your LPD business card"
+		name "tu tarjeta de negocios"
 	)
 )
 (instance warrant of Iitem
 	(properties
 		said '/warrant'
 		view 138
-		name "warrant"
-;;;		name "/rden de registro"
+;;;		name "warrant"
+		name "/rden de registro"
 	)
 )
