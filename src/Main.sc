@@ -380,9 +380,9 @@
 				#title {Jim agita la cabeza y dice...}
 				#width 184
 				#icon 555 0 0
-				#button { Cargar } 1
-				#button { Reiniciar } 2
-				#button { Salir } 3				
+				#button { Cargar_} 1
+				#button { Reiniciar_} 2
+				#button { Salir_} 3				
 				
 				
 			)
