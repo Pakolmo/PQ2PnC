@@ -337,7 +337,7 @@
 										(!= curRoomNum 129)
 									)
 ;;;									{ Rats scurry about the sewer pipes.}
-									{ Ratas correteando por las tuberías del alcantarillado.}
+									{ Ratas correteando por las tuber|as del alcantarillado.}
 								else
 									{}
 								)
@@ -418,7 +418,7 @@
 ;;;									{has been shot out.}
 									{ha sido apagada.}
 								else
-									{is on.}
+									{est* encendida.}
 								)
 								(cond 
 									((not (cast contains: sewerLight2)) {})
@@ -725,7 +725,7 @@
 				(Wait 80)
 				(EgoDead
 ;;;					{You're fried! The spark from your gunfire in explosive gas is VERY fatal.}
-					{^Estás frito! La chispa de tus disparos en el gas explosivo es MUY fatal.}
+					{=Est*s frito! La chispa de tus disparos en el gas explosivo es MUY fatal.}
 					
 				)
 			)

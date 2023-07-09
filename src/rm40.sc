@@ -659,7 +659,7 @@
 				(guard dispose:)
 				(EgoDead
 ;;;					{Sonny, you really must learn not to be such a nuisance. It's not that hard to find your seat and fasten your seatbelt!}
-					{Sonny, no molestes. #No es tan dif|cil encontrar tu asiento y sujetarte el cintur/n de seguridad!}
+					{Sonny, no molestes. =No es tan dif|cil encontrar tu asiento y sujetarte el cintur/n de seguridad!}
 				)
 			)
 		)

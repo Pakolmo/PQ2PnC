@@ -475,9 +475,9 @@
 									126
 									9
 									(cond 
-										((not cabinetIsOpen) { closed})
-										((InRoom 32) {open with a gas mask in it})
-										(else { open and empty})
+										((not cabinetIsOpen) { cerrado})
+										((InRoom 32) {abierto con una m*scara dentro})
+										(else { abierto pero vac|o})
 									)
 								)
 							)	

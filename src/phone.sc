@@ -1449,7 +1449,7 @@ code_1ba3:
 ;;;						#button {Awful!} 2
 						{Hablar:}
 						#at 10 125
-						#button {_Asombr/so!} 1
+						#button {=Asombr/so!} 1
 						#button {Horrible} 2						
 						
 						

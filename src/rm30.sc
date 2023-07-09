@@ -1466,8 +1466,8 @@
 ;;;											{YES/NO}
 ;;;											#button {Yes} 1
 ;;;											#button {No} 2
-											{_S| NO_}
-											#button {S|} 1
+											{_S| _NO_}
+											#button {=S|!} 1
 											#button {No} 2			
 										)
 								)

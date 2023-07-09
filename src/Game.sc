@@ -1063,8 +1063,8 @@
 				(Print @str
 					#font: SYSFONT
 					#button: {OK} TRUE
-					#button: {Cancel} FALSE
-					#button: {Change Directory} 2
+					#button: {Cancelar} FALSE
+					#button: {Cambiar Directory} 2
 				)
 			else
 				(Print @str
