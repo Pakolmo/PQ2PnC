@@ -1060,7 +1060,7 @@
 		)	
 	
 						
-		(if 		(ClickedInRect 104 239 186 190 event) ;Sur
+		(if 		(ClickedInRect 104 239 185 189 event) ;Sur
 					(event claimed: TRUE)
 					(switch theCursor
 					(999 ; Walk
