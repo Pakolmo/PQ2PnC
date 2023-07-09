@@ -295,7 +295,7 @@
 			)
 			(1
 				(EgoDead
-					{What a wimpy way to die....falling in a hole! Next time, be more careful.}
+					{Qu+ manera tan tonta de morir.... =caer en un agujero! La pr/xima vez, ten m*s cuidado.}
 					298
 					2
 					0

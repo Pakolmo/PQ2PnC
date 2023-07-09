@@ -224,9 +224,10 @@
 			)
 			(2
 				(EgoDead
-					{Looks like you BLEW it, Sonny!\nYou and 49 other people are now dead!}
+					{Parece que LA FASTIDIASTE, Sonny!\nT{ y otras 49 personas est*is ahora muertas!}
+;;;					{Looks like you BLEW it, Sonny!\nYou and 49 other people are now dead!}
 					80
-					{Jim is terribly disappointed, and says:}
+					{Jim terriblemente decepcionado dice:}
 				)
 			)
 		)

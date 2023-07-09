@@ -426,14 +426,14 @@
 
 (class Restore of SRDialog
 	(properties
-		text "Restore a Game"
+		text "Cargar Partida"
 	)
 )
 
 
 (class Save of SRDialog
 	(properties
-		text "Save a Game"
+		text "Salvar Partida"
 	)
 )
 
@@ -570,7 +570,7 @@
 )
 (instance cancelI of DButton
 	(properties
-		text "_Cancel_"
+		text "_Cancelar_"
 	)
 )
 (instance changeDirI of DButton
@@ -589,13 +589,13 @@
 (instance text1 of DText
 	(properties
 		font SYSFONT
-		text "Replace"
+		text "Reemplazar"
 	)
 )
 (instance text2 of DText
 	(properties
 		font SYSFONT
-		text "with:"
+		text "con:"
 	)
 )
 (instance oldName of DText
@@ -607,12 +607,12 @@
 )
 (instance button1 of DButton
 	(properties
-		text "Replace"
+		text "Reemplazar"
 	)
 )
 (instance button2 of DButton
 	(properties
-		text "Cancel"
+		text "Cancelar"
 	)
 )
 
